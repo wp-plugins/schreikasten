@@ -28,6 +28,8 @@ in [this site](http://en.wordpress.com/api-keys/).
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
+This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
+
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
 
