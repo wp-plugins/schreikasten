@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-25 11:02-0500\n"
+"POT-Creation-Date: 2009-11-25 14:45-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
@@ -185,7 +185,10 @@ msgid "PC locked"
 msgstr ""
 
 #: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1277
-msgid "You have to install <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax</a> in order for this plugin to work"
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:192
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:8
+#, php-format
+msgid "You have to install <a href=\"%s\"  target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
 msgstr ""
 
 #: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:67
@@ -438,11 +441,6 @@ msgstr ""
 
 #: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:178
 msgid "Submit"
-msgstr ""
-
-#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:192
-#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:8
-msgid "You have to install <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
 msgstr ""
 
 #: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:57

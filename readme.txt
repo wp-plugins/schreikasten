@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.8.5
-Stable tag: 0.10
+Stable tag: 0.10.1
 
 A shoutbox using ajax and akismet.
 
@@ -28,8 +28,6 @@ in [this site](http://en.wordpress.com/api-keys/).
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
-This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
-
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
 
@@ -47,15 +45,20 @@ I __spe'k__ english, and the plugin use it by default.
 
 It is near to a 1.0 release, any bug report would be appreciated.
 
-== Why the strange name? ==
+= Why the strange name? =
 
 It means shoutbox in german.
 
-== Why another shoutbox? ==
+= Why another shoutbox? =
 
 There are a lot of shoutbox in the Interwebz, but none of them fits and looks in my
 template as I want. So I decide to create one using Akismet for Spam, gravatars, the 
 default CSS from Wordpress and Ajax just to make it more fun.
+
+= It say something about minimax. What's this? =
+
+This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
+
 
 == Screenshots ==
 
@@ -66,3 +69,12 @@ default CSS from Wordpress and Ajax just to make it more fun.
 5. Page to edit a comment.
 6. Page to mannage blocked PCs. Read the messages sended from a specific PC even i they are from different users. Look the date at the right wich indicates when the user PC would be unblock, and the items to block it forever or enable it now.
 7. Tracking system to read comments from one user.
+
+== Changelog ==
+
+= 0.10 =
+* First version in SVN.
+
+= 0.10.1 =
+* Solving some situations in the instalation.
+

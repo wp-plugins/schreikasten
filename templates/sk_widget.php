@@ -189,5 +189,5 @@
 		mm_get.setTrobbler('trobbling-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
-			_e('You have to install <a href="http://www.sebaxtian.com/acerca-de/minimax"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk');
+			printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>

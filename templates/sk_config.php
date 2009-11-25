@@ -5,7 +5,7 @@
 			<?php
 			if(!(function_exists('minimax') && minimax_version()==0.2)) { ?>
 			<tr><td colspan="3">
-					<?php _e('You have to install <a href="http://www.sebaxtian.com/acerca-de/minimax"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'); ?>
+					<?php printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</td></tr><?
 } ?>
 			<tr>
