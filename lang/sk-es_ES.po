@@ -1,0 +1,677 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-25 11:03-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
+"Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext\n"
+"X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/schreikasten\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: COLOMBIA\n"
+"X-Poedit-SearchPath-0: /var/www/wordpress/wp-content/plugins/schreikasten\n"
+"X-Poedit-SearchPath-1: /var/www/wordpress/wp-content/plugins/schreikasten/templates\n"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/add_comment.php:52
+msgid "We cannot accept messages<br>from this PC"
+msgstr "No podemos aceptar mensajes<br>de este PC"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:362
+#, php-format
+msgid "There is a reply to your comment on %s from %s"
+msgstr "Hay una respuesta a su comentario en %s por %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:363
+#, php-format
+msgid "Your comment : %s"
+msgstr "Su comentario : %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:364
+#, php-format
+msgid "Reply comment: %s"
+msgstr "Comentario de respuesta: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:368
+#, php-format
+msgid "An answer to your comment on %s"
+msgstr "Respuesta a su comentario en %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:388
+msgid "There is a new comment on Schreikasten"
+msgstr "Hay un nuevo comentario en Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:390
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:407
+#, php-format
+msgid "Author : %1$s (IP: %2$s)"
+msgstr "Autor: %1$s (IP: %2$s)"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:391
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:408
+#, php-format
+msgid "E-mail : %s"
+msgstr "E-mail: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:392
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:409
+#, php-format
+msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+msgstr "¿Quién es? : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:393
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:410
+#, php-format
+msgid "Comment: %s"
+msgstr "Comentario: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:394
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:412
+#, php-format
+msgid "Delete it: %s"
+msgstr "Eliminar: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:395
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:413
+#, php-format
+msgid "Reject it: %s"
+msgstr "Rechazar:%s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:396
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:414
+#, php-format
+msgid "Spam it: %s"
+msgstr "Marcar como Spam: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:398
+msgid "New comment on Schreikasten"
+msgstr "Nuevo comentario en Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:405
+msgid "A new comment on Schreikasten is waiting for your approval"
+msgstr "Un nuevo comentario en Schreikasten está esperando por ser aprobado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:411
+#, php-format
+msgid "Approve it: %s"
+msgstr "Aprobar: %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:416
+msgid "Schreikasten comment to moderate"
+msgstr "Comentario en Schreikasten para ser moderado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:824
+msgid "[reply]"
+msgstr "[responder]"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:826
+msgid "[no sender]"
+msgstr "[sin remitente]"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:837
+msgid "[edit]"
+msgstr "[editar]"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:838
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:227
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:99
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:172
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:203
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:21
+msgid "Delete"
+msgstr "Eliminar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:840
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:168
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:223
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:168
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:17
+msgid "Reject"
+msgstr "Rechazar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:842
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:73
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:170
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:225
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:63
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:170
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:65
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:16
+msgid "Spam"
+msgstr "Spam"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:845
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:906
+msgid "Sending"
+msgstr "Enviando"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:929
+msgid "Schreikasten"
+msgstr "Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:930
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:2
+msgid "Schreikasten Configuration"
+msgstr "Configuración de Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1087
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1095
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1099
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1103
+msgid "Status changed"
+msgstr "Se cambió el estado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1090
+msgid "Comment modified"
+msgstr "Comentario modificado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1107
+msgid "Comment deleted"
+msgstr "Se eliminó el comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1111
+msgid "PC locked forever"
+msgstr "PC bloqueado para siempre"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1115
+msgid "PC unlocked"
+msgstr "PC habilitado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1120
+msgid "PC locked"
+msgstr "PC bloqueado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/schreikasten.php:1277
+msgid "You have to install <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax</a> in order for this plugin to work"
+msgstr "Deberá instalar <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax</a> para que este plugin funcione"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:67
+msgid "Tracking commment"
+msgstr "Mecanismo de seguimiento"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:70
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:60
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:62
+msgid "All"
+msgstr "Todos"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:71
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:61
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:63
+msgid "Pending"
+msgstr "Pendientes"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:72
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:62
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:64
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:15
+msgid "Accepted"
+msgstr "Aceptados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:74
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:64
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:66
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:17
+msgid "Unapproved"
+msgstr "Rechazados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:75
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:65
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:67
+msgid "Blocked PC"
+msgstr "PCs inhabilitados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:81
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:244
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:76
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:189
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:73
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:160
+#, php-format
+msgid "Displaying %s&#8211;%s of %s"
+msgstr "Mostrando %s&#8211;%s de %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:96
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:91
+msgid "No comments found"
+msgstr "No se encontraron comentarios"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:103
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:256
+msgid "By Alias"
+msgstr "Por alias"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:104
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:257
+msgid "By Email"
+msgstr "Por Email"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:106
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:259
+msgid "By PC"
+msgstr "Por PC"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:115
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:121
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:113
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:120
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:46
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:46
+msgid "Author"
+msgstr "Autor"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:116
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:122
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:114
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:121
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:38
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:54
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:41
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:54
+msgid "Comment"
+msgstr "Comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:136
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:192
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:137
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:137
+msgid "No email registry"
+msgstr "No hay registro de email"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:139
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:195
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:140
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:126
+msgid "registered user"
+msgstr "usuario registrado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:143
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:199
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:144
+msgid "spam"
+msgstr "Spam"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:144
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:200
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:145
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:139
+msgid "accepted"
+msgstr "Aceptados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:145
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:201
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:146
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:140
+msgid "unapproved"
+msgstr "Rechazados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:146
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:202
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:147
+msgid "unresolved"
+msgstr "Pendientes"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:162
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:217
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:162
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:142
+#, php-format
+msgid ""
+"This comment is marked as %s.\\n"
+"Are you sure you want to mark it as %s?"
+msgstr ""
+"Este comentario está marcado como %s.\\n"
+"¿Está seguro de querer marcarlo como %s?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:165
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:220
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:165
+msgid "Edit"
+msgstr "Editar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:166
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:221
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:96
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:166
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:200
+msgid "Accept"
+msgstr "Aceptar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:172
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:228
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:173
+msgid "Tracking"
+msgstr "Seguimiento"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:174
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:230
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:175
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:148
+msgid "Are you sure you want to unlock this PC?"
+msgstr "¿Está seguro de querer habilitar este PC?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:174
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:230
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:175
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:93
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:148
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:171
+msgid "Unlock PC"
+msgstr "Habilitar PC"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:175
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:231
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:176
+msgid "Are you sure you want to lock this PC?"
+msgstr "¿Está seguro de querer bloquear este PC?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:175
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:231
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:176
+msgid "Lock PC"
+msgstr "Bloquear PC"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_tracking.php:227
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:172
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:147
+msgid "Delete this Comment?"
+msgstr "¿Eliminar este Comentario?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:73
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:150
+msgid "For"
+msgstr "Para"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:85
+msgid "Email is required"
+msgstr "Email es requerido"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:91
+msgid ""
+"To prevent identification theft, we recomend\\n"
+"that you do not include email adresses.\\n"
+"Do you want to continue?"
+msgstr ""
+"Para prevenir el robo de identificaciones le\\n"
+"recomendamos no publicar direcciones de\\n"
+"correo. ¿Desea continuar?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:110
+msgid ""
+"Your message has been sent. Comments have\\n"
+"to be approved before posted."
+msgstr ""
+"Su mensaje fue enviado. Todos los comentarios\\n"
+"deberán ser aprobados antes de su publicación."
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:112
+msgid ""
+"Your message has been sent but this PC was blacklisted.\\n"
+"Comments have to be approved before posted."
+msgstr ""
+"Su mensaje fue enviado, pero este PC está\\n"
+"inhabilitado. Todos los comentarios deberán\\n"
+"ser aprobados antes de su publicación."
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:126
+#, php-format
+msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
+msgstr "Deberá estar <a href=\"%s\">registrado</a> para publicar un comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:131
+msgid "This PC was blacklisted. At this time comments cannot be posted."
+msgstr "Este PC está inhabilitado. No podrá enviar mensajes."
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:165
+msgid "Mail will not be published"
+msgstr "No se publicará el email"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:165
+msgid "(but it's required)"
+msgstr "(pero es requerido)"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:165
+msgid "(but it's used for avatar)"
+msgstr "(se usará solo para el avatar)"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:166
+#, php-format
+msgid "Loged in as %s"
+msgstr "Registrado como %s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:172
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:178
+msgid "Submit"
+msgstr "Enviar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widget.php:192
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:8
+msgid "You have to install <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
+msgstr "Deberá instalar <a href=\"http://www.sebaxtian.com/acerca-de/minimax\"  target=\"_BLANK\">minimax 0.2</a> para que este plugin funcione"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:57
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:59
+msgid "Schreikasten Spam"
+msgstr "Spam en Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:57
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:59
+msgid "Schreikasten Comments"
+msgstr "Comentarios en Schreikasten"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:68
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:70
+msgid "Search Comments"
+msgstr "Buscar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:95
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:199
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:92
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:170
+msgid "Bulk Actions"
+msgstr "Acciones en bloque"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:97
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:201
+msgid "Mark as Spam"
+msgstr "Marcar como Spam"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:98
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:202
+msgid "Mark as Unapproved"
+msgstr "Marcar como rechazado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:101
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:205
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:96
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:174
+msgid "Apply"
+msgstr "Aplicar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:104
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manage.php:208
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:177
+msgid "Delete all Spam"
+msgstr "Eliminar Spam"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:12
+msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
+msgstr "Necesita una <a href='http://wordpress.com/api-keys/' target='_BLANK'>llave API</a> de Akismet para habilitar el filtro antispam."
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:15
+msgid "Akismet API"
+msgstr "Llave API de Akismet"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:17
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:32
+msgid "Update"
+msgstr "Actualizar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:21
+msgid "Set API Key"
+msgstr "Definir la Clave API"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:24
+msgid "API Key is valid"
+msgstr "La Clave API es válida"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_config.php:26
+msgid "API Key is not valid"
+msgstr "La Clave API no es válida"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:3
+msgid "Title:"
+msgstr "Título:"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:11
+msgid "Show Avatar"
+msgstr "Mostrar Avatar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:18
+msgid "Registered users only"
+msgstr "Solo usuarios registrados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:25
+msgid "Allow replies"
+msgstr "Permitir respuestas"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:32
+msgid "Alert users about posting emails in their comments"
+msgstr "Alertar a los usuarios sobre los riesgos de publicar correos electrónicos en los comentarios"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:38
+msgid "Items per page"
+msgstr "Items por página"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:50
+msgid "Refresh rate"
+msgstr "Tasa de refresco"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:50
+msgid "(this option is in an early stage, take caution)"
+msgstr "(esta opción está en desarrollo, úsela con precaución)"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:52
+msgid "Never"
+msgstr "Nunca"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:53
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:54
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:55
+msgid "seconds"
+msgstr "segundos"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:62
+msgid "Max days to hold a PC blacklisted"
+msgstr "Máximo número de días que un PC podrá estar inhabilitado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:76
+msgid "Max pending messages from blacklisted PC"
+msgstr "Máximo número de mensajes pendientes que podrá enviar un PC inhabilitado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_widgetconfig.php:78
+msgid "None"
+msgstr "Ninguno"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:88
+msgid "No locked PCs found"
+msgstr "No se encontraron computadores bloqueados"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:94
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:149
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:172
+msgid "Block PC forever"
+msgstr "Inhabilitar PC por siempre"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:105
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:112
+msgid "PC"
+msgstr "PC"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:106
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:113
+msgid "Comments"
+msgstr "Comentarios"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:123
+#, php-format
+msgid "To be unlocked<br>%s"
+msgstr "Se habilitará el<br>%s"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:125
+msgid "To be never unlock"
+msgstr "Bloqueado por siempre"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:145
+msgid "Edit comment"
+msgstr "Editar comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:146
+msgid "Accept comment"
+msgstr "Aceptar comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:147
+msgid "Delete Comment"
+msgstr "Eliminar Comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_manageblack.php:149
+msgid "Are you sure you want to block this PC forever?"
+msgstr "¿Está seguro de querer bloquear este PC para siempre?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:12
+msgid "approve"
+msgstr "aceptar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:13
+msgid "Approve"
+msgstr "Aceptar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:16
+msgid "reject"
+msgstr "rechazar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:20
+msgid "delete"
+msgstr "eliminar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:26
+msgid "<strong>Caution:</strong> You are about to mark the following comment as spam:</p>"
+msgstr "<strong>Atención:</strong> Está por marcar el siguiente comentario como spam:</p>"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:28
+#, php-format
+msgid "<strong>Caution:</strong> You are about to %s the following comment:</p>"
+msgstr "<strong>Atención:</strong> Está a punto de %s el siguiente comentario:</p>"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:31
+msgid "Are you sure you want to do that?"
+msgstr "¿Está seguro de querer hacer esto?"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_confirm.php:50
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:4
+msgid "Edit Comment"
+msgstr "Editar comentario"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:8
+msgid "Status"
+msgstr "Estado"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:29
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /var/www/wordpress/wp-content/plugins/schreikasten/templates/sk_comment.php:50
+msgid "Email"
+msgstr "Email"
+
