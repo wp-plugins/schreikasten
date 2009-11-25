@@ -26,6 +26,8 @@ The anti Spam filter requires an Akismet API KEY. If you have one enabled in you
 site you can use it in this plugin too. If you don't have an API KEY, create one
 in [this site](http://en.wordpress.com/api-keys/).
 
+This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
+
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
 Screenshots are in spanish because it's my native language. As you should know yet 
