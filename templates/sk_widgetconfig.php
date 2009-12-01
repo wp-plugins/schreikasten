@@ -37,6 +37,10 @@
 	<label for="sk_num"><?php
 		_e('Items per page','sk'); ?>:
 		<select class="widefat" id="sk_items" name="sk_items">
+			<option<?php echo $selected1; ?>>1</option>
+			<option<?php echo $selected2; ?>>2</option>
+			<option<?php echo $selected3; ?>>3</option>
+			<option<?php echo $selected4; ?>>4</option>
 			<option<?php echo $selected5; ?>>5</option>
 			<option<?php echo $selected10; ?>>10</option>
 			<option<?php echo $selected15; ?>>15</option>
@@ -66,7 +70,7 @@
 			<option<?php echo $selecteddays5; ?>>5</option>
 			<option<?php echo $selecteddays7; ?>>7</option>
 			<option<?php echo $selecteddays14; ?>>14</option>
-			<option<?php echo $selecteddays0; ?> value="0">Forever</option>
+			<option<?php echo $selecteddays0; ?> value="0"><?php _e('Forever','sk'); ?></option>
 		</select>
 	</label>
 </p>

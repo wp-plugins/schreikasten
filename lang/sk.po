@@ -6,16 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/schreikasten\n"
-"POT-Creation-Date: 2009-11-25 20:33+0000\n"
-"PO-Revision-Date: 2009-11-25 15:40-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-29 12:49-0500\n"
+"PO-Revision-Date: 2009-11-29 12:50-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2\n"
+"X-Poedit-Basepath: /home/sebaxtian/Documentos/Websites/wordpress/wp-content/plugins/schreikasten\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: templates\n"
 
 #: add_comment.php:52
 msgid "We cannot accept messages<br>from this PC"
@@ -112,439 +116,143 @@ msgstr ""
 msgid "[no sender]"
 msgstr ""
 
-#: schreikasten.php:837
+#: schreikasten.php:854
 msgid "[edit]"
 msgstr ""
 
-#: schreikasten.php:838
-#: templates/sk_confirm.php:21
+#: schreikasten.php:855
+#: templates/sk_tracking.php:227
 #: templates/sk_manage.php:99
 #: templates/sk_manage.php:172
 #: templates/sk_manage.php:203
-#: templates/sk_tracking.php:227
+#: templates/sk_confirm.php:21
 msgid "Delete"
 msgstr ""
 
-#: schreikasten.php:840
-#: templates/sk_confirm.php:17
-#: templates/sk_manage.php:168
+#: schreikasten.php:857
 #: templates/sk_tracking.php:168
 #: templates/sk_tracking.php:223
+#: templates/sk_manage.php:168
+#: templates/sk_confirm.php:17
 msgid "Reject"
 msgstr ""
 
-#: schreikasten.php:842
-#: templates/sk_comment.php:16
-#: templates/sk_manage.php:63
-#: templates/sk_manage.php:170
-#: templates/sk_manageblack.php:65
+#: schreikasten.php:859
 #: templates/sk_tracking.php:73
 #: templates/sk_tracking.php:170
 #: templates/sk_tracking.php:225
+#: templates/sk_manage.php:63
+#: templates/sk_manage.php:170
+#: templates/sk_manageblack.php:65
+#: templates/sk_comment.php:16
 msgid "Spam"
 msgstr ""
 
-#: schreikasten.php:845
-#: schreikasten.php:906
+#: schreikasten.php:862
+#: schreikasten.php:926
 msgid "Sending"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (PACKAGE VERSION)  #-#-#-#-#
-#. Plugin Name of an extension
-#: schreikasten.php:929
+#: schreikasten.php:964
 msgid "Schreikasten"
 msgstr ""
 
-#: schreikasten.php:930
+#: schreikasten.php:965
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr ""
 
-#: schreikasten.php:1087
-#: schreikasten.php:1095
-#: schreikasten.php:1099
-#: schreikasten.php:1103
+#: schreikasten.php:1122
+#: schreikasten.php:1130
+#: schreikasten.php:1134
+#: schreikasten.php:1138
 msgid "Status changed"
 msgstr ""
 
-#: schreikasten.php:1090
+#: schreikasten.php:1125
 msgid "Comment modified"
 msgstr ""
 
-#: schreikasten.php:1107
+#: schreikasten.php:1142
 msgid "Comment deleted"
 msgstr ""
 
-#: schreikasten.php:1111
+#: schreikasten.php:1146
 msgid "PC locked forever"
 msgstr ""
 
-#: schreikasten.php:1115
+#: schreikasten.php:1150
 msgid "PC unlocked"
 msgstr ""
 
-#: schreikasten.php:1120
+#: schreikasten.php:1155
 msgid "PC locked"
 msgstr ""
 
-#: schreikasten.php:1277
-#: templates/sk_config.php:8
+#: schreikasten.php:1312
 #: templates/sk_widget.php:192
+#: templates/sk_config.php:8
 #, php-format
 msgid "You have to install <a href=\"%s\"  target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
 msgstr ""
 
-#: templates/sk_comment.php:4
-msgid "Edit Comment"
+#: templates/sk_tracking.php:67
+msgid "Tracking commment"
 msgstr ""
 
-#: templates/sk_comment.php:8
-msgid "Status"
-msgstr ""
-
-#: templates/sk_comment.php:15
-#: templates/sk_manage.php:62
-#: templates/sk_manageblack.php:64
-#: templates/sk_tracking.php:72
-msgid "Accepted"
-msgid_plural "Accepted"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/sk_comment.php:17
-#: templates/sk_manage.php:64
-#: templates/sk_manageblack.php:66
-#: templates/sk_tracking.php:74
-msgid "Unapproved"
-msgid_plural "Unapproved"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/sk_comment.php:29
-msgid "Cancel"
-msgstr ""
-
-#: templates/sk_comment.php:32
-#: templates/sk_config.php:17
-msgid "Update"
-msgstr ""
-
-#: templates/sk_comment.php:41
-#: templates/sk_comment.php:54
-#: templates/sk_confirm.php:38
-#: templates/sk_confirm.php:54
-#: templates/sk_manage.php:114
-#: templates/sk_manage.php:121
-#: templates/sk_tracking.php:116
-#: templates/sk_tracking.php:122
-msgid "Comment"
-msgstr ""
-
-#: templates/sk_comment.php:46
-#: templates/sk_confirm.php:46
-#: templates/sk_manage.php:113
-#: templates/sk_manage.php:120
-#: templates/sk_tracking.php:115
-#: templates/sk_tracking.php:121
-msgid "Author"
-msgstr ""
-
-#: templates/sk_comment.php:50
-msgid "Email"
-msgstr ""
-
-#: templates/sk_config.php:12
-msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
-msgstr ""
-
-#: templates/sk_config.php:15
-msgid "Akismet API"
-msgstr ""
-
-#: templates/sk_config.php:21
-msgid "Set API Key"
-msgstr ""
-
-#: templates/sk_config.php:24
-msgid "API Key is valid"
-msgstr ""
-
-#: templates/sk_config.php:26
-msgid "API Key is not valid"
-msgstr ""
-
-#: templates/sk_confirm.php:12
-msgid "approve"
-msgstr ""
-
-#: templates/sk_confirm.php:13
-msgid "Approve"
-msgstr ""
-
-#: templates/sk_confirm.php:16
-msgid "reject"
-msgstr ""
-
-#: templates/sk_confirm.php:20
-msgid "delete"
-msgstr ""
-
-#: templates/sk_confirm.php:26
-msgid "<strong>Caution:</strong> You are about to mark the following comment as spam:</p>"
-msgstr ""
-
-#: templates/sk_confirm.php:28
-#, php-format
-msgid "<strong>Caution:</strong> You are about to %s the following comment:</p>"
-msgstr ""
-
-#: templates/sk_confirm.php:31
-msgid "Are you sure you want to do that?"
-msgstr ""
-
-#: templates/sk_confirm.php:50
-msgid "E-mail"
-msgstr ""
-
-#: templates/sk_manage.php:57
-#: templates/sk_manageblack.php:59
-msgid "Schreikasten Spam"
-msgstr ""
-
-#: templates/sk_manage.php:57
-#: templates/sk_manageblack.php:59
-msgid "Schreikasten Comments"
-msgstr ""
-
+#: templates/sk_tracking.php:70
 #: templates/sk_manage.php:60
 #: templates/sk_manageblack.php:62
-#: templates/sk_tracking.php:70
 msgid "All"
 msgstr ""
 
+#: templates/sk_tracking.php:71
 #: templates/sk_manage.php:61
 #: templates/sk_manageblack.php:63
-#: templates/sk_tracking.php:71
 msgid "Pending"
 msgid_plural "Pending"
 msgstr[0] ""
 msgstr[1] ""
 
+#: templates/sk_tracking.php:72
+#: templates/sk_manage.php:62
+#: templates/sk_manageblack.php:64
+#: templates/sk_comment.php:15
+msgid "Accepted"
+msgid_plural "Accepted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/sk_tracking.php:74
+#: templates/sk_manage.php:64
+#: templates/sk_manageblack.php:66
+#: templates/sk_comment.php:17
+msgid "Unapproved"
+msgid_plural "Unapproved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/sk_tracking.php:75
 #: templates/sk_manage.php:65
 #: templates/sk_manageblack.php:67
-#: templates/sk_tracking.php:75
 msgid "Blocked PC"
 msgid_plural "Blocked PC"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/sk_manage.php:68
-#: templates/sk_manage.php:70
-msgid "Search Comments"
-msgstr ""
-
+#: templates/sk_tracking.php:81
+#: templates/sk_tracking.php:244
 #: templates/sk_manage.php:76
 #: templates/sk_manage.php:189
 #: templates/sk_manageblack.php:73
 #: templates/sk_manageblack.php:160
-#: templates/sk_tracking.php:81
-#: templates/sk_tracking.php:244
 #, php-format
 msgid "Displaying %s&#8211;%s of %s"
 msgstr ""
 
-#: templates/sk_manage.php:91
 #: templates/sk_tracking.php:96
+#: templates/sk_manage.php:91
 msgid "No comments found"
-msgstr ""
-
-#: templates/sk_manage.php:95
-#: templates/sk_manage.php:199
-#: templates/sk_manageblack.php:92
-#: templates/sk_manageblack.php:170
-msgid "Bulk Actions"
-msgstr ""
-
-#: templates/sk_manage.php:96
-#: templates/sk_manage.php:166
-#: templates/sk_manage.php:200
-#: templates/sk_tracking.php:166
-#: templates/sk_tracking.php:221
-msgid "Accept"
-msgstr ""
-
-#: templates/sk_manage.php:97
-#: templates/sk_manage.php:201
-msgid "Mark as Spam"
-msgstr ""
-
-#: templates/sk_manage.php:98
-#: templates/sk_manage.php:202
-msgid "Mark as Unapproved"
-msgstr ""
-
-#: templates/sk_manage.php:101
-#: templates/sk_manage.php:205
-#: templates/sk_manageblack.php:96
-#: templates/sk_manageblack.php:174
-msgid "Apply"
-msgstr ""
-
-#: templates/sk_manage.php:104
-#: templates/sk_manage.php:208
-#: templates/sk_manageblack.php:177
-msgid "Delete all Spam"
-msgstr ""
-
-#: templates/sk_manage.php:137
-#: templates/sk_manageblack.php:137
-#: templates/sk_tracking.php:136
-#: templates/sk_tracking.php:192
-msgid "No email registry"
-msgstr ""
-
-#: templates/sk_manage.php:140
-#: templates/sk_manageblack.php:126
-#: templates/sk_tracking.php:139
-#: templates/sk_tracking.php:195
-msgid "registered user"
-msgstr ""
-
-#: templates/sk_manage.php:144
-#: templates/sk_tracking.php:143
-#: templates/sk_tracking.php:199
-msgid "spam"
-msgstr ""
-
-#: templates/sk_manage.php:145
-#: templates/sk_manageblack.php:139
-#: templates/sk_tracking.php:144
-#: templates/sk_tracking.php:200
-msgid "accepted"
-msgid_plural "accepted"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/sk_manage.php:146
-#: templates/sk_manageblack.php:140
-#: templates/sk_tracking.php:145
-#: templates/sk_tracking.php:201
-msgid "unapproved"
-msgid_plural "unapproved"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/sk_manage.php:147
-#: templates/sk_tracking.php:146
-#: templates/sk_tracking.php:202
-msgid "unresolved"
-msgid_plural "unresolved"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/sk_manage.php:162
-#: templates/sk_manageblack.php:142
-#: templates/sk_tracking.php:162
-#: templates/sk_tracking.php:217
-#, php-format
-msgid ""
-"This comment is marked as %s.\\n"
-"Are you sure you want to mark it as %s?"
-msgstr ""
-
-#: templates/sk_manage.php:165
-#: templates/sk_tracking.php:165
-#: templates/sk_tracking.php:220
-msgid "Edit"
-msgstr ""
-
-#: templates/sk_manage.php:172
-#: templates/sk_manageblack.php:147
-#: templates/sk_tracking.php:227
-msgid "Delete this Comment?"
-msgstr ""
-
-#: templates/sk_manage.php:173
-#: templates/sk_tracking.php:172
-#: templates/sk_tracking.php:228
-msgid "Tracking"
-msgstr ""
-
-#: templates/sk_manage.php:175
-#: templates/sk_manageblack.php:148
-#: templates/sk_tracking.php:174
-#: templates/sk_tracking.php:230
-msgid "Are you sure you want to unlock this PC?"
-msgstr ""
-
-#: templates/sk_manage.php:175
-#: templates/sk_manageblack.php:93
-#: templates/sk_manageblack.php:148
-#: templates/sk_manageblack.php:171
-#: templates/sk_tracking.php:174
-#: templates/sk_tracking.php:230
-msgid "Unlock PC"
-msgstr ""
-
-#: templates/sk_manage.php:176
-#: templates/sk_tracking.php:175
-#: templates/sk_tracking.php:231
-msgid "Are you sure you want to lock this PC?"
-msgstr ""
-
-#: templates/sk_manage.php:176
-#: templates/sk_tracking.php:175
-#: templates/sk_tracking.php:231
-msgid "Lock PC"
-msgstr ""
-
-#: templates/sk_manageblack.php:88
-msgid "No locked PCs found"
-msgstr ""
-
-#: templates/sk_manageblack.php:94
-#: templates/sk_manageblack.php:149
-#: templates/sk_manageblack.php:172
-msgid "Block PC forever"
-msgstr ""
-
-#: templates/sk_manageblack.php:105
-#: templates/sk_manageblack.php:112
-msgid "PC"
-msgstr ""
-
-#: templates/sk_manageblack.php:106
-#: templates/sk_manageblack.php:113
-msgid "Comments"
-msgstr ""
-
-#: templates/sk_manageblack.php:123
-#, php-format
-msgid "To be unlocked<br>%s"
-msgstr ""
-
-#: templates/sk_manageblack.php:125
-msgid "To be never unlock"
-msgstr ""
-
-#: templates/sk_manageblack.php:145
-msgid "Edit comment"
-msgstr ""
-
-#: templates/sk_manageblack.php:146
-msgid "Accept comment"
-msgstr ""
-
-#: templates/sk_manageblack.php:147
-msgid "Delete Comment"
-msgstr ""
-
-#: templates/sk_manageblack.php:149
-msgid "Are you sure you want to block this PC forever?"
-msgstr ""
-
-#: templates/sk_tracking.php:67
-msgid "Tracking commment"
 msgstr ""
 
 #: templates/sk_tracking.php:103
@@ -560,6 +268,136 @@ msgstr ""
 #: templates/sk_tracking.php:106
 #: templates/sk_tracking.php:259
 msgid "By PC"
+msgstr ""
+
+#: templates/sk_tracking.php:115
+#: templates/sk_tracking.php:121
+#: templates/sk_manage.php:113
+#: templates/sk_manage.php:120
+#: templates/sk_confirm.php:46
+#: templates/sk_comment.php:46
+msgid "Author"
+msgstr ""
+
+#: templates/sk_tracking.php:116
+#: templates/sk_tracking.php:122
+#: templates/sk_manage.php:114
+#: templates/sk_manage.php:121
+#: templates/sk_confirm.php:38
+#: templates/sk_confirm.php:54
+#: templates/sk_comment.php:41
+#: templates/sk_comment.php:54
+msgid "Comment"
+msgstr ""
+
+#: templates/sk_tracking.php:136
+#: templates/sk_tracking.php:192
+#: templates/sk_manage.php:137
+#: templates/sk_manageblack.php:137
+msgid "No email registry"
+msgstr ""
+
+#: templates/sk_tracking.php:139
+#: templates/sk_tracking.php:195
+#: templates/sk_manage.php:140
+#: templates/sk_manageblack.php:126
+msgid "registered user"
+msgstr ""
+
+#: templates/sk_tracking.php:143
+#: templates/sk_tracking.php:199
+#: templates/sk_manage.php:144
+msgid "spam"
+msgstr ""
+
+#: templates/sk_tracking.php:144
+#: templates/sk_tracking.php:200
+#: templates/sk_manage.php:145
+#: templates/sk_manageblack.php:139
+msgid "accepted"
+msgid_plural "accepted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/sk_tracking.php:145
+#: templates/sk_tracking.php:201
+#: templates/sk_manage.php:146
+#: templates/sk_manageblack.php:140
+msgid "unapproved"
+msgid_plural "unapproved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/sk_tracking.php:146
+#: templates/sk_tracking.php:202
+#: templates/sk_manage.php:147
+msgid "unresolved"
+msgid_plural "unresolved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/sk_tracking.php:162
+#: templates/sk_tracking.php:217
+#: templates/sk_manage.php:162
+#: templates/sk_manageblack.php:142
+#, php-format
+msgid ""
+"This comment is marked as %s.\\n"
+"Are you sure you want to mark it as %s?"
+msgstr ""
+
+#: templates/sk_tracking.php:165
+#: templates/sk_tracking.php:220
+#: templates/sk_manage.php:165
+msgid "Edit"
+msgstr ""
+
+#: templates/sk_tracking.php:166
+#: templates/sk_tracking.php:221
+#: templates/sk_manage.php:96
+#: templates/sk_manage.php:166
+#: templates/sk_manage.php:200
+msgid "Accept"
+msgstr ""
+
+#: templates/sk_tracking.php:172
+#: templates/sk_tracking.php:228
+#: templates/sk_manage.php:173
+msgid "Tracking"
+msgstr ""
+
+#: templates/sk_tracking.php:174
+#: templates/sk_tracking.php:230
+#: templates/sk_manage.php:175
+#: templates/sk_manageblack.php:148
+msgid "Are you sure you want to unlock this PC?"
+msgstr ""
+
+#: templates/sk_tracking.php:174
+#: templates/sk_tracking.php:230
+#: templates/sk_manage.php:175
+#: templates/sk_manageblack.php:93
+#: templates/sk_manageblack.php:148
+#: templates/sk_manageblack.php:171
+msgid "Unlock PC"
+msgstr ""
+
+#: templates/sk_tracking.php:175
+#: templates/sk_tracking.php:231
+#: templates/sk_manage.php:176
+msgid "Are you sure you want to lock this PC?"
+msgstr ""
+
+#: templates/sk_tracking.php:175
+#: templates/sk_tracking.php:231
+#: templates/sk_manage.php:176
+msgid "Lock PC"
+msgstr ""
+
+#: templates/sk_tracking.php:227
+#: templates/sk_manage.php:172
+#: templates/sk_manageblack.php:147
+msgid "Delete this Comment?"
 msgstr ""
 
 #: templates/sk_widget.php:73
@@ -624,6 +462,76 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: templates/sk_manage.php:57
+#: templates/sk_manageblack.php:59
+msgid "Schreikasten Spam"
+msgstr ""
+
+#: templates/sk_manage.php:57
+#: templates/sk_manageblack.php:59
+msgid "Schreikasten Comments"
+msgstr ""
+
+#: templates/sk_manage.php:68
+#: templates/sk_manage.php:70
+msgid "Search Comments"
+msgstr ""
+
+#: templates/sk_manage.php:95
+#: templates/sk_manage.php:199
+#: templates/sk_manageblack.php:92
+#: templates/sk_manageblack.php:170
+msgid "Bulk Actions"
+msgstr ""
+
+#: templates/sk_manage.php:97
+#: templates/sk_manage.php:201
+msgid "Mark as Spam"
+msgstr ""
+
+#: templates/sk_manage.php:98
+#: templates/sk_manage.php:202
+msgid "Mark as Unapproved"
+msgstr ""
+
+#: templates/sk_manage.php:101
+#: templates/sk_manage.php:205
+#: templates/sk_manageblack.php:96
+#: templates/sk_manageblack.php:174
+msgid "Apply"
+msgstr ""
+
+#: templates/sk_manage.php:104
+#: templates/sk_manage.php:208
+#: templates/sk_manageblack.php:177
+msgid "Delete all Spam"
+msgstr ""
+
+#: templates/sk_config.php:12
+msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
+msgstr ""
+
+#: templates/sk_config.php:15
+msgid "Akismet API"
+msgstr ""
+
+#: templates/sk_config.php:17
+#: templates/sk_comment.php:32
+msgid "Update"
+msgstr ""
+
+#: templates/sk_config.php:21
+msgid "Set API Key"
+msgstr ""
+
+#: templates/sk_config.php:24
+msgid "API Key is valid"
+msgstr ""
+
+#: templates/sk_config.php:26
+msgid "API Key is not valid"
+msgstr ""
+
 #: templates/sk_widgetconfig.php:3
 msgid "Title:"
 msgstr ""
@@ -648,49 +556,131 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:50
+#: templates/sk_widgetconfig.php:54
 msgid "Refresh rate"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:50
+#: templates/sk_widgetconfig.php:54
 msgid "(this option is in an early stage, take caution)"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:52
+#: templates/sk_widgetconfig.php:56
 msgid "Never"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:53
-#: templates/sk_widgetconfig.php:54
-#: templates/sk_widgetconfig.php:55
+#: templates/sk_widgetconfig.php:57
+#: templates/sk_widgetconfig.php:58
+#: templates/sk_widgetconfig.php:59
 msgid "seconds"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:62
+#: templates/sk_widgetconfig.php:66
 msgid "Max days to hold a PC blacklisted"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:76
+#: templates/sk_widgetconfig.php:73
+msgid "Forever"
+msgstr ""
+
+#: templates/sk_widgetconfig.php:80
 msgid "Max pending messages from blacklisted PC"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:78
+#: templates/sk_widgetconfig.php:82
 msgid "None"
 msgstr ""
 
-#. Plugin URI of an extension
-msgid "http://www.sebaxtian.com/acerca-de/schreikasten"
+#: templates/sk_manageblack.php:88
+msgid "No locked PCs found"
 msgstr ""
 
-#. Description of an extension
-msgid "A shoutbox using ajax and akismet."
+#: templates/sk_manageblack.php:94
+#: templates/sk_manageblack.php:149
+#: templates/sk_manageblack.php:172
+msgid "Block PC forever"
 msgstr ""
 
-#. Author of an extension
-msgid "Juan Sebastin Echeverry"
+#: templates/sk_manageblack.php:105
+#: templates/sk_manageblack.php:112
+msgid "PC"
 msgstr ""
 
-#. Author URI of an extension
-msgid "http://www.sebaxtian.com"
+#: templates/sk_manageblack.php:106
+#: templates/sk_manageblack.php:113
+msgid "Comments"
+msgstr ""
+
+#: templates/sk_manageblack.php:123
+#, php-format
+msgid "To be unlocked<br>%s"
+msgstr ""
+
+#: templates/sk_manageblack.php:125
+msgid "To be never unlock"
+msgstr ""
+
+#: templates/sk_manageblack.php:145
+msgid "Edit comment"
+msgstr ""
+
+#: templates/sk_manageblack.php:146
+msgid "Accept comment"
+msgstr ""
+
+#: templates/sk_manageblack.php:147
+msgid "Delete Comment"
+msgstr ""
+
+#: templates/sk_manageblack.php:149
+msgid "Are you sure you want to block this PC forever?"
+msgstr ""
+
+#: templates/sk_confirm.php:12
+msgid "approve"
+msgstr ""
+
+#: templates/sk_confirm.php:13
+msgid "Approve"
+msgstr ""
+
+#: templates/sk_confirm.php:16
+msgid "reject"
+msgstr ""
+
+#: templates/sk_confirm.php:20
+msgid "delete"
+msgstr ""
+
+#: templates/sk_confirm.php:26
+msgid "<strong>Caution:</strong> You are about to mark the following comment as spam:</p>"
+msgstr ""
+
+#: templates/sk_confirm.php:28
+#, php-format
+msgid "<strong>Caution:</strong> You are about to %s the following comment:</p>"
+msgstr ""
+
+#: templates/sk_confirm.php:31
+msgid "Are you sure you want to do that?"
+msgstr ""
+
+#: templates/sk_confirm.php:50
+msgid "E-mail"
+msgstr ""
+
+#: templates/sk_comment.php:4
+msgid "Edit Comment"
+msgstr ""
+
+#: templates/sk_comment.php:8
+msgid "Status"
+msgstr ""
+
+#: templates/sk_comment.php:29
+msgid "Cancel"
+msgstr ""
+
+#: templates/sk_comment.php:50
+msgid "Email"
 msgstr ""
 

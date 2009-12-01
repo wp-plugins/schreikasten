@@ -175,18 +175,19 @@
 		} ?>
 		</td>
 		<td align="right">
-			<input type='hidden' id='sk_timer' value=''/><input type='hidden' id='sk_semaphore' value='1'/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class='sk-button' value='<?php _e('Submit', 'sk'); ?>' onclick='sk_pressButton();'/></td>
+			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class='sk-button' value='<?php _e('Submit', 'sk'); ?>' onclick='sk_pressButton();'/></td>
 	</tr><?php } 
 	$uri_img=sk_plugin_url('/img/loading.gif');
 	?>
 </table>
 	<div id='sk_content'></div>
-	<div id='sk_page'><div id='trobbling-page' class='off'></div></div>
+	<div id='sk_page'><div id='throbber-page' class='off'></div></div>
 	<script type='text/javascript'>
-		mm_add.setSemaphore('sk_semaphore');
-		mm_add.setTrobbler('trobbling-img', 'on', 'off');
-		mm_get.setSemaphore('sk_semaphore');
-		mm_get.setTrobbler('trobbling-page', 'on', 'off');
+		var sk_semaphore=new Semaphore();
+		mm_add.setSemaphore(sk_semaphore);
+		mm_add.setThrobber('throbber-img', 'on', 'off');
+		mm_get.setSemaphore(sk_semaphore);
+		mm_get.setThrobber('throbber-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
 			printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );

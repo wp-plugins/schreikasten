@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.8.5
-Stable tag: 0.10.1
+Stable tag: 0.10.2
 
 A shoutbox using ajax and akismet.
 
@@ -74,9 +74,12 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 == Changelog ==
 
-= 0.10 =
-* First version in SVN.
+= 0.10.2 =
+* Using the new semaphore system in minimax - Required in IE
+* More values in the lists to configure the widget
 
 = 0.10.1 =
 * Solving some situations in the instalation.
 
+= 0.10 =
+* First version in SVN.

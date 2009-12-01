@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.10.1
+Version: 0.10.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -248,7 +248,7 @@ function sk_page_selector($group=1) {
 	}
 
 	$answer = substr($answer,0,-8);
-	return "<br/><div id='trobbling-page' class='off'><small>$answer</small></div>";
+	return "<br/><div id='throbber-page' class='off'><small>$answer</small></div>";
 }
 
 /**
@@ -456,7 +456,7 @@ function sk_addComment($alias, $email, $text, $ip, $for)
 			if($answer = $wpdb->query( $insert )) {
 				$id = $wpdb->get_var("select last_insert_id()");
 				$answer=$id;
-				$spam=false;
+				$spam=false; 
 				if(sk_verify_key()) {
 					$spam=sk_isSpam($id);
 				}
@@ -798,7 +798,7 @@ function sk_unlock($id) {
 	return $wpdb->query($query);
 }
 
-function sk_formatComment($comment,$throbbler=false) {
+function sk_formatComment($comment,$throbber=false) {
 	global $current_user;
 	
 	$answer = "";
@@ -819,7 +819,7 @@ function sk_formatComment($comment,$throbbler=false) {
 	$options = get_option('widget_sk');
 	if($options['replies']) {
 		$for=" ";
-		if(!$throbbler) {
+		if(!$throbber) {
 			if($comment->email!="") {
 				$for.="<a href='#sk_top' onclick='javascript:for_set(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
 			} else {
@@ -829,9 +829,26 @@ function sk_formatComment($comment,$throbbler=false) {
 	}
 	
 	$class="sk-userdata-user";
+	$divClass='sk-comment';
+	if($comment->status==SK_SPAM) {
+		$divClass.='-spam';
+		$class.="-spam";
+	}
+	
+	if($comment->status==SK_MOOT) {
+		$divClass.='-moot';
+		$class.="-moot";
+	}
+		
 	$mannage = "";
 	if($sk_canmannage) {
 		$class="sk-userdata-admin";
+		if($comment->status==SK_SPAM) {
+			$class.="-spam";
+		}
+		if($comment->status==SK_MOOT) {
+			$class.="-moot";
+		}
 		$av_size=41;
 		$id=$comment->id;
 		$edit="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
@@ -840,7 +857,7 @@ function sk_formatComment($comment,$throbbler=false) {
 			$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_black&id=$id"))."'>". __('Reject', 'sk') . "</a> | ";
 		}
 		$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_spam&id=$id"))."'>".  __('Spam', 'sk') . "</a><br/>";
-		if($throbbler) {
+		if($throbber) {
 			$mannage="<br/>";
 			$edit = "[ ".__('Sending', 'sk')." ]";
 		}
@@ -866,11 +883,11 @@ function sk_formatComment($comment,$throbbler=false) {
 		</div>";
 	
 	if($options['avatar']) {
-		$answer.="\n<div class='sk-comment'>
+		$answer.="\n<div class='$divClass'>
 		$item
 		</div>";
 	} else {
-		$answer.="\n<li class='sk-comment'>
+		$answer.="\n<li class='$divClass'>
 				$item
 				</li>";
 	}
@@ -880,12 +897,13 @@ function sk_formatComment($comment,$throbbler=false) {
 /**
   * Returns HTML for contents to show
   *
-  * @param int group Which group are we showing?
+  * @param int page Which group are we showing?
+  * @param int id If this comment is marked as SPAM show it 
   * @return string
   * @access public
   */
 
-function sk_showComments($page=1)
+function sk_showComments($page=1,$id=false)
 {
 	global $wpdb;
 	
@@ -893,20 +911,35 @@ function sk_showComments($page=1)
 	$size=$options['items'];
 	$first=(($page-1)*$size);
 	$table_name = $wpdb->prefix . "schreikasten";
-	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
+	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
 	$comments = $wpdb->get_results($sql);
 	
 	if(!$options['avatar']) $answer="<ul>";
 	
 	$av_size=32;
 	
+	//The throbber div
+	
 	$aux = "";
 	$aux->alias = "<span id='th_sk_alias'></span>";
 	$aux->text = "<span id='th_sk_text'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer.= "<div id='trobbling-img' class='off'>".sk_formatComment($aux,true)."</div>";
+	$answer= "<div id='throbber-img' class='off'>".sk_formatComment($aux,true)."</div>";
 
+	//Get id comment
+	if($id) {
+		$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE id=$id";
+		$idComments = $wpdb->get_results($sql);
+		//If it's spam add it at the begginning.
+		foreach($idComments as $idComment) {
+			if($idComment->status==SK_SPAM || $idComment->status==SK_MOOT) {
+				array_unshift($comments, $idComment);
+			}
+		}
+	}
+
+	//The comments list
 	foreach($comments as $comment) {
 		$answer.=sk_formatComment($comment);
 	}

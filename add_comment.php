@@ -51,7 +51,7 @@ $id=sk_addComment($alias, $email, $text, $ip, $for);
 if(sk_cookieID()==0) {
 	echo "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
 }
-echo sk_showComments(1);
+echo sk_showComments(1,$id);
 echo sk_page_selector($page);
 
 if($id>0)
