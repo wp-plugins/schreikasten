@@ -61,6 +61,10 @@ default CSS from Wordpress and Ajax just to make it more fun.
 
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
+= Can I set my own css style? =
+
+Yes. Copy the file schreikasten.css to your theme folder. The plugin will check for it.
+
 
 == Screenshots ==
 
