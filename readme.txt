@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.8.5
-Stable tag: 0.10.2
+Stable tag: 0.10.3
 
 A shoutbox using ajax and akismet.
 
@@ -61,7 +61,7 @@ default CSS from Wordpress and Ajax just to make it more fun.
 
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
-= Can I set my own css style? =
+= Can I set my own CSS? =
 
 Yes. Copy the file schreikasten.css to your theme folder. The plugin will check for it.
 
@@ -77,6 +77,9 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.10.3 =
+* Now you can set your own css file (see FAQ).
 
 = 0.10.2 =
 * Using the new semaphore system in minimax - Required in IE
