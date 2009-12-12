@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.10.3
+Version: 0.10.4
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1225,6 +1225,12 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 	
 }
 
+function sk_shoutbox() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . "schreikasten";
+        include('templates/sk_widget.php');
+}
+
 // sk widget stuff
 function sk_widget_init() {
 
@@ -1233,8 +1239,6 @@ function sk_widget_init() {
 
 	function sk_widget($args) {
 
-		global $wpdb;
-		
 		// $args is an array of strings that help widgets to conform to
 		// the active theme: before_widget, before_title, after_widget,
 		// and after_title are the array keys. Default tags: li and h2.
@@ -1243,12 +1247,10 @@ function sk_widget_init() {
 		$options = get_option('widget_sk');
 		$title = $options['title'];
 
-		$table_name = $wpdb->prefix . "schreikasten";
-		
 		// These lines generate our output. Widgets can be very complex
 		// but as you can see here, they can also be very, very simple.
 		echo $before_widget . $before_title . $title . $after_title;
-		include('templates/sk_widget.php');
+		sk_shoutbox();
 		echo $after_widget;
 	}
 
@@ -1306,7 +1308,7 @@ function sk_widget_init() {
 		
 		$maxpending="selectedmaxpending".$options['bl_maxpending'];
 		$$maxpending=' selected="selected"';
-		
+	
 		require("templates/sk_widgetconfig.php");
 		
 		if(!function_exists('minimax')) { ?>

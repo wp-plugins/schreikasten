@@ -119,49 +119,51 @@
 </script>
 <a name='sk_top'></a>
 <table width='100%' border='0'>
-	<tr><td width='5px'></td><td width='90%'></td><td width='90px'></td></tr><?php
+	<tr><td></td><td width='*'></td></tr><?php
 	if(sk_onlyRegistered() && $current_user->ID==0) { ?>
 	<tr>
-		<td colspan="3" id="skwarning">
+		<td colspan="2" id="skwarning">
 			<?php printf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink())); ?>.
 		</td>
 	</tr><?php } else {
 	if(sk_isBlacklisted()) {
 		if(sk_noMoreMessages2Accept()) { ?>
-	<tr><td colspan="3"><?php _e("This PC was blacklisted. At this time comments cannot be posted.", "sk"); $disabled=" disabled"; ?></td></tr><?php
+	<tr><td colspan="2"><?php _e("This PC was blacklisted. At this time comments cannot be posted.", "sk"); $disabled=" disabled"; ?></td></tr><?php
 		}
 	} ?>	
 	<?
 	if($current_user->ID==0) { ?>
 	<tr>
 		<td>Alias:</td>
-		<td colspan='2'>
+		<td>
 			<input class='sk-text' type='text' name='sk_alias' value='<?php echo $alias; ?>'/>
 		</td>
 	</tr>
 	<tr>
 		<td>Email:</td>
-		<td colspan='2'>
+		<td>
 			<input class='sk-text' type='text' name='sk_email' value='<?php echo $email; ?>'/>
 		</td>
 	</tr><?php
 	} ?>
 	<tr class='sk-for-nai' id='sk_for_tr'>
 		<td><?php _e('For', 'sk'); ?>:</td>
-			<td colspan='2'><span id='sk_for_name'></span>&nbsp;<img src="<?php echo sk_plugin_url('/img/clear.png'); ?>"  align="top" border="0" alt="" onclick='for_delete();' /><input id='sk_for_id' name='sk_for_id' type='hidden' size='5' value='0'/></td>
+		<td><span id='sk_for_name'></span>&nbsp;<img src="<?php echo sk_plugin_url('/img/clear.png'); ?>"  align="top" border="0" alt="" onclick='for_delete();' /><input id='sk_for_id' name='sk_for_id' type='hidden' size='5' value='0'/></td>
 	</tr>
 	<tr>
-		<td colspan='3' align='right'><textarea rows="" cols="" class='sk-area' name='sk_text' onkeypress="
+		<td colspan='2' align='right'><textarea rows="" cols="" class='sk-area' name='sk_text' onkeypress="
 			var key;
 			if(window.event)
-			key = window.event.keyCode;   //IE
+			        key = window.event.keyCode;   //IE
 			else
-			key = event.keyCode;
+			        key = event.keyCode;
 			if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40)  )
 			return false;"></textarea></td>
-	</tr>	
+	</tr>
+</table>
+<table width='100%'>		
 	<tr>
-		<td align="right" colspan='2' class='sk-little'><?php if($current_user->ID==0) { ?>
+		<td align="right" class='sk-little'><?php if($current_user->ID==0) { ?>
 			<?php _e('Mail will not be published', 'sk'); ?><br/><?php if ($req) _e("(but it's required)", "sk"); else _e("(but it's used for avatar)", "sk")?><?php } else { ?>
 			<?php printf(__('Loged in as %s', 'sk'), $current_user->display_name); ?>
 					<br/><a href="<?php 
@@ -174,7 +176,7 @@
 				<input name='sk_email' type='hidden' value='<?php echo $current_user->user_email; ?>'/><?php
 		} ?>
 		</td>
-		<td align="right">
+		<td align="right" width='50px'>
 			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class='sk-button' value='<?php _e('Submit', 'sk'); ?>' onclick='sk_pressButton();'/></td>
 	</tr><?php } 
 	$uri_img=sk_plugin_url('/img/loading.gif');
@@ -190,5 +192,5 @@
 		mm_get.setThrobber('throbber-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
-			printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
+			printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>

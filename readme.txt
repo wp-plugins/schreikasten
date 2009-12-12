@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 2.8.5
-Stable tag: 0.10.3
+Tested up to: 2.8.6
+Stable tag: 0.10.4
 
 A shoutbox using ajax and akismet.
 
@@ -61,6 +61,12 @@ default CSS from Wordpress and Ajax just to make it more fun.
 
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
+= Can I put a shoutbox inside a theme? =
+
+Yes, use the function __sk\_shoutbox()__ to write the html code wherever you
+need. Warning: You can not have more than one shoutbox in the same page, even if 
+one is in a sidebar and the other in the conntents.
+
 = Can I set my own CSS? =
 
 Yes. Copy the file schreikasten.css to your theme folder. The plugin will check for it.
@@ -77,6 +83,10 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.10.4 =
+* Added the function to put the Shoutbox in the theme code.
+* Solved a situation with the widget layout in IE.
 
 = 0.10.3 =
 * Now you can set your own css file (see FAQ).

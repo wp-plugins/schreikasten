@@ -1,5 +1,3 @@
-
-
 textarea.sk-area {
     width: 99%;
     height: 80px;
@@ -8,13 +6,13 @@ textarea.sk-area {
     background:#fcfcfc;
   }
 
-
 input.sk-button {
     width:50px;
     background:#4879aa;
     color:#fff;
     font-size:13px;
     border:1px #2f5c89 solid;
+    padding: 0 2px;
   }
 
 input.sk-text {
@@ -24,7 +22,6 @@ input.sk-text {
     background:#fcfcfc;
   }
 
-
 div#skname {
     width:100%;
   }
@@ -32,7 +29,6 @@ div#skname {
 td#skout {
 	width:100%;
 	}
-
 
 td#skwarning {
     width:100%;
@@ -45,7 +41,6 @@ p#skwarning {
 		border:1px solid #cbcbcb;
 		text-align: center;
   }
-
 
 img.avatar-25 {
     float : left;
@@ -174,7 +169,6 @@ tr.sk-for-yep {
 .sk-little {
 	font-size : 80%;
 }
-
 
 .sk-separate {	
 	padding-top : 8px;
