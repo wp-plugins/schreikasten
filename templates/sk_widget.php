@@ -119,7 +119,7 @@
 </script>
 <a name='sk_top'></a>
 <table width='100%' border='0'>
-	<tr><td></td><td width='*'></td></tr><?php
+	<tr><td width="20px"></td><td width="100%"></td></tr><?php
 	if(sk_onlyRegistered() && $current_user->ID==0) { ?>
 	<tr>
 		<td colspan="2" id="skwarning">
