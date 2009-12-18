@@ -1,5 +1,5 @@
 <?php
-require_once( '../../../wp-config.php' );
+require_once( '../../../../wp-config.php' );
 
 if ($_SERVER['HTTP_X_FORWARD_FOR']) {
 	$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
