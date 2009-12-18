@@ -1394,59 +1394,11 @@ function sk_widget_init() {
 	function sk_widget_control() {
 		// Get our options and see if we're handling a form submission.
 		$options = get_option('widget_sk');
+		
 		if ( !is_array($options) ) {
 			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2');
 			
 		}
-		if ( $_POST['sk-submit'] ) {
-			// Remember to sanitize and format use input appropriately.
-			$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
-			$options['items'] = $_POST['sk_items'];
-			
-			$options['avatar'] = false;
-			if($_POST['sk_avatar'])
-				$options['avatar'] = true;
-			
-			$options['registered'] = false;
-			if($_POST['sk_registered'])
-				$options['registered'] = true;
-			
-			$options['replies'] = false;
-			if($_POST['sk_replies'])
-				$options['replies'] = true;
-			
-			$options['alert_about_emails'] = false;
-			if($_POST['sk_alert_about_emails'])
-				$options['alert_about_emails'] = true;
-				
-			$options['refresh'] = $_POST['sk_refresh'];
-			$options['bl_days'] = $_POST['sk_bl_days'];
-			$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
-				
-			update_option('widget_sk', $options);
-		}
-		// Be sure you format your options to be valid HTML attributes.
-		$title = htmlspecialchars($options['title'], ENT_QUOTES);
-
-		// Here is our little form segment. Notice that we don't need a
-		// complete form. This will be embedded into the existing form.
-		$items="selected".$options['items'];
-		$$items=' selected="selected"';
-		$status=$options['avatar'];
-		$registered=$options['registered'];
-		$replies=$options['replies'];
-		$alert_about_emails=$options['alert_about_emails'];
-		
-		$refresh="selectedrefresh".$options['refresh'];
-		$$refresh=' selected="selected"';
-		
-		$days="selecteddays".$options['bl_days'];
-		$$days=' selected="selected"';
-		
-		$maxpending="selectedmaxpending".$options['bl_maxpending'];
-		$$maxpending=' selected="selected"';
-	
-		require("templates/sk_widgetconfig.php");
 		
 		if(!function_exists('minimax')) { ?>
 		<p>
@@ -1454,8 +1406,58 @@ function sk_widget_init() {
 				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</label>
 		</p><?
-		}
+		} else {
+		
+			if ( $_POST['sk-submit'] ) {
+				// Remember to sanitize and format use input appropriately.
+				$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
+				$options['items'] = $_POST['sk_items'];
+				
+				$options['avatar'] = false;
+				if($_POST['sk_avatar'])
+					$options['avatar'] = true;
+				
+				$options['registered'] = false;
+				if($_POST['sk_registered'])
+					$options['registered'] = true;
+				
+				$options['replies'] = false;
+				if($_POST['sk_replies'])
+					$options['replies'] = true;
+				
+				$options['alert_about_emails'] = false;
+				if($_POST['sk_alert_about_emails'])
+					$options['alert_about_emails'] = true;
+					
+				$options['refresh'] = $_POST['sk_refresh'];
+				$options['bl_days'] = $_POST['sk_bl_days'];
+				$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
+					
+				update_option('widget_sk', $options);
+			}
+			// Be sure you format your options to be valid HTML attributes.
+			$title = htmlspecialchars($options['title'], ENT_QUOTES);
 
+			// Here is our little form segment. Notice that we don't need a
+			// complete form. This will be embedded into the existing form.
+			$items="selected".$options['items'];
+			$$items=' selected="selected"';
+			$status=$options['avatar'];
+			$registered=$options['registered'];
+			$replies=$options['replies'];
+			$alert_about_emails=$options['alert_about_emails'];
+			
+			$refresh="selectedrefresh".$options['refresh'];
+			$$refresh=' selected="selected"';
+			
+			$days="selecteddays".$options['bl_days'];
+			$$days=' selected="selected"';
+			
+			$maxpending="selectedmaxpending".$options['bl_maxpending'];
+			$$maxpending=' selected="selected"';
+		
+			require("templates/sk_widgetconfig.php");
+		}
 	}
 
 	// This registers our widget so it appears with the other available
