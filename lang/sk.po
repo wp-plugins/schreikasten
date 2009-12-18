@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-18 08:41-0500\n"
-"PO-Revision-Date: 2009-12-18 08:42-0500\n"
+"POT-Creation-Date: 2009-12-18 18:27-0500\n"
+"PO-Revision-Date: 2009-12-18 18:27-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,106 +21,102 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: templates\n"
 
-#: add_comment.php:29
-msgid "We cannot accept messages<br>from this PC"
-msgstr ""
-
-#: schreikasten.php:390
+#: schreikasten.php:423
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr ""
 
-#: schreikasten.php:391
+#: schreikasten.php:424
 #, php-format
 msgid "Your comment : %s"
 msgstr ""
 
-#: schreikasten.php:392
+#: schreikasten.php:425
 #, php-format
 msgid "Reply comment: %s"
 msgstr ""
 
-#: schreikasten.php:396
+#: schreikasten.php:429
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr ""
 
-#: schreikasten.php:424
+#: schreikasten.php:460
 msgid "There is a new comment on Schreikasten"
 msgstr ""
 
-#: schreikasten.php:426
-#: schreikasten.php:443
+#: schreikasten.php:462
+#: schreikasten.php:480
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr ""
 
-#: schreikasten.php:427
-#: schreikasten.php:444
+#: schreikasten.php:463
+#: schreikasten.php:481
 #, php-format
 msgid "E-mail : %s"
 msgstr ""
 
-#: schreikasten.php:428
-#: schreikasten.php:445
+#: schreikasten.php:464
+#: schreikasten.php:482
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr ""
 
-#: schreikasten.php:429
-#: schreikasten.php:446
+#: schreikasten.php:465
+#: schreikasten.php:483
 #, php-format
 msgid "Comment: %s"
 msgstr ""
 
-#: schreikasten.php:430
-#: schreikasten.php:448
+#: schreikasten.php:466
+#: schreikasten.php:485
 #, php-format
 msgid "Delete it: %s"
 msgstr ""
 
-#: schreikasten.php:431
-#: schreikasten.php:449
+#: schreikasten.php:467
+#: schreikasten.php:486
 #, php-format
 msgid "Reject it: %s"
 msgstr ""
 
-#: schreikasten.php:432
-#: schreikasten.php:450
+#: schreikasten.php:468
+#: schreikasten.php:487
 #, php-format
 msgid "Spam it: %s"
 msgstr ""
 
-#: schreikasten.php:434
+#: schreikasten.php:470
 msgid "New comment on Schreikasten"
 msgstr ""
 
-#: schreikasten.php:441
+#: schreikasten.php:478
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr ""
 
-#: schreikasten.php:447
+#: schreikasten.php:484
 #, php-format
 msgid "Approve it: %s"
 msgstr ""
 
-#: schreikasten.php:452
+#: schreikasten.php:489
 msgid "Schreikasten comment to moderate"
 msgstr ""
 
-#: schreikasten.php:855
+#: schreikasten.php:950
 msgid "[reply]"
 msgstr ""
 
-#: schreikasten.php:857
+#: schreikasten.php:952
 msgid "[no sender]"
 msgstr ""
 
-#: schreikasten.php:885
+#: schreikasten.php:982
 msgid "[edit]"
 msgstr ""
 
-#: schreikasten.php:886
+#: schreikasten.php:983
 #: templates/sk_tracking.php:220
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
@@ -129,7 +125,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: schreikasten.php:888
+#: schreikasten.php:985
 #: templates/sk_tracking.php:161
 #: templates/sk_tracking.php:216
 #: templates/sk_manage.php:159
@@ -137,7 +133,7 @@ msgstr ""
 msgid "Reject"
 msgstr ""
 
-#: schreikasten.php:890
+#: schreikasten.php:987
 #: templates/sk_tracking.php:66
 #: templates/sk_tracking.php:163
 #: templates/sk_tracking.php:218
@@ -148,52 +144,53 @@ msgstr ""
 msgid "Spam"
 msgstr ""
 
-#: schreikasten.php:893
-#: schreikasten.php:957
+#: schreikasten.php:990
+#: schreikasten.php:1063
 msgid "Sending"
 msgstr ""
 
-#: schreikasten.php:993
+#: schreikasten.php:1100
 msgid "Schreikasten"
 msgstr ""
 
-#: schreikasten.php:994
+#: schreikasten.php:1101
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr ""
 
-#: schreikasten.php:1138
-#: schreikasten.php:1146
-#: schreikasten.php:1150
-#: schreikasten.php:1154
+#: schreikasten.php:1253
+#: schreikasten.php:1261
+#: schreikasten.php:1265
+#: schreikasten.php:1269
 msgid "Status changed"
 msgstr ""
 
-#: schreikasten.php:1141
+#: schreikasten.php:1256
 msgid "Comment modified"
 msgstr ""
 
-#: schreikasten.php:1158
+#: schreikasten.php:1273
 msgid "Comment deleted"
 msgstr ""
 
-#: schreikasten.php:1162
+#: schreikasten.php:1277
 msgid "PC locked forever"
 msgstr ""
 
-#: schreikasten.php:1166
+#: schreikasten.php:1281
 msgid "PC unlocked"
 msgstr ""
 
-#: schreikasten.php:1171
+#: schreikasten.php:1286
 msgid "PC locked"
 msgstr ""
 
-#: schreikasten.php:1335
+#: schreikasten.php:1406
 #: templates/sk_widget.php:196
 #: templates/sk_config.php:8
+#: templates/sk_widgetconfig.php:5
 #, php-format
-msgid "You have to install <a href=\"%s\"  target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
+msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.2</a> in order for this plugin to work"
 msgstr ""
 
 #: templates/sk_tracking.php:60
@@ -524,69 +521,69 @@ msgstr ""
 msgid "Set API Key"
 msgstr ""
 
-#: templates/sk_config.php:24
+#: templates/sk_config.php:25
 msgid "API Key is valid"
 msgstr ""
 
-#: templates/sk_config.php:26
+#: templates/sk_config.php:28
 msgid "API Key is not valid"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:3
+#: templates/sk_widgetconfig.php:12
 msgid "Title:"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:11
+#: templates/sk_widgetconfig.php:20
 msgid "Show Avatar"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:18
+#: templates/sk_widgetconfig.php:27
 msgid "Registered users only"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:25
+#: templates/sk_widgetconfig.php:34
 msgid "Allow replies"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:32
+#: templates/sk_widgetconfig.php:41
 msgid "Alert users about posting emails in their comments"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:38
+#: templates/sk_widgetconfig.php:47
 msgid "Items per page"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:54
+#: templates/sk_widgetconfig.php:63
 msgid "Refresh rate"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:54
+#: templates/sk_widgetconfig.php:63
 msgid "(this option is in an early stage, take caution)"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:56
+#: templates/sk_widgetconfig.php:65
 msgid "Never"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:57
-#: templates/sk_widgetconfig.php:58
-#: templates/sk_widgetconfig.php:59
+#: templates/sk_widgetconfig.php:66
+#: templates/sk_widgetconfig.php:67
+#: templates/sk_widgetconfig.php:68
 msgid "seconds"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:66
+#: templates/sk_widgetconfig.php:75
 msgid "Max days to hold a PC blacklisted"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:73
+#: templates/sk_widgetconfig.php:82
 msgid "Forever"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:80
+#: templates/sk_widgetconfig.php:89
 msgid "Max pending messages from blacklisted PC"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:82
+#: templates/sk_widgetconfig.php:91
 msgid "None"
 msgstr ""
 
@@ -682,5 +679,9 @@ msgstr ""
 
 #: templates/sk_comment.php:50
 msgid "Email"
+msgstr ""
+
+#: ajax/add_comment.php:29
+msgid "We cannot accept messages<br>from this PC"
 msgstr ""
 

@@ -193,5 +193,5 @@
 		mm_get.setThrobber('throbber-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
-			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/" );
+			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>
