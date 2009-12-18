@@ -5,7 +5,7 @@
 			<?php
 			if(!(function_exists('minimax') && minimax_version()==0.2)) { ?>
 			<tr><td colspan="3">
-					<?php printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</td></tr><?
 } ?>
 			<tr>
@@ -20,10 +20,13 @@
 				if(strlen(get_option('sk_api_key'))==0) {
 					echo "<td colspan=3 align='center' bgcolor='#FF0000'><strong>".__("Set API Key", 'sk')."</strong></td>";
 				} else {
-					if(sk_verify_key()) 
-							echo "<td colspan=3 align='center' bgcolor='#00FF00'><strong>".__("API Key is valid", 'sk')."</strong></td>";
-					else 
-							echo "<td colspan=3 align='center' bgcolor='#FF0000'><strong>".__("API Key is not valid", 'sk')."</strong></td>";
+					if(sk_verify_key()) {
+						update_option('sk_api_key_accepted',true);
+						echo "<td colspan=3 align='center' bgcolor='#00FF00'><strong>".__("API Key is valid", 'sk')."</strong></td>";
+					} else {
+						update_option('sk_api_key_accepted',false); 
+						echo "<td colspan=3 align='center' bgcolor='#FF0000'><strong>".__("API Key is not valid", 'sk')."</strong></td>";
+					}
 				}?>
 			</tr>
 		</table>	

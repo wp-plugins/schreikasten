@@ -3,26 +3,26 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.10.4.1
+Version: 0.10.4.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
 
-/*  Copyright 2008-2009  Sebaxtian  (email : sebaxtian@gawab.com)
+/* Copyright 2008-2009 Sebaxtian (email : sebaxtian@gawab.com)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
 define ("SK_NOT_FILTERED", 0);
@@ -35,23 +35,18 @@ define ("SK_BLOCKED", -1);
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 
-add_action('init', 'sk_textdomain');
-add_action('init', 'sk_cookieID');
+add_action('init', 'sk_text_domain');
+add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_schreikasten/schreikasten.php', 'sk_activate');
 
 /**
-  * Sends a POST request
-  *
-  * @param string request
-  * @param string host
-  * @param string path
-  * @param int port
-  * @return string
-  * @access public
-  */
-	
+* Function to add the required data to the header in the site.
+* This function should be called by an action.
+*
+* @access public
+*/
 function sk_header() {
 	$css = get_theme_root()."/".get_template()."/schreikasten.css";
 	if(file_exists($css)) {
@@ -60,10 +55,20 @@ function sk_header() {
 		echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
 	}
 }
-
-function sk_cookieID() {
+ 
+/**
+* Returns the ID of the PC who is makeing the call. If there isn't an assigned
+* cookie create one.
+* This function is public but an action call it too.
+*
+* @access public
+*/
+function sk_cookie_id() {
 	$answer=0;
+	
+	// If there isn't a cookie, create one
 	if(!$_COOKIE['sk-id']) {
+		//Positive numbers are for logged users, negative for cookies
 		@setcookie("sk-id", (mt_rand())*-1, time()+3600*24*365*10,"/","");
 	} else {
 		$answer=$_COOKIE['sk-id'];
@@ -72,6 +77,15 @@ function sk_cookieID() {
 	return $answer;
 }
 
+/**
+* Function to do a post request. This function is used by the antispam system, akismet.
+*
+* @access public
+* @param string request The post request
+* @param string host The server for whom we call
+* @param string path The URL to ask in the server
+* @param int port The port number. Optional, it uses the HTTP port by default
+*/
 function sk_http_post($request, $host, $path, $port = 80) {
 	global $sk_user_agent;
 	$http_request  = "POST $path HTTP/1.0\r\n";
@@ -95,14 +109,15 @@ function sk_http_post($request, $host, $path, $port = 80) {
 }
 
 /**
-  * Verify Akismet Key
-  *  
-  * @return bool
-  * @access public
-  */
-
+* Verify Akismet Key
+*
+* @return bool
+* @access public
+*/
 function sk_verify_key( ) {
 	$answer=false;
+	
+	//Ask if the key is asigned to this host
 	$key=get_option('sk_api_key');
 	$blog = urlencode( get_option('home') );
 	if(strlen(get_option('sk_api_key'))!=0) {
@@ -115,23 +130,23 @@ function sk_verify_key( ) {
 }
 
 /**
-  * Function to use i18n
-  *  
-  * @access public
-  */
-
-function sk_textdomain() {
+* To declare where are the mo files (i18n).
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_text_domain() {
 	load_plugin_textdomain('sk', 'wp-content/plugins/schreikasten/lang');
 }
 
 /**
-  * Returns plugin's path.
-  *
-  * @param string str Path to append
-  * @return string
-  * @access public
-  */
-
+* Function to return the url of the plugin concatenated to a string. The idea is to
+* use this function to get the entire URL for some file inside the plugin.
+*
+* @access public
+* @param string str The string to concatenate
+* @return The URL of the plugin concatenated with the string 
+*/
 function sk_plugin_url($str = '')
 {
 	$dir_name = '/wp-content/plugins/schreikasten';
@@ -140,13 +155,12 @@ function sk_plugin_url($str = '')
 }
 
 /**
-	* Indicates if only registered user can add comments.
-	*
-	* @return bool
-	* @access public
-	*/
-
-function sk_onlyRegistered()
+* Indicates if only registered user can add comments.
+*
+* @return bool
+* @access public
+*/
+function sk_only_registered_users()
 {
 	$answer=false;
 	$options = get_option('widget_sk');	
@@ -155,84 +169,109 @@ function sk_onlyRegistered()
 	return $answer;
 }
 
+/**
+* Returns the avatar using the comment id
+*
+* @access public
+* @param int id Comment's id
+* @param int size Size of the avatar image
+* @return string The avatar image
+*/
 function sk_avatar($id, $size) {
 	global $wpdb;
 	$answer="";
+	
+	//Get the email, user id and alias for the comment
 	$table_name = $wpdb->prefix . "schreikasten";
 	$data = $wpdb->get_row("select user_id, alias, email from $table_name where id=$id");
 	$alias=$data->alias;
 	$email=$data->email;
 	$user_id=$data->user_id;
-		
-	if($user_id>0) {
+	
+	if($user_id>0) { //If user id is greater than 0, it means this is a registered user
 		$answer=get_avatar($user_id,$size);
 	} else {
-		if($email=="") {
+		if($email=="") { //If we don't have an email, use the alias
 			$answer=get_avatar($alias,$size);
 		} else {
-			$answer=get_avatar($email,$size);
+			$answer=get_avatar($email,$size); //else, use the email
 		}
 	}
 	return $answer;
 }
 
 /**
-  * Returns HTML for 'page selector' footer
-  *
-  * @param int group Which group are we showing?
-  * @return string
-  * @access public
-  */
-
+* Returns HTML for 'page selector' footer
+*
+* @param int group Which group are we showing?
+* @return string
+* @access public
+*/
 function sk_page_selector($group=1) {
 	global $wpdb;
 	$uri_sk=sk_plugin_url('/content.php?page');
 	$answer="";
-	$total_groups=3;
+	$total_groups=3; //We will show only 3 groups
 	$style_actual_group="color : #000000;";
 	$style_no_actual_group="";
 	$first_item= "&#171;";
 	$last_item= "&#187;";
 	
+	// Get the number of comments we have
 	$table_name = $wpdb->prefix . "schreikasten";
 	$sql="SELECT count(*) FROM $table_name WHERE status=".SK_HAM;
 	$total = $wpdb->get_var($sql);
 	$options = get_option('widget_sk');
 	$size=$options['items'];
 	
+	//Get the number of groups we have
 	$groups=ceil($total/$size);
 	
+	//By default we start with the first group and end with the number of groups
+	//With this we define the interval to show
 	$group_start=1;
 	$group_end=$total_groups;
 	
+	//A number to determine thye groups to show
 	$group_limit=ceil($total_groups/2)-1;
 
+	//If the number of groups is lesser or equar than the number of groups to show
 	if($groups<=$total_groups) {
-		$group_end=$groups;
+		$group_end=$groups; //The start group is 1,and the end group is the number of groups
 	} else {
-		if($groups-$group<=$group_limit) {
-			$group_start=$groups-$total_groups+1;
-			$group_end=$groups;
+		if($groups-$group<=$group_limit) {	// If the difference between the total groups 
+														// to show and the group we are showing is 
+														// lesser or equal to the group limit.
+														// It means we are so close to the end so we have to 
+														// show the total number of groups at the end and
+														// calculate the begin 
+			$group_start=$groups-$total_groups+1; //The start group is the groups minus the total groups to show pluss 1 
+			$group_end=$groups; // The end group is the number of groups
 		} else {
-			if($group>$group_limit) {
-				$group_start=$group-$group_limit;
-				$group_end=$group+$group_limit;
+			if($group>$group_limit) { 	// If the group to show is greater than the group limit. 
+												// It means we are far away from the begin so we can 
+												// show calculate the list and set the group in the middle.
+				$group_start=$group-$group_limit; //The start is the group to show minus the group limit
+				$group_end=$group+$group_limit; //The end is the group to show plus the group limit
 			}
 		}
 	}
 	
+	//The timer system (experimental)
 	$timer="";
 	if($options['refresh']>0) {		
 		$timer="\nsk_timer();";
 	}
 
+	//If the list doesn't start from 1, create a link to go to the benginig
 	if($group_start!=1) {
 		$answer.="<a style='cursor : pointer;' onclick=\"
 				document.getElementsByName('sk_page')[0].value=1;
 				$timer
 				mm_get.post('page=1');\">$first_item</a> &#183; ";
 	}
-
+	
+	//Create the page list and the links
 	for($group_id=$group_start; $group_id<=$group_end; $group_id++) {
 		$style=$style_no_actual_group;
 		if($group_id==$group) {
@@ -244,6 +283,7 @@ function sk_page_selector($group=1) {
 				mm_get.post('page=$group_id');\">$group_id</a> &#183; ";
 	}
 
+	//If the list doesn't finish with the last group, create a link to the end
 	if($group_end!=$groups) {
 	$answer.="<a style='cursor : pointer;'
 			 onclick=\"
@@ -252,16 +292,17 @@ function sk_page_selector($group=1) {
 			mm_get.post('page=$groups');\">$last_item</a> &#183; ";
 	}
 
+	//As every link ends with a line, delete the last one as we don't need it
 	$answer = substr($answer,0,-8);
 	return "<br/><div id='throbber-page' class='off'><small>$answer</small></div>";
 }
 
 /**
-  * Function to create the database and to add options into WordPress
-  *
-  * @access public
-  */
-
+* Function to create the database and to add options into WordPress.
+* This function should be called by an action.
+*
+* @access public
+*/
 function sk_activate()
 {
 	global $wpdb;
@@ -270,7 +311,7 @@ function sk_activate()
 	$blacklist_name = $wpdb->prefix . "schreikasten_blacklist";
 	$db_version=get_option('sk_db_version');
 	switch($db_version) {
-	case 1:
+	case 1: //SQL code to update from SK1 to SK3
 		$sql="ALTER TABLE $table_name ADD user_id int NOT NULL"; 
 		$wpdb->query($sql);
 		$sql="ALTER TABLE $table_name ADD email tinytext NOT NULL";
@@ -286,14 +327,14 @@ function sk_activate()
 		dbDelta($sql);
 		update_option('sk_db_version', 3);
 		break;
-	case 2:
+	case 2: //SQL code to update from SK2 to SK3
 		$sql="ALTER TABLE $table_name ADD reply int NOT NULL"; 
 		$wpdb->query($sql);
 		update_option('sk_db_version', 3);
 		break;
-	case 3:
+	case 3: //We are in SK3, so theres nothing we have to do
 		break;
-	default:
+	default: //It's a fress installation, create the table.
 		if($wpdb->get_var("show tables like '$table_name'") != $table_name)
 		{
 	
@@ -327,44 +368,59 @@ function sk_activate()
 		}
 		add_option('sk_db_version', 3);
 		add_option('sk_api_key', '');
+		add_option('sk_api_key_accepted', false);
+		sk_verify_key( ); //if we have an old sk_api_key, verify it;
 		break;
 	}
 }
 
 /**
-  * Function to delete a Comment
-  *
-  * @param int id Comment's id
-  * @return bool
-  * @access public
-  */
-
-function sk_deleteComment($id) {
+* Function to delete a Comment
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
+function sk_delete_comment($id) {
 	global $wpdb;
+	
+	//Delete the comment
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query = "DELETE FROM " . $table_name ." WHERE id=" . $id;
 	$answer1=$wpdb->query( $query );
 	return $answer1;
 }
 
+/**
+* Sends an email to the author of a comment it has a reply.
+* Return true if the email was send.
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
 function sk_reply($id) {
 	global $wpdb;
 	$answer=false;
+	
+	//Get the 'from' data
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
 	$from = $wpdb->get_row($query);
 	
+	//If we have the 'from' data
 	if($from->reply!=0) {
-	
+		//Get the 'for' data
 		$query="SELECT * FROM " . $table_name ." WHERE id=".$from->reply;
 		$for = $wpdb->get_row($query);
 		
 		$website=get_option('blogname');
 		$url=get_option('home');
 		
+		//Create the mail and send it
 		if($for->email!="" && $from->status!=SK_SPAM) {
 			$email=$for->email;
-			$notify_message  = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
+			$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
 			$notify_message .= sprintf(__('Your comment : %s', 'sk'), $for->text ) . "\r\n\r\n";
 			$notify_message .= sprintf(__('Reply comment: %s', 'sk'), $from->text ). "\r\n\r\n";
 			
@@ -381,12 +437,23 @@ function sk_reply($id) {
 	return $answer;
 }
 
+/**
+* Sends an email to the admin, indicatingthere is a new comment and if it needs to be moderated.
+* Return true if the email was send.
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
 function sk_inform($id) {
 	global $wpdb;
+	
+	//Get the comment data
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
 	$comment = $wpdb->get_row($query);
 	
+	//If it was accepted create the information email
 	if($comment->status==SK_HAM) {
 		if(get_option('comments_notify')) {
 			$admin_email = get_option('admin_email');
@@ -404,6 +471,7 @@ function sk_inform($id) {
 		}
 	}
 	
+	//If it waits for moderation, create the information email
 	if($comment->status==SK_MOOT) {
 		if(get_option('moderation_notify')) {
 			$admin_email = get_option('admin_email');
@@ -425,50 +493,65 @@ function sk_inform($id) {
 }
 
 /**
-  * Function to add a Comment. If Akismet is working ask akismet, else mark as Ham.
-  *
-  * @param string alias Who comments?
-  * @param string text Comment's text
-  * @param string ip 
-  * @return bool
-  * @access public
-  */
-
-function sk_addComment($alias, $email, $text, $ip, $for)
-{
+* Function to add a Comment. If Akismet is working ask akismet, else mark as Ham.
+*
+* @param string alias Who comments?
+* @param string text Comment's text
+* @param string ip 
+* @return bool
+* @access public
+*/
+function sk_add_comment($alias, $email, $text, $ip, $for) {
 	global $wpdb;
 	global $current_user;
 	$options = get_option('widget_sk');
 	get_currentuserinfo();
 	
-	$user_id=0;
+	//If the sender is logged use it's internal id
+	$user_id=0; //Positive for logged users, negative for cookies, 0 for anonymous
 	if($current_user->ID>0) {
 		$user_id=$current_user->ID;
-	} else {
-		$user_id=sk_cookieID();
+	} else { //else, use the cookie
+		$user_id=sk_cookie_id();
 	}
 	
-	$answer=false;
+	$answer=false;	
 	
-	$time=current_time('mysql');
+	//If we can only accept messages for registered user and this is a registered user
+	//or we can accept for not registered users
+	//and in general this user can send more messages, accept the comment
+	if( ( ( sk_only_registered_users() && $user_id>0 ) || !sk_only_registered_users() ) && !sk_can_not_accept_more_messages($user_id) ) {
 	
-	if($user_id!=0) {
-		if(strlen($alias)>0 && strlen($text)>0) {
-			$table_name = $wpdb->prefix . "schreikasten";
-			$insert = "INSERT INTO " . $table_name .
-				" (alias, text, date, ip, status, user_id, email, reply) " .
-				"VALUES ('$alias', '$text', '$time', '$ip', ".SK_MOOT.", $user_id, '$email', $for)";
-			if($answer = $wpdb->query( $insert )) {
-				$id = $wpdb->get_var("select last_insert_id()");
-				$answer=$id;
-				$spam=false; 
-				if(sk_verify_key()) {
-					$spam=sk_isSpam($id);
-				}
-				
-				if(!$spam) {
-					if(!sk_isBlacklisted() && 1 != get_option('comment_moderation') && $user_id != 0) {
-						sk_markHam($id);
+		$time=current_time('mysql');
+		
+		//if someone logged or with a cooki sends it
+		if($user_id!=0) {
+			if(strlen($alias)>0 && strlen($text)>0) { //If we have a name and a text
+				$table_name = $wpdb->prefix . "schreikasten";
+				$insert = "INSERT INTO " . $table_name .
+					" (alias, text, date, ip, status, user_id, email, reply) " .
+					"VALUES ('$alias', '$text', '$time', '$ip', ".SK_MOOT.", $user_id, '$email', $for)";
+				//Add the comment, mark it to moderate
+				if($answer = $wpdb->query( $insert )) { //If the comment was accepted
+					$id = $wpdb->get_var("select last_insert_id()");
+					$answer=$id;
+					$spam=false; 
+					//if(sk_verify_key()) {
+					if(get_option('sk_api_key_accepted')) { //If we have a verified key
+						$spam=sk_is_spam($id); //Check if this comment is spam
+					}
+					
+					if(!$spam) { //If it is not spam
+						//If the owner is not in the blacklist 
+						//and we do not require to moderate
+						//and it is not an anonymous,
+						//accept the message
+						if(!sk_is_blacklisted() && 1 != get_option('comment_moderation') && $user_id != 0) {
+							//sk_mark_as_ham($id); //accept the message
+							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
+							$answer = $wpdb->query( $query );
+							sk_reply($id); //send the reply, if it has one
+						}
 					}
 				}
 			}
@@ -478,49 +561,53 @@ function sk_addComment($alias, $email, $text, $ip, $for)
 }
 
 /**
-	* Update blacklist. Release PC listed with more than the max days accepted.
-	*
-	* @access public
-	*/
-
-function sk_updateBlacklist() {
+* Update blacklist. Release PC listed with more than the max days accepted.
+*
+* @access public
+*/
+function sk_blacklist_update() {
 	global $wpdb;
 	$options = get_option('widget_sk');
 	$days=0;
+	
+	//get the max number of days to be blacklisted
 	if(is_array($options)) {
 		$days=$options['bl_days'];
 	}
 	if($days!=0) {
 		$table_name = $wpdb->prefix . "schreikasten_blacklist";
+		//Delete any pc blacklisted wich aren't marked to be blacklisted forever 
+		//and with a mark older than the days accepted
 		$query="DELETE FROM " . $table_name ." WHERE forever=0 AND date <= NOW() - INTERVAL ".$days." DAY";
 		$wpdb->query( $query );
 	}
 }
 
 /**
-	* Return the id of the block, or false if PC is not blacklisted. Without 
-	* parameter checks cookies
-	*
-	* @param int pc PC to check. Withoput parameter use cookie
-	* @return int
-	* @access public
+* Return the id of the block, or false if PC is not blacklisted. Without 
+* parameter checks cookies
+*
+* @param int pc PC to check. Withoput parameter use cookie
+* @return int
+* @access public
 */
-
-function sk_isBlacklisted($pc=false) {
+function sk_is_blacklisted($pc=false) {
 	global $wpdb;
 	global $current_user;
 	$answer=false;
 	
+	//use the current pc id (or user id) if the function didn't get the variable
 	if(!$pc) {
 		get_currentuserinfo();
 		$pc=0;
 		if($current_user->ID>0) {
 			$pc=$current_user->ID;
 		} else {
-			$pc=sk_cookieID();
+			$pc=sk_cookie_id();
 		}
 	}
 
+	//Check if the PC is in the blacklist
 	$table_name = $wpdb->prefix . "schreikasten_blacklist";
 	$query="SELECT COUNT(*) FROM " . $table_name ." WHERE pc = ".$pc;
 	$total=$wpdb->get_var( $query );
@@ -532,33 +619,38 @@ function sk_isBlacklisted($pc=false) {
 }
 
 /**
-	* Return true if PC can's send  more comments to be accepted
-	*
-	* @param int pc PC to check. Withoput parameter use cookie
-	* @return bool
-	* @access public
-	*/
-
-function sk_noMoreMessages2Accept($pc=false) {
+* Return true if this PC can't send more comments to be accepted
+*
+* @param int pc PC to check. Withoput parameter use cookie
+* @return bool
+* @access public
+*/
+function sk_can_not_accept_more_messages($pc=false) {
 	global $wpdb;
 	global $current_user;
 	$answer=false;
 	$options = get_option('widget_sk');
+	
+	//max number of messages a blacklisted pc can send
 	$max=$options['bl_maxpending'];
 	
+	//use the current pc id (or user id) if the function didn't get the variable
 	if(!$pc) {
 	get_currentuserinfo();
 	$pc=0;
 	if($current_user->ID>0) {
 				$pc=$current_user->ID;
 			} else {
-			$pc=sk_cookieID();
+			$pc=sk_cookie_id();
 			}
 	}
 	
+	//get the numbr of messages a pc (or user) have pending from moderation
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status = ".SK_MOOT." AND user_id = ".$pc;
 	$total=$wpdb->get_var( $query );
+	
+	//if it has more or equal, inform this user can't send more comments
 	if($total>=$max) {
 		$answer=true;
 	}
@@ -566,21 +658,22 @@ function sk_noMoreMessages2Accept($pc=false) {
 }
 
 /**
-  * Marks comment as spam and send message to Akismet
-  *
-  * @param int id Comment's id
-  * @return bool
-  * @access public
-  */
-
-function sk_markSpam($id) {
+* Marks comment as spam and send message to Akismet
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
+function sk_mark_as_spam($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="UPDATE " . $table_name ." SET status='".SK_SPAM."' WHERE id=".$id;
 	$answer1=$wpdb->query( $query );
 	
-	if(sk_verify_key()) {
+	//if(sk_verify_key()) {
+	if(get_option('sk_api_key_accepted')) { //if we have an accepted key
 		global $sk_user_agent;
+		//Get the data for akismet
 		$key=get_option('sk_api_key');
 		$blog = urlencode( get_option('home') );
 		$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
@@ -589,10 +682,14 @@ function sk_markSpam($id) {
 		$ip=$comment->ip;
 		$comment_author=$comment->alias;
 		$comment_content=$comment->text;
+		
+		//create the post request
 		$path = "blog=$blog&user_ip=$ip&user_agent=$sk_user_agent&comment_author=$comment_author&comment_content=$comment_content";
+		//do we have an email?
 		if($comment->email!="") {
 			$path.="&comment_author_email=".$comment->email;
 		}
+		//ask and wait for the answer
 		$response = sk_http_post($path, $key.'.rest.akismet.com', '/1.1/submit-spam');
 	}
 	
@@ -600,14 +697,13 @@ function sk_markSpam($id) {
 }
 
 /**
-	* Marks comment as blacklisted
-	*
-	* @param int id Comment's id
-	* @return bool
-	* @access public
+* Marks comment as blacklisted
+*
+* @param int id Comment's id
+* @return bool
+* @access public
 */
-
-function sk_markBlack($id) {
+function sk_mark_as_black($id) {
 	global $wpdb;
 	$answer2=true;
 	$table_name = $wpdb->prefix . "schreikasten";
@@ -624,11 +720,13 @@ function sk_markBlack($id) {
 		$query="SELECT date FROM " . $table_name ." WHERE id=".$id;
 		$date=$wpdb->get_var($query);
 		//Is pc blacklisted?
-		if(sk_isBlacklisted($pc)) {
+		if(sk_is_blacklisted($pc)) {
+			//Update the PC so the new blacklist date is the actual date if the blacklist date is older than
+			//the one in the list.
 			$sql="UPDATE $blacklist_name SET date='$date' WHERE pc=$pc AND date<'$date'";
 			$wpdb->query( $sql );
 		} else {
-			//Get date
+			//Add the PC to the blacklist
 			$insert = "INSERT INTO " . $blacklist_name .
 				" (pc, date, forever) " .
 				"VALUES ('$pc', '$date', 0)";
@@ -640,14 +738,13 @@ function sk_markBlack($id) {
 }
 
 /**
-  * Marks comment as ham and send message to Akismet
-  *
-  * @param int id Comment's id
-  * @return bool
-  * @access public
-  */
-
-function sk_markHam($id) {
+* Marks comment as ham and send message to Akismet
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
+function sk_mark_as_ham($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$status = sk_status($id);
@@ -657,8 +754,10 @@ function sk_markHam($id) {
 	
 	// Send SPAM mark to Akismet if there is an API key and
 	// the comment was marked as SPAM
-	if(sk_verify_key() && $status==SK_SPAM) {
+	//if(sk_verify_key() && $status==SK_SPAM) {
+	if(get_option('sk_api_key_accepted') && $status==SK_SPAM) {
 		global $sk_user_agent;
+		//Get the data to send to akismet
 		$key=get_option('sk_api_key');
 		$blog = urlencode( get_option('home') );
 		$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
@@ -667,7 +766,15 @@ function sk_markHam($id) {
 		$ip=$comment->ip;
 		$comment_author=$comment->alias;
 		$comment_content=$comment->text;
+
+		//Create the post request
 		$path = "blog=$blog&user_ip=$ip&user_agent=$sk_user_agent&comment_author=$comment_author&comment_content=$comment_content";
+		//do we have an email?
+		if($comment->email!="") {
+			$path.="&comment_author_email=".$comment->email;
+		}
+		
+		//ask and wait for the anser
 		$response = sk_http_post($path, $key.'.rest.akismet.com', '/1.1/submit-ham');
 	}
 	
@@ -681,7 +788,6 @@ function sk_markHam($id) {
 * @return bool
 * @access public
 */
-
 function sk_status($id) {
 	global $wpdb;
 	global $sk_user_agent;
@@ -696,16 +802,17 @@ function sk_status($id) {
 }
 
 /**
-  * Ask Akismet if the comment is spam
-  *
-  * @param int id Comment's id
-  * @return bool
-  * @access public
-  */
-
-function sk_isSpam($id) {
+* Ask Akismet if the comment is spam
+*
+* @param int id Comment's id
+* @return bool
+* @access public
+*/
+function sk_is_spam($id) {
 	global $wpdb;
 	global $sk_user_agent;
+	
+	//Get the data for akismet
 	$key=get_option('sk_api_key');
 	$blog = urlencode( get_option('home') );
 	$table_name = $wpdb->prefix . "schreikasten";
@@ -715,12 +822,22 @@ function sk_isSpam($id) {
 	$ip=$comment->ip;
 	$comment_author=$comment->alias;
 	$comment_content=$comment->text;
+	
+	//Create the post request
 	$path = "blog=$blog&user_ip=$ip&user_agent=$sk_user_agent&comment_author=$comment_author&comment_content=$comment_content";
+	//do we have an email?
+	if($comment->email!="") {
+		$path.="&comment_author_email=".$comment->email;
+	}
+	
+	//ask and wait for the answer
 	$response = sk_http_post($path, $key.'.rest.akismet.com', '/1.1/comment-check');
 	$answer=true;
+
+	//If the comment isn't spam, all righty then
 	if ( 'false' == $response[1] ) {
 		$answer=false;
-	} else {
+	} else { //SPAM!!!!! Mark the comment as spam now!!!!!!
 		$query="UPDATE " . $table_name ." SET status=".SK_SPAM." WHERE id=".$id;
 		$wpdb->query( $query );
 	}
@@ -728,12 +845,11 @@ function sk_isSpam($id) {
 }
 
 /**
-  * Deletes all comments marked as spam.
-  *
-  * @access public
-  */
-
-function sk_deleteSpam() {
+* Deletes all comments marked as spam.
+*
+* @access public
+*/
+function sk_delete_spam() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$sql = "DELETE FROM " . $table_name ." WHERE status=" . SK_SPAM;
@@ -741,18 +857,17 @@ function sk_deleteSpam() {
 }
 
 /**
-  * How many elements in list? With argument return the numbers in
-	* with status, without argument return total number of comments.
-  *
-	* @param int status
-  * @return int
-  * @access public
-  */
-
+* How many elements in list? Without argument return total number of comments. You can use
+* SK_HAM for accpeted, SK_SPAM for spam, and SK_MOOT for comments to be moderated.
+*
+* @param int status
+* @return int
+* @access public
+*/
 function sk_count($status=false) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
-	$sql="SELECT  count(*) FROM " . $table_name; 
+	$sql="SELECT count(*) FROM " . $table_name; 
 	if($status)
 		$sql.=" WHERE status=$status";
 	$total = $wpdb->get_var($sql);
@@ -760,15 +875,14 @@ function sk_count($status=false) {
 }
 
 /**
-  * Edit comment
-  *
-  * @param int id Comment's id
-  * @param string alias Who send the comment
-  * @param string text Comment's content
-  * @access public
-  */
-
-function sk_editComment($id, $alias, $email, $text) {
+* Edit comment
+*
+* @param int id Comment's id
+* @param string alias Who send the comment
+* @param string text Comment's content
+* @access public
+*/
+function sk_edit_comment($id, $alias, $email, $text) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="UPDATE " . $table_name ." SET alias='".$alias."', email= '".$email."', text='".$text."' WHERE id=".$id;
@@ -776,13 +890,12 @@ function sk_editComment($id, $alias, $email, $text) {
 }
 
 /**
-	* Lock a PC forever
-	*
-	* @param int id block's id
-	* @access public
-	*/
-
-function sk_foreverLock($id) {
+* Lock a PC forever
+*
+* @param int id block's id
+* @access public
+*/
+function sk_lock_forever($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten_blacklist";
 	$query="UPDATE " . $table_name ." SET forever=1 WHERE id=".$id;
@@ -790,12 +903,11 @@ function sk_foreverLock($id) {
 }
 
 /**
-	* Unlock a PC
-	*
-	* @param int id block's id
-	* @access public
-	*/
-
+* Unlock a PC
+*
+* @param int id block's id
+* @access public
+*/
 function sk_unlock($id) {	
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten_blacklist";
@@ -803,7 +915,14 @@ function sk_unlock($id) {
 	return $wpdb->query($query);
 }
 
-function sk_formatComment($comment,$throbber=false) {
+/**
+* Format a comment to be displayed in the shoutbox
+*
+* @access public
+* @param objetc comment The comment
+* @param sending Is this the comment we are sending?
+*/
+function sk_format_comment($comment,$sending=false) {
 	global $current_user;
 	
 	$answer = "";
@@ -812,8 +931,8 @@ function sk_formatComment($comment,$throbber=false) {
 	
 	get_currentuserinfo();
 	
+	//check if this user can administrate
 	$sk_canmannage=false;
-	
 	if($current_user) {
 		$capabilities=$current_user->wp_capabilities;
 		if($capabilities['administrator']) {
@@ -822,9 +941,11 @@ function sk_formatComment($comment,$throbber=false) {
 	}
 	
 	$options = get_option('widget_sk');
+	
+	//If we can reply a message, create the reply system 
 	if($options['replies']) {
 		$for=" ";
-		if(!$throbber) {
+		if(!$sending) {
 			if($comment->email!="") {
 				$for.="<a href='#sk_top' onclick='javascript:for_set(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
 			} else {
@@ -833,6 +954,7 @@ function sk_formatComment($comment,$throbber=false) {
 		}
 	}
 	
+	//The classes for coloring the comments (used only if we are sending this comment)
 	$class="sk-userdata-user";
 	$divClass='sk-comment';
 	if($comment->status==SK_SPAM) {
@@ -846,6 +968,7 @@ function sk_formatComment($comment,$throbber=false) {
 	}
 		
 	$mannage = "";
+	//If the user can mannage, set the mannage system inside the comment
 	if($sk_canmannage) {
 		$class="sk-userdata-admin";
 		if($comment->status==SK_SPAM) {
@@ -861,8 +984,8 @@ function sk_formatComment($comment,$throbber=false) {
 		if($comment->user_id!=0) {
 			$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_black&id=$id"))."'>". __('Reject', 'sk') . "</a> | ";
 		}
-		$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_spam&id=$id"))."'>".  __('Spam', 'sk') . "</a><br/>";
-		if($throbber) {
+		$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_spam&id=$id"))."'>". __('Spam', 'sk') . "</a><br/>";
+		if($sending) {
 			$mannage="<br/>";
 			$edit = "[ ".__('Sending', 'sk')." ]";
 		}
@@ -870,12 +993,16 @@ function sk_formatComment($comment,$throbber=false) {
 	
 	$avatar="";
 	$item="";
+	
+	//Get the avatar using the specific size
 	if($options['avatar']) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
 	$comment_text=apply_filters('comment_text', $comment->text);
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
+	
+	//Create the comment text
 	$item.="<div style='min-height: ".$av_size."px;' class='$class'>".
 			$avatar.
 			"<strong>".$comment->alias."</strong>
@@ -887,11 +1014,12 @@ function sk_formatComment($comment,$throbber=false) {
 			<div style='clear: both;'></div>
 		</div>";
 	
+	//if we show avatars, use the images
 	if($options['avatar']) {
 		$answer.="\n<div class='$divClass'>
 		$item
 		</div>";
-	} else {
+	} else { //else, it's a list item
 		$answer.="\n<li class='$divClass'>
 				$item
 				</li>";
@@ -900,15 +1028,15 @@ function sk_formatComment($comment,$throbber=false) {
 }
 
 /**
-  * Returns HTML for contents to show
-  *
-  * @param int page Which group are we showing?
-  * @param int id If this comment is marked as SPAM show it 
-  * @return string
-  * @access public
-  */
+* Returns HTML for contents to show
+*
+* @param int page Which group are we showing?
+* @param int id If this comment is marked as SPAM show it 
+* @return string
+* @access public
+*/
 
-function sk_showComments($page=1,$id=false)
+function sk_show_comments($page=1,$id=false)
 {
 	global $wpdb;
 	
@@ -916,28 +1044,32 @@ function sk_showComments($page=1,$id=false)
 	$size=$options['items'];
 	$first=(($page-1)*$size);
 	$table_name = $wpdb->prefix . "schreikasten";
+	
+	//Get the comments to show
 	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
 	$comments = $wpdb->get_results($sql);
-	
+
+	//if we don't show avatars, then it's a list	
 	if(!$options['avatar']) $answer="<ul>";
 	
 	$av_size=32;
 	
 	//The throbber div
 	
+	//Create the throbber div
 	$aux = "";
 	$aux->alias = "<span id='th_sk_alias'></span>";
 	$aux->text = "<span id='th_sk_text'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer= "<div id='throbber-img' class='off'>".sk_formatComment($aux,true)."</div>";
+	$answer= "<div id='throbber-img' class='off'>".sk_format_comment($aux,true)."</div>";
 
-	//Get id comment
+	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
 		$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE id=$id";
 		$idComments = $wpdb->get_results($sql);
-		//If it's spam add it at the begginning.
 		foreach($idComments as $idComment) {
+			//If it's spam add it at the begginning.
 			if($idComment->status==SK_SPAM || $idComment->status==SK_MOOT) {
 				array_unshift($comments, $idComment);
 			}
@@ -946,9 +1078,10 @@ function sk_showComments($page=1,$id=false)
 
 	//The comments list
 	foreach($comments as $comment) {
-		$answer.=sk_formatComment($comment);
+		$answer.=sk_format_comment($comment);
 	}
 	
+	//If we don't show avatars, it's a list 
 	if(!$options['avatar']) $answer.="</ul>";
 	$answer.="\n";
 	
@@ -956,31 +1089,30 @@ function sk_showComments($page=1,$id=false)
 }
 
 /**
-  * Enable menus
-  *
-  * @access public
-  */
-
+* Enable menus.
+* This function should be called by an action.
+*
+* @access public
+*/
 function sk_menus()
 {
 	global $submenu;
 	add_submenu_page('edit-comments.php', 'Schreikasten', __('Schreikasten' ,'sk'), 10, 'skmanage', 'sk_manage' );
-	add_submenu_page('plugins.php', __('Schreikasten Configuration', 'sk'), __('Schreikasten Configuration', 'sk'), 10,  'skconfig', 'sk_config');
+	add_submenu_page('plugins.php', __('Schreikasten Configuration', 'sk'), __('Schreikasten Configuration', 'sk'), 10, 'skconfig', 'sk_config');
 }
 
 /**
-  * Configuration page
-  *
-  * @access public
-  */
-
-function sk_config()
-{
+* Configuration page
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_config() {
 	$messages=array();
 	$mode_x=$_POST['mode_x'];
 	$mode=$_GET['mode'];
 	switch($mode_x) {
-		case 'api_x':
+		case 'api_x': //We have to update the api key
 			$api_key=$_POST["sk_api_key"];
 			update_option('sk_api_key', $api_key);
 			$mode='done';
@@ -988,8 +1120,7 @@ function sk_config()
 	}
 
 	$sk_api_key=get_option('sk_api_key');
-	// Now display the options editing screen
-	// options form
+	// Now display the options 
 	include('templates/sk_config.php');
 
 }
@@ -997,28 +1128,16 @@ function sk_config()
 /**
 * Manage page
 *
-* @access public
+* @access private
 */
-
 function sk_manage() {
+	global $wpdb;
 	$select=SK_NOT_FILTERED;
 	if($_GET['filter']=='spam') $select=SK_SPAM;
 	if($_GET['filter']=='ham') $select=SK_HAM;
 	if($_GET['filter']=='moot') $select=SK_MOOT;
 	if($_GET['filter']=='black') $select=SK_BLACK;
 	if($_GET['filter']=='blocked') $select=SK_BLOCKED;
-	sk_managePage($select);
-}
-
-/**
-  * Manage page
-  * @param int select Which comment type to show?
-  *
-  * @access public
-  */
-
-function sk_managePage($select=SK_NOT_FILTERED) {
-	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$table_list = $wpdb->prefix . "schreikasten_blacklist";
 	$messages=array();
@@ -1033,39 +1152,42 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 		$mode_x='deletespam';
 	}
 	
+	// Assume we don't have to do any action, but ask if we have
 	$doaction=false;
 	if($_POST['doaction']!="") $doaction=$_POST['action'];
 	if($_POST['doaction2']!="") $doaction=$_POST['action2'];
+	
+	//In case we have to do something previous
 	if($doaction)
 	{
 		switch($doaction)
 		{
-			case 'approve':
+			case 'approve': //approve the list of checked comments
 				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_markHam($checked_id);
+					sk_mark_as_ham($checked_id);
 				}
 				break;
-			case 'markspam':
+			case 'markspam': //mark as spam the list of checked comments
 				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_markSpam($checked_id);
+					sk_mark_as_spam($checked_id);
 				}
 				break;
-			case 'markblack':
+			case 'markblack': //mark as black the list of checked comments
 				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_markBlack($checked_id);
+					sk_mark_as_black($checked_id);
 				}
 				break;
-			case 'delete':
+			case 'delete': //delete the list of checked comments
 				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_deleteComment($checked_id);
+					sk_delete_comment($checked_id);
 				}
 				break;
-			case 'forever':				
+			case 'forever': //mark to be blocked forever the list of checked comments	
 				foreach($_POST['checked_pcs'] as $checked_id) {
-					sk_foreverLock($checked_id);
+					sk_lock_forever($checked_id);
 				}
 				break;
-			case 'unlock':
+			case 'unlock': //mark to be unblocked the list of checked comments
 				foreach($_POST['checked_pcs'] as $checked_id) {
 					sk_unlock($checked_id);
 				}
@@ -1074,106 +1196,114 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 	}
 	
 	$sk_api_key=get_option('sk_api_key');
-	$sk_managepage='skmanage';
+	$sk_manage_page='skmanage';
 	switch($select) {
 	case SK_MOOT:
-		$sk_managepage='skmanagemoot';
+		$sk_manage_page='skmanagemoot';
 		break;
 	case SK_HAM:
-		$sk_managepage='skmanageham';
+		$sk_manage_page='skmanageham';
 		break;
 	case SK_SPAM:
-		$sk_managepage='skmanagespam';
+		$sk_manage_page='skmanagespam';
 		break;
 	case SK_BLACK:
-		$sk_managepage='skmanageblack';
+		$sk_manage_page='skmanageblack';
 		break;
 	case SK_BLOCKED:
-		$sk_managepage='skmanageblocked';
+		$sk_manage_page='skmanageblocked';
 		break;
 	}
 
+	//if we are going to execute a command previous to show the form
 	switch($mode_x) {
-		case 'edit_x':
-		case 'tedit_x':		
+		case 'edit_x': //edit the comment
+		case 'tedit_x': //edit a tracked comment
 			$mode='done';
 			if($mode_x=='tedit_x') {
 					$mode="tracking";
 			}
 			if($_POST['submit']) {
+				//get the data from the form
 				$id=$_POST['sk_id'];
 				$alias=$_POST['sk_alias'];
 				$email=$_POST['sk_email'];
-				$comment=$_POST['sk_comment'];   
-				sk_editComment($id, $alias, $email, $comment);
+				$comment=$_POST['sk_comment'];
+				
+				//edit the comment
+				sk_edit_comment($id, $alias, $email, $comment);
 				
 				$newstatus=$_POST['comment_status'];
 				$actstatus=sk_status($id);
 				
+				//If we change the status
 				if($newstatus!=$actstatus) {
 					switch($newstatus) {
 						case SK_HAM:
-							sk_markHam($id);
+							sk_mark_as_ham($id);
 							break;
 						case SK_SPAM:
-							sk_markSpam($id);
+							sk_mark_as_spam($id);
 							break;
 						case SK_BLACK:
-							sk_markBlack($id);
+							sk_mark_as_black($id);
 							break;
 					}
+					//Message to indicate we change the status
 					array_push($messages, __("Status changed",'sk'));
 				}
-				
+				//Message to indicate we edited a comment
 				array_push($messages, __( 'Comment modified', 'sk' ));
 			}
 			break;
-		case 'set_ham_x':
+		case 'set_ham_x': //set as ham
 			$id=$_GET['id'];
-			if(sk_markHam($id)) array_push($messages, __("Status changed",'sk'));
+			if(sk_mark_as_ham($id)) array_push($messages, __("Status changed",'sk'));
 			break;
-		case 'set_black_x':
+		case 'set_black_x': //set as blacklisted
 			$id=$_GET['id'];
-			if(sk_markBlack($id)) array_push($messages, __("Status changed",'sk'));
+			if(sk_mark_as_black($id)) array_push($messages, __("Status changed",'sk'));
 			break;
-		case 'set_spam_x':
+		case 'set_spam_x': //set as spam
 			$id=$_GET['id'];
-			if(sk_markSpam($id)) array_push($messages, __("Status changed",'sk'));
+			if(sk_mark_as_spam($id)) array_push($messages, __("Status changed",'sk'));
 			break;
-		case 'delete_x':
+		case 'delete_x': //delete the comment
 			$id=$_GET['id'];
-			if(sk_deleteComment($id)) array_push($messages, __("Comment deleted",'sk'));
+			if(sk_delete_comment($id)) array_push($messages, __("Comment deleted",'sk'));
 			break;
-		case 'forever_lock_x':
+		case 'forever_lock_x': //block forever
 			$id=$_GET['id'];
-			if(sk_foreverLock($id)) array_push($messages, __("PC locked forever",'sk'));
+			if(sk_lock_forever($id)) array_push($messages, __("PC locked forever",'sk'));
 			break;
-		case 'unlock_x':
+		case 'unlock_x': //unlock the PC
 			$id=$_GET['id'];
 			if(sk_unlock($id)) array_push($messages, __("PC unlocked",'sk'));
 			break;
-		case 'lock_x':
+		case 'lock_x': //lock the PC
 			$id=$_GET['id'];
-			sk_markBlack($id);
+			sk_mark_as_black($id);
 			array_push($messages, __("PC locked",'sk'));
 			break;
-		case 'deletespam_x':
-			sk_deleteSpam();
+		case 'deletespam_x': //delete all the spam
+			sk_delete_spam();
 			break;
 	}
 	
+	//show the form
 	switch($mode) {
-		case 'tedit':
+		case 'tedit': //edit a comment or a tracking comment
 		case 'edit':
 			$id=$_GET['id'];
 			$table_name = $wpdb->prefix . "schreikasten";
 			$data = $wpdb->get_row("select alias, text, status, date, email from $table_name where id=$id");
-			if($data) {
+			if($data) { //get data
 				$alias=$data->alias;
 				$email=$data->email;
 				$comment=$data->text;
 				$status=$data->status;
 				$date=$data->date;
+				//show form
 				include('templates/sk_comment.php');
 			} else {
 				$mode='done';
@@ -1183,7 +1313,9 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 			$tid=$_GET['tid'];
 			$table_name = $wpdb->prefix . "schreikasten";
 			$data = $wpdb->get_row("select * from $table_name where id=$tid");
+			//get the tracking data
 			if($data->id) {
+				//show form
 				include('templates/sk_tracking.php');
 			} else {
 				$mode='done';
@@ -1192,7 +1324,7 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 		case 'delete':
 		case 'set_ham':
 		case 'set_black':
-		case 'set_spam':
+		case 'set_spam': //show the form to manage the comments
 			$id=$_GET['id'];
 			$table_name = $wpdb->prefix . "schreikasten";
 			$data = $wpdb->get_row("select alias, text, status, date, email from $table_name where id=$id");
@@ -1225,10 +1357,15 @@ function sk_managePage($select=SK_NOT_FILTERED) {
 	
 }
 
+/**
+* Function to show the shoutbox. Can be used in the template files.
+*
+* @access private
+*/
 function sk_shoutbox() {
-        global $wpdb;
-        $table_name = $wpdb->prefix . "schreikasten";
-        include('templates/sk_widget.php');
+	global $wpdb;
+	$table_name = $wpdb->prefix . "schreikasten";
+	include('templates/sk_widget.php');
 }
 
 // sk widget stuff
@@ -1314,7 +1451,7 @@ function sk_widget_init() {
 		if(!function_exists('minimax')) { ?>
 		<p>
 			<label>
-				<?php printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</label>
 		</p><?
 		}

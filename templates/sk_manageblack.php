@@ -7,13 +7,13 @@
 	$page=0;
 	//if there is a new text query, set 1st page and get text query from text label
 	if($_POST['but']!="") {
-	$text=$_POST['text'];
-	$page=1;
+		$text=$_POST['text'];
+		$page=1;
 	} else {
-	//Else, use page send in URL
-	$page=0+$_GET['paged'];
-	if($page==0) //If there is no page, asume 1st
-	$page=1;
+		//Else, use page send in URL
+		$page=0+$_GET['paged'];
+		if($page==0) //If there is no page, asume 1st
+			$page=1;
 	}
 	
 	$options = get_option('widget_sk');
@@ -28,13 +28,6 @@
 
 	//Count results
 	$total=count($comments);
-	
-	//If we don't have a new query
-	// 	if($page==0) {
-	// 		$page=0+$_POST['paged']+$_GET['paged'];
-	// 		if($page==0)
-	// 			$page=1;
-	// 	}
 	
 	//Items by page
 	$max=10;

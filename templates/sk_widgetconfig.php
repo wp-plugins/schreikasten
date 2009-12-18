@@ -1,3 +1,12 @@
+<?php
+			if(!(function_exists('minimax') && minimax_version()==0.2)) { ?>
+<p>
+	<label for="sk_warning">
+					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+	</label>
+</p><?
+} ?>
+
 <p>
 	<label for="sk_title">
 		<?php _e('Title:', 'sk'); ?>

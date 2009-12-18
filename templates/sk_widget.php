@@ -8,7 +8,7 @@
 	$options = get_option('widget_sk');
 	
 	//Update blacklist dates
-	sk_updateBlacklist();
+	sk_blacklist_update();
 	
 	//Set name and email on cookie name
 	$alias="";
@@ -20,8 +20,8 @@
 	}
 	
 	$anonymous_avatar=sk_plugin_url('/img/anonymous.jpg');
-	$uri_sk=sk_plugin_url('/content.php');
-	$uri_skadd=sk_plugin_url('/add_comment.php'); ?><script type='text/javascript'>
+	$uri_sk=sk_plugin_url('/ajax/content.php');
+	$uri_skadd=sk_plugin_url('/ajax/add_comment.php'); ?><script type='text/javascript'>
 	/* <![CDATA[ */
 	
 	var mm_add = new minimax('<?php echo $uri_skadd; ?>', 'sk_content');
@@ -106,9 +106,9 @@
 		mm_add.post(post);
 		<?php
 			$options = get_option('widget_sk');
-			if(sk_isBlacklisted() ||  1 == get_option('comment_moderation')) {
+			if(sk_is_blacklisted() ||  1 == get_option('comment_moderation')) {
 				$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
-				if(sk_isBlacklisted()) {
+				if(sk_is_blacklisted()) {
 					$message=__('Your message has been sent but this PC was blacklisted.\nComments have to be approved before posted.', 'sk');
 				} ?>
 		alert('<?php echo $message; ?>');
@@ -120,14 +120,15 @@
 <a name='sk_top'></a>
 <table width='100%' border='0'>
 	<tr><td width="20px"></td><td width="100%"></td></tr><?php
-	if(sk_onlyRegistered() && $current_user->ID==0) { ?>
+	if(sk_only_registered_users() && $current_user->ID==0) { ?>
 	<tr>
 		<td colspan="2" id="skwarning">
+			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/>
 			<?php printf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink())); ?>.
 		</td>
 	</tr><?php } else {
-	if(sk_isBlacklisted()) {
-		if(sk_noMoreMessages2Accept()) { ?>
+	if(sk_is_blacklisted()) {
+		if(sk_can_not_accept_more_messages()) { ?>
 	<tr><td colspan="2"><?php _e("This PC was blacklisted. At this time comments cannot be posted.", "sk"); $disabled=" disabled"; ?></td></tr><?php
 		}
 	} ?>	
@@ -154,9 +155,9 @@
 		<td colspan='2' align='right'><textarea rows="" cols="" class='sk-area' name='sk_text' onkeypress="
 			var key;
 			if(window.event)
-			        key = window.event.keyCode;   //IE
+				key = window.event.keyCode;   //IE
 			else
-			        key = event.keyCode;
+				key = event.keyCode;
 			if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40)  )
 			return false;"></textarea></td>
 	</tr>
@@ -192,5 +193,5 @@
 		mm_get.setThrobber('throbber-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
-			printf(__('You have to install <a href="%s"  target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/" );
+			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>

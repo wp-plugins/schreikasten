@@ -9,13 +9,13 @@
 	$page=0;
 	//if there is a new text query, set 1st page and get text query from text label
 	if($_POST['but']!="") {
-	$text=$_POST['text'];
-	$page=1;
+		$text=$_POST['text'];
+		$page=1;
 	} else {
-	//Else, use page send in URL
-	$page=0+$_GET['paged'];
-	if($page==0) //If there is no page, asume 1st
-	$page=1;
+		//Else, use page send in URL
+		$page=0+$_GET['paged'];
+		if($page==0) //If there is no page, asume 1st
+			$page=1;
 	}
 	
 	//Get query results
@@ -36,13 +36,6 @@
 
 	//Count results
 	$total=count($comments);
-	
-	//If we don't have a new query
-	// 	if($page==0) {
-	// 		$page=0+$_POST['paged']+$_GET['paged'];
-	// 		if($page==0)
-	// 			$page=1;
-	// 	}
 	
 	//Items by page
 	$max=10;
@@ -171,7 +164,7 @@
 															</span><?php } ?>
 																	<span class='tracking'> | <a href="<?php echo add_query_arg( array( 'mode' => 'tracking', 'tid' => $data->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
 																					if($select==SK_BLACK) { ?>
-																						<?php if($block_id=sk_isBlacklisted($data->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'unlock_x', 'id' => $block_id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
+																						<?php if($block_id=sk_is_blacklisted($data->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'unlock_x', 'id' => $block_id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
 																							<span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'lock_x', 'id' => $data->id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to lock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Lock PC', 'sk') ?></a></span>
 																									<?php } 
 																					} ?>
@@ -227,7 +220,7 @@
 																	<?php if($data->id!=$comment->id) { ?><span class='delete'> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'delete_x', 'id' => $comment->id, 'tid' => $tid) ); ?>" class="delete" onclick="javascript:check=confirm( '<?php _e("Delete this Comment?",'sk')?>');if(check==false) return false;"><?php _e('Delete', 'sk') ?></a></span><?php } ?>
 																			<span class='tracking'> | <a href="<?php echo add_query_arg( array( 'mode' => 'tracking', 'tid' => $comment->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
 																					if($select==SK_BLACK) { ?>
-																						<?php if($block_id=sk_isBlacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'unlock_x', 'id' => $block_id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
+																						<?php if($block_id=sk_is_blacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'unlock_x', 'id' => $block_id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
 																							<span> | <a href="<?php echo add_query_arg( array('paged'=>$page, 'mode_x' => 'lock_x', 'id' => $comment->id, 'tid' => $tid) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to lock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Lock PC', 'sk') ?></a></span>
 																									<?php } 
 																					} ?>

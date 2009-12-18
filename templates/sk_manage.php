@@ -7,32 +7,23 @@
 	$page=0;
 	//if there is a new text query, set 1st page and get text query from text label
 	if($_POST['but']!="") {
-	$text=$_POST['text'];
-	$page=1;
+		$text=$_POST['text'];
+		$page=1;
 	} else {
-	//Else, use page send in URL
-	$page=0+$_GET['paged'];
-	if($page==0) //If there is no page, asume 1st
-	$page=1;
+		//Else, use page send in URL
+		$page=0+$_GET['paged'];
+		if($page==0) //If there is no page, asume 1st
+			$page=1;
 	}
 	
 	//Get query results
 	$sql="SELECT * FROM $table_name WHERE 1=1";
-	if($select!=SK_NOT_FILTERED)
-	$sql.=" AND status=".$select;
-	if($text!="")
-	$sql.=" AND (text like '%$text%' OR alias like '%$text%')";
+	if($select!=SK_NOT_FILTERED) $sql.=" AND status=".$select;
+	if($text!="") $sql.=" AND (text like '%$text%' OR alias like '%$text%')";
 	$comments = $wpdb->get_results($sql);
 
 	//Count results
 	$total=count($comments);
-	
-	//If we don't have a new query
-	// 	if($page==0) {
-	// 		$page=0+$_POST['paged']+$_GET['paged'];
-	// 		if($page==0)
-	// 			$page=1;
-	// 	}
 	
 	//Items by page
 	$max=10;
@@ -99,7 +90,7 @@
 					<option value="delete"><?php _e('Delete' , 'sk'); ?></option>
 				</select>
 				<input type="submit" name="doaction" id="doaction" value="<?php _e('Apply'); ?>" class="button-secondary apply" />
-				<input type="hidden" id="_wpnonce" name="_wpnonce" value="c70ddc4ef7" /><input type="hidden" name="_wp_http_referer" value="/wordpress/wp-admin/edit-comments.php" /><?php 
+				<input type="hidden" name="_wp_http_referer" value="/wordpress/wp-admin/edit-comments.php" /><?php 
 					if($select==SK_SPAM) { ?> 
 				<input type="submit" value="<?php _e( 'Delete all Spam', 'sk' ); ?>" class="button" name="deletespam" /><?php } ?>
 			</div>
@@ -172,7 +163,7 @@
 							<span class='delete'> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'delete_x', 'id' => $comment->id) ); ?>" class="delete" onclick="javascript:check=confirm( '<?php _e("Delete this Comment?",'sk')?>');if(check==false) return false;"><?php _e('Delete', 'sk') ?></a></span>
 							<span class='tracking'> | <a href="<?php echo add_query_arg( array('text'=>$text, 'mode' => 'tracking', 'tid' => $comment->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
 							if($select==SK_BLACK) { ?>
-							<?php if($block_id=sk_isBlacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'unlock_x', 'id' => $block_id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
+							<?php if($block_id=sk_is_blacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'unlock_x', 'id' => $block_id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
 							<span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'lock_x', 'id' => $comment->id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to lock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Lock PC', 'sk') ?></a></span>
 							<?php } 
 							} ?>
@@ -203,7 +194,7 @@
 					<option value="delete"><?php _e('Delete' , 'sk'); ?></option>
 				</select>
 				<input type="submit" name="doaction2" id="doaction2" value="<?php _e('Apply'); ?>" class="button-secondary apply" />
-				<input type="hidden" id="_wpnonce" name="_wpnonce" value="c70ddc4ef7" /><input type="hidden" name="_wp_http_referer" value="/wordpress/wp-admin/edit-comments.php" /><?php 
+				<input type="hidden" name="_wp_http_referer" value="/wordpress/wp-admin/edit-comments.php" /><?php 
 					if($select==SK_SPAM) { ?>
 				<input type="submit" value="<?php _e( 'Delete all Spam', 'sk' ); ?>" class="button" name="deletespam" /><?php 
 				} ?>
