@@ -549,7 +549,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 						if(!sk_is_blacklisted() && 1 != get_option('comment_moderation') && $user_id != 0) {
 							//sk_mark_as_ham($id); //accept the message
 							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
-							$answer = $wpdb->query( $query );
+							$wpdb->query( $query );
 							sk_reply($id); //send the reply, if it has one
 						}
 					}
