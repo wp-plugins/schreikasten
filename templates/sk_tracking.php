@@ -111,8 +111,8 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th scope="col"  class="manage-column column-author" style=""><?php _e( 'Author' , 'sk'); ?></th>
-					<th scope="col"  class="manage-column column-comment" style=""><?php _e( 'Comment' , 'sk'); ?></th>
+					<th scope="col" class="manage-column column-author" style=""><?php _e( 'Author' , 'sk'); ?></th>
+					<th scope="col" class="manage-column column-comment" style=""><?php _e( 'Comment' , 'sk'); ?></th>
 				</tr>
 			</tfoot>
 			<tbody id="the-comment-list" class="list:comment">

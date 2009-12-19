@@ -3,9 +3,9 @@
 	<form name="form1" method="post" action="<?php echo remove_query_arg(array('mode', 'id')); ?>">
 		<table align="center">
 			<?php
-			if(!(function_exists('minimax') && minimax_version()==0.2)) { ?>
+			if(!function_exists('minimax_version') && minimax_version()<0.3) { ?>
 			<tr><td colspan="3">
-					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</td></tr><?
 } ?>
 			<tr>

@@ -23,7 +23,7 @@
 	}
 	
 	//Get query results
-	$sql="SELECT $table_name.*, $table_list.id AS block_id, $table_list.pc, $table_list.date + INTERVAL $days DAY AS date_end, $table_list.forever FROM $table_list LEFT JOIN  $table_name ON $table_list.pc=$table_name.user_id";
+	$sql="SELECT $table_name.*, $table_list.id AS block_id, $table_list.pc, $table_list.date + INTERVAL $days DAY AS date_end, $table_list.forever FROM $table_list LEFT JOIN $table_name ON $table_list.pc=$table_name.user_id";
 	$comments = $wpdb->get_results($sql);
 
 	//Count results
@@ -101,9 +101,9 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th scope="col"  class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
-					<th scope="col"  class="manage-column column-author" style=""><?php _e( 'PC' , 'sk'); ?></th>
-					<th scope="col"  class="manage-column column-comment" style=""><?php _e( 'Comments' , 'sk'); ?></th>
+					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
+					<th scope="col" class="manage-column column-author" style=""><?php _e( 'PC' , 'sk'); ?></th>
+					<th scope="col" class="manage-column column-comment" style=""><?php _e( 'Comments' , 'sk'); ?></th>
 				</tr>
 			</tfoot>
 			<tbody id="the-comment-list" class="list:comment"><?

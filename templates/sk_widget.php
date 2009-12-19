@@ -1,5 +1,5 @@
 <?php
-	if(function_exists('minimax') && minimax_version()==0.2) {
+	if(function_exists('minimax_version') && minimax_version()>=0.3) {
 	//Get current user
 	global $current_user;
 	get_currentuserinfo();
@@ -31,7 +31,7 @@
 		var sk_timer_div = document.getElementById('sk_timer');
 		if(sk_timer_div.value) clearTimeout(sk_timer_div.value);
 		<?php $time=$options['refresh']*1000; ?>
-		timer_id=setTimeout( 'sk_refresh();'  , <?php echo $time; ?>);
+		timer_id=setTimeout( 'sk_refresh();' , <?php echo $time; ?>);
 		sk_timer_div.value=timer_id;
 	}
 	
@@ -51,7 +51,7 @@
 		}
 		return answer;
 	}
-  
+	
 	function email_intext ( cadena ) {
 		var answer=false;
 		var emailsArray = cadena.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
@@ -59,7 +59,7 @@
 			answer=true;
 		return answer;
 	}
-  
+	
 	function for_delete() {
 		document.getElementById("sk_for_id").value='0';
 		document.getElementById("sk_for_name").innerHTML='';
@@ -106,7 +106,7 @@
 		mm_add.post(post);
 		<?php
 			$options = get_option('widget_sk');
-			if(sk_is_blacklisted() ||  1 == get_option('comment_moderation')) {
+			if(sk_is_blacklisted() || 1 == get_option('comment_moderation')) {
 				$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
 				if(sk_is_blacklisted()) {
 					$message=__('Your message has been sent but this PC was blacklisted.\nComments have to be approved before posted.', 'sk');
@@ -149,16 +149,16 @@
 	} ?>
 	<tr class='sk-for-nai' id='sk_for_tr'>
 		<td><?php _e('For', 'sk'); ?>:</td>
-		<td><span id='sk_for_name'></span>&nbsp;<img src="<?php echo sk_plugin_url('/img/clear.png'); ?>"  align="top" border="0" alt="" onclick='for_delete();' /><input id='sk_for_id' name='sk_for_id' type='hidden' size='5' value='0'/></td>
+		<td><span id='sk_for_name'></span>&nbsp;<img src="<?php echo sk_plugin_url('/img/clear.png'); ?>" align="top" border="0" alt="" onclick='for_delete();' /><input id='sk_for_id' name='sk_for_id' type='hidden' size='5' value='0'/></td>
 	</tr>
 	<tr>
 		<td colspan='2' align='right'><textarea rows="" cols="" class='sk-area' name='sk_text' onkeypress="
 			var key;
 			if(window.event)
-				key = window.event.keyCode;   //IE
+				key = window.event.keyCode; //IE
 			else
 				key = event.keyCode;
-			if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40)  )
+			if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40) )
 			return false;"></textarea></td>
 	</tr>
 </table>
@@ -193,5 +193,5 @@
 		mm_get.setThrobber('throbber-page', 'on', 'off');
 		sk_refresh();</script>
 <?php } else {
-			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
+			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>

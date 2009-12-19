@@ -1,8 +1,8 @@
 <?php
-			if(!(function_exists('minimax') && minimax_version()==0.2)) { ?>
+			if(!function_exists('minimax_version') && minimax_version()<0.3) { ?>
 <p>
 	<label for="sk_warning">
-					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 	</label>
 </p><?
 } ?>
@@ -26,6 +26,17 @@
 		<input type="checkbox" class="checkbox" id="sk_registered" name="sk_registered"<?php
 		if($registered) echo " checked"; ?> /> <?php _e('Registered users only', 'sk'); ?>
 		</label>
+</p>
+
+<p>
+	<label for="sk_announce"><?php
+		_e('Announce comments','sk'); ?>:
+		<select class="widefat" id="sk_announce" name="sk_announce">
+			<option<?php echo $announce1; ?> value='1'><?php _e('Use general configuration', 'sk'); ?></option>
+			<option<?php echo $announce2; ?> value='2'><?php _e('Send email', 'sk'); ?></option>
+			<option<?php echo $announce3; ?> value='3'><?php _e('Don\'t send email', 'sk'); ?></option>
+		</select>
+	</label>
 </p>
 				
 <p>

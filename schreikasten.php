@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.10.4.2
+Version: 0.11
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -31,6 +31,10 @@ define ("SK_SPAM", 2);
 define ("SK_MOOT", 3);
 define ("SK_BLACK", 4);
 define ("SK_BLOCKED", -1);
+
+define ("SK_ANNOUNCE_CONFIG", 1);
+define ("SK_ANNOUNCE_YES", 2);
+define ("SK_ANNOUNCE_NO", 3);
 
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
@@ -149,9 +153,12 @@ function sk_text_domain() {
 */
 function sk_plugin_url($str = '')
 {
-	$dir_name = '/wp-content/plugins/schreikasten';
-	$url=get_bloginfo('wpurl');
-	return $url . $dir_name . $str;
+
+	$aux = '/wp-content/plugins/schreikasten/'.$str;
+	$aux = str_replace('//', '/', $aux);
+	$url = get_bloginfo('wpurl');
+	return $url.$aux;
+	
 }
 
 /**
@@ -438,7 +445,7 @@ function sk_reply($id) {
 }
 
 /**
-* Sends an email to the admin, indicatingthere is a new comment and if it needs to be moderated.
+* Sends an email to the admin, indicating there is a new comment and if it needs to be moderated.
 * Return true if the email was send.
 *
 * @param int id Comment's id
@@ -453,9 +460,13 @@ function sk_inform($id) {
 	$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
 	$comment = $wpdb->get_row($query);
 	
+	$options = get_option('widget_sk');
+	$announce = $optins['announce'];
+	if(!$announce) $announce = SK_ANNOUNCE_CONFIG;
+	
 	//If it was accepted create the information email
 	if($comment->status==SK_HAM) {
-		if(get_option('comments_notify')) {
+		if($announce == SK_ANNOUNCE_YES || ($announce == SK_ANNOUNCE_CONFIG && get_option('comments_notify'))) {
 			$admin_email = get_option('admin_email');
 			$notify_message=__('There is a new comment on Schreikasten', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
@@ -473,7 +484,7 @@ function sk_inform($id) {
 	
 	//If it waits for moderation, create the information email
 	if($comment->status==SK_MOOT) {
-		if(get_option('moderation_notify')) {
+		if($announce == SK_ANNOUNCE_YES || ($announce == SK_ANNOUNCE_CONFIG && get_option('moderation_notify'))) {
 			$admin_email = get_option('admin_email');
 			$notify_message=__('A new comment on Schreikasten is waiting for your approval', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
@@ -550,6 +561,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 							//sk_mark_as_ham($id); //accept the message
 							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
 							$wpdb->query( $query );
+							sk_inform($id); //Inform the administrator
 							sk_reply($id); //send the reply, if it has one
 						}
 					}
@@ -1141,6 +1153,11 @@ function sk_manage() {
 	$table_name = $wpdb->prefix . "schreikasten";
 	$table_list = $wpdb->prefix . "schreikasten_blacklist";
 	$messages=array();
+	
+	//If we don't have minimax, ask the user for it
+	if(!function_exists('minimax_version') && minimax_version()<0.3) { 
+		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'lexi'), "http://wordpress.org/extend/plugins/minimax/" ));
+	}
 
 	$mode_x=$_POST['mode_x'];
 	if(!$mode_x)
@@ -1396,14 +1413,14 @@ function sk_widget_init() {
 		$options = get_option('widget_sk');
 		
 		if ( !is_array($options) ) {
-			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2');
+			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>1);
 			
 		}
 		
-		if(!function_exists('minimax')) { ?>
+		if(!function_exists('minimax_version') || minimax_version()<0.3) { ?>
 		<p>
 			<label>
-				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.2</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
 			</label>
 		</p><?
 		} else {
@@ -1432,7 +1449,8 @@ function sk_widget_init() {
 				$options['refresh'] = $_POST['sk_refresh'];
 				$options['bl_days'] = $_POST['sk_bl_days'];
 				$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
-					
+				$options['announce'] = $_POST['sk_announce'];
+				
 				update_option('widget_sk', $options);
 			}
 			// Be sure you format your options to be valid HTML attributes.
@@ -1455,6 +1473,9 @@ function sk_widget_init() {
 			
 			$maxpending="selectedmaxpending".$options['bl_maxpending'];
 			$$maxpending=' selected="selected"';
+			
+			$announce="announce".$options['announce'];
+			$$announce=' selected="selected"';
 		
 			require("templates/sk_widgetconfig.php");
 		}

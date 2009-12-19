@@ -23,16 +23,14 @@ $id=sk_add_comment($alias, $email, $text, $ip, $for);
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title></title>
 </head>
-<body><?php
+<body>
+<?php
 
 if(sk_cookie_id()==0) {
 	echo "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
 }
 echo sk_show_comments(1,$id);
 echo sk_page_selector($page);
-
-if($id>0)
-	sk_inform($id);
 
 ?>
 </body>
