@@ -1,4 +1,7 @@
 <?php
+	//Get the nonce
+	$nonce = wp_create_nonce('schreikasten');
+	
 	if(function_exists('minimax_version') && minimax_version()>=0.3) {
 	//Get current user
 	global $current_user;
@@ -40,7 +43,7 @@
 		<?php if($options['refresh']>0) {		
 		echo "\nsk_timer();";
 		} ?>
-		mm_get.post('page='+document.getElementsByName('sk_page')[0].value);		
+		mm_get.post('nonce=<?php echo $nonce; ?>&page='+document.getElementsByName('sk_page')[0].value);		
 	}
 
 	function check_email( cadena ) {
@@ -99,7 +102,7 @@
 		text=text.replace("&","%26");
 		document.getElementById('th_sk_alias').innerHTML = alias;
 		document.getElementById('th_sk_text').innerHTML= text;
-		var post = "alias="+alias+"&email="+email+"&text="+text+"&for="+skfor;		
+		var post = "nonce=<?php echo $nonce; ?>&alias="+alias+"&email="+email+"&text="+text+"&for="+skfor;		
 		for_delete();
 		document.getElementsByName('sk_page')[0].value=1;
 		document.getElementsByName("sk_text")[0].value="";

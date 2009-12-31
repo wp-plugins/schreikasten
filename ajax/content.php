@@ -6,12 +6,17 @@
 </head>
 <body><?php
 
-$page=$_POST['page'];
-if(!$page)
-	$page=1;
-	
-echo sk_show_comments($page);
-echo sk_page_selector($page);
+if(wp_verify_nonce($_POST['nonce'], 'schreikasten')) {
+
+	$page=$_POST['page'];
+	if(!$page)
+		$page=1;
+		
+	echo sk_show_comments($page);
+	echo sk_page_selector($page);
+} else {
+	_e('Only Schreikasten can use this link.', 'sk');
+}
 
 ?>
 </body>

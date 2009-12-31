@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 14:01-0500\n"
-"PO-Revision-Date: 2009-12-19 14:01-0500\n"
+"POT-Creation-Date: 2009-12-30 08:49-0500\n"
+"PO-Revision-Date: 2009-12-30 08:50-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -151,10 +151,6 @@ msgstr "Spam"
 msgid "Sending"
 msgstr "Enviando"
 
-#: schreikasten.php:1112
-msgid "Schreikasten"
-msgstr "Schreikasten"
-
 #: schreikasten.php:1113
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
@@ -162,8 +158,8 @@ msgstr "Configuración de Schreikasten"
 
 #: schreikasten.php:1159
 #: schreikasten.php:1423
-#: templates/sk_widget.php:196
-#: templates/sk_config.php:8
+#: templates/sk_widget.php:197
+#: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, php-format
 msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> in order for this plugin to work"
@@ -402,16 +398,16 @@ msgstr "Bloquear PC"
 msgid "Delete this Comment?"
 msgstr "¿Eliminar este Comentario?"
 
-#: templates/sk_widget.php:73
-#: templates/sk_widget.php:151
+#: templates/sk_widget.php:74
+#: templates/sk_widget.php:152
 msgid "For"
 msgstr "Para"
 
-#: templates/sk_widget.php:85
+#: templates/sk_widget.php:86
 msgid "Email is required"
 msgstr "Email es requerido"
 
-#: templates/sk_widget.php:91
+#: templates/sk_widget.php:92
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include email adresses.\\n"
@@ -421,7 +417,7 @@ msgstr ""
 "recomendamos no publicar direcciones de\\n"
 "correo. ¿Desea continuar?"
 
-#: templates/sk_widget.php:110
+#: templates/sk_widget.php:111
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -429,7 +425,7 @@ msgstr ""
 "Su mensaje fue enviado. Todos los comentarios\\n"
 "deberán ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:112
+#: templates/sk_widget.php:113
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -438,37 +434,37 @@ msgstr ""
 "inhabilitado. Todos los comentarios deberán\\n"
 "ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:127
+#: templates/sk_widget.php:128
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Deberá estar <a href=\"%s\">registrado</a> para publicar un comentario"
 
-#: templates/sk_widget.php:132
+#: templates/sk_widget.php:133
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Este PC está inhabilitado. No podrá enviar mensajes."
 
-#: templates/sk_widget.php:168
+#: templates/sk_widget.php:169
 msgid "Mail will not be published"
 msgstr "No se publicará el email"
 
-#: templates/sk_widget.php:168
+#: templates/sk_widget.php:169
 msgid "(but it's required)"
 msgstr "(pero es requerido)"
 
-#: templates/sk_widget.php:168
+#: templates/sk_widget.php:169
 msgid "(but it's used for avatar)"
 msgstr "(se usará solo para el avatar)"
 
-#: templates/sk_widget.php:169
+#: templates/sk_widget.php:170
 #, php-format
 msgid "Loged in as %s"
 msgstr "Registrado como %s"
 
-#: templates/sk_widget.php:175
+#: templates/sk_widget.php:176
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: templates/sk_widget.php:181
+#: templates/sk_widget.php:182
 msgid "Submit"
 msgstr "Enviar"
 
@@ -517,28 +513,28 @@ msgstr "Aplicar"
 msgid "Delete all Spam"
 msgstr "Eliminar Spam"
 
-#: templates/sk_config.php:12
+#: templates/sk_config.php:8
 msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
 msgstr "Necesita una <a href='http://wordpress.com/api-keys/' target='_BLANK'>llave API</a> de Akismet para habilitar el filtro antispam."
 
-#: templates/sk_config.php:15
+#: templates/sk_config.php:11
 msgid "Akismet API"
 msgstr "Llave API de Akismet"
 
-#: templates/sk_config.php:17
+#: templates/sk_config.php:13
 #: templates/sk_comment.php:32
 msgid "Update"
 msgstr "Actualizar"
 
-#: templates/sk_config.php:21
+#: templates/sk_config.php:17
 msgid "Set API Key"
 msgstr "Definir la Clave API"
 
-#: templates/sk_config.php:25
+#: templates/sk_config.php:21
 msgid "API Key is valid"
 msgstr "La Clave API es válida"
 
-#: templates/sk_config.php:28
+#: templates/sk_config.php:24
 msgid "API Key is not valid"
 msgstr "La Clave API no es válida"
 
@@ -710,10 +706,17 @@ msgstr "Cancelar"
 msgid "Email"
 msgstr "Email"
 
-#: ajax/add_comment.php:29
+#: ajax/add_comment.php:32
 msgid "We cannot accept messages<br>from this PC"
 msgstr "No podemos aceptar mensajes<br>de este PC"
 
+#: ajax/add_comment.php:38
+#: ajax/content.php:18
+msgid "Only Schreikasten can use this link."
+msgstr "Solo Schreikasten puede consultar este enlace."
+
+#~ msgid "Schreikasten"
+#~ msgstr "Schreikasten"
 #~ msgid ""
 #~ "You have to install <a href=\"%s\"  target=\"_BLANK\">minimax 0.2</a> in "
 #~ "order for this plugin to work"

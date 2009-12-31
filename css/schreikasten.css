@@ -143,10 +143,12 @@ div#throbber-img {
 
 div.on#throbber-img {	
 	display: block;
+	visibility: visible;
 }
 
 div.off#throbber-img {	
 	display: none;
+	visibility: hidden;
 }
 
 span.sk-for {

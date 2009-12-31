@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.1
+Version: 0.11.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -224,6 +224,9 @@ function sk_page_selector($group=1) {
 	$first_item= "&#171;";
 	$last_item= "&#187;";
 	
+	//Get the nonce
+	$nonce = wp_create_nonce('schreikasten');
+	
 	// Get the number of comments we have
 	$table_name = $wpdb->prefix . "schreikasten";
 	$sql="SELECT count(*) FROM $table_name WHERE status=".SK_HAM;
@@ -275,7 +278,7 @@ function sk_page_selector($group=1) {
 		$answer.="<a style='cursor : pointer;' onclick=\"
 				document.getElementsByName('sk_page')[0].value=1;
 				$timer
-				mm_get.post('page=1');\">$first_item</a> &#183; ";
+				mm_get.post('nonce=$nonce&amp;page=1');\">$first_item</a> &#183; ";
 	}
 	
 	//Create the page list and the links
@@ -287,7 +290,7 @@ function sk_page_selector($group=1) {
 		$answer.="<a style='cursor : pointer; $style' onclick=\"
 				document.getElementsByName('sk_page')[0].value=$group_id;
 				$timer
-				mm_get.post('page=$group_id');\">$group_id</a> &#183; ";
+				mm_get.post('nonce=$nonce&amp;page=$group_id');\">$group_id</a> &#183; ";
 	}
 
 	//If the list doesn't finish with the last group, create a link to the end
@@ -296,7 +299,7 @@ function sk_page_selector($group=1) {
 			 onclick=\"
 			document.getElementsByName('sk_page')[0].value=$groups;
 			$timer
-			mm_get.post('page=$groups');\">$last_item</a> &#183; ";
+			mm_get.post('nonce=$nonce&amp;page=$groups');\">$last_item</a> &#183; ";
 	}
 
 	//As every link ends with a line, delete the last one as we don't need it

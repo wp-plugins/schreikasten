@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 2.8.6
-Stable tag: 0.11.1
+Tested up to: 2.9
+Stable tag: 0.11.2
 
 A shoutbox using ajax and akismet.
 
@@ -83,6 +83,10 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.2 = 
+* Using nonce to not show data when someone call the ajax script outside the plugin.
+* Silence is gold.
 
 = 0.11.1 =
 * Now you can define if the plugin will send a mail (always, never, or use general configuration) to inform there is a new comment.
