@@ -1,14 +1,16 @@
 <?php
-	//Get the nonce
+	//Create the nonce
 	$nonce = wp_create_nonce('schreikasten');
-	
+
 	if(function_exists('minimax_version') && minimax_version()>=0.3) {
+
 	//Get current user
 	global $current_user;
 	get_currentuserinfo();
 	
 	$req = get_option('require_name_email');
 	$options = get_option('widget_sk');
+	$avatar = $options['avatar']; 
 	
 	//Update blacklist dates
 	sk_blacklist_update();
@@ -85,24 +87,24 @@
 		var skfor=document.getElementsByName("sk_for_id")[0].value;
 		<?php	if ($req) { ?>
 		if(!check_email(email)) {
-			alert('<?php _e("Email is required", "sk"); ?> ');
+			alert('<?php _e("E-mail is required", "sk"); ?> ');
 			return false;
 		}
 		<?php } ?>
 		<?php if($options['alert_about_emails']) { ?>
 		if(email_intext ( text ) ) {
-			check=confirm("<?php _e("To prevent identification theft, we recomend\\nthat you do not include email adresses.\\nDo you want to continue?", "sk"); ?>");
+			check=confirm("<?php _e("To prevent identification theft, we recomend\\nthat you do not include e-mail adresses.\\nDo you want to continue?", "sk"); ?>");
 			if(!check) {
 				return false;
 			}
 		}
 		<?php } ?>
-		email=email.replace("&amp;","y");
-		alias=alias.replace("&","%26");
-		text=text.replace("&","%26");
-		document.getElementById('th_sk_alias').innerHTML = alias;
-		document.getElementById('th_sk_text').innerHTML= text;
-		var post = "nonce=<?php echo $nonce; ?>&alias="+alias+"&email="+email+"&text="+text+"&for="+skfor;		
+		document.getElementById('th_sk_alias').innerHTML = alias.replace(/&/gi,"&amp;");
+		document.getElementById('th_sk_text').innerHTML = text.replace(/&/gi,"&amp;");
+		email=email.replace(/&amp;/gi,"y");
+		alias=alias.replace(/&/gi,"%26");
+		text=text.replace(/&/gi,"%26");
+		var post = "nonce=<?php echo $nonce; ?>&alias="+alias+"&email="+email+"&text="+text+"&for="+skfor;
 		for_delete();
 		document.getElementsByName('sk_page')[0].value=1;
 		document.getElementsByName("sk_text")[0].value="";
@@ -168,7 +170,7 @@
 <table width='100%'>		
 	<tr>
 		<td align="right" class='sk-little'><?php if($current_user->ID==0) { ?>
-			<?php _e('Mail will not be published', 'sk'); ?><br/><?php if ($req) _e("(but it's required)", "sk"); else _e("(but it's used for avatar)", "sk")?><?php } else { ?>
+			<?php _e('Mail will not be published', 'sk'); ?><br/><?php if ($req) _e("(but it's required)", "sk"); else if($avatar) _e("(but it's used for avatar)", "sk"); ?><?php } else { ?>
 			<?php printf(__('Loged in as %s', 'sk'), $current_user->display_name); ?>
 					<br/><a href="<?php 
 							if(is_home()) {

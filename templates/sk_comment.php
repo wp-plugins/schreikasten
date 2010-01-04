@@ -47,7 +47,7 @@
 									<td><input type="text" name="sk_alias" value="<?php echo $alias; ?>" /></td>
 								</tr>
 								<tr>
-									<td><?php _e("Email", 'sk' ); ?>:</td>
+									<td><?php _e("E-mail", 'sk' ); ?>:</td>
 									<td><input type="text" name="sk_email" value="<?php echo $email; ?>" /></td>
 								</tr>
 								<tr>

@@ -125,7 +125,7 @@
 									if($comment->email!="")
 										echo $comment->email;
 									else
-										_e('No email registry', 'sk');
+										_e('No e-mail registry', 'sk');
 								if($comment->user_id>0) { 
 									echo "<br/><br/>";
 									printf(" (".__('registered user', 'sk').")");

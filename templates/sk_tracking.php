@@ -94,7 +94,7 @@
 					var url='<?php echo add_query_arg( array('paged'=>'1', 'mode' => 'tracking', 'tid' => $tid, 'type'=>null) ); ?>&type='+type;
 					window.location.replace( url );">
 					<option value="1"<?php if($type==1) echo " selected='selected'"; ?>><?php _e('By Alias' , 'sk'); ?></option>
-					<option value="2"<?php if($type==2) echo " selected='selected'"; ?>><?php _e('By Email' , 'sk'); ?></option>
+					<option value="2"<?php if($type==2) echo " selected='selected'"; ?>><?php _e('By E-mail' , 'sk'); ?></option>
 					<?php if($data->user_id!=0) { ?>
 					<option value="3"<?php if($type==3) echo " selected='selected'"; ?>><?php _e('By PC' , 'sk'); ?></option><?php } ?>
 				</select>
@@ -126,7 +126,7 @@
 										if($data->email!="")
 										echo $data->email;
 									else
-										_e('No email registry', 'sk');
+										_e('No e-mail registry', 'sk');
 									if($data->user_id>0) { 
 										echo "<br/><br/>";
 										printf(" (".__('registered user', 'sk').")");
@@ -182,7 +182,7 @@
 									if($comment->email!="")
 										echo $comment->email;
 									else
-										_e('No email registry', 'sk');
+										_e('No e-mail registry', 'sk');
 								if($comment->user_id>0) { 
 									echo "<br/><br/>";
 									printf(" (".__('registered user', 'sk').")");
@@ -247,7 +247,7 @@
 					var url='<?php echo add_query_arg( array('paged'=>'1', 'mode' => 'tracking', 'tid' => $tid, 'type'=>null) ); ?>&type='+type;
 					window.location.replace( url );">
 					<option value="1"<?php if($type==1) echo " selected='selected'"; ?>><?php _e('By Alias' , 'sk'); ?></option>
-					<option value="2"<?php if($type==2) echo " selected='selected'"; ?>><?php _e('By Email' , 'sk'); ?></option>
+					<option value="2"<?php if($type==2) echo " selected='selected'"; ?>><?php _e('By E-mail' , 'sk'); ?></option>
 					<?php if($data->user_id!=0) { ?>
 					<option value="3"<?php if($type==3) echo " selected='selected'"; ?>><?php _e('By PC' , 'sk'); ?></option><?php } ?>
 				</select>

@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.2
+Version: 0.11.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -224,7 +224,7 @@ function sk_page_selector($group=1) {
 	$first_item= "&#171;";
 	$last_item= "&#187;";
 	
-	//Get the nonce
+	//Create nonce
 	$nonce = wp_create_nonce('schreikasten');
 	
 	// Get the number of comments we have
@@ -1432,6 +1432,7 @@ function sk_widget_init() {
 				// Remember to sanitize and format use input appropriately.
 				$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
 				$options['items'] = $_POST['sk_items'];
+				if(!is_numeric($options['items'])) $options['items'] = 5;
 				
 				$options['avatar'] = false;
 				if($_POST['sk_avatar'])
@@ -1461,8 +1462,8 @@ function sk_widget_init() {
 
 			// Here is our little form segment. Notice that we don't need a
 			// complete form. This will be embedded into the existing form.
-			$items="selected".$options['items'];
-			$$items=' selected="selected"';
+			$items=$options['items'];
+	
 			$status=$options['avatar'];
 			$registered=$options['registered'];
 			$replies=$options['replies'];

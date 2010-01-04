@@ -30,11 +30,11 @@
 
 <p>
 	<label for="sk_announce"><?php
-		_e('Announce comments','sk'); ?>:
+		_e('Announce comments (send e-mail)','sk'); ?>:
 		<select class="widefat" id="sk_announce" name="sk_announce">
 			<option<?php echo $announce1; ?> value='1'><?php _e('Use general configuration', 'sk'); ?></option>
-			<option<?php echo $announce2; ?> value='2'><?php _e('Send email', 'sk'); ?></option>
-			<option<?php echo $announce3; ?> value='3'><?php _e('Don\'t send email', 'sk'); ?></option>
+			<option<?php echo $announce2; ?> value='2'><?php _e('Send e-mail', 'sk'); ?></option>
+			<option<?php echo $announce3; ?> value='3'><?php _e('Don\'t send e-mail', 'sk'); ?></option>
 		</select>
 	</label>
 </p>
@@ -49,23 +49,13 @@
 <p>
 	<label for="sk_alert_about_emails">
 		<input type="checkbox" class="checkbox" id="sk_alert_about_emails" name="sk_alert_about_emails"<?php
-		if($alert_about_emails) echo " checked"; ?> /> <?php _e('Alert users about posting emails in their comments', 'sk'); ?>
+		if($alert_about_emails) echo " checked"; ?> /> <?php _e('Alert users about posting e-mails in their comments', 'sk'); ?>
 	</label>
 </p>
 
 <p>
 	<label for="sk_num"><?php
-		_e('Items per page','sk'); ?>:
-		<select class="widefat" id="sk_items" name="sk_items">
-			<option<?php echo $selected1; ?>>1</option>
-			<option<?php echo $selected2; ?>>2</option>
-			<option<?php echo $selected3; ?>>3</option>
-			<option<?php echo $selected4; ?>>4</option>
-			<option<?php echo $selected5; ?>>5</option>
-			<option<?php echo $selected10; ?>>10</option>
-			<option<?php echo $selected15; ?>>15</option>
-			<option<?php echo $selected20; ?>>20</option>
-		</select>
+		_e('Items per page','sk'); ?>: <input type="text" name="sk_items" style="width: 30px;" value="<?php echo $items; ?>">
 	</label>
 </p>
 
