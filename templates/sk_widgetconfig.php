@@ -29,7 +29,7 @@
 </p>
 
 <p>
-	<label for="sk_announce"><?php
+	<label for="sk_num"><?php
 		_e('Announce comments (send e-mail)','sk'); ?>:
 		<select class="widefat" id="sk_announce" name="sk_announce">
 			<option<?php echo $announce1; ?> value='1'><?php _e('Use general configuration', 'sk'); ?></option>

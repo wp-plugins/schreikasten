@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9
-Stable tag: 0.11.3
+Stable tag: 0.11.3.1
 
 A shoutbox using ajax and akismet.
 
@@ -83,6 +83,9 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.3.1 =
+* Solved a bug with the UI.
 
 = 0.11.3 =
 * UI updated to simplify email system.
