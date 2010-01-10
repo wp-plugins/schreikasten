@@ -70,6 +70,12 @@
 
 <p>
 	<label for="sk_num"><?php
+		_e('Number of characters allowed per comment','sk'); ?>: <input type="text" name="sk_maxchars" style="width: 50px;" value="<?php echo $maxchars; ?>">
+	</label>
+</p>
+
+<p>
+	<label for="sk_num"><?php
 		_e('Items per page','sk'); ?>: <input type="text" name="sk_items" style="width: 30px;" value="<?php echo $items; ?>">
 	</label>
 </p>

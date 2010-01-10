@@ -12,6 +12,10 @@
 	$avatar = $options['avatar']; 
 	$req = sk_require_name_and_email();
 	
+	//Get maxchars
+	$maxchars = 255;
+	if(isset($options['maxchars'])) $maxchars = $options['maxchars'];
+	
 	//Update blacklist dates
 	sk_blacklist_update();
 	
@@ -163,7 +167,7 @@
 				key = window.event.keyCode; //IE
 			else
 				key = event.keyCode;
-			if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40) )
+			if(this.value.length><?php echo $maxchars; ?>-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40) )
 			return false;"></textarea></td>
 	</tr>
 </table>

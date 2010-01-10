@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.4
+Version: 0.11.5
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1457,9 +1457,12 @@ function sk_widget_init() {
 		$options = get_option('widget_sk');
 		
 		if ( !is_array($options) ) {
-			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1');
+			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225');
 			
 		}
+		
+		//Max characters
+		if(!isset($options['maxchars'])) $options['maxchars']=255;
 		
 		if(!function_exists('minimax_version') || minimax_version()<0.3) { ?>
 		<p>
@@ -1472,6 +1475,10 @@ function sk_widget_init() {
 			if ( $_POST['sk-submit'] ) {
 				// Remember to sanitize and format use input appropriately.
 				$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
+				
+				$options['maxchars'] = $_POST['sk_maxchars'];
+				if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
+				
 				$options['items'] = $_POST['sk_items'];
 				if(!is_numeric($options['items'])) $options['items'] = 5;
 				
@@ -1503,6 +1510,7 @@ function sk_widget_init() {
 			// Here is our little form segment. Notice that we don't need a
 			// complete form. This will be embedded into the existing form.
 			$items=$options['items'];
+			$maxchars=$options['maxchars'];
 	
 			$status=$options['avatar'];
 			$registered=$options['registered'];

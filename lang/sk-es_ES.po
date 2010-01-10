@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-08 21:04-0500\n"
-"PO-Revision-Date: 2010-01-08 21:05-0500\n"
+"POT-Creation-Date: 2010-01-10 12:20-0500\n"
+"PO-Revision-Date: 2010-01-10 12:25-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -157,8 +157,8 @@ msgid "Schreikasten Configuration"
 msgstr "Configuración de Schreikasten"
 
 #: schreikasten.php:1203
-#: schreikasten.php:1467
-#: templates/sk_widget.php:201
+#: schreikasten.php:1470
+#: templates/sk_widget.php:205
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, php-format
@@ -398,16 +398,16 @@ msgstr "Bloquear PC"
 msgid "Delete this Comment?"
 msgstr "¿Eliminar este Comentario?"
 
-#: templates/sk_widget.php:78
-#: templates/sk_widget.php:156
+#: templates/sk_widget.php:82
+#: templates/sk_widget.php:160
 msgid "For"
 msgstr "Para"
 
-#: templates/sk_widget.php:90
+#: templates/sk_widget.php:94
 msgid "E-mail is required"
 msgstr "E-mail es requerido"
 
-#: templates/sk_widget.php:96
+#: templates/sk_widget.php:100
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
@@ -417,7 +417,7 @@ msgstr ""
 "recomendamos no publicar direcciones de\\n"
 "correo. ¿Desea continuar?"
 
-#: templates/sk_widget.php:115
+#: templates/sk_widget.php:119
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -425,7 +425,7 @@ msgstr ""
 "Su mensaje fue enviado. Todos los comentarios\\n"
 "deberán ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:117
+#: templates/sk_widget.php:121
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -434,37 +434,37 @@ msgstr ""
 "inhabilitado. Todos los comentarios deberán\\n"
 "ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:132
+#: templates/sk_widget.php:136
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Deberá estar <a href=\"%s\">registrado</a> para publicar un comentario"
 
-#: templates/sk_widget.php:137
+#: templates/sk_widget.php:141
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Este PC está inhabilitado. No podrá enviar mensajes."
 
-#: templates/sk_widget.php:173
+#: templates/sk_widget.php:177
 msgid "Mail will not be published"
 msgstr "No se publicará el e-mail"
 
-#: templates/sk_widget.php:173
+#: templates/sk_widget.php:177
 msgid "(but it's required)"
 msgstr "(pero es requerido)"
 
-#: templates/sk_widget.php:173
+#: templates/sk_widget.php:177
 msgid "(but it's used for avatar)"
 msgstr "(se usará solo para el avatar)"
 
-#: templates/sk_widget.php:174
+#: templates/sk_widget.php:178
 #, php-format
 msgid "Loged in as %s"
 msgstr "Registrado como %s"
 
-#: templates/sk_widget.php:180
+#: templates/sk_widget.php:184
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: templates/sk_widget.php:186
+#: templates/sk_widget.php:190
 msgid "Submit"
 msgstr "Enviar"
 
@@ -591,40 +591,44 @@ msgid "Alert users about posting e-mails in their comments"
 msgstr "Alertar a los usuarios sobre los riesgos de publicar correos electrónicos en los comentarios"
 
 #: templates/sk_widgetconfig.php:73
+msgid "Number of characters allowed per comment"
+msgstr "Número de caracteres permitido por comentario"
+
+#: templates/sk_widgetconfig.php:79
 msgid "Items per page"
 msgstr "Items por página"
 
-#: templates/sk_widgetconfig.php:79
+#: templates/sk_widgetconfig.php:85
 msgid "Refresh rate"
 msgstr "Tasa de refresco"
 
-#: templates/sk_widgetconfig.php:79
+#: templates/sk_widgetconfig.php:85
 msgid "(this option is in an early stage, take caution)"
 msgstr "(esta opción está en desarrollo, úsela con precaución)"
 
-#: templates/sk_widgetconfig.php:81
+#: templates/sk_widgetconfig.php:87
 msgid "Never"
 msgstr "Nunca"
 
-#: templates/sk_widgetconfig.php:82
-#: templates/sk_widgetconfig.php:83
-#: templates/sk_widgetconfig.php:84
+#: templates/sk_widgetconfig.php:88
+#: templates/sk_widgetconfig.php:89
+#: templates/sk_widgetconfig.php:90
 msgid "seconds"
 msgstr "segundos"
 
-#: templates/sk_widgetconfig.php:91
+#: templates/sk_widgetconfig.php:97
 msgid "Max days to hold a PC blacklisted"
 msgstr "Máximo número de días que un PC podrá estar inhabilitado"
 
-#: templates/sk_widgetconfig.php:98
+#: templates/sk_widgetconfig.php:104
 msgid "Forever"
 msgstr "Para siempre"
 
-#: templates/sk_widgetconfig.php:105
+#: templates/sk_widgetconfig.php:111
 msgid "Max pending messages from blacklisted PC"
 msgstr "Máximo número de mensajes pendientes que podrá enviar un PC inhabilitado"
 
-#: templates/sk_widgetconfig.php:107
+#: templates/sk_widgetconfig.php:113
 msgid "None"
 msgstr "Ninguno"
 
