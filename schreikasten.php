@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.3.1
+Version: 0.11.4
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -162,6 +162,34 @@ function sk_plugin_url($str = '')
 }
 
 /**
+* Indicates if require name and email.
+*
+* @return bool
+* @access public
+*/
+function sk_require_name_and_email()
+{
+	$answer=false;
+	$options = get_option('widget_sk');
+	$require = $options['requiremail'];
+	$general = get_option('require_name_email');
+	
+	if(is_bool($require)) {
+		if($require) {
+			$require = 2; //The old 'true' is the new '2'. 
+		} else {
+			$require = 3; //The old 'false' is the new '3'.
+		}
+	}
+	
+	//If we use the general configuration and the configuration say 'yes', or
+	//if we say 'yes'	
+	if($require == 2 || ($require == 1 && $general) )
+		$answer=true;
+	return $answer;
+}
+
+/**
 * Indicates if only registered user can add comments.
 *
 * @return bool
@@ -170,8 +198,21 @@ function sk_plugin_url($str = '')
 function sk_only_registered_users()
 {
 	$answer=false;
-	$options = get_option('widget_sk');	
-	if($options['registered']==1)
+	$options = get_option('widget_sk');
+	$registered = $options['registered'];
+	$general = get_option('comment_registration');
+	
+	if(is_bool($registered)) {
+		if($registered) {
+			$registered = 2; //The old 'true' is the new '2'. 
+		} else {
+			$registered = 3; //The old 'false' is the new '3'.
+		}
+	}
+	
+	//If we use the general configuration and the configuration say 'yes', or
+	//if we say 'yes'	
+	if($registered == 2 || ($registered == 1 && $general) )
 		$answer=true;
 	return $answer;
 }
@@ -1416,7 +1457,7 @@ function sk_widget_init() {
 		$options = get_option('widget_sk');
 		
 		if ( !is_array($options) ) {
-			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>1);
+			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1');
 			
 		}
 		
@@ -1438,10 +1479,6 @@ function sk_widget_init() {
 				if($_POST['sk_avatar'])
 					$options['avatar'] = true;
 				
-				$options['registered'] = false;
-				if($_POST['sk_registered'])
-					$options['registered'] = true;
-				
 				$options['replies'] = false;
 				if($_POST['sk_replies'])
 					$options['replies'] = true;
@@ -1453,7 +1490,10 @@ function sk_widget_init() {
 				$options['refresh'] = $_POST['sk_refresh'];
 				$options['bl_days'] = $_POST['sk_bl_days'];
 				$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
+				
+				$options['registered'] = $_POST['sk_registered'];
 				$options['announce'] = $_POST['sk_announce'];
+				$options['requiremail'] = $_POST['sk_requiremail'];
 				
 				update_option('widget_sk', $options);
 			}
@@ -1478,9 +1518,15 @@ function sk_widget_init() {
 			$maxpending="selectedmaxpending".$options['bl_maxpending'];
 			$$maxpending=' selected="selected"';
 			
+			$registered="registered".$options['registered'];
+			$$registered=' selected="selected"';
+			
+			$require="require".$options['requiremail'];
+			$$require=' selected="selected"';
+			
 			$announce="announce".$options['announce'];
 			$$announce=' selected="selected"';
-		
+			
 			require("templates/sk_widgetconfig.php");
 		}
 	}

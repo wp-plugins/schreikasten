@@ -22,10 +22,25 @@
 </p>
 
 <p>
-	<label for="sk_avatars">
-		<input type="checkbox" class="checkbox" id="sk_registered" name="sk_registered"<?php
-		if($registered) echo " checked"; ?> /> <?php _e('Registered users only', 'sk'); ?>
+	<label for="sk_num"><?php 
+		_e('Registered users only', 'sk'); ?>:
+		<select class="widefat" id="sk_registered" name="sk_registered">
+			<option<?php echo $registered1; ?> value='1'><?php _e('Use general configuration', 'sk'); ?></option>
+			<option<?php echo $registered2; ?> value='2'><?php _e('Yes', 'sk'); ?></option>
+			<option<?php echo $registered3; ?> value='3'><?php _e('No', 'sk'); ?></option>
+		</select>
 		</label>
+</p>
+
+<p>
+	<label for="sk_num"><?php
+		_e('Requiere e-mail','sk'); ?>:
+		<select class="widefat" id="sk_requiremail" name="sk_requiremail">
+			<option<?php echo $require1; ?> value='1'><?php _e('Use general configuration', 'sk'); ?></option>
+			<option<?php echo $require2; ?> value='2'><?php _e('Yes', 'sk'); ?></option>
+			<option<?php echo $require3; ?> value='3'><?php _e('No', 'sk'); ?></option>
+		</select>
+	</label>
 </p>
 
 <p>

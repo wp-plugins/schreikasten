@@ -8,9 +8,9 @@
 	global $current_user;
 	get_currentuserinfo();
 	
-	$req = get_option('require_name_email');
 	$options = get_option('widget_sk');
 	$avatar = $options['avatar']; 
+	$req = sk_require_name_and_email();
 	
 	//Update blacklist dates
 	sk_blacklist_update();
