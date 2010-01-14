@@ -141,14 +141,12 @@ div#throbber-img {
 	border: solid 1px #e1e1e1;*/
 }
 
-div.on#throbber-img {	
+div.on#throbber-img {
 	display: block;
-	visibility: visible;
 }
 
-div.off#throbber-img {	
+div.off#throbber-img {
 	display: none;
-	visibility: hidden;
 }
 
 span.sk-for {

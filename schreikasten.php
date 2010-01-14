@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.5
+Version: 0.11.6
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1118,7 +1118,7 @@ function sk_show_comments($page=1,$id=false)
 	$aux->text = "<span id='th_sk_text'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer= "<div id='throbber-img' class='off'>".sk_format_comment($aux,true)."</div>";
+	$answer= "<div id='throbber-img' class='off' style='visibility: hidden;'>".sk_format_comment($aux,true)."</div>";
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {

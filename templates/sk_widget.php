@@ -105,6 +105,8 @@
 		<?php } ?>
 		document.getElementById('th_sk_alias').innerHTML = alias.replace(/&/gi,"&amp;");
 		document.getElementById('th_sk_text').innerHTML = text.replace(/&/gi,"&amp;");
+		document.getElementById('throbber-img').style.visibility='visible';
+		
 		email=email.replace(/&amp;/gi,"y");
 		alias=alias.replace(/&/gi,"%26");
 		text=text.replace(/&/gi,"%26");
