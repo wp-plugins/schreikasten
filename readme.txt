@@ -57,7 +57,7 @@ There are a lot of shoutbox in the Interwebz, but none of them fits and looks in
 template as I want. So I decide to create one using Akismet for Spam, gravatars, the 
 default CSS from Wordpress and Ajax just to make it more fun.
 
-= It say something about minimax. What's this? =
+= It says something about minimax. What's this? =
 
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
@@ -79,7 +79,7 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 3. Page to set the API KEY to use Akismet.
 4. Page to mannage comments. See the __Schreikasten__ option in the Comments item at the left menu.
 5. Page to edit a comment.
-6. Page to mannage blocked PCs. Read the messages sended from a specific PC even i they are from different users. Look the date at the right wich indicates when the user PC would be unblock, and the items to block it forever or enable it now.
+6. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the items to lock it forever or enable it now.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
