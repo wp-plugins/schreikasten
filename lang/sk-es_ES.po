@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 12:20-0500\n"
-"PO-Revision-Date: 2010-01-10 12:25-0500\n"
+"POT-Creation-Date: 2010-01-30 13:44-0500\n"
+"PO-Revision-Date: 2010-01-30 13:44-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Configuración de Schreikasten"
 
 #: schreikasten.php:1203
 #: schreikasten.php:1470
-#: templates/sk_widget.php:205
+#: templates/sk_widget.php:209
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, php-format
@@ -399,15 +399,19 @@ msgid "Delete this Comment?"
 msgstr "¿Eliminar este Comentario?"
 
 #: templates/sk_widget.php:82
-#: templates/sk_widget.php:160
+#: templates/sk_widget.php:164
 msgid "For"
 msgstr "Para"
 
-#: templates/sk_widget.php:94
+#: templates/sk_widget.php:93
+msgid "The lenght of the message is bigger than the allowed size."
+msgstr "El tamaño del mensaje es mayor de lo permitido."
+
+#: templates/sk_widget.php:97
 msgid "E-mail is required"
 msgstr "E-mail es requerido"
 
-#: templates/sk_widget.php:100
+#: templates/sk_widget.php:102
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
@@ -417,7 +421,7 @@ msgstr ""
 "recomendamos no publicar direcciones de\\n"
 "correo. ¿Desea continuar?"
 
-#: templates/sk_widget.php:119
+#: templates/sk_widget.php:123
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -425,7 +429,7 @@ msgstr ""
 "Su mensaje fue enviado. Todos los comentarios\\n"
 "deberán ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:121
+#: templates/sk_widget.php:125
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -434,37 +438,37 @@ msgstr ""
 "inhabilitado. Todos los comentarios deberán\\n"
 "ser aprobados antes de su publicación."
 
-#: templates/sk_widget.php:136
+#: templates/sk_widget.php:140
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Deberá estar <a href=\"%s\">registrado</a> para publicar un comentario"
 
-#: templates/sk_widget.php:141
+#: templates/sk_widget.php:145
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Este PC está inhabilitado. No podrá enviar mensajes."
 
-#: templates/sk_widget.php:177
+#: templates/sk_widget.php:181
 msgid "Mail will not be published"
 msgstr "No se publicará el e-mail"
 
-#: templates/sk_widget.php:177
+#: templates/sk_widget.php:181
 msgid "(but it's required)"
 msgstr "(pero es requerido)"
 
-#: templates/sk_widget.php:177
+#: templates/sk_widget.php:181
 msgid "(but it's used for avatar)"
 msgstr "(se usará solo para el avatar)"
 
-#: templates/sk_widget.php:178
+#: templates/sk_widget.php:182
 #, php-format
 msgid "Loged in as %s"
 msgstr "Registrado como %s"
 
-#: templates/sk_widget.php:184
+#: templates/sk_widget.php:188
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: templates/sk_widget.php:190
+#: templates/sk_widget.php:194
 msgid "Submit"
 msgstr "Enviar"
 

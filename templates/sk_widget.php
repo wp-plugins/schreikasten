@@ -89,14 +89,16 @@
 		var text=document.getElementsByName("sk_text")[0].value;
 		var email=document.getElementsByName("sk_email")[0].value;
 		var skfor=document.getElementsByName("sk_for_id")[0].value;
-		<?php	if ($req) { ?>
-		if(!check_email(email)) {
+		if(text.length><?php echo $maxchars; ?>-1) {
+			alert('<?php _e("The lenght of the message is bigger than the allowed size.", "sk"); ?> ');
+			return false;
+		}
+		<?php	if ($req) { ?>		if(!check_email(email)) {
 			alert('<?php _e("E-mail is required", "sk"); ?> ');
 			return false;
 		}
 		<?php } ?>
-		<?php if($options['alert_about_emails']) { ?>
-		if(email_intext ( text ) ) {
+		<?php if($options['alert_about_emails']) { ?>		if(email_intext ( text ) ) {
 			check=confirm("<?php _e("To prevent identification theft, we recomend\\nthat you do not include e-mail adresses.\\nDo you want to continue?", "sk"); ?>");
 			if(!check) {
 				return false;
