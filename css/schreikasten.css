@@ -14,6 +14,43 @@ input.sk-button {
     border:1px #2f5c89 solid;
     padding: 0 2px;
   }
+  
+.sk-little {
+	font-size : 80%;
+}
+
+/****** Button over the text
+div.sk-box-text {
+	text-align: right;
+}
+
+div.sk-box-button {
+	width: 100%;
+}
+
+input.sk-button-size {
+	width: 100%;
+} */
+
+/* End of css for button over the text */
+
+/****** Button at the right side of the text */
+div.sk-box-text {
+		margin-right: 5px;
+		float: right;
+		text-align: right;
+	}
+
+div.sk-box-button {
+		float: right;
+		width: 50px;
+	}
+
+input.sk-button-size {
+    width:50px;
+  }
+  
+/* End of css for button at the right side of the text */
 
 input.sk-text {
     color:#5188d2;
@@ -164,10 +201,6 @@ tr.sk-for-nai {
 
 tr.sk-for-yep {
 	display: table-row;
-}
-
-.sk-little {
-	font-size : 80%;
 }
 
 .sk-separate {	

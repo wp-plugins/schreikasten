@@ -3,12 +3,12 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.7
+Version: 0.11.8
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
 
-/* Copyright 2008-2009 Sebaxtian (email : sebaxtian@gawab.com)
+/* Copyright 2008-2010 Sebaxtian (email : sebaxtian@gawab.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -459,7 +459,7 @@ function sk_reply($id) {
 	$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
 	$from = $wpdb->get_row($query);
 	
-	//If we have the 'from' data
+	//If we have the 'from' data and it is a reply
 	if($from->reply!=0) {
 		//Get the 'for' data
 		$query="SELECT * FROM " . $table_name ." WHERE id=".$from->reply;
@@ -478,6 +478,7 @@ function sk_reply($id) {
 			$notify_message .= $url;
 			
 			@wp_mail($email, sprintf(__('An answer to your comment on %s', 'sk'), $website), $notify_message);
+			//To not resend the reply, clear the reply column
 			$query="UPDATE $table_name SET reply=0 WHERE id=".$id;
 			$wpdb->query($query);
 			
@@ -804,13 +805,14 @@ function sk_mark_as_ham($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . "schreikasten";
 	$status = sk_status($id);
+	//Change the status
 	$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
 	$answer1=$wpdb->query( $query );
+	//Send the reply
 	sk_reply($id);
 	
-	// Send SPAM mark to Akismet if there is an API key and
+	// Send HAM mark to Akismet if there is an API key and
 	// the comment was marked as SPAM
-	//if(sk_verify_key() && $status==SK_SPAM) {
 	if(get_option('sk_api_key_accepted') && $status==SK_SPAM) {
 		global $sk_user_agent;
 		//Get the data to send to akismet

@@ -148,13 +148,13 @@
 	<?
 	if($current_user->ID==0) { ?>
 	<tr>
-		<td>Alias:</td>
+		<td><?php _e('Alias', 'sk');?>:</td>
 		<td>
 			<input class='sk-text' type='text' name='sk_alias' value='<?php echo $alias; ?>'/>
 		</td>
 	</tr>
 	<tr>
-		<td>Email:</td>
+		<td><?php _e('Email', 'sk');?>:</td>
 		<td>
 			<input class='sk-text' type='text' name='sk_email' value='<?php echo $email; ?>'/>
 		</td>
@@ -177,7 +177,11 @@
 </table>
 <table width='100%'>		
 	<tr>
-		<td align="right" class='sk-little'><?php if($current_user->ID==0) { ?>
+		<td colspan="2" class='sk-little'>
+			<div class='sk-box-button'>
+				<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class="sk-button sk-button-size" value="<?php _e('Submit', 'sk'); ?>" onclick='sk_pressButton();'/>
+			</div>
+			<div class='sk-box-text'><?php if($current_user->ID==0) { ?>
 			<?php _e('Mail will not be published', 'sk'); ?><br/><?php if ($req) _e("(but it's required)", "sk"); else if($avatar) _e("(but it's used for avatar)", "sk"); ?><?php } else { ?>
 			<?php printf(__('Loged in as %s', 'sk'), $current_user->display_name); ?>
 					<br/><a href="<?php 
@@ -189,9 +193,8 @@
 				<input name='sk_alias' type='hidden' value='<?php echo $current_user->display_name; ?>'/>
 				<input name='sk_email' type='hidden' value='<?php echo $current_user->user_email; ?>'/><?php
 		} ?>
+			</div>
 		</td>
-		<td align="right" width='50px'>
-			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class='sk-button' value='<?php _e('Submit', 'sk'); ?>' onclick='sk_pressButton();'/></td>
 	</tr><?php } 
 	$uri_img=sk_plugin_url('/img/loading.gif');
 	?>

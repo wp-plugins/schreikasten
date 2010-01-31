@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.1
-Stable tag: 0.11.7
+Stable tag: 0.11.8
 
 A shoutbox using ajax and akismet.
 
@@ -29,6 +29,8 @@ in [this site](http://en.wordpress.com/api-keys/).
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
+
+Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordinc Talking")__. Thanks for your time Andreas!
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
@@ -71,6 +73,16 @@ one is in a sidebar and the other in the conntents.
 
 Yes. Copy the file schreikasten.css to your theme folder. The plugin will check for it.
 
+= Can I put the button over the text? =
+
+Yes. Copy the file schreikasten.css to your theme folder, comment the section called 
+__Button at the right side of the text__ and uncomment the section called __Button 
+over the text__.
+
+= Can I reduce the font size of the text near the button? =
+
+Yes. Copy the file schreikasten.css to your theme folder, search for the class 
+__sk-little__ and change the font size.
 
 == Screenshots ==
 
@@ -83,6 +95,10 @@ Yes. Copy the file schreikasten.css to your theme folder. The plugin will check 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.8 =
+* First release with German translation
+* Modified the CSS to allow the button to be placed at the right of the text or over it. 
 
 = 0.11.7 =
 * Solved a bug with the notification system when a confirmation is required.
