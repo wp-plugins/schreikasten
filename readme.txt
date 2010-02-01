@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.1
-Stable tag: 0.11.8
+Stable tag: 0.11.9
 
 A shoutbox using ajax and akismet.
 
@@ -30,7 +30,7 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
-Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordinc Talking")__. Thanks for your time Andreas!
+Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__. Thanks for your time friend!
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
@@ -56,7 +56,7 @@ It means shoutbox in german.
 = Why another shoutbox? =
 
 There are a lot of shoutbox in the Interwebz, but none of them fits and looks in my
-template as I want. So I decide to create one using Akismet for Spam, gravatars, the 
+template as I want. So I decided to create one using Akismet for Spam, gravatars, the 
 default CSS from Wordpress and Ajax just to make it more fun.
 
 = It says something about minimax. What's this? =
@@ -66,7 +66,7 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 = Can I put a shoutbox inside a theme? =
 
 Yes, use the function __sk\_shoutbox()__ to write the html code wherever you
-need. Warning: You can not have more than one shoutbox in the same page, even if 
+need. __Warning:__ You can not have more than one shoutbox in the same page, even if 
 one is in a sidebar and the other in the conntents.
 
 = Can I set my own CSS? =
@@ -96,8 +96,11 @@ __sk-little__ and change the font size.
 
 == Changelog ==
 
+= 0.11.9 =
+* Solved a bug with the notification system when a confirmation is required.
+
 = 0.11.8 =
-* First release with German translation
+* First release with German translation.
 * Modified the CSS to allow the button to be placed at the right of the text or over it. 
 
 = 0.11.7 =
