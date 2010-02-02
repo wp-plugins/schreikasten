@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 16:39-0500\n"
+"POT-Creation-Date: 2010-02-02 07:04-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Andreas Hübner <ahue87+translations@gmail.com>\n"
@@ -341,7 +341,7 @@ msgstr "Für"
 
 #: templates/sk_widget.php:93
 msgid "The lenght of the message is bigger than the allowed size."
-msgstr "Die Länge der Nachricht ist größer als die zulässige Größe."
+msgstr "Die Länge der Nachricht ist größer als die zulässige Länge."
 
 #: templates/sk_widget.php:97
 msgid "E-mail is required"
@@ -363,15 +363,15 @@ msgid ""
 "to be approved before posted."
 msgstr ""
 "Der Kommentar wurde gespeichert. Kommentare\\n"
-"mössen vor der Veröffentlichung moderiert werden."
+"müssen vor der Veröffentlichung moderiert werden."
 
 #: templates/sk_widget.php:125
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
 msgstr ""
-"Dein Kommentar wurde gespeichert, dein PC wird jedoch blockert.\\n"
-"Kommentare mössen vor der Veröffentlichung moderiert werden."
+"Dein Kommentar wurde gespeichert, dein PC wird jedoch blockiert.\\n"
+"Kommentare müssen vor der Veröffentlichung moderiert werden."
 
 #: templates/sk_widget.php:140
 #, php-format
@@ -380,7 +380,7 @@ msgstr "Du musst <a href=\"%s\">angemeldet sein</a> um einen Kommentar schreiben
 
 #: templates/sk_widget.php:145
 msgid "This PC was blacklisted. At this time comments cannot be posted."
-msgstr "Dein PC wird blockert. Du kannst zur Zeit keine Kommentare schreiben."
+msgstr "Dein PC wird blockiert. Du kannst zur Zeit keine Kommentare schreiben."
 
 #: templates/sk_widget.php:151
 msgid "Alias"
@@ -428,7 +428,7 @@ msgstr "Schreikasten Kommentare"
 #: templates/sk_manage.php:59
 #: templates/sk_manage.php:61
 msgid "Search Comments"
-msgstr "Kommetare durchsuchen"
+msgstr "Kommentare durchsuchen"
 
 #: templates/sk_manage.php:86
 #: templates/sk_manage.php:190
