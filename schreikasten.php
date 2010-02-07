@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.12
+Version: 0.11.13
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -362,10 +362,12 @@ function sk_activate()
 	$blacklist_name = $wpdb->prefix . "schreikasten_blacklist";
 	$db_version=get_option('sk_db_version');
 	switch($db_version) {
-	case 1: //SQL code to update from SK1 to SK3
+	case 1: //SQL code to update from SK1 to SK4
 		$sql="ALTER TABLE $table_name ADD user_id int NOT NULL"; 
 		$wpdb->query($sql);
 		$sql="ALTER TABLE $table_name ADD email tinytext NOT NULL";
+		$wpdb->query($sql);
+		$sql="ALTER TABLE $table_name CONVERT TO CHARACTER SET utf8"; 
 		$wpdb->query($sql);
 		$sql = "CREATE TABLE $blacklist_name(
 		id bigint(1) NOT NULL AUTO_INCREMENT,
@@ -373,22 +375,32 @@ function sk_activate()
 		date datetime NOT NULL,
 		forever tinyint(4) NOT NULL,
 		PRIMARY KEY (id)
-		);";
+		) CHARSET=utf8;";
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
-		update_option('sk_db_version', 3);
+		update_option('sk_db_version', 4);
 		break;
-	case 2: //SQL code to update from SK2 to SK3
+	case 2: //SQL code to update from SK2 to SK4
 		$sql="ALTER TABLE $table_name ADD reply int NOT NULL"; 
 		$wpdb->query($sql);
-		update_option('sk_db_version', 3);
+		$sql="ALTER TABLE $table_name CONVERT TO CHARACTER SET utf8"; 
+		$wpdb->query($sql);
+		$sql="ALTER TABLE $blacklist_name CONVERT TO CHARACTER SET utf8"; 
+		$wpdb->query($sql);
+		update_option('sk_db_version', 4);
 		break;
-	case 3: //We are in SK3, so theres nothing we have to do
+	case 3: //SQL code to update from SK3 to SK4
+		$sql="ALTER TABLE $table_name CONVERT TO CHARACTER SET utf8"; 
+		$wpdb->query($sql);
+		$sql="ALTER TABLE $blacklist_name CONVERT TO CHARACTER SET utf8"; 
+		$wpdb->query($sql);
+		update_option('sk_db_version', 4);
 		break;
-	default: //It's a fress installation, create the table.
+	case 4: //We are in SK3, so theres nothing we have to do
+		break;
+	default: //It's a fresh installation, create the table.
 		if($wpdb->get_var("show tables like '$table_name'") != $table_name)
 		{
-	
 			$sql = "CREATE TABLE $table_name(
 				id bigint(1) NOT NULL AUTO_INCREMENT,
 				alias tinytext NOT NULL,
@@ -400,7 +412,7 @@ function sk_activate()
 				email tinytext NOT NULL,
 				reply int NOT NULL,
 				PRIMARY KEY (id)
-			);";
+			) CHARSET=utf8;";
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
 		}
@@ -413,11 +425,11 @@ function sk_activate()
 				date datetime NOT NULL,
 				forever tinyint(4) NOT NULL,
 				PRIMARY KEY (id)
-				);";
+				) CHARSET=utf8;";
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
 		}
-		add_option('sk_db_version', 3);
+		add_option('sk_db_version', 4);
 		add_option('sk_api_key', '');
 		add_option('sk_api_key_accepted', false);
 		sk_verify_key( ); //if we have an old sk_api_key, verify it;
@@ -586,9 +598,10 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 				$table_name = $wpdb->prefix . "schreikasten";
 				$insert = "INSERT INTO " . $table_name .
 					" (alias, text, date, ip, status, user_id, email, reply) " .
-					"VALUES ('$alias', '$text', '$time', '$ip', ".SK_MOOT.", $user_id, '$email', $for)";
+					"VALUES ('%s', '%s', '%s', '%s', %d, %d, '%s', %d)";
 				//Add the comment, mark it to moderate
-				if($answer = $wpdb->query( $insert )) { //If the comment was accepted
+				$insert = $wpdb->prepare( $insert, $alias, $text, $time, $ip, SK_MOOT, $user_id, $email, $for );
+				if($answer = $wpdb->query( $insert ) ) { //If the comment was accepted
 					$id = $wpdb->get_var("select last_insert_id()");
 					$answer=$id;
 					$spam=false; 
@@ -1104,7 +1117,7 @@ function sk_show_comments($page=1,$id=false)
 	$table_name = $wpdb->prefix . "schreikasten";
 	
 	//Get the comments to show
-	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
+	$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
 	$comments = $wpdb->get_results($sql);
 
 	//if we don't show avatars, then it's a list	
@@ -1124,9 +1137,11 @@ function sk_show_comments($page=1,$id=false)
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
-		$sql="SELECT id, alias, text, DATE_FORMAT(date, '%d/%c/%Y %l:%i%p') as date, user_id, email, status FROM $table_name WHERE id=$id";
+		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE id=$id";
 		$idComments = $wpdb->get_results($sql);
 		foreach($idComments as $idComment) {
+			//Set the data the page format
+			$idComments->date = mysql2date(get_option('date_format'), $idComments->date)." ".mysql2date(get_option('date_time'), $idComments->date);
 			//If it's spam add it at the begginning.
 			if($idComment->status==SK_SPAM || $idComment->status==SK_MOOT) {
 				array_unshift($comments, $idComment);
@@ -1136,6 +1151,8 @@ function sk_show_comments($page=1,$id=false)
 
 	//The comments list
 	foreach($comments as $comment) {
+		//Set the data the page format
+		$comment->date = mysql2date(get_option('date_format'), $comment->date)." ".mysql2date(get_option('time_format'), $comment->date);
 		$answer.=sk_format_comment($comment);
 	}
 	
@@ -1223,38 +1240,46 @@ function sk_manage() {
 	//In case we have to do something previous
 	if($doaction)
 	{
-		switch($doaction)
-		{
-			case 'approve': //approve the list of checked comments
-				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_mark_as_ham($checked_id);
-				}
-				break;
-			case 'markspam': //mark as spam the list of checked comments
-				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_mark_as_spam($checked_id);
-				}
-				break;
-			case 'markblack': //mark as black the list of checked comments
-				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_mark_as_black($checked_id);
-				}
-				break;
-			case 'delete': //delete the list of checked comments
-				foreach($_POST['checked_comments'] as $checked_id) {
-					sk_delete_comment($checked_id);
-				}
-				break;
-			case 'forever': //mark to be blocked forever the list of checked comments	
-				foreach($_POST['checked_pcs'] as $checked_id) {
-					sk_lock_forever($checked_id);
-				}
-				break;
-			case 'unlock': //mark to be unblocked the list of checked comments
-				foreach($_POST['checked_pcs'] as $checked_id) {
-					sk_unlock($checked_id);
-				}
-				break;
+		if(is_array($_POST['checked_comments'])) {
+			switch($doaction)
+			{
+				case 'approve': //approve the list of checked comments
+					foreach($_POST['checked_comments'] as $checked_id) {
+						sk_mark_as_ham($checked_id);
+					}
+					break;
+				case 'markspam': //mark as spam the list of checked comments
+					foreach($_POST['checked_comments'] as $checked_id) {
+						sk_mark_as_spam($checked_id);
+					}
+					break;
+				case 'markblack': //mark as black the list of checked comments
+					foreach($_POST['checked_comments'] as $checked_id) {
+						sk_mark_as_black($checked_id);
+					}
+					break;
+				case 'delete': //delete the list of checked comments
+					foreach($_POST['checked_comments'] as $checked_id) {
+						sk_delete_comment($checked_id);
+					}
+					break;
+			}
+		}
+		
+		if(is_array($_POST['checked_pcs'])) {
+			switch($doaction)
+			{
+				case 'forever': //mark to be blocked forever the list of checked comments	
+					foreach($_POST['checked_pcs'] as $checked_id) {
+						sk_lock_forever($checked_id);
+					}
+					break;
+				case 'unlock': //mark to be unblocked the list of checked comments
+					foreach($_POST['checked_pcs'] as $checked_id) {
+						sk_unlock($checked_id);
+					}
+					break;
+			}
 		}
 	}
 	

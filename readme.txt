@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.1
-Stable tag: 0.11.12
+Stable tag: 0.11.13
 
 A shoutbox using ajax and akismet.
 
@@ -30,7 +30,7 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
-Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__. Thanks for your time friend!
+Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__ and arzeibajan  by __[Pulsuz Sayt](http://vsayt.com/ "Hər vebsayt bir əsər, hər əsər bir kəşfdir")__. Thanks for your time guys!
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
@@ -95,6 +95,13 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.13 =
+* Time formated to looks like the general configuration.
+* Modified the CSS to fit better in general themes.
+* Solved a bug with the charset in database.
+* First release with Arzeibajan translation.
+
 
 = 0.11.12 = 
 * Solved a bug in the plugin configuration form.
