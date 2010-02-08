@@ -30,7 +30,7 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
-Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__ and azerbaijan by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__. Thanks for your time guys!
+Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__ and azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__. Thanks for your time guys!
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
