@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.13
+Version: 0.11.14
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1141,7 +1141,7 @@ function sk_show_comments($page=1,$id=false)
 		$idComments = $wpdb->get_results($sql);
 		foreach($idComments as $idComment) {
 			//Set the data the page format
-			$idComments->date = mysql2date(get_option('date_format'), $idComments->date)." ".mysql2date(get_option('date_time'), $idComments->date);
+			$idComment->date = mysql2date(get_option('date_format'), $idComment->date)." ".mysql2date(get_option('date_time'), $idComment->date);
 			//If it's spam add it at the begginning.
 			if($idComment->status==SK_SPAM || $idComment->status==SK_MOOT) {
 				array_unshift($comments, $idComment);
