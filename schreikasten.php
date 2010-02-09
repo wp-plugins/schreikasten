@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.14
+Version: 0.11.15
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -35,6 +35,8 @@ define ("SK_BLOCKED", -1);
 define ("SK_ANNOUNCE_CONFIG", 1);
 define ("SK_ANNOUNCE_YES", 2);
 define ("SK_ANNOUNCE_NO", 3);
+
+define ("SK_DB_VERSION", 4);
 
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
@@ -378,7 +380,7 @@ function sk_activate()
 		) CHARSET=utf8;";
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
-		update_option('sk_db_version', 4);
+		update_option('sk_db_version', SK_DB_VERSION);
 		break;
 	case 2: //SQL code to update from SK2 to SK4
 		$sql="ALTER TABLE $table_name ADD reply int NOT NULL"; 
@@ -387,14 +389,14 @@ function sk_activate()
 		$wpdb->query($sql);
 		$sql="ALTER TABLE $blacklist_name CONVERT TO CHARACTER SET utf8"; 
 		$wpdb->query($sql);
-		update_option('sk_db_version', 4);
+		update_option('sk_db_version', SK_DB_VERSION);
 		break;
 	case 3: //SQL code to update from SK3 to SK4
 		$sql="ALTER TABLE $table_name CONVERT TO CHARACTER SET utf8"; 
 		$wpdb->query($sql);
 		$sql="ALTER TABLE $blacklist_name CONVERT TO CHARACTER SET utf8"; 
 		$wpdb->query($sql);
-		update_option('sk_db_version', 4);
+		update_option('sk_db_version', SK_DB_VERSION);
 		break;
 	case 4: //We are in SK3, so theres nothing we have to do
 		break;
@@ -429,7 +431,12 @@ function sk_activate()
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
 		}
-		add_option('sk_db_version', 4);
+		
+		//Widget options
+		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225');
+		add_option('widget_sk', $options);
+		
+		add_option('sk_db_version', SK_DB_VERSION);
 		add_option('sk_api_key', '');
 		add_option('sk_api_key_accepted', false);
 		sk_verify_key( ); //if we have an old sk_api_key, verify it;
@@ -1463,6 +1470,9 @@ function sk_widget_init() {
 		return;
 
 	function sk_widget($args) {
+		//In case we don't have activated it yet
+		$db_version=get_option('sk_db_version');
+		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
 
 		// $args is an array of strings that help widgets to conform to
 		// the active theme: before_widget, before_title, after_widget,
@@ -1480,13 +1490,12 @@ function sk_widget_init() {
 	}
 
 	function sk_widget_control() {
+		//In case we don't have activated it yet
+		$db_version=get_option('sk_db_version');
+		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
+	
 		// Get our options and see if we're handling a form submission.
 		$options = get_option('widget_sk');
-		
-		if ( !is_array($options) ) {
-			$options = array('title'=>'', 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225');
-			
-		}
 		
 		//Max characters
 		if(!isset($options['maxchars'])) $options['maxchars']=255;

@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.1
-Stable tag: 0.11.14
+Stable tag: 0.11.15
 
 A shoutbox using ajax and akismet.
 
@@ -95,6 +95,8 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+= 0.11.15 =
+* Solved a bug in activation system.
 
 = 0.11.14 =
 * Solved a bug with date format.
