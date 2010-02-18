@@ -1,0 +1,405 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Schreikasten\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-31 16:42-0500\n"
+"PO-Revision-Date: 2010-02-07 18:53-0500\n"
+"Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
+"Language-Team: Vsayt <turkel@gmx.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2\n"
+"X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/schreikasten\n"
+"X-Poedit-Language: Azerbaijani\n"
+"X-Poedit-Country: AZERBAIJAN\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ajax\n"
+"X-Poedit-SearchPath-2: templates\n"
+
+msgid "(but it's required)"
+msgstr "(bu tələb olunur)"
+
+msgid "(but it's used for avatar)"
+msgstr "(amma bu avatar üçün istifadə olunub)"
+
+msgid "<strong>Caution:</strong> You are about to %s the following comment:</p>"
+msgstr "<strong>Dizqqət:</strong> Siz bu mesajı %s üzrəsiniz: </p>"
+
+msgid "<strong>Caution:</strong> You are about to mark the following comment as spam:</p>"
+msgstr "<strong>Dizqqət:</strong> Siz bu mesajı spam kimi qeyd etmək üzrəsiniz: </p>"
+
+msgid "A new comment on Schreikasten is waiting for your approval"
+msgstr "Catda yeni mesaj sizin mesajı qəbul etmənizi gözləir."
+
+msgid "Accept"
+msgstr "Qəbul et"
+
+msgid "Accept comment"
+msgstr "Mesajı Qəbul et"
+
+msgid "Accepted"
+msgid_plural "Accepted"
+msgstr[0] "Qəbul edilən"
+
+msgid "Alert users about posting e-mails in their comments"
+msgstr "İstifadəçilərə E.Poçtlarını yazmalarını xəbərdar et"
+
+msgid "All"
+msgstr "Hamısı"
+
+msgid "Allow replies"
+msgstr "Cavablamalara icazə ver"
+
+msgid "An answer to your comment on %s"
+msgstr "Sizin mesajınıza cavab yazlıb - %s"
+
+msgid "Announce comments (send e-mail)"
+msgstr "Yeni Mesajlar yazıldıqda Xəbər ver (məktub göndərir)"
+
+msgid "Apply"
+msgstr "Qəbul et"
+
+msgid "Approve"
+msgstr "Qəbul et"
+
+msgid "Approve it: %s"
+msgstr "Qəbul et: %s"
+
+msgid "Are you sure you want to block this PC forever?"
+msgstr "Siz bu PC-ni birdəfəlik bloklaşdırmaq istədiyinizdən əminsiniz?"
+
+msgid "Are you sure you want to do that?"
+msgstr "Siz bunu etmək istədiyinizdən əminsiniz?"
+
+msgid "Are you sure you want to lock this PC?"
+msgstr "Siz bu PC-ni bloklaşdırmaq istədiyinizdən əminsiniz?"
+
+msgid "Are you sure you want to unlock this PC?"
+msgstr "Siz bu PC-ni blokdan çıxartmağa əminsiniz?"
+
+msgid "Author"
+msgstr "Müəllif"
+
+msgid "Author : %1$s (IP: %2$s)"
+msgstr "Müəllif: %1$s (IP: %2$s)"
+
+msgid "Block PC forever"
+msgstr "PC-ni birdəfəlik bloklaşdır"
+
+msgid "Blocked PC"
+msgid_plural "Blocked PC"
+msgstr[0] "Bloklanmış PC"
+
+msgid "Bulk Actions"
+msgstr "Toplu əməliyyat"
+
+msgid "By E-mail"
+msgstr "E.Poçta görə"
+
+msgid "By PC"
+msgstr "PC-yə görə"
+
+msgid "Cancel"
+msgstr "Ləğv et"
+
+msgid "Comment"
+msgstr "Mesaj"
+
+msgid "Comment deleted"
+msgstr "Mesaj silindi"
+
+msgid "Comment modified"
+msgstr "Mesaj dəyişdirildi"
+
+msgid "Comment: %s"
+msgstr "Mesaj: %s"
+
+msgid "Comments"
+msgstr "Mesajlar"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Delete Comment"
+msgstr "Mesajı Sil"
+
+msgid "Delete all Spam"
+msgstr "Bütün Spamları Sil"
+
+msgid "Delete it: %s"
+msgstr "Bunu sil: %s"
+
+msgid "Delete this Comment?"
+msgstr "Bu Mesaj Silinsin?"
+
+msgid "Displaying %s&#8211;%s of %s"
+msgstr "Göstərilir %s&#8211;%s  %s"
+
+msgid "Don't send e-mail"
+msgstr "E.poçt göndərmə"
+
+msgid "E-mail"
+msgstr "E.Poçt"
+
+msgid "E-mail : %s"
+msgstr "E.Poçt: %s"
+
+msgid "E-mail is required"
+msgstr "E.Poçt tələb olunur"
+
+msgid "Edit"
+msgstr "Dəyiş"
+
+msgid "Edit Comment"
+msgstr "Mesajı Düzəlt"
+
+msgid "Edit comment"
+msgstr "Mesajı düzəlt"
+
+msgid "Email"
+msgstr "E.Poçt"
+
+msgid "For"
+msgstr "Cavabla"
+
+msgid "Forever"
+msgstr "Bir dəfəlik"
+
+msgid "Items per page"
+msgstr "Hər səhifəyə mesaj sayı"
+
+msgid "Lock PC"
+msgstr "PC-ni bloklaşdır"
+
+msgid "Log out"
+msgstr "Çıx"
+
+msgid "Loged in as %s"
+msgstr "Sayta daxil olduğunuz ad %s"
+
+msgid "Mail will not be published"
+msgstr "E.Poçt ünvanı göstərilməyəcək"
+
+msgid "Mark as Spam"
+msgstr "Spam kimi Qeyd et"
+
+msgid "Mark as Unapproved"
+msgstr "Qəbul edilməmiş kimi Qeyd et"
+
+msgid "Max days to hold a PC blacklisted"
+msgstr "PC-ni qara siyahıda saxlama müddəti"
+
+msgid "Max pending messages from blacklisted PC"
+msgstr "Qara siyahıdakı PC-dən maksimum gözləmədə olan mesaj"
+
+msgid "Never"
+msgstr "Heç vaxt"
+
+msgid "New comment on Schreikasten"
+msgstr "Çatda yeni mesaj var"
+
+msgid "No"
+msgstr "Xeyir"
+
+msgid "No comments found"
+msgstr "Heç bir mesaj tapılmadı"
+
+msgid "No locked PCs found"
+msgstr "Heç bir bloklaşdırılmış PC tapılmadı"
+
+msgid "None"
+msgstr "Heç bir"
+
+msgid "Number of characters allowed per comment"
+msgstr "Mesajda maksimum simvol sayı"
+
+msgid "Only Schreikasten can use this link."
+msgstr "Yalnız Mini Çat bu linkdən istifadə edə bilər."
+
+msgid "PC"
+msgstr "PC"
+
+msgid "PC locked"
+msgstr "PC bloklaşdırılıb"
+
+msgid "PC locked forever"
+msgstr "PC birdəfəlik bloklaşdırılıb"
+
+msgid "PC unlocked"
+msgstr "PC blokdan çıxarıldı"
+
+msgid "Pending"
+msgid_plural "Pending"
+msgstr[0] "Gözləyən"
+
+msgid "Refresh rate"
+msgstr "Yenilənmə tezliyi"
+
+msgid "Registered users only"
+msgstr "Yalnız qeydiyyatdan keçmiş istifadəçilər"
+
+msgid "Reject"
+msgstr "Qəbul etmə"
+
+msgid "Reject it: %s"
+msgstr "Qəbul etmə: %s"
+
+msgid "Reply comment: %s"
+msgstr "Mesajı cavabla: %s"
+
+msgid "Requiere e-mail"
+msgstr "E.Poçt tələb olunur"
+
+msgid "Schreikasten Comments"
+msgstr "Çat Mesajları"
+
+msgid "Schreikasten Configuration"
+msgstr "Mini Çat Seçənəkləri"
+
+msgid "Schreikasten Spam"
+msgstr "Çat Spamı"
+
+msgid "Search Comments"
+msgstr "Mesajlarda axtar"
+
+msgid "Send e-mail"
+msgstr "E.Poçt göndər"
+
+msgid "Sending"
+msgstr "Göndərilir"
+
+msgid "Show Avatar"
+msgstr "Avatarları Göstər"
+
+msgid "Spam"
+msgstr "Spam"
+
+msgid "Spam it: %s"
+msgstr "Bu Spamdır: %s"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Status changed"
+msgstr "Status dəyişdirildi"
+
+msgid "Submit"
+msgstr "Göndər"
+
+msgid "The lenght of the message is bigger than the allowed size."
+msgstr "Mesajınınız olduqca uzundur."
+
+msgid "There is a new comment on Schreikasten"
+msgstr "Çatda yeni mesaj var"
+
+msgid "There is a reply to your comment on %s from %s"
+msgstr "Sizin mesajınıza %s cavab var, burada: %s"
+
+msgid "This PC was blacklisted. At this time comments cannot be posted."
+msgstr "PC qara siyahıya salınıb. Bu dəfəlik mesaj dərc olunmayacaq."
+
+msgid ""
+"This comment is marked as %s.\\n"
+"Are you sure you want to mark it as %s?"
+msgstr ""
+"Bu mesaj %s kimi qeydə alınıb. \\n"
+"Siz bunu %s kimi qeyd etmək istədiynizdən əminsiniz?"
+
+msgid "Title:"
+msgstr "Başlıq:"
+
+msgid "To be never unlock"
+msgstr "Heç vaxt blokdan çıxartmamaq şərti ilə"
+
+msgid "To be unlocked<br>%s"
+msgstr "Blokdan çaxarıldı<br>%s"
+
+msgid "Tracking"
+msgstr "İzlə"
+
+msgid "Tracking commment"
+msgstr "İzlənilən mesajlar"
+
+msgid "Unapproved"
+msgid_plural "Unapproved"
+msgstr[0] "Qəbul edilməyən"
+
+msgid "Unlock PC"
+msgstr "PC-ni Blokdan çıxart"
+
+msgid "Update"
+msgstr "Yenilə"
+
+msgid "Use general configuration"
+msgstr "Ümüumi seçənəklərdən istifadə et"
+
+msgid "We cannot accept messages<br>from this PC"
+msgstr "Biz bu PC-dən gələn mesajları qəbul etmirik."
+
+msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+msgstr "Ünvanı : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+
+msgid "Yes"
+msgstr "Bəli"
+
+msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> in order for this plugin to work"
+msgstr "Siz Mini Çatın işləməsi üçün <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> plaqini qurmalısınız"
+
+msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
+msgstr "Siz mesaj yerləşdirmək üçün <a href=\"%s\">Sayta Daxil</a> olmalısınız"
+
+msgid "Your comment : %s"
+msgstr "Sizin mesajınız: %s"
+
+msgid ""
+"Your message has been sent but this PC was blacklisted.\\n"
+"Comments have to be approved before posted."
+msgstr ""
+"Sizi mesajınız göndərildi, amma, bu PC bloklaşdırılıb.\\n"
+"Mesaj gəndərilmədən əvvəl PC bloklaşdırılıb."
+
+msgid ""
+"Your message has been sent. Comments have\\n"
+"to be approved before posted."
+msgstr ""
+"Mesajınız göndərildi. Mesajlar dərc \\n"
+"olunmadan əvvəl qəbul edilməlidirlər."
+
+msgid "[edit]"
+msgstr "[dəyiş]"
+
+msgid "[no sender]"
+msgstr "[göndərəni yoxdur]"
+
+msgid "[reply]"
+msgstr "[cavabla]"
+
+msgid "accepted"
+msgid_plural "accepted"
+msgstr[0] "qəbul edilib"
+
+msgid "approve"
+msgstr "qəbul et"
+
+msgid "delete"
+msgstr "sil"
+
+msgid "registered user"
+msgstr "qeydiyyatdan keçmiş istifadəçi"
+
+msgid "reject"
+msgstr "rədd et"
+
+msgid "seconds"
+msgstr "saniyyə"
+
+msgid "spam"
+msgstr "spam"
+
+msgid "unapproved"
+msgid_plural "unapproved"
+msgstr[0] "qəbul edilməyib"
+

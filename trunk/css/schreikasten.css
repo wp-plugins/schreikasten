@@ -1,0 +1,209 @@
+textarea.sk-area {
+    width: 99%;
+    height: 80px;
+    color:#5188d2;
+    border:1px solid #cbcbcb;
+    background:#fcfcfc;
+  }
+
+input.sk-button {
+    width:50px;
+    background:#4879aa;
+    color:#fff;
+    font-size:13px;
+    border:1px #2f5c89 solid;
+    padding: 0 2px;
+  }
+  
+.sk-little {
+	font-size : 80%;
+}
+
+/****** Button over the text
+div.sk-box-text {
+	text-align: right;
+}
+
+div.sk-box-button {
+	width: 100%;
+}
+
+input.sk-button-size {
+	width: 100%;
+} */
+
+/* End of css for button over the text */
+
+/****** Button at the right side of the text */
+div.sk-box-text {
+		margin-right: 5px;
+		float: right;
+		text-align: right;
+	}
+
+div.sk-box-button {
+		float: right;
+		width: 50px;
+	}
+
+input.sk-button-size {
+    width:50px;
+  }
+  
+/* End of css for button at the right side of the text */
+
+input.sk-text {
+    color:#5188d2;
+    width:99%;
+    border:1px solid #cbcbcb;
+    background:#fcfcfc;
+  }
+
+div#skname {
+    width:100%;
+  }
+
+td#skout {
+	width:100%;
+	}
+
+td#skwarning {
+    width:100%;
+		border:1px solid #cbcbcb;
+		text-align: center;
+  }
+	
+p#skwarning {
+		width:100%;
+		border:1px solid #cbcbcb;
+		text-align: center;
+  }
+
+img.avatar-25 {
+    float : left;
+  }
+
+img.avatar-32 {	
+	margin-right: 5px;
+	float : left;
+  }
+	
+img.avatar-41 {
+	margin-right: 5px;	
+	float : left;
+  }
+	
+div.sk-widgettext {
+	overflow: hidden;
+	margin-top : 3px;
+}
+
+.sk-userdata-user {
+	/*background-color: #f1f1f1;*/
+}
+
+.sk-userdata-user-spam {
+	background-color: #e3acac;
+}
+
+.sk-userdata-user-moot {
+	background-color: #e1cf68;
+}
+
+.sk-userdata-admin {
+	/*background-color: #f1f1f1;*/
+	line-height: 13px;
+}
+
+.sk-userdata-admin-spam {
+	background-color: #e3acac;
+	line-height: 13px;
+}
+
+.sk-userdata-admin-moot {
+	background-color: #e1cf68;
+	line-height: 13px;
+}
+
+.skwidget-comment {
+	max-width : 100%;
+	text-align: left;
+	float : left;
+ }
+  
+.skwidget-edit {
+	white-space: nowrap;
+	float : right;
+}
+
+div.sk-comment {
+	margin: 6px 2px 1px 0px;
+	padding: 4px;
+	border: solid 1px #e1e1e1;
+}
+
+div.sk-comment-spam {
+	margin: 6px 2px 1px 0px;
+	padding: 4px;
+	border: solid 1px #e1e1e1;
+	background-color: #e17a7a;
+}
+
+div.sk-comment-moot {
+	margin: 6px 2px 1px 0px;
+	padding: 4px;
+	border: solid 1px #e1e1e1;
+	background-color: #edde88;
+}
+
+div#throbber-page {
+	width: 100%;
+	text-align: center;
+}
+
+div.on#throbber-page {		
+	background: url(../img/loading-page.gif) no-repeat center;
+}
+
+div.off#throbber-page {	
+	background: none;
+}
+
+div#throbber-img {
+	/*width: 100%;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	text-align: center;
+	padding: 4px;
+	border: solid 1px #e1e1e1;*/
+}
+
+div.on#throbber-img {
+	display: block;
+}
+
+div.off#throbber-img {
+	display: none;
+}
+
+span.sk-for {
+	text-align: right;
+}
+
+span.sk-for#answer {
+	cursor : pointer;
+	color: #1e5c8f;
+}
+
+tr.sk-for-nai {
+	display: none;
+}
+
+tr.sk-for-yep {
+	display: table-row;
+}
+
+.sk-separate {	
+	padding-top : 8px;
+	line-height : 15px;
+}
