@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-18 17:58-0500\n"
-"PO-Revision-Date: 2010-02-18 17:59-0500\n"
+"PO-Revision-Date: 2010-02-18 18:13-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -624,7 +624,7 @@ msgstr "Permitir respuestas"
 
 #: templates/sk_widgetconfig.php:67
 msgid "Show RSS feed"
-msgstr "Mostrar la fuenet RSS"
+msgstr "Mostrar la fuente RSS"
 
 #: templates/sk_widgetconfig.php:74
 msgid "Alert users about posting e-mails in their comments"
