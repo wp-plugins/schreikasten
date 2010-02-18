@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 16:49-0500\n"
-"PO-Revision-Date: 2010-02-18 16:49-0500\n"
+"POT-Creation-Date: 2010-02-18 17:58-0500\n"
+"PO-Revision-Date: 2010-02-18 17:59-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,7 @@ msgid "Schreikasten Configuration"
 msgstr "Configuración de Schreikasten"
 
 #: schreikasten.php:1231
-#: schreikasten.php:1548
+#: schreikasten.php:1562
 #: templates/sk_widget.php:212
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
@@ -197,20 +197,24 @@ msgstr "PC habilitado"
 msgid "PC locked"
 msgstr "PC bloqueado"
 
-#: schreikasten.php:1489
+#: schreikasten.php:1498
 #, php-format
 msgid "Comment by %s"
 msgstr "Comentario de %s"
 
-#: schreikasten.php:1497
+#: schreikasten.php:1506
 #, php-format
 msgid "Shouts in %s"
 msgstr "Mensajes en %s"
 
-#: schreikasten.php:1498
+#: schreikasten.php:1507
 #, php-format
 msgid "List of messages in %s"
 msgstr "Lista de mensajes en %s"
+
+#: schreikasten.php:1539
+msgid "Subscribe"
+msgstr "Suscribirse"
 
 #: templates/sk_tracking.php:60
 msgid "Tracking commment"
@@ -619,48 +623,52 @@ msgid "Allow replies"
 msgstr "Permitir respuestas"
 
 #: templates/sk_widgetconfig.php:67
+msgid "Show RSS feed"
+msgstr "Mostrar la fuenet RSS"
+
+#: templates/sk_widgetconfig.php:74
 msgid "Alert users about posting e-mails in their comments"
 msgstr "Alertar a los usuarios sobre los riesgos de publicar correos electrónicos en los comentarios"
 
-#: templates/sk_widgetconfig.php:73
+#: templates/sk_widgetconfig.php:80
 msgid "Number of characters allowed per comment"
 msgstr "Número de caracteres permitido por comentario"
 
-#: templates/sk_widgetconfig.php:79
+#: templates/sk_widgetconfig.php:86
 msgid "Items per page"
 msgstr "Items por página"
 
-#: templates/sk_widgetconfig.php:85
+#: templates/sk_widgetconfig.php:92
 msgid "Refresh rate"
 msgstr "Tasa de refresco"
 
-#: templates/sk_widgetconfig.php:85
+#: templates/sk_widgetconfig.php:92
 msgid "(this option is in an early stage, take caution)"
 msgstr "(esta opción está en desarrollo, úsela con precaución)"
 
-#: templates/sk_widgetconfig.php:87
+#: templates/sk_widgetconfig.php:94
 msgid "Never"
 msgstr "Nunca"
 
-#: templates/sk_widgetconfig.php:88
-#: templates/sk_widgetconfig.php:89
-#: templates/sk_widgetconfig.php:90
+#: templates/sk_widgetconfig.php:95
+#: templates/sk_widgetconfig.php:96
+#: templates/sk_widgetconfig.php:97
 msgid "seconds"
 msgstr "segundos"
 
-#: templates/sk_widgetconfig.php:97
+#: templates/sk_widgetconfig.php:104
 msgid "Max days to hold a PC blacklisted"
 msgstr "Máximo número de días que un PC podrá estar inhabilitado"
 
-#: templates/sk_widgetconfig.php:104
+#: templates/sk_widgetconfig.php:111
 msgid "Forever"
 msgstr "Para siempre"
 
-#: templates/sk_widgetconfig.php:111
+#: templates/sk_widgetconfig.php:118
 msgid "Max pending messages from blacklisted PC"
 msgstr "Máximo número de mensajes pendientes que podrá enviar un PC inhabilitado"
 
-#: templates/sk_widgetconfig.php:113
+#: templates/sk_widgetconfig.php:120
 msgid "None"
 msgstr "Ninguno"
 

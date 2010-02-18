@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.2
+Stable tag: 0.11.16
 
 A shoutbox using ajax and akismet.
 
@@ -96,7 +96,7 @@ __sk-little__ and change the font size.
 
 == Changelog ==
 
-= 0.11.2 =
+= 0.11.16 =
 * Added RSS feed.
 * Widget item to show RSS feed.
 
