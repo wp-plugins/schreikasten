@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.15
+Version: 0.11.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,6 +46,8 @@ add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_schreikasten/schreikasten.php', 'sk_activate');
+
+require_once('libs/SimpleRSSFeedCreator.php');
 
 /**
 * Function to add the required data to the header in the site.
@@ -433,7 +435,7 @@ function sk_activate()
 		}
 		
 		//Widget options
-		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225');
+		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false);
 		add_option('widget_sk', $options);
 		
 		add_option('sk_db_version', SK_DB_VERSION);
@@ -1463,6 +1465,55 @@ function sk_shoutbox() {
 	include('templates/sk_widget.php');
 }
 
+
+/**
+* Function to get an RSS feed.
+*
+* @access public
+* @return The feed string
+*/
+function sk_feed($max=20) {
+	global $wpdb;	
+	
+	$options = get_option('widget_sk');
+	$title = $options['title'];
+	if(strlen($title)==0) $title = "Shoutbox";
+	$website=get_option('blogname');
+	$offset = get_option('gmt_offset');
+	$ceil = ceil($offset);
+	$sign = $ceil/abs($ceil);
+	$offset = abs($offset)*100 + 1;
+	$offset = str_replace('51', '30', $offset);
+	$offset = str_replace('01', '00', $offset);
+	$offset = $sign * $offset;
+	$offset = sprintf('%+05d', $offset);
+	//$offset = $sign * $offset;
+	
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%a, %d %b %Y %T $offset') as date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $max";
+	$comments = $wpdb->get_results($sql);
+	$items = array();
+	foreach($comments as $comment) {
+		$item = array(
+	     		"title" => sprintf(__("Comment by %s", 'sk'), $comment->alias ) ,
+	     		"description" => $comment->text,
+	     		"pubDate" => $comment->date
+	     	);
+		array_push($items, $item);
+	}
+	
+	$channel=array(
+		"title" => sprintf(__('Shouts in %s', 'sk'), $website), 
+		"description"=>sprintf(__('List of messages in %s', 'sk'), $title), 
+		"link"=>"http:www.sebaxtian.com",
+		"items" => $items
+   );
+   
+   $feed = new SimpleRSSFeedCreator($channel);
+   return $feed->get_feed();
+
+}
+
 // sk widget stuff
 function sk_widget_init() {
 
@@ -1479,8 +1530,13 @@ function sk_widget_init() {
 		// and after_title are the array keys. Default tags: li and h2.
 		extract($args);
 		
+		$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
+		$feed_url = sk_plugin_url('/ajax/feed.php');
+		
 		$options = get_option('widget_sk');
 		$title = $options['title'];
+		
+		if($options['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img class='lexi' src='$img_url' alt='RSS' border='0' /></a> $title";
 
 		// These lines generate our output. Widgets can be very complex
 		// but as you can see here, they can also be very, very simple.
@@ -1521,6 +1577,10 @@ function sk_widget_init() {
 				$options['avatar'] = false;
 				if($_POST['sk_avatar'])
 					$options['avatar'] = true;
+					
+				$options['rss'] = false;
+				if($_POST['sk_rss'])
+					$options['rss'] = true;
 				
 				$options['replies'] = false;
 				if($_POST['sk_replies'])
@@ -1552,6 +1612,7 @@ function sk_widget_init() {
 			$registered=$options['registered'];
 			$replies=$options['replies'];
 			$alert_about_emails=$options['alert_about_emails'];
+			$rss=$options['rss'];
 			
 			$refresh="selectedrefresh".$options['refresh'];
 			$$refresh=' selected="selected"';

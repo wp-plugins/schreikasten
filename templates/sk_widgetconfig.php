@@ -60,6 +60,13 @@
 			if($replies) echo " checked"; ?> /> <?php _e('Allow replies', 'sk'); ?>
 	</label>
 </p>
+
+<p>
+	<label for="sk_rss">
+		<input type="checkbox" class="checkbox" id="sk_rss" name="sk_rss"<?php
+			if($rss) echo " checked"; ?> /> <?php _e('Show RSS feed', 'sk'); ?>
+	</label>
+</p>
 			
 <p>
 	<label for="sk_alert_about_emails">

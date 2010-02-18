@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 16:40-0500\n"
-"PO-Revision-Date: 2010-01-31 16:40-0500\n"
+"POT-Creation-Date: 2010-02-18 16:49-0500\n"
+"PO-Revision-Date: 2010-02-18 16:49-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,102 +24,106 @@ msgstr ""
 "X-Poedit-SearchPath-1: ajax\n"
 "X-Poedit-SearchPath-2: templates\n"
 
-#: schreikasten.php:474
+#: schreikasten.php:438
+msgid "Schreikasten"
+msgstr "Schreikasten"
+
+#: schreikasten.php:495
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr "Hay una respuesta a su comentario en %s por %s"
 
-#: schreikasten.php:475
+#: schreikasten.php:496
 #, php-format
 msgid "Your comment : %s"
 msgstr "Su comentario : %s"
 
-#: schreikasten.php:476
+#: schreikasten.php:497
 #, php-format
 msgid "Reply comment: %s"
 msgstr "Comentario de respuesta: %s"
 
-#: schreikasten.php:480
+#: schreikasten.php:501
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr "Respuesta a su comentario en %s"
 
-#: schreikasten.php:515
+#: schreikasten.php:537
 msgid "There is a new comment on Schreikasten"
 msgstr "Hay un nuevo comentario en Schreikasten"
 
-#: schreikasten.php:517
-#: schreikasten.php:535
+#: schreikasten.php:539
+#: schreikasten.php:557
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr "Autor: %1$s (IP: %2$s)"
 
-#: schreikasten.php:518
-#: schreikasten.php:536
+#: schreikasten.php:540
+#: schreikasten.php:558
 #, php-format
 msgid "E-mail : %s"
 msgstr "E-mail: %s"
 
-#: schreikasten.php:519
-#: schreikasten.php:537
+#: schreikasten.php:541
+#: schreikasten.php:559
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr "¿Quién es? : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 
-#: schreikasten.php:520
-#: schreikasten.php:538
+#: schreikasten.php:542
+#: schreikasten.php:560
 #, php-format
 msgid "Comment: %s"
 msgstr "Comentario: %s"
 
-#: schreikasten.php:521
-#: schreikasten.php:540
+#: schreikasten.php:543
+#: schreikasten.php:562
 #, php-format
 msgid "Delete it: %s"
 msgstr "Eliminar: %s"
 
-#: schreikasten.php:522
-#: schreikasten.php:541
+#: schreikasten.php:544
+#: schreikasten.php:563
 #, php-format
 msgid "Reject it: %s"
 msgstr "Rechazar:%s"
 
-#: schreikasten.php:523
-#: schreikasten.php:542
+#: schreikasten.php:545
+#: schreikasten.php:564
 #, php-format
 msgid "Spam it: %s"
 msgstr "Marcar como Spam: %s"
 
-#: schreikasten.php:525
+#: schreikasten.php:547
 msgid "New comment on Schreikasten"
 msgstr "Nuevo comentario en Schreikasten"
 
-#: schreikasten.php:533
+#: schreikasten.php:555
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr "Un nuevo comentario en Schreikasten está esperando por ser aprobado"
 
-#: schreikasten.php:539
+#: schreikasten.php:561
 #, php-format
 msgid "Approve it: %s"
 msgstr "Aprobar: %s"
 
-#: schreikasten.php:544
+#: schreikasten.php:566
 msgid "Schreikasten comment to moderate"
 msgstr "Comentario en Schreikasten para ser moderado"
 
-#: schreikasten.php:1006
+#: schreikasten.php:1030
 msgid "[reply]"
 msgstr "[responder]"
 
-#: schreikasten.php:1008
+#: schreikasten.php:1032
 msgid "[no sender]"
 msgstr "[sin remitente]"
 
-#: schreikasten.php:1038
+#: schreikasten.php:1062
 msgid "[edit]"
 msgstr "[editar]"
 
-#: schreikasten.php:1039
+#: schreikasten.php:1063
 #: templates/sk_tracking.php:220
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
@@ -128,7 +132,7 @@ msgstr "[editar]"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: schreikasten.php:1041
+#: schreikasten.php:1065
 #: templates/sk_tracking.php:161
 #: templates/sk_tracking.php:216
 #: templates/sk_manage.php:159
@@ -136,7 +140,7 @@ msgstr "Eliminar"
 msgid "Reject"
 msgstr "Rechazar"
 
-#: schreikasten.php:1043
+#: schreikasten.php:1067
 #: templates/sk_tracking.php:66
 #: templates/sk_tracking.php:163
 #: templates/sk_tracking.php:218
@@ -147,18 +151,18 @@ msgstr "Rechazar"
 msgid "Spam"
 msgstr "Spam"
 
-#: schreikasten.php:1046
-#: schreikasten.php:1119
+#: schreikasten.php:1070
+#: schreikasten.php:1143
 msgid "Sending"
 msgstr "Enviando"
 
-#: schreikasten.php:1157
+#: schreikasten.php:1185
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr "Configuración de Schreikasten"
 
-#: schreikasten.php:1203
-#: schreikasten.php:1470
+#: schreikasten.php:1231
+#: schreikasten.php:1548
 #: templates/sk_widget.php:212
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
@@ -166,32 +170,47 @@ msgstr "Configuración de Schreikasten"
 msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> in order for this plugin to work"
 msgstr "Deber&aacute; instalar <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> para que este plugin funcione."
 
-#: schreikasten.php:1314
-#: schreikasten.php:1322
-#: schreikasten.php:1326
-#: schreikasten.php:1330
+#: schreikasten.php:1350
+#: schreikasten.php:1358
+#: schreikasten.php:1362
+#: schreikasten.php:1366
 msgid "Status changed"
 msgstr "Se cambió el estado"
 
-#: schreikasten.php:1317
+#: schreikasten.php:1353
 msgid "Comment modified"
 msgstr "Comentario modificado"
 
-#: schreikasten.php:1334
+#: schreikasten.php:1370
 msgid "Comment deleted"
 msgstr "Se eliminó el comentario"
 
-#: schreikasten.php:1338
+#: schreikasten.php:1374
 msgid "PC locked forever"
 msgstr "PC bloqueado para siempre"
 
-#: schreikasten.php:1342
+#: schreikasten.php:1378
 msgid "PC unlocked"
 msgstr "PC habilitado"
 
-#: schreikasten.php:1347
+#: schreikasten.php:1383
 msgid "PC locked"
 msgstr "PC bloqueado"
+
+#: schreikasten.php:1489
+#, php-format
+msgid "Comment by %s"
+msgstr "Comentario de %s"
+
+#: schreikasten.php:1497
+#, php-format
+msgid "Shouts in %s"
+msgstr "Mensajes en %s"
+
+#: schreikasten.php:1498
+#, php-format
+msgid "List of messages in %s"
+msgstr "Lista de mensajes en %s"
 
 #: templates/sk_tracking.php:60
 msgid "Tracking commment"
@@ -745,8 +764,6 @@ msgstr "No podemos aceptar mensajes<br>de este PC"
 msgid "Only Schreikasten can use this link."
 msgstr "Solo Schreikasten puede consultar este enlace."
 
-#~ msgid "Schreikasten"
-#~ msgstr "Schreikasten"
 #~ msgid ""
 #~ "You have to install <a href=\"%s\"  target=\"_BLANK\">minimax 0.2</a> in "
 #~ "order for this plugin to work"
