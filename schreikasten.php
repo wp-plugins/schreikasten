@@ -1095,15 +1095,68 @@ function sk_format_comment($comment,$sending=false) {
 		</div>";
 	
 	//if we show avatars, use the images
+	$id = $comment->id;
 	if($options['avatar']) {
-		$answer.="\n<div class='$divClass'>
+		$answer.="\n<div class='$divClass'><a name='sk-comment-id$id'></a>
 		$item
 		</div>";
 	} else { //else, it's a list item
-		$answer.="\n<li class='$divClass'>
+		$answer.="\n<li class='$divClass''><a name='sk-comment-id$id'></a>
 				$item
 				</li>";
 	}
+	return $answer;
+}
+
+/**
+* Returns the name of the owner of the comment
+*
+* @param int id The comment id 
+* @return string The name of the owner, false on error
+* @access public
+*/
+
+function sk_name_by_id($id)
+{
+	global $wpdb;
+	$answer = false;
+			
+	//Get the comments to show
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT alias FROM $table_name WHERE id=$id";
+	$comments = $wpdb->get_results($sql);
+	if(is_array($comments)) {
+		foreach($comments as $comment) {
+			$answer = $comment->alias;
+		}
+	}
+		
+	return $answer;
+}
+
+/**
+* Returns the page where this comment is
+*
+* @param int id The comment id 
+* @return string The page number, false on error
+* @access public
+*/
+
+function sk_page_by_id($id)
+{
+	global $wpdb;
+	$answer = 1;
+	
+	$options = get_option('widget_sk');
+	$size=$options['items'];
+	
+	//Get the comments to show
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT count(*) FROM $table_name WHERE id>=$id AND status=".SK_HAM;
+	if($comments = $wpdb->get_var($sql)) {
+		$answer = ceil($comments/$size);
+	}
+		
 	return $answer;
 }
 
@@ -1228,7 +1281,7 @@ function sk_manage() {
 	
 	//If we don't have minimax, ask the user for it
 	if(!function_exists('minimax_version') && minimax_version()<0.3) { 
-		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'lexi'), "http://wordpress.org/extend/plugins/minimax/" ));
+		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ));
 	}
 
 	$mode_x=$_POST['mode_x'];
@@ -1477,7 +1530,11 @@ function sk_feed($max=20) {
 	
 	$options = get_option('widget_sk');
 	$title = $options['title'];
-	if(strlen($title)==0) $title = "Shoutbox";
+	if(strlen($title)==0) $title = "Schreikasten";
+	
+	$link = get_bloginfo('url');
+	if(defined('SK_CHAT')) $link = SK_CHAT;
+	
 	$website=get_option('blogname');
 	$offset = get_option('gmt_offset');
 	$ceil = ceil($offset);
@@ -1487,17 +1544,32 @@ function sk_feed($max=20) {
 	$offset = str_replace('01', '00', $offset);
 	$offset = $sign * $offset;
 	$offset = sprintf('%+05d', $offset);
-	//$offset = $sign * $offset;
 	
 	$table_name = $wpdb->prefix . "schreikasten";
-	$sql="SELECT id, alias, text, DATE_FORMAT(date, '%a, %d %b %Y %T $offset') as date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $max";
+	$sql="SELECT id, alias, text, email, DATE_FORMAT(date, '%a, %d %b %Y %T $offset') as date_rss, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $max";
 	$comments = $wpdb->get_results($sql);
 	$items = array();
 	foreach($comments as $comment) {
+		$for="";
+		//If we can reply a message, create the reply system 
+		if($options['replies']) {
+			if($comment->email!="") {
+				$for.="<a style='text-decoration: none;' href='{$link}?sk_for={$comment->id}#sk_top' onclick='javascript:for_set(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
+			} else {
+				$for.=__("[no sender]", "sk");
+			}
+			$for = "<br/>$for";
+		}
+		
+		$comment_text = "{$comment->text}$for";
+				
+		$comment_text=apply_filters('comment_text', $comment_text);
+	
 		$item = array(
+				"link" => "{$link}?sk_id={$comment->id}#sk-comment-id{$comment->id}",
 	     		"title" => sprintf(__("Comment by %s", 'sk'), $comment->alias ) ,
-	     		"description" => $comment->text,
-	     		"pubDate" => $comment->date
+	     		"description" => $comment_text,
+	     		"pubDate" => $comment->date_rss
 	     	);
 		array_push($items, $item);
 	}
@@ -1505,11 +1577,12 @@ function sk_feed($max=20) {
 	$channel=array(
 		"title" => sprintf(__('Shouts in %s', 'sk'), $website), 
 		"description"=>sprintf(__('List of messages in %s', 'sk'), $title), 
-		"link"=>"http:www.sebaxtian.com",
+		"link"=>$link,
 		"items" => $items
    );
    
    $feed = new SimpleRSSFeedCreator($channel);
+   
    return $feed->get_feed();
 
 }
@@ -1532,11 +1605,12 @@ function sk_widget_init() {
 		
 		$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
 		$feed_url = sk_plugin_url('/ajax/feed.php');
+		if(defined('SK_RSS')) $feed_url = SK_RSS;
 		
 		$options = get_option('widget_sk');
 		$title = $options['title'];
 		
-		if($options['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img class='lexi' src='$img_url' alt='RSS' border='0' /></a> $title";
+		if($options['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
 
 		// These lines generate our output. Widgets can be very complex
 		// but as you can see here, they can also be very, very simple.

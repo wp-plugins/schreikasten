@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.16
+Stable tag: 0.11.17
 
 A shoutbox using ajax and akismet.
 
@@ -59,6 +59,13 @@ There are a lot of shoutbox in the Interwebz, but none of them fits and looks in
 template as I want. So I decided to create one using Akismet for Spam, gravatars, the 
 default CSS from Wordpress and Ajax just to make it more fun.
 
+= I want to use a web feed management provider =
+
+Easy. Activate the widget, enable the RSS feed, and copy the URL from the Icon near the Widget title. Create
+the new feed into your feed management provider. Add this line to your __wp-congig.php__ file
+
+define('SK_RSS', 'http://new-feed-url');
+
 = It says something about minimax. What's this? =
 
 This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
@@ -68,6 +75,28 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 Yes, use the function __sk\_shoutbox()__ to write the html code wherever you
 need. __Warning:__ You can not have more than one shoutbox in the same page, even if 
 one is in a sidebar and the other in the conntents.
+
+= Can I use it in a page? Like a chat room =
+
+Schreikasten isn't designed to provide a chat room, but you can activate it to looks
+and behave like one.
+
+First add the widget and set the configuration. Create a feed management provider 
+acount (see above) if you need one. Activate the timer system to automatically update
+the shoutbox content. When you think everything is working as you need, drop the
+widget. Remember, you can't have 2 shoutboxes in the same page.
+
+Create the page (not a post) where you want the chat room. Remember to add a link to the feed if 
+you want your users to have access to it. Edit the file __page.php__ inside the theme
+direcotry and add the next line 
+
+if(get_the_ID()==$num) echo sk_shoutbox();
+
+The variable __$num__ is the ID of the page where you want the chat room.
+
+Finally, add the next line at the endo of your wp-config.php file.
+
+define('SK_CHAT', 'http://url-to-your-chat-room');
 
 = Can I set my own CSS? =
 
@@ -95,6 +124,9 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.17 =
+* Feed system enhaced.
 
 = 0.11.16 =
 * Added RSS feed.

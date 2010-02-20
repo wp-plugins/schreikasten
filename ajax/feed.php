@@ -1,6 +1,10 @@
 <?php
 
 require_once( '../../../../wp-config.php' );
+
+$max = 20;
+if($_GET['max']) $max = $_GET['max'];
+
 sk_text_domain();
-echo sk_feed();
+echo sk_feed($max);
 ?>

@@ -8,6 +8,13 @@
 	global $current_user;
 	get_currentuserinfo();
 	
+	$sk_page=1;
+	$sk_for = false;
+	$sk_id=$_GET['sk_id'];
+	if($sk_id) $sk_page=sk_page_by_id($sk_id);
+	$sk_for=$_GET['sk_for'];
+	if($sk_for) $sk_page=sk_page_by_id($sk_for);
+	
 	$options = get_option('widget_sk');
 	$avatar = $options['avatar']; 
 	$req = sk_require_name_and_email();
@@ -136,7 +143,7 @@
 	if(sk_only_registered_users() && $current_user->ID==0) { ?>
 	<tr>
 		<td colspan="2" id="skwarning">
-			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/>
+			<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='<?php echo $sk_page; ?>'/>
 			<?php printf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink())); ?>.
 		</td>
 	</tr><?php } else {
@@ -179,7 +186,7 @@
 	<tr>
 		<td colspan="2" class='sk-little'>
 			<div class='sk-box-button'>
-				<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='1'/><input<?php echo $disabled; ?> type='button' class="sk-button sk-button-size" value="<?php _e('Submit', 'sk'); ?>" onclick='sk_pressButton();'/>
+				<input type='hidden' id='sk_timer' value=''/><input type='hidden' name='sk_page' value='<?php echo $sk_page; ?>'/><input<?php echo $disabled; ?> type='button' class="sk-button sk-button-size" value="<?php _e('Submit', 'sk'); ?>" onclick='sk_pressButton();'/>
 			</div>
 			<div class='sk-box-text'><?php if($current_user->ID==0) { ?>
 			<?php _e('Mail will not be published', 'sk'); ?><br/><?php if ($req) _e("(but it's required)", "sk"); else if($avatar) _e("(but it's used for avatar)", "sk"); ?><?php } else { ?>
@@ -199,15 +206,20 @@
 	$uri_img=sk_plugin_url('/img/loading.gif');
 	?>
 </table>
-	<div id='sk_content'></div>
-	<div id='sk_page'><div id='throbber-page' class='off'></div></div>
+	<div id='sk_content'><?php
+		echo sk_show_comments($sk_page); 
+		echo sk_page_selector($sk_page);?></div>
 	<script type='text/javascript'>
 		var sk_semaphore=new Semaphore();
 		mm_add.setSemaphore(sk_semaphore);
 		mm_add.setThrobber('throbber-img', 'on', 'off');
 		mm_get.setSemaphore(sk_semaphore);
 		mm_get.setThrobber('throbber-page', 'on', 'off');
-		sk_refresh();</script>
+		//sk_refresh();
+		<?php 
+		if($sk_for) { 
+			echo "for_set($sk_for, '".sk_name_by_id($sk_for)."');";
+		} ?></script>
 <?php } else {
 			printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" );
 } ?>
