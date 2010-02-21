@@ -4,7 +4,7 @@
 		<table align="center">
 			<tr><td colspan="3"><div class='updated'><p>
 					<?php
-			if(!function_exists('minimax_version') || minimax_version()<0.3) { printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); }?></p>
+			if(!function_exists('minimax_version') || minimax_version()<SK_MNMX_V) { printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V ); }?></p>
 				<p><?php _e("You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter.", 'sk' );?></p></div>
 			</td></tr>
 			<tr>

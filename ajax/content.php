@@ -9,11 +9,13 @@
 if(wp_verify_nonce($_POST['nonce'], 'schreikasten')) {
 
 	$page=$_POST['page'];
-	if(!$page)
-		$page=1;
+	if(!$page) $page=1;
 		
-	echo sk_show_comments($page);
-	echo sk_page_selector($page);
+	$rand=false;
+	if($_POST['rand']) $rand=$_POST['rand'];
+		
+	echo sk_show_comments($page, false, $rand);
+	echo sk_page_selector($page,$rand);
 } else {
 	_e('Only Schreikasten can use this link.', 'sk');
 }

@@ -156,33 +156,23 @@ div.sk-comment-moot {
 	background-color: #edde88;
 }
 
-div#throbber-page {
+div.throbber-page-on {		
 	width: 100%;
 	text-align: center;
-}
-
-div.on#throbber-page {		
 	background: url(../img/loading-page.gif) no-repeat center;
 }
 
-div.off#throbber-page {	
+div.throbber-page-off {	
+	width: 100%;
+	text-align: center;
 	background: none;
 }
 
-div#throbber-img {
-	/*width: 100%;
-	margin-top: 15px;
-	margin-bottom: 20px;
-	text-align: center;
-	padding: 4px;
-	border: solid 1px #e1e1e1;*/
-}
-
-div.on#throbber-img {
+div.throbber-img-on {
 	display: block;
 }
 
-div.off#throbber-img {
+div.throbber-img-off {
 	display: none;
 }
 
@@ -206,4 +196,13 @@ tr.sk-for-yep {
 .sk-separate {	
 	padding-top : 8px;
 	line-height : 15px;
+}
+
+.sk-page-actual {
+	font-size : 90%;
+}
+
+.sk-page-other {
+	cursor : pointer;
+	font-size : 125%;
 }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 16:42-0500\n"
-"PO-Revision-Date: 2010-01-31 16:42-0500\n"
+"POT-Creation-Date: 2010-02-20 21:37-0500\n"
+"PO-Revision-Date: 2010-02-20 21:37-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -22,102 +22,108 @@ msgstr ""
 "X-Poedit-SearchPath-1: ajax\n"
 "X-Poedit-SearchPath-2: templates\n"
 
-#: schreikasten.php:474
+#: schreikasten.php:450
+msgid "Schreikasten"
+msgstr ""
+
+#: schreikasten.php:507
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr ""
 
-#: schreikasten.php:475
+#: schreikasten.php:508
 #, php-format
 msgid "Your comment : %s"
 msgstr ""
 
-#: schreikasten.php:476
+#: schreikasten.php:509
 #, php-format
 msgid "Reply comment: %s"
 msgstr ""
 
-#: schreikasten.php:480
+#: schreikasten.php:513
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr ""
 
-#: schreikasten.php:515
+#: schreikasten.php:549
 msgid "There is a new comment on Schreikasten"
 msgstr ""
 
-#: schreikasten.php:517
-#: schreikasten.php:535
+#: schreikasten.php:551
+#: schreikasten.php:569
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr ""
 
-#: schreikasten.php:518
-#: schreikasten.php:536
+#: schreikasten.php:552
+#: schreikasten.php:570
 #, php-format
 msgid "E-mail : %s"
 msgstr ""
 
-#: schreikasten.php:519
-#: schreikasten.php:537
+#: schreikasten.php:553
+#: schreikasten.php:571
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr ""
 
-#: schreikasten.php:520
-#: schreikasten.php:538
+#: schreikasten.php:554
+#: schreikasten.php:572
 #, php-format
 msgid "Comment: %s"
 msgstr ""
 
-#: schreikasten.php:521
-#: schreikasten.php:540
+#: schreikasten.php:555
+#: schreikasten.php:574
 #, php-format
 msgid "Delete it: %s"
 msgstr ""
 
-#: schreikasten.php:522
-#: schreikasten.php:541
+#: schreikasten.php:556
+#: schreikasten.php:575
 #, php-format
 msgid "Reject it: %s"
 msgstr ""
 
-#: schreikasten.php:523
-#: schreikasten.php:542
+#: schreikasten.php:557
+#: schreikasten.php:576
 #, php-format
 msgid "Spam it: %s"
 msgstr ""
 
-#: schreikasten.php:525
+#: schreikasten.php:559
 msgid "New comment on Schreikasten"
 msgstr ""
 
-#: schreikasten.php:533
+#: schreikasten.php:567
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr ""
 
-#: schreikasten.php:539
+#: schreikasten.php:573
 #, php-format
 msgid "Approve it: %s"
 msgstr ""
 
-#: schreikasten.php:544
+#: schreikasten.php:578
 msgid "Schreikasten comment to moderate"
 msgstr ""
 
-#: schreikasten.php:1006
+#: schreikasten.php:1042
+#: schreikasten.php:1797
 msgid "[reply]"
 msgstr ""
 
-#: schreikasten.php:1008
+#: schreikasten.php:1044
+#: schreikasten.php:1799
 msgid "[no sender]"
 msgstr ""
 
-#: schreikasten.php:1038
+#: schreikasten.php:1074
 msgid "[edit]"
 msgstr ""
 
-#: schreikasten.php:1039
+#: schreikasten.php:1075
 #: templates/sk_tracking.php:220
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
@@ -126,7 +132,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: schreikasten.php:1041
+#: schreikasten.php:1077
 #: templates/sk_tracking.php:161
 #: templates/sk_tracking.php:216
 #: templates/sk_manage.php:159
@@ -134,7 +140,7 @@ msgstr ""
 msgid "Reject"
 msgstr ""
 
-#: schreikasten.php:1043
+#: schreikasten.php:1079
 #: templates/sk_tracking.php:66
 #: templates/sk_tracking.php:163
 #: templates/sk_tracking.php:218
@@ -145,50 +151,143 @@ msgstr ""
 msgid "Spam"
 msgstr ""
 
-#: schreikasten.php:1046
-#: schreikasten.php:1119
+#: schreikasten.php:1082
+#: schreikasten.php:1210
 msgid "Sending"
 msgstr ""
 
-#: schreikasten.php:1157
+#: schreikasten.php:1252
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr ""
 
-#: schreikasten.php:1203
-#: schreikasten.php:1470
-#: templates/sk_widget.php:212
+#: schreikasten.php:1298
+#: schreikasten.php:1745
+#: schreikasten.php:1889
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, php-format
-msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> in order for this plugin to work"
+msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax %1.1f</a> in order for this plugin to work."
 msgstr ""
 
-#: schreikasten.php:1314
-#: schreikasten.php:1322
-#: schreikasten.php:1326
-#: schreikasten.php:1330
+#: schreikasten.php:1418
+#: schreikasten.php:1426
+#: schreikasten.php:1430
+#: schreikasten.php:1434
 msgid "Status changed"
 msgstr ""
 
-#: schreikasten.php:1317
+#: schreikasten.php:1421
 msgid "Comment modified"
 msgstr ""
 
-#: schreikasten.php:1334
+#: schreikasten.php:1438
 msgid "Comment deleted"
 msgstr ""
 
-#: schreikasten.php:1338
+#: schreikasten.php:1442
 msgid "PC locked forever"
 msgstr ""
 
-#: schreikasten.php:1342
+#: schreikasten.php:1446
 msgid "PC unlocked"
 msgstr ""
 
-#: schreikasten.php:1347
+#: schreikasten.php:1451
 msgid "PC locked"
+msgstr ""
+
+#: schreikasten.php:1591
+msgid "E-mail is required"
+msgstr ""
+
+#: schreikasten.php:1599
+msgid ""
+"To prevent identification theft, we recomend\\n"
+"that you do not include e-mail adresses.\\n"
+"Do you want to continue?"
+msgstr ""
+
+#: schreikasten.php:1608
+msgid ""
+"Your message has been sent. Comments have\\n"
+"to be approved before posted."
+msgstr ""
+
+#: schreikasten.php:1611
+msgid ""
+"Your message has been sent but this PC was blacklisted.\\n"
+"Comments have to be approved before posted."
+msgstr ""
+
+#: schreikasten.php:1625
+#, php-format
+msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
+msgstr ""
+
+#: schreikasten.php:1635
+msgid "This PC was blacklisted. At this time comments cannot be posted."
+msgstr ""
+
+#: schreikasten.php:1642
+msgid "Alias"
+msgstr ""
+
+#: schreikasten.php:1648
+msgid "Email"
+msgstr ""
+
+#: schreikasten.php:1656
+#: schreikasten.php:1672
+msgid "For"
+msgstr ""
+
+#: schreikasten.php:1671
+msgid "Submit"
+msgstr ""
+
+#: schreikasten.php:1676
+msgid "Mail will not be published"
+msgstr ""
+
+#: schreikasten.php:1678
+msgid "(but it's required)"
+msgstr ""
+
+#: schreikasten.php:1681
+msgid "(but it's used for avatar)"
+msgstr ""
+
+#: schreikasten.php:1685
+#, php-format
+msgid "Loged in as %s"
+msgstr ""
+
+#: schreikasten.php:1686
+msgid "Log out"
+msgstr ""
+
+#: schreikasten.php:1710
+msgid "The lenght of the message is bigger than the allowed size."
+msgstr ""
+
+#: schreikasten.php:1810
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+#: schreikasten.php:1818
+#, php-format
+msgid "Shouts in %s"
+msgstr ""
+
+#: schreikasten.php:1819
+#, php-format
+msgid "List of messages in %s"
+msgstr ""
+
+#: schreikasten.php:1866
+msgid "Subscribe"
 msgstr ""
 
 #: templates/sk_tracking.php:60
@@ -395,80 +494,6 @@ msgstr ""
 msgid "Delete this Comment?"
 msgstr ""
 
-#: templates/sk_widget.php:82
-#: templates/sk_widget.php:164
-msgid "For"
-msgstr ""
-
-#: templates/sk_widget.php:93
-msgid "The lenght of the message is bigger than the allowed size."
-msgstr ""
-
-#: templates/sk_widget.php:97
-msgid "E-mail is required"
-msgstr ""
-
-#: templates/sk_widget.php:102
-msgid ""
-"To prevent identification theft, we recomend\\n"
-"that you do not include e-mail adresses.\\n"
-"Do you want to continue?"
-msgstr ""
-
-#: templates/sk_widget.php:123
-msgid ""
-"Your message has been sent. Comments have\\n"
-"to be approved before posted."
-msgstr ""
-
-#: templates/sk_widget.php:125
-msgid ""
-"Your message has been sent but this PC was blacklisted.\\n"
-"Comments have to be approved before posted."
-msgstr ""
-
-#: templates/sk_widget.php:140
-#, php-format
-msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
-msgstr ""
-
-#: templates/sk_widget.php:145
-msgid "This PC was blacklisted. At this time comments cannot be posted."
-msgstr ""
-
-#: templates/sk_widget.php:151
-msgid "Alias"
-msgstr ""
-
-#: templates/sk_widget.php:157
-msgid "Email"
-msgstr ""
-
-#: templates/sk_widget.php:182
-msgid "Submit"
-msgstr ""
-
-#: templates/sk_widget.php:185
-msgid "Mail will not be published"
-msgstr ""
-
-#: templates/sk_widget.php:185
-msgid "(but it's required)"
-msgstr ""
-
-#: templates/sk_widget.php:185
-msgid "(but it's used for avatar)"
-msgstr ""
-
-#: templates/sk_widget.php:186
-#, php-format
-msgid "Loged in as %s"
-msgstr ""
-
-#: templates/sk_widget.php:192
-msgid "Log out"
-msgstr ""
-
 #: templates/sk_manage.php:48
 #: templates/sk_manageblack.php:52
 msgid "Schreikasten Spam"
@@ -588,48 +613,52 @@ msgid "Allow replies"
 msgstr ""
 
 #: templates/sk_widgetconfig.php:67
+msgid "Show RSS feed"
+msgstr ""
+
+#: templates/sk_widgetconfig.php:74
 msgid "Alert users about posting e-mails in their comments"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:73
+#: templates/sk_widgetconfig.php:80
 msgid "Number of characters allowed per comment"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:79
+#: templates/sk_widgetconfig.php:86
 msgid "Items per page"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:85
+#: templates/sk_widgetconfig.php:92
 msgid "Refresh rate"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:85
+#: templates/sk_widgetconfig.php:92
 msgid "(this option is in an early stage, take caution)"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:87
+#: templates/sk_widgetconfig.php:94
 msgid "Never"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:88
-#: templates/sk_widgetconfig.php:89
-#: templates/sk_widgetconfig.php:90
+#: templates/sk_widgetconfig.php:95
+#: templates/sk_widgetconfig.php:96
+#: templates/sk_widgetconfig.php:97
 msgid "seconds"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:97
+#: templates/sk_widgetconfig.php:104
 msgid "Max days to hold a PC blacklisted"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:104
+#: templates/sk_widgetconfig.php:111
 msgid "Forever"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:111
+#: templates/sk_widgetconfig.php:118
 msgid "Max pending messages from blacklisted PC"
 msgstr ""
 
-#: templates/sk_widgetconfig.php:113
+#: templates/sk_widgetconfig.php:120
 msgid "None"
 msgstr ""
 
@@ -728,8 +757,8 @@ msgstr ""
 msgid "We cannot accept messages<br>from this PC"
 msgstr ""
 
-#: ajax/add_comment.php:38
-#: ajax/content.php:18
+#: ajax/add_comment.php:42
+#: ajax/content.php:20
 msgid "Only Schreikasten can use this link."
 msgstr ""
 

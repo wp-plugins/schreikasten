@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.17
+Stable tag: 0.11.18
 
 A shoutbox using ajax and akismet.
 
@@ -72,9 +72,7 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 = Can I put a shoutbox inside a theme? =
 
-Yes, use the function __sk\_shoutbox()__ to write the html code wherever you
-need. __Warning:__ You can not have more than one shoutbox in the same page, even if 
-one is in a sidebar and the other in the conntents.
+Yes, use the function __sk\_shoutbox()__ to write the html code wherever you need.
 
 = Can I use it in a page? Like a chat room =
 
@@ -83,16 +81,11 @@ and behave like one.
 
 First add the widget and set the configuration. Create a feed management provider 
 acount (see above) if you need one. Activate the timer system to automatically update
-the shoutbox content. When you think everything is working as you need, drop the
-widget. Remember, you can't have 2 shoutboxes in the same page.
+the shoutbox content. If you want, drop the widget.
 
-Create the page (not a post) where you want the chat room. Remember to add a link to the feed if 
-you want your users to have access to it. Edit the file __page.php__ inside the theme
-direcotry and add the next line 
-
-if(get_the_ID()==$num) echo sk_shoutbox();
-
-The variable __$num__ is the ID of the page where you want the chat room.
+Create the page (not a post) where you want the chat room and add the tag __[sk-shoutbox]__ 
+where you need it. Remember to add a link to the feed if you want your users to have
+access to it.
 
 Finally, add the next line at the endo of your wp-config.php file.
 
@@ -124,6 +117,9 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.18 =
+* Content system.
 
 = 0.11.17 =
 * Feed system enhaced.

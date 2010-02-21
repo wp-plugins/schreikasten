@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.17
+Version: 0.11.18
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -38,6 +38,8 @@ define ("SK_ANNOUNCE_NO", 3);
 
 define ("SK_DB_VERSION", 4);
 
+define ("SK_MNMX_V", 0.3);
+
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 
@@ -46,6 +48,7 @@ add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_schreikasten/schreikasten.php', 'sk_activate');
+add_filter('the_content', 'sk_content');
 
 require_once('libs/SimpleRSSFeedCreator.php');
 
@@ -56,6 +59,7 @@ require_once('libs/SimpleRSSFeedCreator.php');
 * @access public
 */
 function sk_header() {
+	echo "<script type='text/javascript' language='JavaScript' src='".sk_plugin_url("/scripts/schreikasten.js")."'></script>";
 	$css = get_theme_root()."/".get_template()."/schreikasten.css";
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css' type='text/css' media='screen' />";
@@ -233,21 +237,25 @@ function sk_avatar($id, $size) {
 	global $wpdb;
 	$answer="";
 	
-	//Get the email, user id and alias for the comment
-	$table_name = $wpdb->prefix . "schreikasten";
-	$data = $wpdb->get_row("select user_id, alias, email from $table_name where id=$id");
-	$alias=$data->alias;
-	$email=$data->email;
-	$user_id=$data->user_id;
-	
-	if($user_id>0) { //If user id is greater than 0, it means this is a registered user
-		$answer=get_avatar($user_id,$size);
-	} else {
-		if($email=="") { //If we don't have an email, use the alias
-			$answer=get_avatar($alias,$size);
+	if(strlen($id)>0) {
+		//Get the email, user id and alias for the comment
+		$table_name = $wpdb->prefix . "schreikasten";
+		$data = $wpdb->get_row("select user_id, alias, email from $table_name where id=$id");
+		$alias=$data->alias;
+		$email=$data->email;
+		$user_id=$data->user_id;
+		
+		if($user_id>0) { //If user id is greater than 0, it means this is a registered user
+			$answer=get_avatar($user_id,$size);
 		} else {
-			$answer=get_avatar($email,$size); //else, use the email
+			if($email=="") { //If we don't have an email, use the alias
+				$answer=get_avatar($alias,$size);
+			} else {
+				$answer=get_avatar($email,$size); //else, use the email
+			}
 		}
+	} else {
+		$answer=get_avatar("",$size); //The anonimous
 	}
 	return $answer;
 }
@@ -259,12 +267,15 @@ function sk_avatar($id, $size) {
 * @return string
 * @access public
 */
-function sk_page_selector($group=1) {
+function sk_page_selector($group=1,$rand=false) {
 	global $wpdb;
+	
+	if(!$rand) $rand = mt_rand(111111,999999);
+	
 	$uri_sk=sk_plugin_url('/content.php?page');
 	$answer="";
 	$total_groups=3; //We will show only 3 groups
-	$style_actual_group="color : #000000;";
+	$style_actual_group="";
 	$style_no_actual_group="";
 	$first_item= "&#171;";
 	$last_item= "&#187;";
@@ -315,41 +326,42 @@ function sk_page_selector($group=1) {
 	//The timer system (experimental)
 	$timer="";
 	if($options['refresh']>0) {		
-		$timer="\nsk_timer();";
+		$timer="\nsk_timer$rand();";
 	}
 
 	//If the list doesn't start from 1, create a link to go to the benginig
 	if($group_start!=1) {
-		$answer.="<a style='cursor : pointer;' onclick=\"
-				document.getElementsByName('sk_page')[0].value=1;
+		$answer.="<a class='sk-page-other' onclick=\"
+				document.getElementsByName('sk_page$rand')[0].value=1;
 				$timer
-				mm_get.post('nonce=$nonce&amp;page=1');\">$first_item</a> &#183; ";
+				mm_get$rand.post('nonce=$nonce&amp;page=1&amp;rand=$rand');\">$first_item</a> &#183; ";
 	}
 	
 	//Create the page list and the links
 	for($group_id=$group_start; $group_id<=$group_end; $group_id++) {
 		$style=$style_no_actual_group;
 		if($group_id==$group) {
-			$style=$style_actual_group;
-		}
-		$answer.="<a style='cursor : pointer; $style' onclick=\"
-				document.getElementsByName('sk_page')[0].value=$group_id;
+			$answer.="<span class='sk-page-actual'>$group_id</span> &#183; ";
+		} else {
+			$answer.="<a class='sk-page-other' onclick=\"
+				document.getElementsByName('sk_page$rand')[0].value=$group_id;
 				$timer
-				mm_get.post('nonce=$nonce&amp;page=$group_id');\">$group_id</a> &#183; ";
+				mm_get$rand.post('nonce=$nonce&amp;page=$group_id&amp;rand=$rand');\">$group_id</a> &#183; ";
+		}
 	}
 
 	//If the list doesn't finish with the last group, create a link to the end
 	if($group_end!=$groups) {
-	$answer.="<a style='cursor : pointer;'
+	$answer.="<a class='sk-page-other'
 			 onclick=\"
-			document.getElementsByName('sk_page')[0].value=$groups;
+			document.getElementsByName('sk_page$rand')[0].value=$groups;
 			$timer
-			mm_get.post('nonce=$nonce&amp;page=$groups');\">$last_item</a> &#183; ";
+			mm_get$rand.post('nonce=$nonce&amp;page=$groups&amp;rand=$rand');\">$last_item</a> &#183; ";
 	}
 
 	//As every link ends with a line, delete the last one as we don't need it
 	$answer = substr($answer,0,-8);
-	return "<br/><div id='throbber-page' class='off'><small>$answer</small></div>";
+	return "<br/><div id='throbber-page$rand' class='throbber-page-off'><small>$answer</small></div>";
 }
 
 /**
@@ -1169,9 +1181,11 @@ function sk_page_by_id($id)
 * @access public
 */
 
-function sk_show_comments($page=1,$id=false)
+function sk_show_comments($page=1,$id=false,$rand=false)
 {
 	global $wpdb;
+	
+	if(!$rand) $rand = mt_rand(111111,999999);
 	
 	$options = get_option('widget_sk');
 	$size=$options['items'];
@@ -1191,11 +1205,11 @@ function sk_show_comments($page=1,$id=false)
 	
 	//Create the throbber div
 	$aux = "";
-	$aux->alias = "<span id='th_sk_alias'></span>";
-	$aux->text = "<span id='th_sk_text'></span>";
+	$aux->alias = "<span id='th_sk_alias$rand'></span>";
+	$aux->text = "<span id='th_sk_text$rand'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer= "<div id='throbber-img' class='off' style='visibility: hidden;'>".sk_format_comment($aux,true)."</div>";
+	$answer= "<div id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'>".sk_format_comment($aux,true)."</div>";
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
@@ -1280,8 +1294,9 @@ function sk_manage() {
 	$messages=array();
 	
 	//If we don't have minimax, ask the user for it
-	if(!function_exists('minimax_version') && minimax_version()<0.3) { 
-		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ));
+	if(!function_exists('minimax_version') && minimax_version()<SK_MNMX_V) { 
+		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V ) );
+		
 	}
 
 	$mode_x=$_POST['mode_x'];
@@ -1507,15 +1522,240 @@ function sk_manage() {
 	
 }
 
+
+/**
+* Function to show the shoutbox. Can be used in the template files.
+*
+* @access private
+*/
+function sk_codeShoutbox() {
+	global $wpdb, $current_user;
+	
+	//Our random number
+	$rand = mt_rand(111111,999999);
+	
+	$answer = "";
+	//Create the nonce
+	$nonce = wp_create_nonce('schreikasten');
+	//Get current user
+	get_currentuserinfo();
+	
+	/************** This is huge *******************/
+	$sk_page=1;
+	$sk_for = false;
+	$sk_id=$_GET['sk_id'];
+	if($sk_id) $sk_page=sk_page_by_id($sk_id);
+	$sk_for=$_GET['sk_for'];
+	if($sk_for) $sk_page=sk_page_by_id($sk_for);
+	
+	$first_comments = sk_show_comments($sk_page, false, $rand); 
+	$first_page_selector = sk_page_selector($sk_page, $rand);
+	
+	$options = get_option('widget_sk');
+	$avatar = $options['avatar']; 
+	$req = sk_require_name_and_email();
+	
+	//Get maxchars
+	$maxchars = 255;
+	if(isset($options['maxchars'])) $maxchars = $options['maxchars'];
+	
+	//Update blacklist dates
+	sk_blacklist_update();
+	
+	//Set name and email on cookie name
+	$alias="";
+	$email="";
+	
+	if($_COOKIE['comment_author_' . COOKIEHASH]) {
+		$alias=$_COOKIE['comment_author_' . COOKIEHASH];
+		$email=$_COOKIE['comment_author_email_' . COOKIEHASH];
+	}
+	
+	$anonymous_avatar=sk_plugin_url('/img/anonymous.jpg');
+	$uri_sk=sk_plugin_url('/ajax/content.php');
+	$uri_skadd=sk_plugin_url('/ajax/add_comment.php'); 
+	$uri_img=sk_plugin_url('/img/loading.gif');
+	$uri_out=wp_logout_url(get_permalink());
+	if(is_home()) $uri_out=wp_logout_url(get_option('home'));
+	
+	$time=$options['refresh']*1000;
+	
+	$show_timer = "";
+	if($options['refresh']>0) {		
+		$show_timer = "\nsk_timer$rand();";
+	}
+	
+	$ask_email = "";
+	if ($req) { 
+		$ask_email = "if(!check_email(email)) {
+			alert('". __("E-mail is required", "sk") . "');
+			return false;
+		}";
+	}
+	
+	$email_in_text = "";
+	if($options['alert_about_emails']) { 
+		$email_in_text = "if(email_intext ( text ) ) {
+			check=confirm('". __("To prevent identification theft, we recomend\\nthat you do not include e-mail adresses.\\nDo you want to continue?", "sk") ."');
+			if(!check) {
+				return false;
+			}
+		}";
+	}
+	
+	$message = false;
+	if(1 == get_option('comment_moderation')) {
+		$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
+	}
+	if(sk_is_blacklisted()) {
+		$message=__('Your message has been sent but this PC was blacklisted.\nComments have to be approved before posted.', 'sk');
+	}
+	if($message) {
+		$message = "alert('$message');
+		this.disabled=true;";
+	}
+	
+	$form_button="";
+	$form_table="<table width='100%' border='0' style='margin: 0px;'>
+	<tr><td width='20px'></td><td width='100%'></td></tr>";
+	if(sk_only_registered_users() && $current_user->ID==0) {
+		$form_table.= "<tr>
+			<td colspan='2' id='skwarning'>
+				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page' value='$sk_page'/>
+				".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
+			</td>
+		</tr>
+	</table>";
+	} else {
+	
+		if(sk_is_blacklisted()) {
+			if(sk_can_not_accept_more_messages()) {
+				$disabled=" disabled";
+				$form_table.= "<tr>
+					<td colspan='2'>". __("This PC was blacklisted. At this time comments cannot be posted.", "sk")."</td>
+				<tr>";
+			}
+		}
+	
+		if($current_user->ID==0) {
+			$form_table.="<tr>
+				<td>".__('Alias', 'sk').":</td>
+				<td>
+					<input class='sk-text' type='text' name='sk_alias$rand' value='$alias'/>
+				</td>
+			</tr>
+			<tr>
+				<td>".__('Email', 'sk').":</td>
+				<td>
+					<input class='sk-text' type='text' name='sk_email$rand' value='$email'/>
+				</td>
+			</tr>";
+		}
+		
+		$form_table.="<tr class='sk-for-nai' id='sk_for_tr$rand'>
+			<td>".__('For', 'sk').":</td>
+			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
+		</tr>
+		<tr>
+			<td colspan='2' align='right'><textarea rows='' cols='' class='sk-area' name='sk_text$rand' onkeypress='
+				var key;
+				if(window.event)
+					key = window.event.keyCode; //IE
+				else
+					key = event.keyCode;
+				if(this.value.length>$maxchars-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40) )
+				return false;'></textarea></td>
+		</tr>
+		</table>";
+	
+		$submit = __('Submit', 'sk');
+		$for = __('For', 'sk');
+		
+		$button.="<div class='sk-box-text'>";
+		if($current_user->ID==0) {
+			$button.=__('Mail will not be published', 'sk')."<br/>";
+			if ($req) {
+				$button.=__("(but it's required)", "sk");
+			} else {
+				if($avatar) {
+					$button.=__("(but it's used for avatar)", "sk"); 
+				}
+			} 
+		} else {
+			$button.=sprintf(__('Loged in as %s', 'sk'), $current_user->display_name);
+			$button.="<br/><a href='$uri_out' title='".__('Log out', 'sk')."'>".__('Log out', 'sk')."</a>
+				<input name='sk_alias$rand' type='hidden' value='{$current_user->display_name}' />
+				<input name='sk_email$rand' type='hidden' value='{$current_user->user_email}' />";
+		}
+		$button.="</div>";
+		
+		$form_button = "<table width='100%'>		
+			<tr>
+				<td colspan='2' class='sk-little'>
+					<div class='sk-box-button'>
+						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page$rand' value='$sk_page' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+					</div>
+					$button
+				</td>
+			</tr>
+			</table>";
+			
+	}
+
+	$have_for = "";
+	if($sk_for) { 
+		$have_for = "for_set($sk_for, '".sk_name_by_id($sk_for)."');";
+	}
+	
+	$lenght = __("The lenght of the message is bigger than the allowed size.", "sk");
+	
+	/******************* End of the hughe part where we are debuging now *************/
+	
+	if(function_exists('minimax_version') && minimax_version()>=SK_MNMX_V) {
+		$file = ABSPATH."wp-content/plugins/schreikasten/templates/sk_widget.php";
+		$answer = mnmx_readfile($file);
+		$answer = str_replace('%rand%', $rand, $answer);
+		$answer = str_replace('%nonce%', $nonce, $answer);
+		$answer = str_replace('%sk_id%', $sk_id, $answer);
+		$answer = str_replace('%sk_page%', $sk_page, $answer);
+		$answer = str_replace('%sk_for%', $sk_for, $answer);
+		$answer = str_replace('%first_comments%', $first_comments, $answer);
+		$answer = str_replace('%first_page_selector%', $first_page_selector, $answer);
+		$answer = str_replace('%maxchars%', $maxchars, $answer);
+		$answer = str_replace('%alias%', $alias, $answer);
+		$answer = str_replace('%email%', $email, $answer);
+		$answer = str_replace('%uri_sk%', $uri_sk, $answer);
+		$answer = str_replace('%uri_skadd%', $uri_skadd, $answer);
+		$answer = str_replace('%uri_img%', $uri_img, $answer);
+		$answer = str_replace('%time%', $time, $answer);
+		$answer = str_replace('%show_timer%', $show_timer, $answer);
+		$answer = str_replace('%ask_email%', $ask_email, $answer);
+		$answer = str_replace('%email_in_text%', $email_in_text, $answer);
+		$answer = str_replace('%message%', $message, $answer);
+		$answer = str_replace('%lenght%', $lenght, $answer);
+	
+		$answer = str_replace('%form_table%', $form_table, $answer);
+		$answer = str_replace('%form_button%', $form_button, $answer);
+		$answer = str_replace('%submit%', $submit, $answer);
+		$answer = str_replace('%button%', $button, $answer);
+		$answer = str_replace('%have_for%', $have_for, $answer);
+		$answer = str_replace('%for%', $for, $answer);
+						
+	} else {
+		$answer = sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V);
+	}
+	
+	return $answer;
+	
+}
+
 /**
 * Function to show the shoutbox. Can be used in the template files.
 *
 * @access private
 */
 function sk_shoutbox() {
-	global $wpdb;
-	$table_name = $wpdb->prefix . "schreikasten";
-	include('templates/sk_widget.php');
+	echo sk_codeShoutbox();
 }
 
 
@@ -1587,6 +1827,19 @@ function sk_feed($max=20) {
 
 }
 
+/**
+* Filter to manage contents. Check for [sk-shoutbox] tags.
+* This function should be called by a filter.
+*
+* @access public
+* @param string content The content to change.
+* @return string The content with the changes the plugin have to do.
+*/
+function sk_content($content) {
+	$search = "/(?:<p>)*\s*\[sk-shoutbox\]\s*(?:<\/p>)*/i";
+	return preg_replace($search, sk_codeShoutbox(), $content);
+}
+
 // sk widget stuff
 function sk_widget_init() {
 
@@ -1633,7 +1886,7 @@ function sk_widget_init() {
 		if(!function_exists('minimax_version') || minimax_version()<0.3) { ?>
 		<p>
 			<label>
-				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax 0.3</a> in order for this plugin to work', 'sk'), "http://wordpress.org/extend/plugins/minimax/" ); ?>
+				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V); ?>
 			</label>
 		</p><?
 		} else {
