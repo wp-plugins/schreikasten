@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.18
+Version: 0.11.18.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1014,8 +1014,10 @@ function sk_unlock($id) {
 * @param objetc comment The comment
 * @param sending Is this the comment we are sending?
 */
-function sk_format_comment($comment,$sending=false) {
+function sk_format_comment($comment,$sending=false,$rand=false) {
 	global $current_user;
+	
+	if(!$rand) $rand = mt_rand(111111,999999);
 	
 	$answer = "";
 	$for="";
@@ -1039,7 +1041,7 @@ function sk_format_comment($comment,$sending=false) {
 		$for=" ";
 		if(!$sending) {
 			if($comment->email!="") {
-				$for.="<a href='#sk_top' onclick='javascript:for_set(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
+				$for.="<a href='#sk_top' onclick='javascript:for_set$rand(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
 			} else {
 				$for.="<span class='sk-for'>".__("[no sender]", "sk")."</span>";
 			}
@@ -1209,7 +1211,7 @@ function sk_show_comments($page=1,$id=false,$rand=false)
 	$aux->text = "<span id='th_sk_text$rand'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer= "<div id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'>".sk_format_comment($aux,true)."</div>";
+	$answer= "<div id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'>".sk_format_comment($aux,true,$rand)."</div>";
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
@@ -1229,7 +1231,7 @@ function sk_show_comments($page=1,$id=false,$rand=false)
 	foreach($comments as $comment) {
 		//Set the data the page format
 		$comment->date = mysql2date(get_option('date_format'), $comment->date)." ".mysql2date(get_option('time_format'), $comment->date);
-		$answer.=sk_format_comment($comment);
+		$answer.=sk_format_comment($comment,false,$rand);
 	}
 	
 	//If we don't show avatars, it's a list 
@@ -1704,7 +1706,7 @@ function sk_codeShoutbox() {
 
 	$have_for = "";
 	if($sk_for) { 
-		$have_for = "for_set($sk_for, '".sk_name_by_id($sk_for)."');";
+		$have_for = "for_set$rand($sk_for, '".sk_name_by_id($sk_for)."');";
 	}
 	
 	$lenght = __("The lenght of the message is bigger than the allowed size.", "sk");
