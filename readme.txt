@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.18.1
+Stable tag: 0.11.18.2
 
 A shoutbox using ajax and akismet.
 
@@ -83,11 +83,11 @@ First add the widget and set the configuration. Create a feed management provide
 acount (see above) if you need one. Activate the timer system to automatically update
 the shoutbox content. If you want, drop the widget.
 
-Create the page (not a post) where you want the chat room and add the tag __[sk-shoutbox]__ 
+Create the page or post where you want the chat room and add the tag __[sk-shoutbox]__ 
 where you need it. Remember to add a link to the feed if you want your users to have
 access to it.
 
-Finally, add the next line at the endo of your wp-config.php file.
+Finally, add the next line at the end of your wp-config.php file.
 
 define('SK_CHAT', 'http://url-to-your-chat-room');
 
@@ -117,6 +117,9 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.18.2 =
+* Solved a bug with timer when show the warning message about to login to write a comment.
 
 = 0.11.18.1 =
 * Solved a bug with the new content system.

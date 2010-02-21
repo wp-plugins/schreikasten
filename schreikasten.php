@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.18.1
+Version: 0.11.18.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1623,7 +1623,7 @@ function sk_codeShoutbox() {
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
 			<td colspan='2' id='skwarning'>
-				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page' value='$sk_page'/>
+				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page$rand' value='$sk_page'/>
 				".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
 			</td>
 		</tr>
