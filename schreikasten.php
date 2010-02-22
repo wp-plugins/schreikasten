@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.18.2
+Version: 0.11.9
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1110,12 +1110,23 @@ function sk_format_comment($comment,$sending=false,$rand=false) {
 	
 	//if we show avatars, use the images
 	$id = $comment->id;
+	
+	$user_id = $comment->user_id;
+	//Set the comment owner type
+	$usertype = 'sk-user-user';
+	if($user_id>0) {
+		$comment_user = get_userdata($user_id);
+		$capabilities = $comment_user->wp_capabilities; //->administrator;
+		if($capabilities['author']==1) $usertype = 'sk-user-author';
+		if($capabilities['editor']==1) $usertype = 'sk-user-editor';
+		if($capabilities['administrator']==1) $usertype = 'sk-user-admin';
+	}
 	if($options['avatar']) {
-		$answer.="\n<div class='$divClass'><a name='sk-comment-id$id'></a>
+		$answer.="\n<div class='$divClass $usertype'><a name='sk-comment-id$id'></a>
 		$item
 		</div>";
 	} else { //else, it's a list item
-		$answer.="\n<li class='$divClass''><a name='sk-comment-id$id'></a>
+		$answer.="\n<li class='$divClass $usertype'><a name='sk-comment-id$id'></a>
 				$item
 				</li>";
 	}
@@ -1618,7 +1629,7 @@ function sk_codeShoutbox() {
 	}
 	
 	$form_button="";
-	$form_table="<table width='100%' border='0' style='margin: 0px;'>
+	$form_table="<table width='100%' border='0' style='margin: 0px;' class='sk-table'>
 	<tr><td width='20px'></td><td width='100%'></td></tr>";
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
@@ -1691,7 +1702,7 @@ function sk_codeShoutbox() {
 		}
 		$button.="</div>";
 		
-		$form_button = "<table width='100%'>		
+		$form_button = "<table width='100%' class='sk-table'>		
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>
@@ -1779,13 +1790,17 @@ function sk_feed($max=20) {
 	
 	$website=get_option('blogname');
 	$offset = get_option('gmt_offset');
-	$ceil = ceil($offset);
-	$sign = $ceil/abs($ceil);
-	$offset = abs($offset)*100 + 1;
-	$offset = str_replace('51', '30', $offset);
-	$offset = str_replace('01', '00', $offset);
-	$offset = $sign * $offset;
-	$offset = sprintf('%+05d', $offset);
+	if($offset==0) {
+		$offset = "+0000";
+	} else {
+		$ceil = ceil($offset);
+		$sign = $ceil/abs($ceil);
+		$offset = abs($offset)*100 + 1;
+		$offset = str_replace('51', '30', $offset);
+		$offset = str_replace('01', '00', $offset);
+		$offset = $sign * $offset;
+		$offset = sprintf('%+05d', $offset);
+	}
 	
 	$table_name = $wpdb->prefix . "schreikasten";
 	$sql="SELECT id, alias, text, email, DATE_FORMAT(date, '%a, %d %b %Y %T $offset') as date_rss, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $max";
@@ -1838,8 +1853,25 @@ function sk_feed($max=20) {
 * @return string The content with the changes the plugin have to do.
 */
 function sk_content($content) {
+	//The chat box
 	$search = "/(?:<p>)*\s*\[sk-shoutbox\]\s*(?:<\/p>)*/i";
-	return preg_replace($search, sk_codeShoutbox(), $content);
+	if(preg_match ( $search , $content)) {
+		$content = preg_replace($search, sk_codeShoutbox(), $content);
+	}
+	
+	//The feed icon
+	$search = "/\[sk-feed-icon\]/i";
+	$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
+	$feed_url = sk_plugin_url('/ajax/feed.php');
+	$replace = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a>";
+	$content = preg_replace($search, $replace, $content);
+	
+	//Thed feed link
+	$search = "/\[sk-feed\]([^\[]+)\[\/sk-feed\]/i";
+	$replace = "<a href='$feed_url'>$1</a>";
+	$content = preg_replace($search, $replace, $content);
+	
+	return $content;
 }
 
 // sk widget stuff

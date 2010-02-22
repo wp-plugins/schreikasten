@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.18.2
+Stable tag: 0.11.19
 
 A shoutbox using ajax and akismet.
 
@@ -72,11 +72,11 @@ This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A
 
 = Can I put a shoutbox inside a theme? =
 
-Yes, use the function __sk\_shoutbox()__ to write the html code wherever you need.
+Yes, use the function __sk\_shoutbox()__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox()__.
 
-= Can I use it in a page? Like a chat room =
+= Can I use it in a page or post? Like a chat room =
 
-Schreikasten isn't designed to provide a chat room, but you can activate it to looks
+Schreikasten isn't designed to provide a chat room, but you can set it to looks
 and behave like one.
 
 First add the widget and set the configuration. Create a feed management provider 
@@ -84,8 +84,9 @@ acount (see above) if you need one. Activate the timer system to automatically u
 the shoutbox content. If you want, drop the widget.
 
 Create the page or post where you want the chat room and add the tag __[sk-shoutbox]__ 
-where you need it. Remember to add a link to the feed if you want your users to have
-access to it.
+wherever you need the chat box. Remember to add a link to the feed if you want your 
+users to have access to it. You can use the tags __[sk-feed]text you want[/sk-feed]__ to set
+a link, and __[sk-feed-icon]__ to put an RSS icon. 
 
 Finally, add the next line at the end of your wp-config.php file.
 
@@ -106,6 +107,12 @@ over the text__.
 Yes. Copy the file schreikasten.css to your theme folder, search for the class 
 __sk-little__ and change the font size.
 
+= Can I change the style for each type of user? =
+
+Yes. Copy the file schreikasten.css to your theme folder, search for the classes 
+sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them as you want.
+
+
 == Screenshots ==
 
 1. The widget (left) for a non logged user (right) and the administrator.
@@ -117,6 +124,10 @@ __sk-little__ and change the font size.
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.19 =
+* Added tags for feed and feed icon.
+* Solved a bug with GMT 0 in RSS feeds. 
 
 = 0.11.18.2 =
 * Solved a bug with timer when show the warning message about to login to write a comment.

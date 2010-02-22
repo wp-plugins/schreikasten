@@ -206,3 +206,27 @@ tr.sk-for-yep {
 	cursor : pointer;
 	font-size : 125%;
 }
+
+table.sk-table tr td {
+	margin: 0px;
+	padding: 0px;
+	text-align: right;
+	background-color: transparent;
+	border: none;
+}
+
+/*.sk-user-admin {
+	background-color: #F1F1F1;
+}
+
+.sk-user-editor {
+	background-color: #F1F1F1;
+}
+
+.sk-user-author {
+	background-color: #F1F1F1;
+}
+
+.sk-user-user {
+	background-color: #F1F1F1;
+}*/

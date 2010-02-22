@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 21:37-0500\n"
-"PO-Revision-Date: 2010-02-20 21:37-0500\n"
+"POT-Creation-Date: 2010-02-22 13:34-0500\n"
+"PO-Revision-Date: 2010-02-22 13:34-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Vsayt <turkel@gmx.com>\n"
 "MIME-Version: 1.0\n"
@@ -108,21 +108,21 @@ msgstr "Qəbul et: %s"
 msgid "Schreikasten comment to moderate"
 msgstr "Çat Mesajları"
 
-#: schreikasten.php:1042
-#: schreikasten.php:1797
+#: schreikasten.php:1044
+#: schreikasten.php:1810
 msgid "[reply]"
 msgstr "[cavabla]"
 
-#: schreikasten.php:1044
-#: schreikasten.php:1799
+#: schreikasten.php:1046
+#: schreikasten.php:1812
 msgid "[no sender]"
 msgstr "[göndərəni yoxdur]"
 
-#: schreikasten.php:1074
+#: schreikasten.php:1076
 msgid "[edit]"
 msgstr "[dəyiş]"
 
-#: schreikasten.php:1075
+#: schreikasten.php:1077
 #: templates/sk_tracking.php:220
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
@@ -131,7 +131,7 @@ msgstr "[dəyiş]"
 msgid "Delete"
 msgstr "Sil"
 
-#: schreikasten.php:1077
+#: schreikasten.php:1079
 #: templates/sk_tracking.php:161
 #: templates/sk_tracking.php:216
 #: templates/sk_manage.php:159
@@ -139,7 +139,7 @@ msgstr "Sil"
 msgid "Reject"
 msgstr "Qəbul etmə"
 
-#: schreikasten.php:1079
+#: schreikasten.php:1081
 #: templates/sk_tracking.php:66
 #: templates/sk_tracking.php:163
 #: templates/sk_tracking.php:218
@@ -150,64 +150,64 @@ msgstr "Qəbul etmə"
 msgid "Spam"
 msgstr "Spam"
 
-#: schreikasten.php:1082
-#: schreikasten.php:1210
+#: schreikasten.php:1084
+#: schreikasten.php:1223
 msgid "Sending"
 msgstr "Göndərilir"
 
-#: schreikasten.php:1252
+#: schreikasten.php:1265
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr "Mini Çat Seçənəkləri"
 
-#: schreikasten.php:1298
-#: schreikasten.php:1745
-#: schreikasten.php:1889
+#: schreikasten.php:1311
+#: schreikasten.php:1758
+#: schreikasten.php:1905
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, fuzzy, php-format
 msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax %1.1f</a> in order for this plugin to work."
 msgstr "Siz Mini Çatın işləməsi üçün <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> plaqini qurmalısınız"
 
-#: schreikasten.php:1418
-#: schreikasten.php:1426
-#: schreikasten.php:1430
-#: schreikasten.php:1434
+#: schreikasten.php:1431
+#: schreikasten.php:1439
+#: schreikasten.php:1443
+#: schreikasten.php:1447
 msgid "Status changed"
 msgstr "Status dəyişdirildi"
 
-#: schreikasten.php:1421
+#: schreikasten.php:1434
 msgid "Comment modified"
 msgstr "Mesaj dəyişdirildi"
 
-#: schreikasten.php:1438
+#: schreikasten.php:1451
 msgid "Comment deleted"
 msgstr "Mesaj silindi"
 
-#: schreikasten.php:1442
+#: schreikasten.php:1455
 msgid "PC locked forever"
 msgstr "PC birdəfəlik bloklaşdırılıb"
 
-#: schreikasten.php:1446
+#: schreikasten.php:1459
 msgid "PC unlocked"
 msgstr "PC blokdan çıxarıldı"
 
-#: schreikasten.php:1451
+#: schreikasten.php:1464
 msgid "PC locked"
 msgstr "PC bloklaşdırılıb"
 
-#: schreikasten.php:1591
+#: schreikasten.php:1604
 msgid "E-mail is required"
 msgstr "E.Poçt tələb olunur"
 
-#: schreikasten.php:1599
+#: schreikasten.php:1612
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
 "Do you want to continue?"
 msgstr ""
 
-#: schreikasten.php:1608
+#: schreikasten.php:1621
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -215,7 +215,7 @@ msgstr ""
 "Mesajınız göndərildi. Mesajlar dərc \\n"
 "olunmadan əvvəl qəbul edilməlidirlər."
 
-#: schreikasten.php:1611
+#: schreikasten.php:1624
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -223,73 +223,73 @@ msgstr ""
 "Sizi mesajınız göndərildi, amma, bu PC bloklaşdırılıb.\\n"
 "Mesaj gəndərilmədən əvvəl PC bloklaşdırılıb."
 
-#: schreikasten.php:1625
+#: schreikasten.php:1638
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Siz mesaj yerləşdirmək üçün <a href=\"%s\">Sayta Daxil</a> olmalısınız"
 
-#: schreikasten.php:1635
+#: schreikasten.php:1648
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "PC qara siyahıya salınıb. Bu dəfəlik mesaj dərc olunmayacaq."
 
-#: schreikasten.php:1642
+#: schreikasten.php:1655
 msgid "Alias"
 msgstr ""
 
-#: schreikasten.php:1648
+#: schreikasten.php:1661
 msgid "Email"
 msgstr "E.Poçt"
 
-#: schreikasten.php:1656
-#: schreikasten.php:1672
+#: schreikasten.php:1669
+#: schreikasten.php:1685
 msgid "For"
 msgstr "Cavabla"
 
-#: schreikasten.php:1671
+#: schreikasten.php:1684
 msgid "Submit"
 msgstr "Göndər"
 
-#: schreikasten.php:1676
+#: schreikasten.php:1689
 msgid "Mail will not be published"
 msgstr "E.Poçt ünvanı göstərilməyəcək"
 
-#: schreikasten.php:1678
+#: schreikasten.php:1691
 msgid "(but it's required)"
 msgstr "(bu tələb olunur)"
 
-#: schreikasten.php:1681
+#: schreikasten.php:1694
 msgid "(but it's used for avatar)"
 msgstr "(amma bu avatar üçün istifadə olunub)"
 
-#: schreikasten.php:1685
+#: schreikasten.php:1698
 #, php-format
 msgid "Loged in as %s"
 msgstr "Sayta daxil olduğunuz ad %s"
 
-#: schreikasten.php:1686
+#: schreikasten.php:1699
 msgid "Log out"
 msgstr "Çıx"
 
-#: schreikasten.php:1710
+#: schreikasten.php:1723
 msgid "The lenght of the message is bigger than the allowed size."
 msgstr "Mesajınınız olduqca uzundur."
 
-#: schreikasten.php:1810
+#: schreikasten.php:1823
 #, fuzzy, php-format
 msgid "Comment by %s"
 msgstr "Mesaj: %s"
 
-#: schreikasten.php:1818
+#: schreikasten.php:1831
 #, php-format
 msgid "Shouts in %s"
 msgstr ""
 
-#: schreikasten.php:1819
+#: schreikasten.php:1832
 #, php-format
 msgid "List of messages in %s"
 msgstr ""
 
-#: schreikasten.php:1866
+#: schreikasten.php:1882
 msgid "Subscribe"
 msgstr ""
 
