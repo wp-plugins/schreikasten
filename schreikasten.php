@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.19
+Version: 0.11.20
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1917,7 +1917,7 @@ function sk_widget_init() {
 		//Max characters
 		if(!isset($options['maxchars'])) $options['maxchars']=255;
 		
-		if(!function_exists('minimax_version') || minimax_version()<0.3) { ?>
+		if(!function_exists('minimax_version') || minimax_version()<SK_MNMX_V) { ?>
 		<p>
 			<label>
 				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V); ?>
