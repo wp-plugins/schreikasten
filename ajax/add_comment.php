@@ -15,7 +15,10 @@ $for=$_POST['for'];
 setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 
-$id=sk_add_comment($alias, $email, $text, $ip, $for);
+$text = str_replace("\'", "'", $text);
+$text = str_replace('\"', '"', $text);
+
+$id=sk_add_comment($alias, $email, mnmx_xmlentities($text), $ip, $for);
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

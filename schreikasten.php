@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.20
+Version: 0.11.21
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -59,7 +59,6 @@ require_once('libs/SimpleRSSFeedCreator.php');
 * @access public
 */
 function sk_header() {
-	echo "<script type='text/javascript' language='JavaScript' src='".sk_plugin_url("/scripts/schreikasten.js")."'></script>";
 	$css = get_theme_root()."/".get_template()."/schreikasten.css";
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css' type='text/css' media='screen' />";
@@ -632,11 +631,13 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 					}
 					
 					if(!$spam) { //If it is not spam
-						//If the owner is not in the blacklist 
+						//If this is the administrator
+						//OR
+						//the owner is not in the blacklist 
 						//and we do not require to moderate
 						//and it is not an anonymous,
 						//accept the message
-						if(!sk_is_blacklisted() && 1 != get_option('comment_moderation') && $user_id != 0) {
+						if(current_user_can('install_plugins') || (!sk_is_blacklisted() && 1 != get_option('comment_moderation') && $user_id != 0 )) {
 							//sk_mark_as_ham($id); //accept the message
 							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
 							$wpdb->query( $query );
@@ -1617,7 +1618,7 @@ function sk_codeShoutbox() {
 	}
 	
 	$message = false;
-	if(1 == get_option('comment_moderation')) {
+	if(1 == get_option('comment_moderation') && !current_user_can('install_plugins')) {
 		$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
 	}
 	if(sk_is_blacklisted()) {

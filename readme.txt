@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.20
+Stable tag: 0.11.21
 
 A shoutbox using ajax and akismet.
 
@@ -124,6 +124,10 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.11.21 =
+* Solved a bug with Quotation marks and Apostrophe
+* Wouldn't require confirmation if the comment was send by the administrator when he was loged.
 
 = 0.11.20 =
 * New cache system fixed.
