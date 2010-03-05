@@ -170,9 +170,16 @@ div.throbber-page-off {
 
 div.throbber-img-on {
 	display: block;
+	margin: 6px 2px 1px 0px;
+	padding: 4px;
+	border: solid 1px #e1e1e1;
 }
 
-div.throbber-img-off {
+li.throbber-img-on {
+	display: block;
+}
+
+li.throbber-img-off, div.throbber-img-off {
 	display: none;
 }
 

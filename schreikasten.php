@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.21
+Version: 0.11.22
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1015,7 +1015,7 @@ function sk_unlock($id) {
 * @param objetc comment The comment
 * @param sending Is this the comment we are sending?
 */
-function sk_format_comment($comment,$sending=false,$rand=false) {
+function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	global $current_user;
 	
 	if(!$rand) $rand = mt_rand(111111,999999);
@@ -1122,12 +1122,18 @@ function sk_format_comment($comment,$sending=false,$rand=false) {
 		if($capabilities['editor']==1) $usertype = 'sk-user-editor';
 		if($capabilities['administrator']==1) $usertype = 'sk-user-admin';
 	}
+	
+	$class = "class='$divClass $usertype'";
+	if($hide) {
+		$class = "id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'";
+	}
+	
 	if($options['avatar']) {
-		$answer.="\n<div class='$divClass $usertype'><a name='sk-comment-id$id'></a>
+		$answer.="\n<div $class><a name='sk-comment-id$id'></a>
 		$item
 		</div>";
 	} else { //else, it's a list item
-		$answer.="\n<li class='$divClass $usertype'><a name='sk-comment-id$id'></a>
+		$answer.="\n<li $class><a name='sk-comment-id$id'></a>
 				$item
 				</li>";
 	}
@@ -1211,7 +1217,9 @@ function sk_show_comments($page=1,$id=false,$rand=false)
 	$comments = $wpdb->get_results($sql);
 
 	//if we don't show avatars, then it's a list	
-	if(!$options['avatar']) $answer="<ul>";
+	if(!$options['avatar']) {
+		$answer="<ul>";
+	}
 	
 	$av_size=32;
 	
@@ -1223,7 +1231,7 @@ function sk_show_comments($page=1,$id=false,$rand=false)
 	$aux->text = "<span id='th_sk_text$rand'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	
-	$answer= "<div id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'>".sk_format_comment($aux,true,$rand)."</div>";
+	$answer.= sk_format_comment($aux,true,$rand,true);
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
