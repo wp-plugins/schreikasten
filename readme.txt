@@ -125,9 +125,12 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 
 == Changelog ==
 
+= 0.11.23 =
+* Updated nonce system to enhace security. Using feed url as seed.
+* New CSS for pagination system.
+
 = 0.11.22 =
-* New CSS for pagination.
-* Updated nonce system to enhace security. Using id as seed.
+* Solved a Bug with 'show comments' when in list version (no avatar). 
 
 = 0.11.21 =
 * Solved a bug with Quotation marks and Apostrophe
