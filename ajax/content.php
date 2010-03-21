@@ -5,8 +5,9 @@
 	<title></title>
 </head>
 <body><?php
-
-if(wp_verify_nonce($_POST['nonce'], 'schreikasten')) {
+$nonce = $_POST['nonce'];
+$nonce_title = 'sk'.$_POST['rand'];
+if(wp_verify_nonce($nonce, $nonce_title)) {
 
 	$page=$_POST['page'];
 	if(!$page) $page=1;

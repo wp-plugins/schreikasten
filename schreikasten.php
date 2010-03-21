@@ -65,6 +65,13 @@ function sk_header() {
 	} else {
 		echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
 	}
+	$img = "<script language='javascript' type='text/javascript'>
+		/* <![CDATA[ */
+		
+		var sk_img = new Image(); 
+		sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
+		</script>";
+	echo $img;
 }
  
 /**
@@ -280,7 +287,7 @@ function sk_page_selector($group=1,$rand=false) {
 	$last_item= "&#187;";
 	
 	//Create nonce
-	$nonce = wp_create_nonce('schreikasten');
+	$nonce = wp_create_nonce('sk'.$rand);
 	
 	// Get the number of comments we have
 	$table_name = $wpdb->prefix . "schreikasten";
@@ -1558,7 +1565,7 @@ function sk_codeShoutbox() {
 	
 	$answer = "";
 	//Create the nonce
-	$nonce = wp_create_nonce('schreikasten');
+	$nonce = wp_create_nonce('sk'.$rand);
 	//Get current user
 	get_currentuserinfo();
 	

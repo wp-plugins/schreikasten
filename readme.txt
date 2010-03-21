@@ -126,7 +126,8 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 == Changelog ==
 
 = 0.11.22 =
-* Solved a Bug with 'show comments' when in list version (no avatar). 
+* New CSS for pagination.
+* Updated nonce system to enhace security. Using id as seed.
 
 = 0.11.21 =
 * Solved a bug with Quotation marks and Apostrophe

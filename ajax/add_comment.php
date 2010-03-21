@@ -12,6 +12,9 @@ $email=$_POST['email'];
 $text=$_POST['text'];
 $for=$_POST['for'];
 
+$nonce = $_POST['nonce'];
+$nonce_title = 'sk'.$_POST['rand'];
+
 setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 
@@ -29,7 +32,7 @@ $id=sk_add_comment($alias, $email, mnmx_xmlentities($text), $ip, $for);
 <body>
 <?php
 
-if(wp_verify_nonce($_POST['nonce'], 'schreikasten')) {
+if(wp_verify_nonce($nonce, $nonce_title)) {
 
 	if(sk_cookie_id()==0) {
 		echo "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
