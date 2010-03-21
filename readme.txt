@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.22
+Stable tag: 0.11.23
 
 A shoutbox using ajax and akismet.
 
