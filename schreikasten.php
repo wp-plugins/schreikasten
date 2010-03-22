@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.23
+Version: 0.11.23.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -59,19 +59,11 @@ require_once('libs/SimpleRSSFeedCreator.php');
 * @access public
 */
 function sk_header() {
+	echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
 	$css = get_theme_root()."/".get_template()."/schreikasten.css";
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css' type='text/css' media='screen' />";
-	} else {
-		echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
 	}
-	$img = "<script language='javascript' type='text/javascript'>
-		/* <![CDATA[ */
-		
-		var sk_img = new Image(); 
-		sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
-		</script>";
-	echo $img;
 }
  
 /**
@@ -280,7 +272,7 @@ function sk_page_selector($group=1,$rand=false) {
 	
 	$uri_sk=sk_plugin_url('/content.php?page');
 	$answer="";
-	$total_groups=3; //We will show only 3 groups
+	$total_groups=5; //We will show only 5 groups
 	$style_actual_group="";
 	$style_no_actual_group="";
 	$first_item= "&#171;";
