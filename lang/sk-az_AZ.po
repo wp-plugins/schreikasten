@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 13:34-0500\n"
-"PO-Revision-Date: 2010-02-22 13:34-0500\n"
+"POT-Creation-Date: 2010-06-04 14:11-0500\n"
+"PO-Revision-Date: 2010-06-04 14:11-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Vsayt <turkel@gmx.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,195 +19,195 @@ msgstr ""
 "X-Poedit-SearchPath-1: ajax\n"
 "X-Poedit-SearchPath-2: templates\n"
 
-#: schreikasten.php:450
+#: schreikasten.php:452
 #, fuzzy
 msgid "Schreikasten"
 msgstr "Çat Spamı"
 
-#: schreikasten.php:507
+#: schreikasten.php:509
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr "Sizin mesajınıza %s cavab var, burada: %s"
 
-#: schreikasten.php:508
+#: schreikasten.php:510
 #, php-format
 msgid "Your comment : %s"
 msgstr "Sizin mesajınız: %s"
 
-#: schreikasten.php:509
+#: schreikasten.php:511
 #, php-format
 msgid "Reply comment: %s"
 msgstr "Mesajı cavabla: %s"
 
-#: schreikasten.php:513
+#: schreikasten.php:515
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr "Sizin mesajınıza cavab yazlıb - %s"
 
-#: schreikasten.php:549
+#: schreikasten.php:551
 msgid "There is a new comment on Schreikasten"
 msgstr "Çatda yeni mesaj var"
-
-#: schreikasten.php:551
-#: schreikasten.php:569
-#, php-format
-msgid "Author : %1$s (IP: %2$s)"
-msgstr "Müəllif: %1$s (IP: %2$s)"
-
-#: schreikasten.php:552
-#: schreikasten.php:570
-#, php-format
-msgid "E-mail : %s"
-msgstr "E.Poçt: %s"
 
 #: schreikasten.php:553
 #: schreikasten.php:571
 #, php-format
-msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
-msgstr "Ünvanı : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+msgid "Author : %1$s (IP: %2$s)"
+msgstr "Müəllif: %1$s (IP: %2$s)"
 
 #: schreikasten.php:554
 #: schreikasten.php:572
 #, php-format
-msgid "Comment: %s"
-msgstr "Mesaj: %s"
+msgid "E-mail : %s"
+msgstr "E.Poçt: %s"
 
 #: schreikasten.php:555
-#: schreikasten.php:574
+#: schreikasten.php:573
 #, php-format
-msgid "Delete it: %s"
-msgstr "Bunu sil: %s"
+msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
+msgstr "Ünvanı : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 
 #: schreikasten.php:556
-#: schreikasten.php:575
+#: schreikasten.php:574
 #, php-format
-msgid "Reject it: %s"
-msgstr "Qəbul etmə: %s"
+msgid "Comment: %s"
+msgstr "Mesaj: %s"
 
 #: schreikasten.php:557
 #: schreikasten.php:576
 #, php-format
+msgid "Delete it: %s"
+msgstr "Bunu sil: %s"
+
+#: schreikasten.php:558
+#: schreikasten.php:577
+#, php-format
+msgid "Reject it: %s"
+msgstr "Qəbul etmə: %s"
+
+#: schreikasten.php:559
+#: schreikasten.php:578
+#, php-format
 msgid "Spam it: %s"
 msgstr "Bu Spamdır: %s"
 
-#: schreikasten.php:559
+#: schreikasten.php:561
 msgid "New comment on Schreikasten"
 msgstr "Çatda yeni mesaj var"
 
-#: schreikasten.php:567
+#: schreikasten.php:569
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr "Catda yeni mesaj sizin mesajı qəbul etmənizi gözləir."
 
-#: schreikasten.php:573
+#: schreikasten.php:575
 #, php-format
 msgid "Approve it: %s"
 msgstr "Qəbul et: %s"
 
-#: schreikasten.php:578
+#: schreikasten.php:580
 #, fuzzy
 msgid "Schreikasten comment to moderate"
 msgstr "Çat Mesajları"
 
-#: schreikasten.php:1044
-#: schreikasten.php:1810
+#: schreikasten.php:1059
+#: schreikasten.php:1849
 msgid "[reply]"
 msgstr "[cavabla]"
 
-#: schreikasten.php:1046
-#: schreikasten.php:1812
+#: schreikasten.php:1061
+#: schreikasten.php:1851
 msgid "[no sender]"
 msgstr "[göndərəni yoxdur]"
 
-#: schreikasten.php:1076
+#: schreikasten.php:1091
 msgid "[edit]"
 msgstr "[dəyiş]"
 
-#: schreikasten.php:1077
-#: templates/sk_tracking.php:220
+#: schreikasten.php:1092
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
 #: templates/sk_manage.php:194
 #: templates/sk_confirm.php:21
+#: templates/sk_tracking.php:220
 msgid "Delete"
 msgstr "Sil"
 
-#: schreikasten.php:1079
-#: templates/sk_tracking.php:161
-#: templates/sk_tracking.php:216
+#: schreikasten.php:1094
 #: templates/sk_manage.php:159
 #: templates/sk_confirm.php:17
+#: templates/sk_tracking.php:161
+#: templates/sk_tracking.php:216
 msgid "Reject"
 msgstr "Qəbul etmə"
 
-#: schreikasten.php:1081
-#: templates/sk_tracking.php:66
-#: templates/sk_tracking.php:163
-#: templates/sk_tracking.php:218
+#: schreikasten.php:1096
 #: templates/sk_manage.php:54
 #: templates/sk_manage.php:161
 #: templates/sk_manageblack.php:58
 #: templates/sk_comment.php:16
+#: templates/sk_tracking.php:66
+#: templates/sk_tracking.php:163
+#: templates/sk_tracking.php:218
 msgid "Spam"
 msgstr "Spam"
 
-#: schreikasten.php:1084
-#: schreikasten.php:1223
+#: schreikasten.php:1099
+#: schreikasten.php:1246
 msgid "Sending"
 msgstr "Göndərilir"
 
-#: schreikasten.php:1265
+#: schreikasten.php:1288
 #: templates/sk_config.php:2
 msgid "Schreikasten Configuration"
 msgstr "Mini Çat Seçənəkləri"
 
-#: schreikasten.php:1311
-#: schreikasten.php:1758
-#: schreikasten.php:1905
+#: schreikasten.php:1334
+#: schreikasten.php:1793
+#: schreikasten.php:1958
 #: templates/sk_config.php:7
 #: templates/sk_widgetconfig.php:5
 #, fuzzy, php-format
 msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax %1.1f</a> in order for this plugin to work."
 msgstr "Siz Mini Çatın işləməsi üçün <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> plaqini qurmalısınız"
 
-#: schreikasten.php:1431
-#: schreikasten.php:1439
-#: schreikasten.php:1443
-#: schreikasten.php:1447
+#: schreikasten.php:1454
+#: schreikasten.php:1462
+#: schreikasten.php:1466
+#: schreikasten.php:1470
 msgid "Status changed"
 msgstr "Status dəyişdirildi"
 
-#: schreikasten.php:1434
+#: schreikasten.php:1457
 msgid "Comment modified"
 msgstr "Mesaj dəyişdirildi"
 
-#: schreikasten.php:1451
+#: schreikasten.php:1474
 msgid "Comment deleted"
 msgstr "Mesaj silindi"
 
-#: schreikasten.php:1455
+#: schreikasten.php:1478
 msgid "PC locked forever"
 msgstr "PC birdəfəlik bloklaşdırılıb"
 
-#: schreikasten.php:1459
+#: schreikasten.php:1482
 msgid "PC unlocked"
 msgstr "PC blokdan çıxarıldı"
 
-#: schreikasten.php:1464
+#: schreikasten.php:1487
 msgid "PC locked"
 msgstr "PC bloklaşdırılıb"
 
-#: schreikasten.php:1604
+#: schreikasten.php:1627
 msgid "E-mail is required"
 msgstr "E.Poçt tələb olunur"
 
-#: schreikasten.php:1612
+#: schreikasten.php:1635
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
 "Do you want to continue?"
 msgstr ""
 
-#: schreikasten.php:1621
+#: schreikasten.php:1656
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -215,7 +215,7 @@ msgstr ""
 "Mesajınız göndərildi. Mesajlar dərc \\n"
 "olunmadan əvvəl qəbul edilməlidirlər."
 
-#: schreikasten.php:1624
+#: schreikasten.php:1659
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -223,275 +223,76 @@ msgstr ""
 "Sizi mesajınız göndərildi, amma, bu PC bloklaşdırılıb.\\n"
 "Mesaj gəndərilmədən əvvəl PC bloklaşdırılıb."
 
-#: schreikasten.php:1638
+#: schreikasten.php:1673
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Siz mesaj yerləşdirmək üçün <a href=\"%s\">Sayta Daxil</a> olmalısınız"
 
-#: schreikasten.php:1648
+#: schreikasten.php:1683
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "PC qara siyahıya salınıb. Bu dəfəlik mesaj dərc olunmayacaq."
 
-#: schreikasten.php:1655
+#: schreikasten.php:1690
 msgid "Alias"
 msgstr ""
 
-#: schreikasten.php:1661
+#: schreikasten.php:1696
 msgid "Email"
 msgstr "E.Poçt"
 
-#: schreikasten.php:1669
-#: schreikasten.php:1685
+#: schreikasten.php:1704
+#: schreikasten.php:1720
 msgid "For"
 msgstr "Cavabla"
 
-#: schreikasten.php:1684
+#: schreikasten.php:1719
 msgid "Submit"
 msgstr "Göndər"
 
-#: schreikasten.php:1689
+#: schreikasten.php:1724
 msgid "Mail will not be published"
 msgstr "E.Poçt ünvanı göstərilməyəcək"
 
-#: schreikasten.php:1691
+#: schreikasten.php:1726
 msgid "(but it's required)"
 msgstr "(bu tələb olunur)"
 
-#: schreikasten.php:1694
+#: schreikasten.php:1729
 msgid "(but it's used for avatar)"
 msgstr "(amma bu avatar üçün istifadə olunub)"
 
-#: schreikasten.php:1698
+#: schreikasten.php:1733
 #, php-format
 msgid "Loged in as %s"
 msgstr "Sayta daxil olduğunuz ad %s"
 
-#: schreikasten.php:1699
+#: schreikasten.php:1734
 msgid "Log out"
 msgstr "Çıx"
 
-#: schreikasten.php:1723
+#: schreikasten.php:1758
 msgid "The lenght of the message is bigger than the allowed size."
 msgstr "Mesajınınız olduqca uzundur."
 
-#: schreikasten.php:1823
+#: schreikasten.php:1862
 #, fuzzy, php-format
 msgid "Comment by %s"
 msgstr "Mesaj: %s"
 
-#: schreikasten.php:1831
+#: schreikasten.php:1870
 #, php-format
 msgid "Shouts in %s"
 msgstr ""
 
-#: schreikasten.php:1832
+#: schreikasten.php:1871
 #, php-format
 msgid "List of messages in %s"
 msgstr ""
 
-#: schreikasten.php:1882
+#: schreikasten.php:1901
+#: schreikasten.php:1935
 msgid "Subscribe"
 msgstr ""
-
-#: templates/sk_tracking.php:60
-msgid "Tracking commment"
-msgstr "İzlənilən mesajlar"
-
-#: templates/sk_tracking.php:63
-#: templates/sk_manage.php:51
-#: templates/sk_manageblack.php:55
-msgid "All"
-msgstr "Hamısı"
-
-#: templates/sk_tracking.php:64
-#: templates/sk_manage.php:52
-#: templates/sk_manageblack.php:56
-msgid "Pending"
-msgid_plural "Pending"
-msgstr[0] "Gözləyən"
-
-#: templates/sk_tracking.php:65
-#: templates/sk_manage.php:53
-#: templates/sk_manageblack.php:57
-#: templates/sk_comment.php:15
-msgid "Accepted"
-msgid_plural "Accepted"
-msgstr[0] "Qəbul edilən"
-
-#: templates/sk_tracking.php:67
-#: templates/sk_manage.php:55
-#: templates/sk_manageblack.php:59
-#: templates/sk_comment.php:17
-msgid "Unapproved"
-msgid_plural "Unapproved"
-msgstr[0] "Qəbul edilməyən"
-
-#: templates/sk_tracking.php:68
-#: templates/sk_manage.php:56
-#: templates/sk_manageblack.php:60
-msgid "Blocked PC"
-msgid_plural "Blocked PC"
-msgstr[0] "Bloklanmış PC"
-
-#: templates/sk_tracking.php:74
-#: templates/sk_tracking.php:237
-#: templates/sk_manage.php:67
-#: templates/sk_manage.php:180
-#: templates/sk_manageblack.php:66
-#: templates/sk_manageblack.php:153
-#, php-format
-msgid "Displaying %s&#8211;%s of %s"
-msgstr "Göstərilir %s&#8211;%s  %s"
-
-#: templates/sk_tracking.php:89
-#: templates/sk_manage.php:82
-msgid "No comments found"
-msgstr "Heç bir mesaj tapılmadı"
-
-#: templates/sk_tracking.php:96
-#: templates/sk_tracking.php:249
-msgid "By Alias"
-msgstr ""
-
-#: templates/sk_tracking.php:97
-#: templates/sk_tracking.php:250
-msgid "By E-mail"
-msgstr "E.Poçta görə"
-
-#: templates/sk_tracking.php:99
-#: templates/sk_tracking.php:252
-msgid "By PC"
-msgstr "PC-yə görə"
-
-#: templates/sk_tracking.php:108
-#: templates/sk_tracking.php:114
-#: templates/sk_manage.php:104
-#: templates/sk_manage.php:111
-#: templates/sk_confirm.php:46
-#: templates/sk_comment.php:46
-msgid "Author"
-msgstr "Müəllif"
-
-#: templates/sk_tracking.php:109
-#: templates/sk_tracking.php:115
-#: templates/sk_manage.php:105
-#: templates/sk_manage.php:112
-#: templates/sk_confirm.php:38
-#: templates/sk_confirm.php:54
-#: templates/sk_comment.php:41
-#: templates/sk_comment.php:54
-msgid "Comment"
-msgstr "Mesaj"
-
-#: templates/sk_tracking.php:129
-#: templates/sk_tracking.php:185
-#: templates/sk_manage.php:128
-#: templates/sk_manageblack.php:130
-msgid "No e-mail registry"
-msgstr ""
-
-#: templates/sk_tracking.php:132
-#: templates/sk_tracking.php:188
-#: templates/sk_manage.php:131
-#: templates/sk_manageblack.php:119
-msgid "registered user"
-msgstr "qeydiyyatdan keçmiş istifadəçi"
-
-#: templates/sk_tracking.php:136
-#: templates/sk_tracking.php:192
-#: templates/sk_manage.php:135
-msgid "spam"
-msgstr "spam"
-
-#: templates/sk_tracking.php:137
-#: templates/sk_tracking.php:193
-#: templates/sk_manage.php:136
-#: templates/sk_manageblack.php:132
-msgid "accepted"
-msgid_plural "accepted"
-msgstr[0] "qəbul edilib"
-
-#: templates/sk_tracking.php:138
-#: templates/sk_tracking.php:194
-#: templates/sk_manage.php:137
-#: templates/sk_manageblack.php:133
-msgid "unapproved"
-msgid_plural "unapproved"
-msgstr[0] "qəbul edilməyib"
-
-#: templates/sk_tracking.php:139
-#: templates/sk_tracking.php:195
-#: templates/sk_manage.php:138
-#, fuzzy
-msgid "unresolved"
-msgid_plural "unresolved"
-msgstr[0] "qəbul edilməyib"
-
-#: templates/sk_tracking.php:155
-#: templates/sk_tracking.php:210
-#: templates/sk_manage.php:153
-#: templates/sk_manageblack.php:135
-#, php-format
-msgid ""
-"This comment is marked as %s.\\n"
-"Are you sure you want to mark it as %s?"
-msgstr ""
-"Bu mesaj %s kimi qeydə alınıb. \\n"
-"Siz bunu %s kimi qeyd etmək istədiynizdən əminsiniz?"
-
-#: templates/sk_tracking.php:158
-#: templates/sk_tracking.php:213
-#: templates/sk_manage.php:156
-msgid "Edit"
-msgstr "Dəyiş"
-
-#: templates/sk_tracking.php:159
-#: templates/sk_tracking.php:214
-#: templates/sk_manage.php:87
-#: templates/sk_manage.php:157
-#: templates/sk_manage.php:191
-msgid "Accept"
-msgstr "Qəbul et"
-
-#: templates/sk_tracking.php:165
-#: templates/sk_tracking.php:221
-#: templates/sk_manage.php:164
-msgid "Tracking"
-msgstr "İzlə"
-
-#: templates/sk_tracking.php:167
-#: templates/sk_tracking.php:223
-#: templates/sk_manage.php:166
-#: templates/sk_manageblack.php:141
-msgid "Are you sure you want to unlock this PC?"
-msgstr "Siz bu PC-ni blokdan çıxartmağa əminsiniz?"
-
-#: templates/sk_tracking.php:167
-#: templates/sk_tracking.php:223
-#: templates/sk_manage.php:166
-#: templates/sk_manageblack.php:86
-#: templates/sk_manageblack.php:141
-#: templates/sk_manageblack.php:164
-msgid "Unlock PC"
-msgstr "PC-ni Blokdan çıxart"
-
-#: templates/sk_tracking.php:168
-#: templates/sk_tracking.php:224
-#: templates/sk_manage.php:167
-msgid "Are you sure you want to lock this PC?"
-msgstr "Siz bu PC-ni bloklaşdırmaq istədiyinizdən əminsiniz?"
-
-#: templates/sk_tracking.php:168
-#: templates/sk_tracking.php:224
-#: templates/sk_manage.php:167
-msgid "Lock PC"
-msgstr "PC-ni bloklaşdır"
-
-#: templates/sk_tracking.php:220
-#: templates/sk_manage.php:163
-#: templates/sk_manageblack.php:140
-msgid "Delete this Comment?"
-msgstr "Bu Mesaj Silinsin?"
 
 #: templates/sk_manage.php:48
 #: templates/sk_manageblack.php:52
@@ -503,10 +304,61 @@ msgstr "Çat Spamı"
 msgid "Schreikasten Comments"
 msgstr "Çat Mesajları"
 
+#: templates/sk_manage.php:51
+#: templates/sk_manageblack.php:55
+#: templates/sk_tracking.php:63
+msgid "All"
+msgstr "Hamısı"
+
+#: templates/sk_manage.php:52
+#: templates/sk_manageblack.php:56
+#: templates/sk_tracking.php:64
+msgid "Pending"
+msgid_plural "Pending"
+msgstr[0] "Gözləyən"
+
+#: templates/sk_manage.php:53
+#: templates/sk_manageblack.php:57
+#: templates/sk_comment.php:15
+#: templates/sk_tracking.php:65
+msgid "Accepted"
+msgid_plural "Accepted"
+msgstr[0] "Qəbul edilən"
+
+#: templates/sk_manage.php:55
+#: templates/sk_manageblack.php:59
+#: templates/sk_comment.php:17
+#: templates/sk_tracking.php:67
+msgid "Unapproved"
+msgid_plural "Unapproved"
+msgstr[0] "Qəbul edilməyən"
+
+#: templates/sk_manage.php:56
+#: templates/sk_manageblack.php:60
+#: templates/sk_tracking.php:68
+msgid "Blocked PC"
+msgid_plural "Blocked PC"
+msgstr[0] "Bloklanmış PC"
+
 #: templates/sk_manage.php:59
 #: templates/sk_manage.php:61
 msgid "Search Comments"
 msgstr "Mesajlarda axtar"
+
+#: templates/sk_manage.php:67
+#: templates/sk_manage.php:180
+#: templates/sk_manageblack.php:66
+#: templates/sk_manageblack.php:153
+#: templates/sk_tracking.php:74
+#: templates/sk_tracking.php:237
+#, php-format
+msgid "Displaying %s&#8211;%s of %s"
+msgstr "Göstərilir %s&#8211;%s  %s"
+
+#: templates/sk_manage.php:82
+#: templates/sk_tracking.php:89
+msgid "No comments found"
+msgstr "Heç bir mesaj tapılmadı"
 
 #: templates/sk_manage.php:86
 #: templates/sk_manage.php:190
@@ -514,6 +366,14 @@ msgstr "Mesajlarda axtar"
 #: templates/sk_manageblack.php:163
 msgid "Bulk Actions"
 msgstr "Toplu əməliyyat"
+
+#: templates/sk_manage.php:87
+#: templates/sk_manage.php:157
+#: templates/sk_manage.php:191
+#: templates/sk_tracking.php:159
+#: templates/sk_tracking.php:214
+msgid "Accept"
+msgstr "Qəbul et"
 
 #: templates/sk_manage.php:88
 #: templates/sk_manage.php:192
@@ -538,128 +398,127 @@ msgstr "Qəbul et"
 msgid "Delete all Spam"
 msgstr "Bütün Spamları Sil"
 
-#: templates/sk_config.php:8
-msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
+#: templates/sk_manage.php:104
+#: templates/sk_manage.php:111
+#: templates/sk_confirm.php:46
+#: templates/sk_comment.php:46
+#: templates/sk_tracking.php:108
+#: templates/sk_tracking.php:114
+msgid "Author"
+msgstr "Müəllif"
+
+#: templates/sk_manage.php:105
+#: templates/sk_manage.php:112
+#: templates/sk_confirm.php:38
+#: templates/sk_confirm.php:54
+#: templates/sk_comment.php:41
+#: templates/sk_comment.php:54
+#: templates/sk_tracking.php:109
+#: templates/sk_tracking.php:115
+msgid "Comment"
+msgstr "Mesaj"
+
+#: templates/sk_manage.php:128
+#: templates/sk_manageblack.php:130
+#: templates/sk_tracking.php:129
+#: templates/sk_tracking.php:185
+msgid "No e-mail registry"
 msgstr ""
 
-#: templates/sk_config.php:11
-msgid "Akismet API"
+#: templates/sk_manage.php:131
+#: templates/sk_manageblack.php:119
+#: templates/sk_tracking.php:132
+#: templates/sk_tracking.php:188
+msgid "registered user"
+msgstr "qeydiyyatdan keçmiş istifadəçi"
+
+#: templates/sk_manage.php:135
+#: templates/sk_tracking.php:136
+#: templates/sk_tracking.php:192
+msgid "spam"
+msgstr "spam"
+
+#: templates/sk_manage.php:136
+#: templates/sk_manageblack.php:132
+#: templates/sk_tracking.php:137
+#: templates/sk_tracking.php:193
+msgid "accepted"
+msgid_plural "accepted"
+msgstr[0] "qəbul edilib"
+
+#: templates/sk_manage.php:137
+#: templates/sk_manageblack.php:133
+#: templates/sk_tracking.php:138
+#: templates/sk_tracking.php:194
+msgid "unapproved"
+msgid_plural "unapproved"
+msgstr[0] "qəbul edilməyib"
+
+#: templates/sk_manage.php:138
+#: templates/sk_tracking.php:139
+#: templates/sk_tracking.php:195
+#, fuzzy
+msgid "unresolved"
+msgid_plural "unresolved"
+msgstr[0] "qəbul edilməyib"
+
+#: templates/sk_manage.php:153
+#: templates/sk_manageblack.php:135
+#: templates/sk_tracking.php:155
+#: templates/sk_tracking.php:210
+#, php-format
+msgid ""
+"This comment is marked as %s.\\n"
+"Are you sure you want to mark it as %s?"
 msgstr ""
+"Bu mesaj %s kimi qeydə alınıb. \\n"
+"Siz bunu %s kimi qeyd etmək istədiynizdən əminsiniz?"
 
-#: templates/sk_config.php:13
-#: templates/sk_comment.php:32
-msgid "Update"
-msgstr "Yenilə"
+#: templates/sk_manage.php:156
+#: templates/sk_tracking.php:158
+#: templates/sk_tracking.php:213
+msgid "Edit"
+msgstr "Dəyiş"
 
-#: templates/sk_config.php:17
-msgid "Set API Key"
-msgstr ""
+#: templates/sk_manage.php:163
+#: templates/sk_manageblack.php:140
+#: templates/sk_tracking.php:220
+msgid "Delete this Comment?"
+msgstr "Bu Mesaj Silinsin?"
 
-#: templates/sk_config.php:21
-msgid "API Key is valid"
-msgstr ""
+#: templates/sk_manage.php:164
+#: templates/sk_tracking.php:165
+#: templates/sk_tracking.php:221
+msgid "Tracking"
+msgstr "İzlə"
 
-#: templates/sk_config.php:24
-msgid "API Key is not valid"
-msgstr ""
+#: templates/sk_manage.php:166
+#: templates/sk_manageblack.php:141
+#: templates/sk_tracking.php:167
+#: templates/sk_tracking.php:223
+msgid "Are you sure you want to unlock this PC?"
+msgstr "Siz bu PC-ni blokdan çıxartmağa əminsiniz?"
 
-#: templates/sk_widgetconfig.php:12
-msgid "Title:"
-msgstr "Başlıq:"
+#: templates/sk_manage.php:166
+#: templates/sk_manageblack.php:86
+#: templates/sk_manageblack.php:141
+#: templates/sk_manageblack.php:164
+#: templates/sk_tracking.php:167
+#: templates/sk_tracking.php:223
+msgid "Unlock PC"
+msgstr "PC-ni Blokdan çıxart"
 
-#: templates/sk_widgetconfig.php:20
-msgid "Show Avatar"
-msgstr "Avatarları Göstər"
+#: templates/sk_manage.php:167
+#: templates/sk_tracking.php:168
+#: templates/sk_tracking.php:224
+msgid "Are you sure you want to lock this PC?"
+msgstr "Siz bu PC-ni bloklaşdırmaq istədiyinizdən əminsiniz?"
 
-#: templates/sk_widgetconfig.php:26
-msgid "Registered users only"
-msgstr "Yalnız qeydiyyatdan keçmiş istifadəçilər"
-
-#: templates/sk_widgetconfig.php:28
-#: templates/sk_widgetconfig.php:39
-#: templates/sk_widgetconfig.php:50
-msgid "Use general configuration"
-msgstr "Ümüumi seçənəklərdən istifadə et"
-
-#: templates/sk_widgetconfig.php:29
-#: templates/sk_widgetconfig.php:40
-msgid "Yes"
-msgstr "Bəli"
-
-#: templates/sk_widgetconfig.php:30
-#: templates/sk_widgetconfig.php:41
-msgid "No"
-msgstr "Xeyir"
-
-#: templates/sk_widgetconfig.php:37
-msgid "Requiere e-mail"
-msgstr "E.Poçt tələb olunur"
-
-#: templates/sk_widgetconfig.php:48
-msgid "Announce comments (send e-mail)"
-msgstr "Yeni Mesajlar yazıldıqda Xəbər ver (məktub göndərir)"
-
-#: templates/sk_widgetconfig.php:51
-msgid "Send e-mail"
-msgstr "E.Poçt göndər"
-
-#: templates/sk_widgetconfig.php:52
-msgid "Don't send e-mail"
-msgstr "E.poçt göndərmə"
-
-#: templates/sk_widgetconfig.php:60
-msgid "Allow replies"
-msgstr "Cavablamalara icazə ver"
-
-#: templates/sk_widgetconfig.php:67
-msgid "Show RSS feed"
-msgstr ""
-
-#: templates/sk_widgetconfig.php:74
-msgid "Alert users about posting e-mails in their comments"
-msgstr "İstifadəçilərə E.Poçtlarını yazmalarını xəbərdar et"
-
-#: templates/sk_widgetconfig.php:80
-msgid "Number of characters allowed per comment"
-msgstr "Mesajda maksimum simvol sayı"
-
-#: templates/sk_widgetconfig.php:86
-msgid "Items per page"
-msgstr "Hər səhifəyə mesaj sayı"
-
-#: templates/sk_widgetconfig.php:92
-msgid "Refresh rate"
-msgstr "Yenilənmə tezliyi"
-
-#: templates/sk_widgetconfig.php:92
-msgid "(this option is in an early stage, take caution)"
-msgstr ""
-
-#: templates/sk_widgetconfig.php:94
-msgid "Never"
-msgstr "Heç vaxt"
-
-#: templates/sk_widgetconfig.php:95
-#: templates/sk_widgetconfig.php:96
-#: templates/sk_widgetconfig.php:97
-msgid "seconds"
-msgstr "saniyyə"
-
-#: templates/sk_widgetconfig.php:104
-msgid "Max days to hold a PC blacklisted"
-msgstr "PC-ni qara siyahıda saxlama müddəti"
-
-#: templates/sk_widgetconfig.php:111
-msgid "Forever"
-msgstr "Bir dəfəlik"
-
-#: templates/sk_widgetconfig.php:118
-msgid "Max pending messages from blacklisted PC"
-msgstr "Qara siyahıdakı PC-dən maksimum gözləmədə olan mesaj"
-
-#: templates/sk_widgetconfig.php:120
-msgid "None"
-msgstr "Heç bir"
+#: templates/sk_manage.php:167
+#: templates/sk_tracking.php:168
+#: templates/sk_tracking.php:224
+msgid "Lock PC"
+msgstr "PC-ni bloklaşdır"
 
 #: templates/sk_manageblack.php:81
 msgid "No locked PCs found"
@@ -705,6 +564,137 @@ msgstr "Mesajı Sil"
 #: templates/sk_manageblack.php:142
 msgid "Are you sure you want to block this PC forever?"
 msgstr "Siz bu PC-ni birdəfəlik bloklaşdırmaq istədiyinizdən əminsiniz?"
+
+#: templates/sk_config.php:8
+msgid "You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter."
+msgstr ""
+
+#: templates/sk_config.php:11
+msgid "Akismet API"
+msgstr ""
+
+#: templates/sk_config.php:13
+#: templates/sk_comment.php:32
+msgid "Update"
+msgstr "Yenilə"
+
+#: templates/sk_config.php:17
+msgid "Set API Key"
+msgstr ""
+
+#: templates/sk_config.php:21
+msgid "API Key is valid"
+msgstr ""
+
+#: templates/sk_config.php:24
+msgid "API Key is not valid"
+msgstr ""
+
+#: templates/sk_widgetconfig.php:12
+msgid "Title:"
+msgstr "Başlıq:"
+
+#: templates/sk_widgetconfig.php:20
+msgid "Show Avatar"
+msgstr "Avatarları Göstər"
+
+#: templates/sk_widgetconfig.php:26
+msgid "Registered users only"
+msgstr "Yalnız qeydiyyatdan keçmiş istifadəçilər"
+
+#: templates/sk_widgetconfig.php:28
+#: templates/sk_widgetconfig.php:39
+#: templates/sk_widgetconfig.php:50
+#: templates/sk_widgetconfig.php:61
+msgid "Use general configuration"
+msgstr "Ümüumi seçənəklərdən istifadə et"
+
+#: templates/sk_widgetconfig.php:29
+#: templates/sk_widgetconfig.php:40
+#: templates/sk_widgetconfig.php:51
+msgid "Yes"
+msgstr "Bəli"
+
+#: templates/sk_widgetconfig.php:30
+#: templates/sk_widgetconfig.php:41
+#: templates/sk_widgetconfig.php:52
+msgid "No"
+msgstr "Xeyir"
+
+#: templates/sk_widgetconfig.php:37
+#, fuzzy
+msgid "Comments must be moderated"
+msgstr "Mesaj silindi"
+
+#: templates/sk_widgetconfig.php:48
+msgid "Requiere e-mail"
+msgstr "E.Poçt tələb olunur"
+
+#: templates/sk_widgetconfig.php:59
+msgid "Announce comments (send e-mail)"
+msgstr "Yeni Mesajlar yazıldıqda Xəbər ver (məktub göndərir)"
+
+#: templates/sk_widgetconfig.php:62
+msgid "Send e-mail"
+msgstr "E.Poçt göndər"
+
+#: templates/sk_widgetconfig.php:63
+msgid "Don't send e-mail"
+msgstr "E.poçt göndərmə"
+
+#: templates/sk_widgetconfig.php:71
+msgid "Allow replies"
+msgstr "Cavablamalara icazə ver"
+
+#: templates/sk_widgetconfig.php:78
+msgid "Show RSS feed"
+msgstr ""
+
+#: templates/sk_widgetconfig.php:85
+msgid "Alert users about posting e-mails in their comments"
+msgstr "İstifadəçilərə E.Poçtlarını yazmalarını xəbərdar et"
+
+#: templates/sk_widgetconfig.php:91
+msgid "Number of characters allowed per comment"
+msgstr "Mesajda maksimum simvol sayı"
+
+#: templates/sk_widgetconfig.php:97
+msgid "Items per page"
+msgstr "Hər səhifəyə mesaj sayı"
+
+#: templates/sk_widgetconfig.php:103
+msgid "Refresh rate"
+msgstr "Yenilənmə tezliyi"
+
+#: templates/sk_widgetconfig.php:103
+msgid "(this option is in an early stage, take caution)"
+msgstr ""
+
+#: templates/sk_widgetconfig.php:105
+msgid "Never"
+msgstr "Heç vaxt"
+
+#: templates/sk_widgetconfig.php:106
+#: templates/sk_widgetconfig.php:107
+#: templates/sk_widgetconfig.php:108
+msgid "seconds"
+msgstr "saniyyə"
+
+#: templates/sk_widgetconfig.php:115
+msgid "Max days to hold a PC blacklisted"
+msgstr "PC-ni qara siyahıda saxlama müddəti"
+
+#: templates/sk_widgetconfig.php:122
+msgid "Forever"
+msgstr "Bir dəfəlik"
+
+#: templates/sk_widgetconfig.php:129
+msgid "Max pending messages from blacklisted PC"
+msgstr "Qara siyahıdakı PC-dən maksimum gözləmədə olan mesaj"
+
+#: templates/sk_widgetconfig.php:131
+msgid "None"
+msgstr "Heç bir"
 
 #: templates/sk_confirm.php:12
 msgid "approve"
@@ -752,14 +742,33 @@ msgstr "Status"
 msgid "Cancel"
 msgstr "Ləğv et"
 
-#: ajax/add_comment.php:32
-msgid "We cannot accept messages<br>from this PC"
-msgstr "Biz bu PC-dən gələn mesajları qəbul etmirik."
+#: templates/sk_tracking.php:60
+msgid "Tracking commment"
+msgstr "İzlənilən mesajlar"
 
-#: ajax/add_comment.php:42
-#: ajax/content.php:20
+#: templates/sk_tracking.php:96
+#: templates/sk_tracking.php:249
+msgid "By Alias"
+msgstr ""
+
+#: templates/sk_tracking.php:97
+#: templates/sk_tracking.php:250
+msgid "By E-mail"
+msgstr "E.Poçta görə"
+
+#: templates/sk_tracking.php:99
+#: templates/sk_tracking.php:252
+msgid "By PC"
+msgstr "PC-yə görə"
+
+#: ajax/content.php:21
+#: ajax/add_comment.php:48
 msgid "Only Schreikasten can use this link."
 msgstr "Yalnız Mini Çat bu linkdən istifadə edə bilər."
+
+#: ajax/add_comment.php:38
+msgid "We cannot accept messages<br>from this PC"
+msgstr "Biz bu PC-dən gələn mesajları qəbul etmirik."
 
 #~ msgid ""
 #~ "You have to install <a href=\"%s\" target=\"_BLANK\">minimax 0.3</a> in "

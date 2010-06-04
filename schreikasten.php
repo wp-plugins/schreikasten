@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.23.1
+Version: 0.11.24
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -30,7 +30,11 @@ define ("SK_HAM", 1);
 define ("SK_SPAM", 2);
 define ("SK_MOOT", 3);
 define ("SK_BLACK", 4);
-define ("SK_BLOCKED", -1);
+define ("SK_BLOCKED", -1);		
+
+define ("SK_MODERATION_CONFIG", 0);
+define ("SK_MODERATION_YES", 1);
+define ("SK_MODERATION_NO", 2);
 
 define ("SK_ANNOUNCE_CONFIG", 1);
 define ("SK_ANNOUNCE_YES", 2);
@@ -445,7 +449,7 @@ function sk_activate()
 		}
 		
 		//Widget options
-		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false);
+		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
 		add_option('widget_sk', $options);
 		
 		add_option('sk_db_version', SK_DB_VERSION);
@@ -602,8 +606,19 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 		$user_id=sk_cookie_id();
 	}
 	
-	$answer=false;	
+	//Do we need moderation?
+	$require_moderation = true;
+	if($options['moderation'] == SK_MODERATION_CONFIG) {
+		if(!get_option('comment_moderation')) {
+			$require_moderation = false;
+		}
+	}
+	if($options['moderation'] == SK_MODERATION_NO) {
+		$require_moderation = false;
+	}
 	
+	$answer=false;	
+		
 	//If we can only accept messages for registered user and this is a registered user
 	//or we can accept for not registered users
 	//and in general this user can send more messages, accept the comment
@@ -636,7 +651,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 						//and we do not require to moderate
 						//and it is not an anonymous,
 						//accept the message
-						if(current_user_can('install_plugins') || (!sk_is_blacklisted() && 1 != get_option('comment_moderation') && $user_id != 0 )) {
+						if(current_user_can('install_plugins') || (!sk_is_blacklisted() && 1 != $require_moderation && $user_id != 0 )) {
 							//sk_mark_as_ham($id); //accept the message
 							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
 							$wpdb->query( $query );
@@ -1625,7 +1640,19 @@ function sk_codeShoutbox() {
 	}
 	
 	$message = false;
-	if(1 == get_option('comment_moderation') && !current_user_can('install_plugins')) {
+	
+	//Do we need moderation?
+	$require_moderation = true;
+	if($options['moderation'] == SK_MODERATION_CONFIG) {
+		if(!get_option('comment_moderation')) {
+			$require_moderation = false;
+		}
+	}
+	if($options['moderation'] == SK_MODERATION_NO) {
+		$require_moderation = false;
+	}
+	
+	if(1 == $require_moderation && !current_user_can('install_plugins')) {
 		$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
 	}
 	if(sk_is_blacklisted()) {
@@ -1967,6 +1994,8 @@ function sk_widget_init() {
 				$options['announce'] = $_POST['sk_announce'];
 				$options['requiremail'] = $_POST['sk_requiremail'];
 				
+				$options['moderation'] = $_POST['sk_moderation'];
+				
 				update_option('widget_sk', $options);
 			}
 			// Be sure you format your options to be valid HTML attributes.
@@ -1997,6 +2026,9 @@ function sk_widget_init() {
 			
 			$require="require".$options['requiremail'];
 			$$require=' selected="selected"';
+			
+			$moderation="moderation".$options['moderation'];
+			$$moderation=' selected="selected"';
 			
 			$announce="announce".$options['announce'];
 			$$announce=' selected="selected"';

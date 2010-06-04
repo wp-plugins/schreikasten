@@ -33,6 +33,17 @@
 </p>
 
 <p>
+	<label for="sk_num"><?php 
+		_e('Comments must be moderated', 'sk'); ?>:
+		<select class="widefat" id="sk_moderation" name="sk_moderation">
+			<option<?php echo $moderation0; ?> value='0'><?php _e('Use general configuration', 'sk'); ?></option>
+			<option<?php echo $moderation1; ?> value='1'><?php _e('Yes', 'sk'); ?></option>
+			<option<?php echo $moderation2; ?> value='2'><?php _e('No', 'sk'); ?></option>
+		</select>
+		</label>
+</p>
+
+<p>
 	<label for="sk_num"><?php
 		_e('Requiere e-mail','sk'); ?>:
 		<select class="widefat" id="sk_requiremail" name="sk_requiremail">
