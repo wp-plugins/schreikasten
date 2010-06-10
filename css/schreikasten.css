@@ -160,9 +160,11 @@ div.throbber-page-on {
 	width: 100%;
 	text-align: center;
 	background: url(../img/loading.gif) no-repeat center;
-	filter: alpha(opacity= 10);
-	-moz-opacity: .10;
-	opacity: .10;
+	filter: alpha(opacity= 30);
+	-moz-opacity: .30;
+	opacity: .30;
+	font-size: 0;
+	min-height: 15px;
 }
 
 div.throbber-page-off {	

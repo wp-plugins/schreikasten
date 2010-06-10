@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.11.24
+Version: 0.12
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -42,8 +42,6 @@ define ("SK_ANNOUNCE_NO", 3);
 
 define ("SK_DB_VERSION", 4);
 
-define ("SK_MNMX_V", 0.3);
-
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 
@@ -53,6 +51,10 @@ add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_schreikasten/schreikasten.php', 'sk_activate');
 add_filter('the_content', 'sk_content');
+add_action('wp_ajax_sk_ajax', 'sk_ajax');
+add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
+add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
+add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
 
 require_once('libs/SimpleRSSFeedCreator.php');
 
@@ -68,6 +70,132 @@ function sk_header() {
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css' type='text/css' media='screen' />";
 	}
+	// Declare we use JavaScript SACK library for Ajax
+	wp_print_scripts( array( 'sack' ));
+
+	// Define custom JavaScript function
+	echo "
+	<script type='text/javascript'>
+	//<![CDATA[
+	
+	var loading_sk_img = new Image(); 
+	loading_sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
+	
+	function sk_feed( page, rand )
+	{
+		var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+		
+		//Our plugin sack configuration
+		sk_sack.execute = 0;
+		sk_sack.method = 'POST';
+		sk_sack.setVar( 'action', 'sk_ajax' );
+		sk_sack.element = 'sk_content'+rand;
+		
+		//The ajax call data
+		sk_sack.setVar( 'page', page );
+		sk_sack.setVar( 'rand', rand );
+		
+		//What to do on error?
+		sk_sack.onError = function() {
+			var aux = document.getElementById(sk_sack.element);
+			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
+		};
+		
+		sk_sack.runAJAX();
+		
+		return true;
+
+	} // end of JavaScript function sk_feed
+	
+	function sk_add( alias, email, text, skfor, rand )
+	{
+		var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+		
+		//Our plugin sack configuration
+		sk_sack_add.execute = 0;
+		sk_sack_add.method = 'POST';
+		sk_sack_add.setVar( 'action', 'sk_ajax_add' );
+		sk_sack_add.element = 'sk_content'+rand;
+		
+		//The ajax call data
+		sk_sack_add.setVar( 'alias', alias );
+		sk_sack_add.setVar( 'email', email );
+		sk_sack_add.setVar( 'text', text );
+		sk_sack_add.setVar( 'skfor', skfor );
+		sk_sack_add.setVar( 'rand', rand );
+		
+		//What to do on error?
+		sk_sack_add.onError = function() {
+			var aux = document.getElementById(sk_sack_add.element);
+			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
+		};
+		
+		sk_sack_add.runAJAX();
+		
+		return true;
+
+	}
+	
+	//]]>
+	</script>";
+}
+
+
+/**
+* Function to answer the ajax call.
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_ajax() {
+	//Get the data from the post call
+	$rand  = $_POST['rand'];
+	$page  = $_POST['page'];
+	
+	//Get the new data.
+	$results = sk_show_comments($page, false, $rand).sk_page_selector($page,$rand); 
+
+	// Compose JavaScript for return
+	die( $results );
+}
+
+/**
+* Function to answer the ajax call.
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_ajax_add() {
+	//Get the data from the post call
+	$alias= $_POST['alias'];
+	$email= $_POST['email'];
+	$text = $_POST['text'];
+	$for  = $_POST['skfor'];
+	$rand = $_POST['rand'];
+	
+	//Get environment data
+	if ($_SERVER['HTTP_X_FORWARD_FOR']) {
+		$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
+	} else {
+		$ip = $_SERVER['REMOTE_ADDR'];
+	}
+	setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+	setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+
+	$text = str_replace("\'", "'", $text);
+	$text = str_replace('\"', '"', $text);
+	$id=sk_add_comment($alias, $email, sk_xmlentities($text), $ip, $for);
+	
+	//Get the new data.
+	if(sk_cookie_id()==0) {
+		$results = "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
+	}
+	
+	$results.= sk_show_comments(1,$id,$rand);
+	$results.= sk_page_selector(1,$rand); 
+
+	// Compose JavaScript for return
+	die( $results );
 }
  
 /**
@@ -334,9 +462,12 @@ function sk_page_selector($group=1,$rand=false) {
 	//If the list doesn't start from 1, create a link to go to the benginig
 	if($group_start!=1) {
 		$answer.="<a class='sk-page-other' onclick=\"
-				document.getElementsByName('sk_page$rand')[0].value=1;
+				var aux = document.getElementById('throbber-page$rand');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page$rand').value=1;
 				$timer
-				mm_get$rand.post('nonce=$nonce&amp;page=1&amp;rand=$rand');\">$first_item</a> &#183; ";
+				sk_feed( 1, $rand );\">$first_item</a> &#183; ";
 	}
 	
 	//Create the page list and the links
@@ -346,9 +477,12 @@ function sk_page_selector($group=1,$rand=false) {
 			$answer.="<span class='sk-page-actual'>$group_id</span> &#183; ";
 		} else {
 			$answer.="<a class='sk-page-other' onclick=\"
-				document.getElementsByName('sk_page$rand')[0].value=$group_id;
+				var aux = document.getElementById('throbber-page$rand');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page$rand').value=$group_id;
 				$timer
-				mm_get$rand.post('nonce=$nonce&amp;page=$group_id&amp;rand=$rand');\">$group_id</a> &#183; ";
+				sk_feed( $group_id, $rand );\">$group_id</a> &#183; ";
 		}
 	}
 
@@ -356,9 +490,13 @@ function sk_page_selector($group=1,$rand=false) {
 	if($group_end!=$groups) {
 	$answer.="<a class='sk-page-other'
 			 onclick=\"
-			document.getElementsByName('sk_page$rand')[0].value=$groups;
-			$timer
-			mm_get$rand.post('nonce=$nonce&amp;page=$groups&amp;rand=$rand');\">$last_item</a> &#183; ";
+			
+				var aux = document.getElementById('throbber-page$rand');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page$rand').value=$groups;
+				$timer
+				sk_feed( $groups, $rand );\">$last_item</a> &#183; ";
 	}
 
 	//As every link ends with a line, delete the last one as we don't need it
@@ -1328,12 +1466,6 @@ function sk_manage() {
 	$table_name = $wpdb->prefix . "schreikasten";
 	$table_list = $wpdb->prefix . "schreikasten_blacklist";
 	$messages=array();
-	
-	//If we don't have minimax, ask the user for it
-	if(!function_exists('minimax_version') && minimax_version()<SK_MNMX_V) { 
-		array_push($messages, sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V ) );
-		
-	}
 
 	$mode_x=$_POST['mode_x'];
 	if(!$mode_x)
@@ -1669,7 +1801,7 @@ function sk_codeShoutbox() {
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
 			<td colspan='2' id='skwarning'>
-				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page$rand' value='$sk_page'/>
+				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page'/>
 				".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
 			</td>
 		</tr>
@@ -1741,7 +1873,7 @@ function sk_codeShoutbox() {
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>
-						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' name='sk_page$rand' value='$sk_page' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
 					</div>
 					$button
 				</td>
@@ -1759,39 +1891,34 @@ function sk_codeShoutbox() {
 	
 	/******************* End of the hughe part where we are debuging now *************/
 	
-	if(function_exists('minimax_version') && minimax_version()>=SK_MNMX_V) {
-		$file = ABSPATH."wp-content/plugins/schreikasten/templates/sk_widget.php";
-		$answer = mnmx_readfile($file);
-		$answer = str_replace('%rand%', $rand, $answer);
-		$answer = str_replace('%nonce%', $nonce, $answer);
-		$answer = str_replace('%sk_id%', $sk_id, $answer);
-		$answer = str_replace('%sk_page%', $sk_page, $answer);
-		$answer = str_replace('%sk_for%', $sk_for, $answer);
-		$answer = str_replace('%first_comments%', $first_comments, $answer);
-		$answer = str_replace('%first_page_selector%', $first_page_selector, $answer);
-		$answer = str_replace('%maxchars%', $maxchars, $answer);
-		$answer = str_replace('%alias%', $alias, $answer);
-		$answer = str_replace('%email%', $email, $answer);
-		$answer = str_replace('%uri_sk%', $uri_sk, $answer);
-		$answer = str_replace('%uri_skadd%', $uri_skadd, $answer);
-		$answer = str_replace('%uri_img%', $uri_img, $answer);
-		$answer = str_replace('%time%', $time, $answer);
-		$answer = str_replace('%show_timer%', $show_timer, $answer);
-		$answer = str_replace('%ask_email%', $ask_email, $answer);
-		$answer = str_replace('%email_in_text%', $email_in_text, $answer);
-		$answer = str_replace('%message%', $message, $answer);
-		$answer = str_replace('%lenght%', $lenght, $answer);
-	
-		$answer = str_replace('%form_table%', $form_table, $answer);
-		$answer = str_replace('%form_button%', $form_button, $answer);
-		$answer = str_replace('%submit%', $submit, $answer);
-		$answer = str_replace('%button%', $button, $answer);
-		$answer = str_replace('%have_for%', $have_for, $answer);
-		$answer = str_replace('%for%', $for, $answer);
-						
-	} else {
-		$answer = sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V);
-	}
+	$file = ABSPATH."wp-content/plugins/schreikasten/templates/sk_widget.php";
+	$answer = sk_readfile($file);
+	$answer = str_replace('%rand%', $rand, $answer);
+	$answer = str_replace('%nonce%', $nonce, $answer);
+	$answer = str_replace('%sk_id%', $sk_id, $answer);
+	$answer = str_replace('%sk_page%', $sk_page, $answer);
+	$answer = str_replace('%sk_for%', $sk_for, $answer);
+	$answer = str_replace('%first_comments%', $first_comments, $answer);
+	$answer = str_replace('%first_page_selector%', $first_page_selector, $answer);
+	$answer = str_replace('%maxchars%', $maxchars, $answer);
+	$answer = str_replace('%alias%', $alias, $answer);
+	$answer = str_replace('%email%', $email, $answer);
+	$answer = str_replace('%uri_sk%', $uri_sk, $answer);
+	$answer = str_replace('%uri_skadd%', $uri_skadd, $answer);
+	$answer = str_replace('%uri_img%', $uri_img, $answer);
+	$answer = str_replace('%time%', $time, $answer);
+	$answer = str_replace('%show_timer%', $show_timer, $answer);
+	$answer = str_replace('%ask_email%', $ask_email, $answer);
+	$answer = str_replace('%email_in_text%', $email_in_text, $answer);
+	$answer = str_replace('%message%', $message, $answer);
+	$answer = str_replace('%lenght%', $lenght, $answer);
+
+	$answer = str_replace('%form_table%', $form_table, $answer);
+	$answer = str_replace('%form_button%', $form_button, $answer);
+	$answer = str_replace('%submit%', $submit, $answer);
+	$answer = str_replace('%button%', $button, $answer);
+	$answer = str_replace('%have_for%', $have_for, $answer);
+	$answer = str_replace('%for%', $for, $answer);
 	
 	return $answer;
 	
@@ -1951,92 +2078,81 @@ function sk_widget_init() {
 		
 		//Max characters
 		if(!isset($options['maxchars'])) $options['maxchars']=255;
-		
-		if(!function_exists('minimax_version') || minimax_version()<SK_MNMX_V) { ?>
-		<p>
-			<label>
-				<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V); ?>
-			</label>
-		</p><?
-		} else {
-		
-			if ( $_POST['sk-submit'] ) {
-				// Remember to sanitize and format use input appropriately.
-				$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
-				
-				$options['maxchars'] = $_POST['sk_maxchars'];
-				if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
-				
-				$options['items'] = $_POST['sk_items'];
-				if(!is_numeric($options['items'])) $options['items'] = 5;
-				
-				$options['avatar'] = false;
-				if($_POST['sk_avatar'])
-					$options['avatar'] = true;
-					
-				$options['rss'] = false;
-				if($_POST['sk_rss'])
-					$options['rss'] = true;
-				
-				$options['replies'] = false;
-				if($_POST['sk_replies'])
-					$options['replies'] = true;
-				
-				$options['alert_about_emails'] = false;
-				if($_POST['sk_alert_about_emails'])
-					$options['alert_about_emails'] = true;
-					
-				$options['refresh'] = $_POST['sk_refresh'];
-				$options['bl_days'] = $_POST['sk_bl_days'];
-				$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
-				
-				$options['registered'] = $_POST['sk_registered'];
-				$options['announce'] = $_POST['sk_announce'];
-				$options['requiremail'] = $_POST['sk_requiremail'];
-				
-				$options['moderation'] = $_POST['sk_moderation'];
-				
-				update_option('widget_sk', $options);
-			}
-			// Be sure you format your options to be valid HTML attributes.
-			$title = htmlspecialchars($options['title'], ENT_QUOTES);
 
-			// Here is our little form segment. Notice that we don't need a
-			// complete form. This will be embedded into the existing form.
-			$items=$options['items'];
-			$maxchars=$options['maxchars'];
-	
-			$status=$options['avatar'];
-			$registered=$options['registered'];
-			$replies=$options['replies'];
-			$alert_about_emails=$options['alert_about_emails'];
-			$rss=$options['rss'];
+		if ( $_POST['sk-submit'] ) {
+			// Remember to sanitize and format use input appropriately.
+			$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
 			
-			$refresh="selectedrefresh".$options['refresh'];
-			$$refresh=' selected="selected"';
+			$options['maxchars'] = $_POST['sk_maxchars'];
+			if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
 			
-			$days="selecteddays".$options['bl_days'];
-			$$days=' selected="selected"';
+			$options['items'] = $_POST['sk_items'];
+			if(!is_numeric($options['items'])) $options['items'] = 5;
 			
-			$maxpending="selectedmaxpending".$options['bl_maxpending'];
-			$$maxpending=' selected="selected"';
+			$options['avatar'] = false;
+			if($_POST['sk_avatar'])
+				$options['avatar'] = true;
+				
+			$options['rss'] = false;
+			if($_POST['sk_rss'])
+				$options['rss'] = true;
 			
-			$registered="registered".$options['registered'];
-			$$registered=' selected="selected"';
+			$options['replies'] = false;
+			if($_POST['sk_replies'])
+				$options['replies'] = true;
 			
-			$require="require".$options['requiremail'];
-			$$require=' selected="selected"';
+			$options['alert_about_emails'] = false;
+			if($_POST['sk_alert_about_emails'])
+				$options['alert_about_emails'] = true;
+				
+			$options['refresh'] = $_POST['sk_refresh'];
+			$options['bl_days'] = $_POST['sk_bl_days'];
+			$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
 			
-			$moderation="moderation".$options['moderation'];
-			$$moderation=' selected="selected"';
+			$options['registered'] = $_POST['sk_registered'];
+			$options['announce'] = $_POST['sk_announce'];
+			$options['requiremail'] = $_POST['sk_requiremail'];
 			
-			$announce="announce".$options['announce'];
-			$$announce=' selected="selected"';
+			$options['moderation'] = $_POST['sk_moderation'];
 			
-			require("templates/sk_widgetconfig.php");
+			update_option('widget_sk', $options);
 		}
-	}
+		// Be sure you format your options to be valid HTML attributes.
+		$title = htmlspecialchars($options['title'], ENT_QUOTES);
+			// Here is our little form segment. Notice that we don't need a
+		// complete form. This will be embedded into the existing form.
+		$items=$options['items'];
+		$maxchars=$options['maxchars'];
 
+		$status=$options['avatar'];
+		$registered=$options['registered'];
+		$replies=$options['replies'];
+		$alert_about_emails=$options['alert_about_emails'];
+		$rss=$options['rss'];
+		
+		$refresh="selectedrefresh".$options['refresh'];
+		$$refresh=' selected="selected"';
+		
+		$days="selecteddays".$options['bl_days'];
+		$$days=' selected="selected"';
+		
+		$maxpending="selectedmaxpending".$options['bl_maxpending'];
+		$$maxpending=' selected="selected"';
+		
+		$registered="registered".$options['registered'];
+		$$registered=' selected="selected"';
+		
+		$require="require".$options['requiremail'];
+		$$require=' selected="selected"';
+		
+		$moderation="moderation".$options['moderation'];
+		$$moderation=' selected="selected"';
+		
+		$announce="announce".$options['announce'];
+		$$announce=' selected="selected"';
+		
+		require("templates/sk_widgetconfig.php");
+	}
 	// This registers our widget so it appears with the other available
 	// widgets and can be dragged and dropped into any active sidebars.
 	register_sidebar_widget(array('Schreikasten', 'widgets'), 'sk_widget');
@@ -2049,5 +2165,93 @@ function sk_widget_init() {
 
 // Run our code later in case this loads prior to any required plugins.
 add_action('widgets_init', 'sk_widget_init');
+
+/**
+* XML Entity Mandatory Escape Characters
+*
+* @access public
+* @param string string The string to change
+* @return string The chabged string
+*/
+function sk_xmlentities($string) { 
+	$string = (string) $string;
+   return str_replace ( array ( '&', '"', "'", '<', '>' ), array ( '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
+}
+
+/**
+* A kind of readfile function to determine if use Curl or fopen.
+*
+* @access public
+* @param string filename URI of the File to open
+* @return The content of the file
+*/
+function sk_readfile($filename)
+{
+	//Just to declare the variables
+	$data = false;
+	$have_curl = false;
+	$local_file = false;
+	
+	if(function_exists(curl_init)) { //do we have curl installed?
+		$have_curl = true;
+	}
+	
+	$search = "@([\w]*)://@i"; //is the file to read a local file?
+	if (!preg_match_all($search, $filename, $matches)) {
+		$local_file = true;
+	}
+	
+	if($local_file) { //A local file can be handle by fopen
+		if($fop = @fopen($filename, 'r')) {
+			$data = null;
+			while(!feof($fop))
+				$data .= fread($fop, 1024);
+			fclose($fop);
+		}
+	} else { //Oops, an external file
+		if($have_curl) { //Try with curl
+			if($ch = curl_init($filename)) {
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				$data=curl_exec($ch);
+				curl_close($ch);
+			}
+		} else { //Try with fsockopen
+			$url = parse_url($filename);
+			if($fp = fsockopen($url['host'], 80)) {
+				//Enviar datos POST
+				fputs($fp, "POST " . $url['path'] . " HTTP/1.0\r\n");
+				fputs($fp, "Content-Type: application/x-www-form-urlencoded\r\n");
+				fputs($fp, "Content-Length: " . strlen($url['query']) . "\r\n");
+				fputs($fp, "Connection: close \r\r\n\n");
+				fputs($fp, $url['query'] . "\r\n");
+				 
+				//Obtener datos
+				while(!feof($fp))
+				    $data .= fgets($fp, 1024);
+				fclose($fp);
+				
+				$chunked = false;
+				$http_status = trim(substr($data, 0, strpos($data, "\n")));
+				if ( $http_status != 'HTTP/1.1 200 OK' ) {
+					die('The web service endpoint returned a "' . $http_status . '" response');
+				}
+				if ( strpos($data, 'Transfer-Encoding: chunked') !== false ) {
+					$temp = trim(strstr($data, "\r\n\r\n"));
+					$data = '';
+					$length = trim(substr($temp, 0, strpos($temp, "\r")));
+					while ( trim($temp) != "0" && ($length = trim(substr($temp, 0, strpos($temp, "\r")))) != "0" ) {
+						$data .= trim(substr($temp, strlen($length)+2, hexdec($length)));
+						$temp = trim(substr($temp, strlen($length) + 2 + hexdec($length)));
+					}
+				} elseif ( strpos($data, 'HTTP/1.1 200 OK') !== false ) {
+					$data = trim(strstr($data, "\r\n\r\n"));
+				}
+			}
+		}
+	}
+
+	return $data;
+}
 
 ?>

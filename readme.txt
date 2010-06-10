@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.11.24
+Stable tag: 0.12
 
 A shoutbox using ajax and akismet.
 
@@ -26,8 +26,6 @@ The anti Spam filter requires an Akismet API KEY. If you have one enabled in you
 site you can use it in this plugin too. If you don't have an API KEY, create one
 in [this site](http://en.wordpress.com/api-keys/).
 
-This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
-
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
 Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__ and azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__. Thanks for your time guys!
@@ -37,11 +35,10 @@ I __spe'k__ english, and the plugin use it by default.
 
 == Installation ==
 
-1. Install [minimax](http://wordpress.org/extend/plugins/minimax/).
-2. Decompress schreikasten.zip and upload `/schreikasten/` to the `/wp-content/plugins/` directory.
-3. Activate the plugin through the __Plugins__ menu in WordPress.
-4. Activate Akismet API to prevent SPAM (if required).
-5. Add the widget to your sidebar.
+1. Decompress schreikasten.zip and upload `/schreikasten/` to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the __Plugins__ menu in WordPress.
+3. Activate Akismet API to prevent SPAM (if required).
+4. Add the widget to your sidebar.
 
 == Frequently Asked Questions ==
 
@@ -65,10 +62,6 @@ Easy. Activate the widget, enable the RSS feed, and copy the URL from the Icon n
 the new feed into your feed management provider. Add this line to your __wp-congig.php__ file
 
 define('SK_RSS', 'http://new-feed-url');
-
-= It says something about minimax. What's this? =
-
-This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
 = Can I put a shoutbox inside a theme? =
 
@@ -124,6 +117,10 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.12 =
+* First release that doesn't require Minimax.
+* New CSS style.
 
 = 0.11.24 =
 * Added configuration to set moderation (required, not required, as general configuration) 
