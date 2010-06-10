@@ -11,7 +11,7 @@
 	
 	function sk_refresh%rand%() {
 		var sk_timer_div = document.getElementById('sk_timer%rand%');%show_timer%
-		sk_feed( document.getElementsByName('sk_page%rand%')[0].value, %rand%);
+		sk_feed( document.getElementById('sk_page%rand%').value, %rand%);
 	}
 	
 	function for_delete%rand%() {
@@ -47,7 +47,7 @@
 		alias=alias.replace(/&/gi,"%26");
 		text=text.replace(/&/gi,"%26");
 		for_delete%rand%();
-		document.getElementsByName('sk_page%rand%')[0].value=1;
+		document.getElementById('sk_page%rand%').value=1;
 		document.getElementsByName('sk_text%rand%')[0].value='';
 		sk_add( alias, email, text, skfor, %rand% );%message%
 	}
