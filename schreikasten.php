@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.12.1
+Version: 0.12.2
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -70,6 +70,10 @@ function sk_header() {
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css' type='text/css' media='screen' />";
 	}
+	
+	$script_universal= sk_plugin_url("/libs/universal.js");
+	echo "\n<script type='text/javascript' src='$script_universal'></script>";
+	
 	// Declare we use JavaScript SACK library for Ajax
 	wp_print_scripts( array( 'sack' ));
 
@@ -78,62 +82,117 @@ function sk_header() {
 	<script type='text/javascript'>
 	//<![CDATA[
 	
+	//Semaphore class
+	function sk_Semaphore() {
+		var me = this; //Just to use me instead of this if a recursived function is used
+		
+		var status = true; //The green or red light
+		me.using = 0;
+	
+		//Function to set green
+		me.setGreen = function() { status = true; };
+	
+		//Is green?
+		me.isGreen = function() { return status; };
+	
+		//Function to set red
+		me.setRed = function() { status = false; };
+	
+		//Is red?
+		me.isRed = function() { return !status; };
+		
+	}
+	
 	var loading_sk_img = new Image(); 
 	loading_sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
 	
-	function sk_feed( page, rand )
+	function sk_feed( page, rand, semaphore )
 	{
-		var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
-		
-		//Our plugin sack configuration
-		sk_sack.execute = 0;
-		sk_sack.method = 'POST';
-		sk_sack.setVar( 'action', 'sk_ajax' );
-		sk_sack.element = 'sk_content'+rand;
-		
-		//The ajax call data
-		sk_sack.setVar( 'page', page );
-		sk_sack.setVar( 'rand', rand );
-		
-		//What to do on error?
-		sk_sack.onError = function() {
-			var aux = document.getElementById(sk_sack.element);
-			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
-		};
-		
-		sk_sack.runAJAX();
-		
+		if( semaphore.isGreen() ) {
+			var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+			
+			semaphore.setRed();
+			
+			//Our plugin sack configuration
+			sk_sack.execute = 0;
+			sk_sack.method = 'POST';
+			sk_sack.setVar( 'action', 'sk_ajax' );
+			//sk_sack.element = 'sk_content'+rand;
+			
+			//The ajax call data
+			sk_sack.setVar( 'page', page );
+			sk_sack.setVar( 'rand', rand );
+			
+			sk_sack.onCompletion = function() {
+				var page = sk_sack.vars['page'][0];
+				var rand = sk_sack.vars['rand'][0];
+				var doc = document.getElementById('sk_content'+rand);
+				doc.innerHTML = sk_sack.response;
+				semaphore.setGreen();
+				if(document.getElementById('sk_page'+rand).value!=page) {
+					var aux = document.getElementById('throbber-page'+rand);
+					aux.setAttribute('class', 'throbber-page-on');
+					aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				}
+			};
+			
+			//What to do on error?
+			sk_sack.onError = function() {
+				var rand = sk_sack.vars['rand'][0];
+				var aux = document.getElementById('sk_content'+rand);
+				semaphore.setGreen();
+				aux.innerHTML='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
+			};
+			
+			sk_sack.runAJAX();
+			
+		} else {
+			setTimeout(function (){ sk_feed( page, rand, semaphore ); }, 300);
+		}
 		return true;
-
-	} // end of JavaScript function sk_feed
+	}
+	// end of JavaScript function sk_feed
 	
-	function sk_add( alias, email, text, skfor, rand )
+	function sk_add( alias, email, text, skfor, rand, semaphore)
 	{
-		var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
-		
-		//Our plugin sack configuration
-		sk_sack_add.execute = 0;
-		sk_sack_add.method = 'POST';
-		sk_sack_add.setVar( 'action', 'sk_ajax_add' );
-		sk_sack_add.element = 'sk_content'+rand;
-		
-		//The ajax call data
-		sk_sack_add.setVar( 'alias', alias );
-		sk_sack_add.setVar( 'email', email );
-		sk_sack_add.setVar( 'text', text );
-		sk_sack_add.setVar( 'skfor', skfor );
-		sk_sack_add.setVar( 'rand', rand );
-		
-		//What to do on error?
-		sk_sack_add.onError = function() {
-			var aux = document.getElementById(sk_sack_add.element);
-			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
-		};
-		
-		sk_sack_add.runAJAX();
-		
+		if( semaphore.isGreen() ) {
+			var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+			
+			//Our plugin sack configuration
+			sk_sack_add.execute = 0;
+			sk_sack_add.method = 'POST';
+			sk_sack_add.setVar( 'action', 'sk_ajax_add' );
+			sk_sack_add.element = 'sk_content'+rand;
+			
+			//The ajax call data
+			sk_sack_add.setVar( 'alias', alias );
+			sk_sack_add.setVar( 'email', email );
+			sk_sack_add.setVar( 'text', text );
+			sk_sack_add.setVar( 'skfor', skfor );
+			sk_sack_add.setVar( 'rand', rand );
+			
+			sk_sack_add.onCompletion = function() {
+				var rand = sk_sack_add.vars['rand'][0];
+				var doc = document.getElementById('sk_content'+rand);
+				doc.innerHTML = sk_sack_add.response;
+				semaphore.setGreen();
+			};
+			
+			//What to do on error?
+			sk_sack_add.onError = function() {
+				var rand = sk_sack_add.vars['rand'][0];
+				var doc = document.getElementById('sk_content'+rand);
+				semaphore.setGreen(); 
+				aux.innerHTML='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
+			};
+			
+			sk_sack_add.runAJAX();
+			
+		} else {
+			setTimeout(function (){ sk_add( alias, email, text, skfor, rand, semaphore); }, 300);
+		}
 		return true;
-
+		
 	}
 	
 	//]]>
@@ -467,7 +526,7 @@ function sk_page_selector($group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=1;
 				$timer
-				sk_feed( 1, $rand );\">$first_item</a> &#183; ";
+				sk_feed( 1, $rand, sk_semaphore$rand );\">$first_item</a> &#183; ";
 	}
 	
 	//Create the page list and the links
@@ -482,7 +541,7 @@ function sk_page_selector($group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=$group_id;
 				$timer
-				sk_feed( $group_id, $rand );\">$group_id</a> &#183; ";
+				sk_feed( $group_id, $rand, sk_semaphore$rand );\">$group_id</a> &#183; ";
 		}
 	}
 
@@ -496,7 +555,7 @@ function sk_page_selector($group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=$groups;
 				$timer
-				sk_feed( $groups, $rand );\">$last_item</a> &#183; ";
+				sk_feed( $groups, $rand, sk_semaphore$rand );\">$last_item</a> &#183; ";
 	}
 
 	//As every link ends with a line, delete the last one as we don't need it

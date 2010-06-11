@@ -11,7 +11,7 @@
 	
 	function sk_refresh%rand%() {
 		var sk_timer_div = document.getElementById('sk_timer%rand%');%show_timer%
-		sk_feed( document.getElementById('sk_page%rand%').value, %rand%);
+		sk_feed( document.getElementById('sk_page%rand%').value, %rand%, sk_semaphore%rand%);
 	}
 	
 	function for_delete%rand%() {
@@ -49,7 +49,7 @@
 		for_delete%rand%();
 		document.getElementById('sk_page%rand%').value=1;
 		document.getElementsByName('sk_text%rand%')[0].value='';
-		sk_add( alias, email, text, skfor, %rand% );%message%
+		sk_add( alias, email, text, skfor, %rand%, sk_semaphore%rand% );%message%
 	}
 /* ]]> */
 </script>
@@ -59,5 +59,7 @@
 	%first_page_selector%
 </div>
 <script type='text/javascript'>
+	var sk_semaphore%rand%=new sk_Semaphore();
+	sk_semaphore%rand%.setGreen();
 	%have_for%%show_timer%
 </script>

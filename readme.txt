@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.12.1
+Stable tag: 0.12.2
 
 A shoutbox using ajax and akismet.
 
@@ -117,6 +117,10 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.12.2 =
+* Solved a timer situation
+* Using universal.js
 
 = 0.12.1 =
 * Solved a bug in the timer with the new AJAX system.

@@ -93,7 +93,7 @@ class SimpleRSSFeedCreator {
 
     function get_feed(){
         // Outputs the feed in XML
-        $header = "<?xml version=\"1.0\"?>\n";
+        $header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         $header .= "<rss version=\"2.0\">\n";
         $header .= "  <channel>\n";
 
