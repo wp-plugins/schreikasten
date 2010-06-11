@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.12.2
+Version: 0.12.3
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -30,7 +30,7 @@ define ("SK_HAM", 1);
 define ("SK_SPAM", 2);
 define ("SK_MOOT", 3);
 define ("SK_BLACK", 4);
-define ("SK_BLOCKED", -1);		
+define ("SK_BLOCKED", -1);
 
 define ("SK_MODERATION_CONFIG", 0);
 define ("SK_MODERATION_YES", 1);
@@ -105,11 +105,12 @@ function sk_header() {
 	
 	var loading_sk_img = new Image(); 
 	loading_sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
+	var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+	var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
 	
 	function sk_feed( page, rand, semaphore )
 	{
 		if( semaphore.isGreen() ) {
-			var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
 			
 			semaphore.setRed();
 			
@@ -136,14 +137,6 @@ function sk_header() {
 				}
 			};
 			
-			//What to do on error?
-			sk_sack.onError = function() {
-				var rand = sk_sack.vars['rand'][0];
-				var aux = document.getElementById('sk_content'+rand);
-				semaphore.setGreen();
-				aux.innerHTML='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
-			};
-			
 			sk_sack.runAJAX();
 			
 		} else {
@@ -155,42 +148,31 @@ function sk_header() {
 	
 	function sk_add( alias, email, text, skfor, rand, semaphore)
 	{
-		if( semaphore.isGreen() ) {
-			var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+		sk_sack.xmlhttp.abort();
+		semaphore.setRed();
+		
+		//Our plugin sack configuration
+		sk_sack_add.execute = 0;
+		sk_sack_add.method = 'POST';
+		sk_sack_add.setVar( 'action', 'sk_ajax_add' );
+		sk_sack_add.element = 'sk_content'+rand;
+		
+		//The ajax call data
+		sk_sack_add.setVar( 'alias', alias );
+		sk_sack_add.setVar( 'email', email );
+		sk_sack_add.setVar( 'text', text );
+		sk_sack_add.setVar( 'skfor', skfor );
+		sk_sack_add.setVar( 'rand', rand );
+		
+		sk_sack_add.onCompletion = function() {
+			var rand = sk_sack_add.vars['rand'][0];
+			var doc = document.getElementById('sk_content'+rand);
+			doc.innerHTML = sk_sack_add.response;
+			semaphore.setGreen();
+		};
+		
+		sk_sack_add.runAJAX();
 			
-			//Our plugin sack configuration
-			sk_sack_add.execute = 0;
-			sk_sack_add.method = 'POST';
-			sk_sack_add.setVar( 'action', 'sk_ajax_add' );
-			sk_sack_add.element = 'sk_content'+rand;
-			
-			//The ajax call data
-			sk_sack_add.setVar( 'alias', alias );
-			sk_sack_add.setVar( 'email', email );
-			sk_sack_add.setVar( 'text', text );
-			sk_sack_add.setVar( 'skfor', skfor );
-			sk_sack_add.setVar( 'rand', rand );
-			
-			sk_sack_add.onCompletion = function() {
-				var rand = sk_sack_add.vars['rand'][0];
-				var doc = document.getElementById('sk_content'+rand);
-				doc.innerHTML = sk_sack_add.response;
-				semaphore.setGreen();
-			};
-			
-			//What to do on error?
-			sk_sack_add.onError = function() {
-				var rand = sk_sack_add.vars['rand'][0];
-				var doc = document.getElementById('sk_content'+rand);
-				semaphore.setGreen(); 
-				aux.innerHTML='<strong>".__("Can\'t read Schreikasten Feed", 'schreikasten')."</strong>';
-			};
-			
-			sk_sack_add.runAJAX();
-			
-		} else {
-			setTimeout(function (){ sk_add( alias, email, text, skfor, rand, semaphore); }, 300);
-		}
 		return true;
 		
 	}
