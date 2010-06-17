@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.12.3.1
+Stable tag: 0.12.3.2
 
 A shoutbox using ajax and akismet.
 
@@ -117,6 +117,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.12.3.2 =
+* Erasing not used code.
 
 = 0.12.3.1 =
 * Solved a Bug in the configuration form that asked for Minimax.
