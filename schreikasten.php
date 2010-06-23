@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.12.3.2
+Version: 0.12.3.3
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -76,6 +76,12 @@ function sk_header() {
 	
 	// Declare we use JavaScript SACK library for Ajax
 	wp_print_scripts( array( 'sack' ));
+	
+	//Local URL
+	$url = get_bloginfo( 'wpurl' );
+	$local_url = parse_url( $url );
+	$aux_url   = parse_url(wp_guess_url());
+	$url = str_replace($local_url['host'], $aux_url['host'], $url);
 
 	// Define custom JavaScript function
 	echo "
@@ -105,8 +111,8 @@ function sk_header() {
 	
 	var loading_sk_img = new Image(); 
 	loading_sk_img.src = '".sk_plugin_url('/img/loading.gif')."';
-	var sk_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
-	var sk_sack_add = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+	var sk_sack = new sack('".$url."/wp-admin/admin-ajax.php' );
+	var sk_sack_add = new sack('".$url."/wp-admin/admin-ajax.php' );
 	
 	function sk_feed( page, rand, semaphore )
 	{
