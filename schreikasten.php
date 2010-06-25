@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.12.3.3
+Version: 0.12.3.95
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -140,6 +140,9 @@ function sk_header() {
 					var aux = document.getElementById('throbber-page'+rand);
 					aux.setAttribute('class', 'throbber-page-on');
 					aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				} else {
+					sk_sack.xmlhttp.abort();
+					sk_sack.reset();
 				}
 			};
 			
@@ -155,6 +158,7 @@ function sk_header() {
 	function sk_add( alias, email, text, skfor, rand, semaphore)
 	{
 		sk_sack.xmlhttp.abort();
+		sk_sack.reset();
 		semaphore.setRed();
 		
 		//Our plugin sack configuration
@@ -174,6 +178,8 @@ function sk_header() {
 			var rand = sk_sack_add.vars['rand'][0];
 			var doc = document.getElementById('sk_content'+rand);
 			doc.innerHTML = sk_sack_add.response;
+			sk_sack.xmlhttp.abort();
+			sk_sack.reset();
 			semaphore.setGreen();
 		};
 		
@@ -2115,7 +2121,8 @@ function sk_widget_init() {
 
 		// These lines generate our output. Widgets can be very complex
 		// but as you can see here, they can also be very, very simple.
-		echo $before_widget . $before_title . $title . $after_title;
+		echo $before_widget;
+		if(strlen($title) > 0) echo $before_title . $title . $after_title;
 		sk_shoutbox();
 		echo $after_widget;
 	}
