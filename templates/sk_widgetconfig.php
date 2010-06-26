@@ -1,12 +1,3 @@
-<?php
-			if(!function_exists('minimax_version') || minimax_version()<SK_MNMX_V) { ?>
-<p>
-	<label for="sk_warning">
-					<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'mudslide'), "http://wordpress.org/extend/plugins/minimax/", SK_MNMX_V ); ?>
-	</label>
-</p><?
-} ?>
-
 <p>
 	<label for="sk_title">
 		<?php _e('Title:', 'sk'); ?>

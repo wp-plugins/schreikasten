@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.12.3.95
+Version: 0.12.3.96
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1298,6 +1298,8 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	if($options['avatar']) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
+	
+	$comment_text=nl2br($comment_text);
 	$comment_text=apply_filters('comment_text', $comment->text);
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
@@ -1850,7 +1852,7 @@ function sk_codeShoutbox() {
 	
 	$form_button="";
 	$form_table="<table width='100%' border='0' style='margin: 0px;' class='sk-table'>
-	<tr><td width='20px'></td><td width='100%'></td></tr>";
+	<tr><td width='20'></td><td width='100%'></td></tr>";
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
 			<td colspan='2' id='skwarning'>
@@ -1890,7 +1892,7 @@ function sk_codeShoutbox() {
 			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
 		</tr>
 		<tr>
-			<td colspan='2' align='right'><textarea rows='' cols='' class='sk-area' name='sk_text$rand' onkeypress='
+			<td colspan='2' align='right'><textarea class='sk-area' name='sk_text$rand' onkeypress='
 				var key;
 				if(window.event)
 					key = window.event.keyCode; //IE

@@ -38,7 +38,8 @@
 			return false;
 		}%ask_email%%email_in_text%
 		document.getElementById('th_sk_alias%rand%').innerHTML = alias.replace(/&/gi,"&amp;");
-		document.getElementById('th_sk_text%rand%').innerHTML = text.replace(/&/gi,"&amp;");
+		var aux_text=text.replace(/\n/g,"<br>"); 
+		document.getElementById('th_sk_text%rand%').innerHTML = aux_text.replace(/&/gi,"&amp;");
 		document.getElementById('throbber-img%rand%').setAttribute('class','throbber-img-on');
 		document.getElementById('throbber-img%rand%').setAttribute('className','throbber-img-on'); //IE sucks
 		document.getElementById('throbber-img%rand%').style.visibility='visible';
