@@ -1792,7 +1792,7 @@ function sk_codeShoutbox() {
 			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
 		</tr>
 		<tr>
-			<td colspan='2' align='right'><textarea class='sk-area' name='sk_text$rand' onkeypress='
+			<td colspan='2' align='right'><textarea rows='0' cols='0' class='sk-area' name='sk_text$rand' onkeypress='
 				var key;
 				if(window.event)
 					key = window.event.keyCode; //IE
