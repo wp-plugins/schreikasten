@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13
+Version: 0.13.0.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -708,47 +708,63 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 		$require_moderation = false;
 	}
 	
-	$answer=false;	
-		
-	//If we can only accept messages for registered user and this is a registered user
-	//or we can accept for not registered users
-	//and in general this user can send more messages, accept the comment
-	if( ( ( sk_only_registered_users() && $user_id>0 ) || !sk_only_registered_users() ) && !sk_can_not_accept_more_messages($user_id) ) {
+	$answer=false;
 	
-		$time=current_time('mysql');
+	//Mail is ok and do we require it?
+	$mailok = false;
+	if(($options['requiremail'])) {
+		$search = "/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i";
+		if(preg_match ( $search , $email)) $mailok = true;
+	} else {
+		$mailok = true;
+	}
+	
+	//Is this form sending to much data?
+	$maxcharok = false;
+	if(strlen($text)<=$options['maxchars']) $maxcharok = true;
+	
+	//Is the data well formed? Maybe a spammer is sending data through an external form.
+	if($maxcharok && $mailok) {
+		//If we can only accept messages for registered user and this is a registered user
+		//or we can accept for not registered users
+		//and in general this user can send more messages, accept the comment
+		if( ( ( sk_only_registered_users() && $user_id>0 ) || !sk_only_registered_users() ) && !sk_can_not_accept_more_messages($user_id) ) {
 		
-		//if someone logged or with a cooki sends it
-		if($user_id!=0) {
-			if(strlen($alias)>0 && strlen($text)>0) { //If we have a name and a text
-				$table_name = $wpdb->prefix . "schreikasten";
-				$insert = "INSERT INTO " . $table_name .
-					" (alias, text, date, ip, status, user_id, email, reply) " .
-					"VALUES ('%s', '%s', '%s', '%s', %d, %d, '%s', %d)";
-				//Add the comment, mark it to moderate
-				$insert = $wpdb->prepare( $insert, $alias, $text, $time, $ip, SK_MOOT, $user_id, $email, $for );
-				if($answer = $wpdb->query( $insert ) ) { //If the comment was accepted
-					$id = $wpdb->get_var("select last_insert_id()");
-					$answer=$id;
-					$spam=false; 
-					//if(sk_verify_key()) {
-					if(get_option('sk_api_key_accepted')) { //If we have a verified key
-						$spam=sk_is_spam($id); //Check if this comment is spam
-					}
-					
-					if(!$spam) { //If it is not spam
-						//If this is the administrator
-						//OR
-						//the owner is not in the blacklist 
-						//and we do not require to moderate
-						//and it is not an anonymous,
-						//accept the message
-						if(current_user_can('install_plugins') || (!sk_is_blacklisted() && 1 != $require_moderation && $user_id != 0 )) {
-							//sk_mark_as_ham($id); //accept the message
-							$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
-							$wpdb->query( $query );
-							sk_reply($id); //send the reply, if it has one
+			$time=current_time('mysql');
+			
+			//if someone logged or with a cooki sends it
+			if($user_id!=0) {
+				if(strlen($alias)>0 && strlen($text)>0) { //If we have a name and a text
+					$table_name = $wpdb->prefix . "schreikasten";
+					$insert = "INSERT INTO " . $table_name .
+						" (alias, text, date, ip, status, user_id, email, reply) " .
+						"VALUES ('%s', '%s', '%s', '%s', %d, %d, '%s', %d)";
+					//Add the comment, mark it to moderate
+					$insert = $wpdb->prepare( $insert, $alias, $text, $time, $ip, SK_MOOT, $user_id, $email, $for );
+					if($answer = $wpdb->query( $insert ) ) { //If the comment was accepted
+						$id = $wpdb->get_var("select last_insert_id()");
+						$answer=$id;
+						$spam=false; 
+						//if(sk_verify_key()) {
+						if(get_option('sk_api_key_accepted')) { //If we have a verified key
+							$spam=sk_is_spam($id); //Check if this comment is spam
 						}
-						sk_inform($id); //Inform the administrator
+						
+						if(!$spam) { //If it is not spam
+							//If this is the administrator
+							//OR
+							//the owner is not in the blacklist 
+							//and we do not require to moderate
+							//and it is not an anonymous,
+							//accept the message
+							if(current_user_can('install_plugins') || (!sk_is_blacklisted() && 1 != $require_moderation && $user_id != 0 )) {
+								//sk_mark_as_ham($id); //accept the message
+								$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
+								$wpdb->query( $query );
+								sk_reply($id); //send the reply, if it has one
+							}
+							sk_inform($id); //Inform the administrator
+						}
 					}
 				}
 			}
@@ -1400,6 +1416,92 @@ function sk_config() {
 	}
 
 	$sk_api_key=get_option('sk_api_key');
+	
+	
+	/*
+	//In case we don't have activated it yet
+		$db_version=get_option('sk_db_version');
+		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
+	
+		// Get our options and see if we're handling a form submission.
+		$options = get_option('widget_sk');
+		
+		//Max characters
+		if(!isset($options['maxchars'])) $options['maxchars']=255;
+
+		if ( $_POST['sk-submit'] ) {
+			// Remember to sanitize and format use input appropriately.
+			$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
+			
+			$options['maxchars'] = $_POST['sk_maxchars'];
+			if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
+			
+			$options['items'] = $_POST['sk_items'];
+			if(!is_numeric($options['items'])) $options['items'] = 5;
+			
+			$options['avatar'] = false;
+			if($_POST['sk_avatar'])
+				$options['avatar'] = true;
+				
+			$options['rss'] = false;
+			if($_POST['sk_rss'])
+				$options['rss'] = true;
+			
+			$options['replies'] = false;
+			if($_POST['sk_replies'])
+				$options['replies'] = true;
+			
+			$options['alert_about_emails'] = false;
+			if($_POST['sk_alert_about_emails'])
+				$options['alert_about_emails'] = true;
+				
+			$options['refresh'] = $_POST['sk_refresh'];
+			$options['bl_days'] = $_POST['sk_bl_days'];
+			$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
+			
+			$options['registered'] = $_POST['sk_registered'];
+			$options['announce'] = $_POST['sk_announce'];
+			$options['requiremail'] = $_POST['sk_requiremail'];
+			
+			$options['moderation'] = $_POST['sk_moderation'];
+			
+			update_option('widget_sk', $options);
+		}
+		// Be sure you format your options to be valid HTML attributes.
+		$title = htmlspecialchars($options['title'], ENT_QUOTES);
+			// Here is our little form segment. Notice that we don't need a
+		// complete form. This will be embedded into the existing form.
+		$items=$options['items'];
+		$maxchars=$options['maxchars'];
+
+		$status=$options['avatar'];
+		$registered=$options['registered'];
+		$replies=$options['replies'];
+		$alert_about_emails=$options['alert_about_emails'];
+		$rss=$options['rss'];
+		
+		$refresh="selectedrefresh".$options['refresh'];
+		$$refresh=' selected="selected"';
+		
+		$days="selecteddays".$options['bl_days'];
+		$$days=' selected="selected"';
+		
+		$maxpending="selectedmaxpending".$options['bl_maxpending'];
+		$$maxpending=' selected="selected"';
+		
+		$registered="registered".$options['registered'];
+		$$registered=' selected="selected"';
+		
+		$require="require".$options['requiremail'];
+		$$require=' selected="selected"';
+		
+		$moderation="moderation".$options['moderation'];
+		$$moderation=' selected="selected"';
+		
+		$announce="announce".$options['announce'];
+		$$announce=' selected="selected"';*/
+	
+	
 	// Now display the options 
 	include('templates/sk_config.php');
 

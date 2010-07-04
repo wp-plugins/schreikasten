@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13
+Stable tag: 0.13.0.1
 
 A shoutbox using ajax and akismet.
 
@@ -117,6 +117,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.0.1 =
+* Data checking inside the PHP script (solving a detected spam atack).
 
 = 0.13 =
 * Stable release.
