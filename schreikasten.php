@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.0.1
+Version: 0.13.90
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -43,6 +43,8 @@ define ("SK_ANNOUNCE_NO", 3);
 define ("SK_DB_VERSION", 4);
 define ("SK_HEADER_V", 1.0);
 
+require_once("legacy.php");
+
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 
@@ -50,7 +52,7 @@ add_action('init', 'sk_text_domain');
 add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
-add_action('activate_schreikasten/schreikasten.php', 'sk_activate');
+add_action('activate_plugin', 'sk_activate');
 add_filter('the_content', 'sk_content');
 add_action('wp_ajax_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
@@ -104,9 +106,10 @@ function sk_ajax() {
 	//Get the data from the post call
 	$rand  = $_POST['rand'];
 	$page  = $_POST['page'];
+	$size  = $_POST['size'];
 	
 	//Get the new data.
-	$results = sk_show_comments($page, false, $rand).sk_page_selector($page,$rand); 
+	$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
 
 	// Compose JavaScript for return
 	die( $results );
@@ -125,6 +128,7 @@ function sk_ajax_add() {
 	$text = $_POST['text'];
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
+	$size = $_POST['size'];
 	
 	//Get environment data
 	if ($_SERVER['HTTP_X_FORWARD_FOR']) {
@@ -144,8 +148,8 @@ function sk_ajax_add() {
 		$results = "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
 	}
 	
-	$results.= sk_show_comments(1,$id,$rand);
-	$results.= sk_page_selector(1,$rand); 
+	$results.= sk_show_comments($size, 1,$id,$rand);
+	$results.= sk_page_selector($size, 1,$rand); 
 
 	// Compose JavaScript for return
 	die( $results );
@@ -261,7 +265,7 @@ function sk_plugin_url($str = '')
 function sk_require_name_and_email()
 {
 	$answer=false;
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$require = $options['requiremail'];
 	$general = get_option('require_name_email');
 	
@@ -289,7 +293,7 @@ function sk_require_name_and_email()
 function sk_only_registered_users()
 {
 	$answer=false;
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$registered = $options['registered'];
 	$general = get_option('comment_registration');
 	
@@ -350,7 +354,7 @@ function sk_avatar($id, $size) {
 * @return string
 * @access public
 */
-function sk_page_selector($group=1,$rand=false) {
+function sk_page_selector($size, $group=1,$rand=false) {
 	global $wpdb;
 	
 	if(!$rand) $rand = mt_rand(111111,999999);
@@ -370,8 +374,7 @@ function sk_page_selector($group=1,$rand=false) {
 	$table_name = $wpdb->prefix . "schreikasten";
 	$sql="SELECT count(*) FROM $table_name WHERE status=".SK_HAM;
 	$total = $wpdb->get_var($sql);
-	$options = get_option('widget_sk');
-	$size=$options['items'];
+	$options = get_option('sk_options');
 	
 	//Get the number of groups we have
 	$groups=ceil($total/$size);
@@ -541,14 +544,28 @@ function sk_activate()
 		
 		//Widget options
 		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
-		add_option('widget_sk', $options);
+		add_option('sk_options', $options);
 		
 		add_option('sk_db_version', SK_DB_VERSION);
 		add_option('sk_api_key', '');
 		add_option('sk_api_key_accepted', false);
 		sk_verify_key( ); //if we have an old sk_api_key, verify it;
+		
 		break;
 	}
+	
+	//Widget options
+	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
+	add_option('sk_options', $options);
+	
+	//Have we updated or no?
+	//Is this widget a multiwidget?
+	$options = get_option('widget_sk');
+	if ( is_array($options) && !array_key_exists('_multiwidget', $options) ) {
+		//Update the widget into multiple widgets
+		skLegacy_updateWidget();
+	}
+	
 }
 
 /**
@@ -631,7 +648,7 @@ function sk_inform($id) {
 	$query="SELECT * FROM " . $table_name ." WHERE id=".$id;
 	$comment = $wpdb->get_row($query);
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$announce = $options['announce'];
 	if(!$announce) $announce = SK_ANNOUNCE_CONFIG;
 	
@@ -686,7 +703,7 @@ function sk_inform($id) {
 function sk_add_comment($alias, $email, $text, $ip, $for) {
 	global $wpdb;
 	global $current_user;
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	get_currentuserinfo();
 	
 	//If the sender is logged use it's internal id
@@ -729,7 +746,6 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 		//or we can accept for not registered users
 		//and in general this user can send more messages, accept the comment
 		if( ( ( sk_only_registered_users() && $user_id>0 ) || !sk_only_registered_users() ) && !sk_can_not_accept_more_messages($user_id) ) {
-		
 			$time=current_time('mysql');
 			
 			//if someone logged or with a cooki sends it
@@ -780,7 +796,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 */
 function sk_blacklist_update() {
 	global $wpdb;
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$days=0;
 	
 	//get the max number of days to be blacklisted
@@ -842,7 +858,7 @@ function sk_can_not_accept_more_messages($pc=false) {
 	global $wpdb;
 	global $current_user;
 	$answer=false;
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	
 	//max number of messages a blacklisted pc can send
 	$max=$options['bl_maxpending'];
@@ -1156,7 +1172,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		}
 	}
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	
 	//If we can reply a message, create the reply system 
 	if($options['replies']) {
@@ -1302,7 +1318,7 @@ function sk_page_by_id($id)
 	global $wpdb;
 	$answer = 1;
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$size=$options['items'];
 	
 	//Get the comments to show
@@ -1324,14 +1340,13 @@ function sk_page_by_id($id)
 * @access public
 */
 
-function sk_show_comments($page=1,$id=false,$rand=false)
+function sk_show_comments($size, $page=1,$id=false,$rand=false)
 {
 	global $wpdb;
 	
 	if(!$rand) $rand = mt_rand(111111,999999);
 	
-	$options = get_option('widget_sk');
-	$size=$options['items'];
+	$options = get_option('sk_options');
 	$first=(($page-1)*$size);
 	$table_name = $wpdb->prefix . "schreikasten";
 	
@@ -1394,7 +1409,7 @@ function sk_menus()
 {
 	global $submenu;
 	add_submenu_page('edit-comments.php', 'Schreikasten', 'Schreikasten', 10, 'skmanage', 'sk_manage' );
-	add_submenu_page('plugins.php', __('Schreikasten Configuration', 'sk'), __('Schreikasten Configuration', 'sk'), 10, 'skconfig', 'sk_config');
+	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 10, 'skconfig', 'sk_config');
 }
 
 /**
@@ -1405,102 +1420,106 @@ function sk_menus()
 */
 function sk_config() {
 	$messages=array();
-	$mode_x=$_POST['mode_x'];
-	$mode=$_GET['mode'];
-	switch($mode_x) {
-		case 'api_x': //We have to update the api key
-			$api_key=$_POST["sk_api_key"];
-			update_option('sk_api_key', $api_key);
-			$mode='done';
-			break;
+	if($_POST['sk-submit']) {
+		$api_key=$_POST["sk_api_key"];
+		update_option('sk_api_key', $api_key);
+		$mode='done';
 	}
 
 	$sk_api_key=get_option('sk_api_key');
 	
 	
-	/*
 	//In case we don't have activated it yet
-		$db_version=get_option('sk_db_version');
-		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
+	$db_version=get_option('sk_db_version');
+	if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
 	
-		// Get our options and see if we're handling a form submission.
-		$options = get_option('widget_sk');
-		
-		//Max characters
-		if(!isset($options['maxchars'])) $options['maxchars']=255;
-
-		if ( $_POST['sk-submit'] ) {
-			// Remember to sanitize and format use input appropriately.
-			$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
-			
-			$options['maxchars'] = $_POST['sk_maxchars'];
-			if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
-			
-			$options['items'] = $_POST['sk_items'];
-			if(!is_numeric($options['items'])) $options['items'] = 5;
-			
-			$options['avatar'] = false;
-			if($_POST['sk_avatar'])
-				$options['avatar'] = true;
-				
-			$options['rss'] = false;
-			if($_POST['sk_rss'])
-				$options['rss'] = true;
-			
-			$options['replies'] = false;
-			if($_POST['sk_replies'])
-				$options['replies'] = true;
-			
-			$options['alert_about_emails'] = false;
-			if($_POST['sk_alert_about_emails'])
-				$options['alert_about_emails'] = true;
-				
-			$options['refresh'] = $_POST['sk_refresh'];
-			$options['bl_days'] = $_POST['sk_bl_days'];
-			$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
-			
-			$options['registered'] = $_POST['sk_registered'];
-			$options['announce'] = $_POST['sk_announce'];
-			$options['requiremail'] = $_POST['sk_requiremail'];
-			
-			$options['moderation'] = $_POST['sk_moderation'];
-			
-			update_option('widget_sk', $options);
-		}
-		// Be sure you format your options to be valid HTML attributes.
-		$title = htmlspecialchars($options['title'], ENT_QUOTES);
-			// Here is our little form segment. Notice that we don't need a
-		// complete form. This will be embedded into the existing form.
-		$items=$options['items'];
-		$maxchars=$options['maxchars'];
-
-		$status=$options['avatar'];
-		$registered=$options['registered'];
-		$replies=$options['replies'];
-		$alert_about_emails=$options['alert_about_emails'];
-		$rss=$options['rss'];
-		
-		$refresh="selectedrefresh".$options['refresh'];
-		$$refresh=' selected="selected"';
-		
-		$days="selecteddays".$options['bl_days'];
-		$$days=' selected="selected"';
-		
-		$maxpending="selectedmaxpending".$options['bl_maxpending'];
-		$$maxpending=' selected="selected"';
-		
-		$registered="registered".$options['registered'];
-		$$registered=' selected="selected"';
-		
-		$require="require".$options['requiremail'];
-		$$require=' selected="selected"';
-		
-		$moderation="moderation".$options['moderation'];
-		$$moderation=' selected="selected"';
-		
-		$announce="announce".$options['announce'];
-		$$announce=' selected="selected"';*/
+	// Get our options and see if we're handling a form submission.
+	$options = get_option('sk_options');
 	
+	//Max characters
+	if(!isset($options['maxchars'])) $options['maxchars']=255;
+
+	if ( $_POST['sk-submit'] ) {
+		// Remember to sanitize and format use input appropriately.
+		$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
+		
+		$options['maxchars'] = $_POST['sk_maxchars'];
+		if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
+		
+		$options['items'] = $_POST['sk_items'];
+		if(!is_numeric($options['items'])) $options['items'] = 5;
+		
+		$options['avatar'] = false;
+		if($_POST['sk_avatar'])
+			$options['avatar'] = true;
+			
+		$options['rss'] = false;
+		if($_POST['sk_rss'])
+			$options['rss'] = true;
+		
+		$options['replies'] = false;
+		if($_POST['sk_replies'])
+			$options['replies'] = true;
+		
+		$options['alert_about_emails'] = false;
+		if($_POST['sk_alert_about_emails'])
+			$options['alert_about_emails'] = true;
+				
+		$options['refresh'] = $_POST['sk_refresh'];
+		$options['bl_days'] = $_POST['sk_bl_days'];
+		$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
+		
+		$options['registered'] = $_POST['sk_registered'];
+		$options['announce'] = $_POST['sk_announce'];
+		$options['requiremail'] = $_POST['sk_requiremail'];
+		
+		$options['moderation'] = $_POST['sk_moderation'];
+		
+		update_option('sk_options', $options);
+		
+		// Put an 'options updated' message on the screen
+		array_push($messages,__( 'Options saved', 'sk' ));
+	}
+	// Be sure you format your options to be valid HTML attributes.
+	$title = htmlspecialchars($options['title'], ENT_QUOTES);
+		// Here is our little form segment. Notice that we don't need a
+	// complete form. This will be embedded into the existing form.
+	$items=$options['items'];
+	$maxchars=$options['maxchars'];
+
+	$status=$options['avatar'];
+	$registered=$options['registered'];
+	$replies=$options['replies'];
+	$alert_about_emails=$options['alert_about_emails'];
+	$rss=$options['rss'];
+	
+	$refresh="selectedrefresh".$options['refresh'];
+	$$refresh=' selected="selected"';
+	
+	$days="selecteddays".$options['bl_days'];
+	$$days=' selected="selected"';
+	
+	$maxpending="selectedmaxpending".$options['bl_maxpending'];
+	$$maxpending=' selected="selected"';
+	
+	$registered="registered".$options['registered'];
+	$$registered=' selected="selected"';
+	
+	$require="require".$options['requiremail'];
+	$$require=' selected="selected"';
+	
+	$moderation="moderation".$options['moderation'];
+	$$moderation=' selected="selected"';
+	
+	$announce="announce".$options['announce'];
+	$$announce=' selected="selected"';
+	
+	//Do we have messages to show?
+	if(count($messages)>0) {
+		echo "<div class='updated'>";
+		foreach($messages as $message) echo "<p><strong>$message</strong></p>";
+		echo "</div>";
+	}
 	
 	// Now display the options 
 	include('templates/sk_config.php');
@@ -1753,8 +1772,11 @@ function sk_manage() {
 *
 * @access private
 */
-function sk_codeShoutbox() {
+function sk_codeShoutbox($args) {
 	global $wpdb, $current_user;
+	
+	//Size
+	$sk_size = $args['items'];
 	
 	//Our random number
 	$rand = mt_rand(111111,999999);
@@ -1773,10 +1795,10 @@ function sk_codeShoutbox() {
 	$sk_for=$_GET['sk_for'];
 	if($sk_for) $sk_page=sk_page_by_id($sk_for);
 	
-	$first_comments = sk_show_comments($sk_page, false, $rand); 
-	$first_page_selector = sk_page_selector($sk_page, $rand);
+	$first_comments = sk_show_comments($args['items'], $sk_page, false, $rand );
+	$first_page_selector = sk_page_selector($args['items'], $sk_page, $rand);
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$avatar = $options['avatar']; 
 	$req = sk_require_name_and_email();
 	
@@ -1930,7 +1952,7 @@ function sk_codeShoutbox() {
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>
-						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
 					</div>
 					$button
 				</td>
@@ -1991,8 +2013,8 @@ function sk_codeShoutbox() {
 *
 * @access private
 */
-function sk_shoutbox() {
-	echo sk_codeShoutbox();
+function sk_shoutbox($args) {
+	echo sk_codeShoutbox($args);
 }
 
 
@@ -2005,7 +2027,7 @@ function sk_shoutbox() {
 function sk_feed($max=20) {
 	global $wpdb;	
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$title = $options['title'];
 	if(strlen($title)==0) $title = "Schreikasten";
 	
@@ -2077,157 +2099,130 @@ function sk_feed($max=20) {
 * @return string The content with the changes the plugin have to do.
 */
 function sk_content($content) {
+	$content = skLegacy_content($content);
+	
 	//The chat box
-	$search = "/(?:<p>)*\s*\[sk-shoutbox\]\s*(?:<\/p>)*/i";
-	if(preg_match ( $search , $content)) {
-		$content = preg_replace($search, sk_codeShoutbox(), $content);
+	$search = "/(?:<p>)*\s*\[schreikasten:([^,]+),(\d+),(true|false)\]\s*(?:<\/p>)*/i";
+	if(preg_match_all($search, $content, $matches)) {
+		if(is_array($matches)) {
+			foreach($matches[1] as $key =>$title) {
+				// Get the data from the tag
+				$items=$matches[2][$key];
+				$rss_icon=$matches[3][$key];
+				if($rss_icon=='true') $rss_icon=true; else $rss_icon=false;
+				
+				$search = $matches[0][$key];
+				// Create the script to show the feed
+				$args['items'] = $items;
+				$replace=sk_codeShoutbox($args);
+				
+				$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
+				$feed_url = sk_plugin_url('/ajax/feed.php');
+				if(defined('SK_RSS')) $feed_url = SK_RSS;
+				if($rss_icon) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
+				
+				$content = str_replace ($search, $title.$replace, $content);
+			}
+		}
 	}
 	
-	//The feed icon
-	$search = "/\[sk-feed-icon\]/i";
-	$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
-	$feed_url = sk_plugin_url('/ajax/feed.php');
-	$replace = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a>";
-	$content = preg_replace($search, $replace, $content);
+	//The chat box
+	$search = "/(?:<p>)*\s*\[schreikasten:(\d+)\]\s*(?:<\/p>)*/i";
+	if(preg_match_all($search, $content, $matches)) {
+		if(is_array($matches)) {
+			foreach($matches[1] as $key =>$items) {
+				// Get the data from the tag
+				$search = $matches[0][$key];
+				// Create the script to show the feed
+				$args['items'] = $items;
+				$replace=sk_codeShoutbox($args);
+				
+				$content = str_replace ($search, $replace, $content);
+			}
+		}
+	}
 	
-	//Thed feed link
-	$search = "/\[sk-feed\]([^\[]+)\[\/sk-feed\]/i";
-	$replace = "<a href='$feed_url'>$1</a>";
+	//The chat box
+	$search = "/(?:<p>)*\s*\[schreikasten\]\s*(?:<\/p>)*/i";
+	$options = get_option('sk_options');
+	$args = array();
+	$args['items'] = $options['items'];
+	$replace=sk_codeShoutbox($args);
 	$content = preg_replace($search, $replace, $content);
 	
 	return $content;
 }
 
-// sk widget stuff
-function sk_widget_init() {
-
-	if ( !function_exists('register_sidebar_widget') )
-		return;
-
-	function sk_widget($args) {
-		//In case we don't have activated it yet
-		$db_version=get_option('sk_db_version');
-		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
-
-		// $args is an array of strings that help widgets to conform to
-		// the active theme: before_widget, before_title, after_widget,
-		// and after_title are the array keys. Default tags: li and h2.
-		extract($args);
-		
-		$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
-		$feed_url = sk_plugin_url('/ajax/feed.php');
-		if(defined('SK_RSS')) $feed_url = SK_RSS;
-		
-		$options = get_option('widget_sk');
-		$title = $options['title'];
-		
-		if($options['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
-
-		// These lines generate our output. Widgets can be very complex
-		// but as you can see here, they can also be very, very simple.
-		echo $before_widget;
-		if(strlen($title) > 0) echo $before_title . $title . $after_title;
-		sk_shoutbox();
-		echo $after_widget;
-	}
-
-	function sk_widget_control() {
-		//In case we don't have activated it yet
-		$db_version=get_option('sk_db_version');
-		if(!$db_version || $db_version<SK_DB_VERSION) sk_activate();
+/**
+* Schreikasten widget stuff (New MultiWidget )
+*
+*/
 	
-		// Get our options and see if we're handling a form submission.
-		$options = get_option('widget_sk');
-		
-		//Max characters
-		if(!isset($options['maxchars'])) $options['maxchars']=255;
-
-		if ( $_POST['sk-submit'] ) {
-			// Remember to sanitize and format use input appropriately.
-			$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
+// check version. only 2.8 WP support class multi widget system
+global $wp_version;
+if((float)$wp_version >= 2.8) { //The new widget system
+	
+	class SkWidget extends WP_Widget {
+	
+	/**
+		 * constructor
+		 */	 
+		function SkWidget() {
+			$control_ops = array( 'width' => 420, 'height' => 280 );
+			parent::WP_Widget('sk', 'Schreikasten', array('description' => __('Add a Schreikasten Shoutbox to the sidebar.', 'sk') ), $control_ops);
 			
-			$options['maxchars'] = $_POST['sk_maxchars'];
-			if(!is_numeric($options['maxchars'])) $options['maxchars'] = 225;
-			
-			$options['items'] = $_POST['sk_items'];
-			if(!is_numeric($options['items'])) $options['items'] = 5;
-			
-			$options['avatar'] = false;
-			if($_POST['sk_avatar'])
-				$options['avatar'] = true;
-				
-			$options['rss'] = false;
-			if($_POST['sk_rss'])
-				$options['rss'] = true;
-			
-			$options['replies'] = false;
-			if($_POST['sk_replies'])
-				$options['replies'] = true;
-			
-			$options['alert_about_emails'] = false;
-			if($_POST['sk_alert_about_emails'])
-				$options['alert_about_emails'] = true;
-				
-			$options['refresh'] = $_POST['sk_refresh'];
-			$options['bl_days'] = $_POST['sk_bl_days'];
-			$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
-			
-			$options['registered'] = $_POST['sk_registered'];
-			$options['announce'] = $_POST['sk_announce'];
-			$options['requiremail'] = $_POST['sk_requiremail'];
-			
-			$options['moderation'] = $_POST['sk_moderation'];
-			
-			update_option('widget_sk', $options);
 		}
-		// Be sure you format your options to be valid HTML attributes.
-		$title = htmlspecialchars($options['title'], ENT_QUOTES);
-			// Here is our little form segment. Notice that we don't need a
-		// complete form. This will be embedded into the existing form.
-		$items=$options['items'];
-		$maxchars=$options['maxchars'];
+		
+		/**
+		 * display widget
+		 */	 
+		function widget($args, $instance) {
+			extract($args, EXTR_SKIP);
+			
+			$title = $instance['title'];
+			$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
+			$feed_url = sk_plugin_url('/ajax/feed.php');
+			if(defined('SK_RSS')) $feed_url = SK_RSS;
+			if($instance['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
+			
+			echo $before_widget;
+			if(strlen($instance['title']) > 0) echo $before_title . $title . $after_title;
+			sk_shoutbox($instance);
+			echo $after_widget;
+		
+		}
+		
+		/**
+		 *	update/save function
+		 */	 	
+		function update($new_instance, $old_instance) {
+			
+			$instance = $new_instance;
+			if($new_instance['rss']) $instance['rss'] = 1; else $instance['rss'] = 0;
 
-		$status=$options['avatar'];
-		$registered=$options['registered'];
-		$replies=$options['replies'];
-		$alert_about_emails=$options['alert_about_emails'];
-		$rss=$options['rss'];
+			return $instance;
+		}
 		
-		$refresh="selectedrefresh".$options['refresh'];
-		$$refresh=' selected="selected"';
-		
-		$days="selecteddays".$options['bl_days'];
-		$$days=' selected="selected"';
-		
-		$maxpending="selectedmaxpending".$options['bl_maxpending'];
-		$$maxpending=' selected="selected"';
-		
-		$registered="registered".$options['registered'];
-		$$registered=' selected="selected"';
-		
-		$require="require".$options['requiremail'];
-		$$require=' selected="selected"';
-		
-		$moderation="moderation".$options['moderation'];
-		$$moderation=' selected="selected"';
-		
-		$announce="announce".$options['announce'];
-		$$announce=' selected="selected"';
-		
-		require("templates/sk_widgetconfig.php");
+		/**
+		 *	admin control form
+		 */	 	
+		function form($instance) {
+			$default = 	array('title'=>'Schreikasten', 'items'=>'5','rss'=>'0');
+			$instance = wp_parse_args( (array) $instance, $default );
+			
+			//Show the widget control.
+			include('templates/sk_widgetconfig.php');
+		}
 	}
-	// This registers our widget so it appears with the other available
-	// widgets and can be dragged and dropped into any active sidebars.
-	register_sidebar_widget(array('Schreikasten', 'widgets'), 'sk_widget');
-	
-	// This registers our optional widget control form. Because of this
-	// our widget will have a button that reveals a 300x100 pixel form.
-	register_widget_control(array('schreikasten', 'widgets'), 'sk_widget_control', 250, 100);
+
+	/* register widget when loading the WP core */
+	add_action('widgets_init', sk_register_widgets);
+
+	function sk_register_widgets() {
+		register_widget('SkWidget');
+	}
 
 }
-
-// Run our code later in case this loads prior to any required plugins.
-add_action('widgets_init', 'sk_widget_init');
 
 /**
 * XML Entity Mandatory Escape Characters

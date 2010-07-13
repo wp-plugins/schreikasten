@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.0.1
+Stable tag: 0.13.90
 
 A shoutbox using ajax and akismet.
 
@@ -24,7 +24,18 @@ comments from registered users.
 
 The anti Spam filter requires an Akismet API KEY. If you have one enabled in your 
 site you can use it in this plugin too. If you don't have an API KEY, create one
-in [this site](http://en.wordpress.com/api-keys/).
+in [this site](http://en.wordpress.com/api-keys/).Finally, add the next line at the
+end of your wp-config.php file.
+
+define('SK_CHAT', 'http://url-to-your-chat-room');
+
+To add a shoutbox into a page or post, use the tag [shoutbox:Title,items,rssicon], 
+where Title is the text to display as header of your shoutbox, items is the number of
+items to show in every single page, ans rssicon sets (tru or false) if you want to 
+display the rss icon. If you want to enable the rss capability, you have to add 
+the next line at the end of your wp-config.php file.
+
+define('SK_CHAT', 'http://url-to-your-chat-room');
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
@@ -48,7 +59,7 @@ It is near to a 1.0 release, any bug report would be appreciated.
 
 = Why the strange name? =
 
-It means shoutbox in german.
+It means shoutbox in German.
 
 = Why another shoutbox? =
 
@@ -66,24 +77,6 @@ define('SK_RSS', 'http://new-feed-url');
 = Can I put a shoutbox inside a theme? =
 
 Yes, use the function __sk\_shoutbox()__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox()__.
-
-= Can I use it in a page or post? Like a chat room =
-
-Schreikasten isn't designed to provide a chat room, but you can set it to looks
-and behave like one.
-
-First add the widget and set the configuration. Create a feed management provider 
-acount (see above) if you need one. Activate the timer system to automatically update
-the shoutbox content. If you want, drop the widget.
-
-Create the page or post where you want the chat room and add the tag __[sk-shoutbox]__ 
-wherever you need the chat box. Remember to add a link to the feed if you want your 
-users to have access to it. You can use the tags __[sk-feed]text you want[/sk-feed]__ to set
-a link, and __[sk-feed-icon]__ to put an RSS icon. 
-
-Finally, add the next line at the end of your wp-config.php file.
-
-define('SK_CHAT', 'http://url-to-your-chat-room');
 
 = Can I set my own CSS? =
 
@@ -117,6 +110,10 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.90 =
+* First multiwidget release.
+* New tag system.
 
 = 0.13.0.1 =
 * Data checking inside the PHP script (solving a detected spam atack).

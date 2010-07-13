@@ -39,6 +39,7 @@
 			//The ajax call data
 			sk_sack.setVar( 'page', page );
 			sk_sack.setVar( 'rand', rand );
+			sk_sack.setVar( 'size' , document.getElementById('sk_size'+rand).value );
 			
 			sk_sack.onCompletion = function() {
 				var page = sk_sack.vars['page'][0];
@@ -83,6 +84,7 @@
 		sk_sack_add.setVar( 'text', text );
 		sk_sack_add.setVar( 'skfor', skfor );
 		sk_sack_add.setVar( 'rand', rand );
+		sk_sack_add.setVar( 'size' , document.getElementById('sk_size'+rand).value );
 		
 		sk_sack_add.onCompletion = function() {
 			var rand = sk_sack_add.vars['rand'][0];
