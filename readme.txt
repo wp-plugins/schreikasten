@@ -26,11 +26,14 @@ The anti Spam filter requires an Akismet API KEY. If you have one enabled in you
 site you can use it in this plugin too. If you don't have an API KEY, create one
 in [this site](http://en.wordpress.com/api-keys/).
 
-To add a shoutbox into a page or post, use the tag [shoutbox:Title,items,rssicon], 
-where Title is the text to display as header of your shoutbox, items is the number of
-items to show in every single page, ans rssicon sets (tru or false) if you want to 
-display the rss icon. If you want to enable the rss capability, you have to add 
-the next line at the end of your wp-config.php file.
+To add a shoutbox into a page or post, use the tag __[shoutbox:title,items,rssicon]__, 
+where __title__ should be the text to display as header, __items__ is the number of
+items to show in every single page, and __rssicon__ (true or false) sets if you want to 
+display the rss icon.
+
+If you want to enable the rss capability, your shoutbox is in a single page or 
+post and you don't use a Shoutbox widget that would be displayed everywhere in your 
+site, you have to add the next line at the end of your wp-config.php file.
 
 define('SK_CHAT', 'http://url-to-your-chat-room');
 
