@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.92
+Stable tag: 0.13.92.1
 
 A shoutbox using ajax and akismet.
 
@@ -24,10 +24,7 @@ comments from registered users.
 
 The anti Spam filter requires an Akismet API KEY. If you have one enabled in your 
 site you can use it in this plugin too. If you don't have an API KEY, create one
-in [this site](http://en.wordpress.com/api-keys/).Finally, add the next line at the
-end of your wp-config.php file.
-
-define('SK_CHAT', 'http://url-to-your-chat-room');
+in [this site](http://en.wordpress.com/api-keys/).
 
 To add a shoutbox into a page or post, use the tag [shoutbox:Title,items,rssicon], 
 where Title is the text to display as header of your shoutbox, items is the number of
@@ -76,7 +73,7 @@ define('SK_RSS', 'http://new-feed-url');
 
 = Can I put a shoutbox inside a theme? =
 
-Yes, use the function __sk\_shoutbox()__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox()__.
+Yes, use the function __sk\_shoutbox(size)__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox(size)__. The argukment size would be a number and sets the number of items to show per page, or false to use the default number (5).
 
 = Can I set my own CSS? =
 
@@ -110,6 +107,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.92.1 =
+* Internal theme function bug.
 
 = 0.13.92 =
 * Theme function bug.

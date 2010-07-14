@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.92
+Version: 0.13.92.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1772,11 +1772,15 @@ function sk_manage() {
 *
 * @access private
 */
-function sk_codeShoutbox($args) {
+function sk_codeShoutbox($size=false) {
 	global $wpdb, $current_user;
 	
 	//Size
-	$sk_size = $args['items'];
+	if(!$size) {
+		$options = get_option('sk_options');
+		$size = $options['items'];
+	}
+	$sk_size = $size;
 	
 	//Our random number
 	$rand = mt_rand(111111,999999);
@@ -1795,8 +1799,8 @@ function sk_codeShoutbox($args) {
 	$sk_for=$_GET['sk_for'];
 	if($sk_for) $sk_page=sk_page_by_id($sk_for);
 	
-	$first_comments = sk_show_comments($args['items'], $sk_page, false, $rand );
-	$first_page_selector = sk_page_selector($args['items'], $sk_page, $rand);
+	$first_comments = sk_show_comments($size, $sk_page, false, $rand );
+	$first_page_selector = sk_page_selector($size, $sk_page, $rand);
 	
 	$options = get_option('sk_options');
 	$avatar = $options['avatar']; 
@@ -2018,9 +2022,7 @@ function sk_shoutbox($size = false) {
 		$options = get_option('sk_options');
 		$size = $options['items'];
 	}
-	$args = array();
-	$args['items'] = $size;
-	echo sk_codeShoutbox($args);
+	echo sk_codeShoutbox($size);
 }
 
 
@@ -2119,8 +2121,7 @@ function sk_content($content) {
 				
 				$search = $matches[0][$key];
 				// Create the script to show the feed
-				$args['items'] = $items;
-				$replace=sk_codeShoutbox($args);
+				$replace=sk_codeShoutbox($items);
 				
 				$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
 				$feed_url = sk_plugin_url('/ajax/feed.php');
@@ -2140,8 +2141,7 @@ function sk_content($content) {
 				// Get the data from the tag
 				$search = $matches[0][$key];
 				// Create the script to show the feed
-				$args['items'] = $items;
-				$replace=sk_codeShoutbox($args);
+				$replace=sk_codeShoutbox($items);
 				
 				$content = str_replace ($search, $replace, $content);
 			}
@@ -2151,9 +2151,8 @@ function sk_content($content) {
 	//The chat box
 	$search = "/(?:<p>)*\s*\[schreikasten\]\s*(?:<\/p>)*/i";
 	$options = get_option('sk_options');
-	$args = array();
-	$args['items'] = $options['items'];
-	$replace=sk_codeShoutbox($args);
+	$items = $options['items'];
+	$replace=sk_codeShoutbox($items);
 	$content = preg_replace($search, $replace, $content);
 	
 	return $content;
