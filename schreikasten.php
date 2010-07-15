@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.92.1
+Version: 0.13.93
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -136,12 +136,16 @@ function sk_ajax_add() {
 	} else {
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
-	setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-	setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 
 	$text = str_replace("\'", "'", $text);
 	$text = str_replace('\"', '"', $text);
-	$id=sk_add_comment($alias, $email, sk_xmlentities($text), $ip, $for);
+	$alias = str_replace("\'", "'", $alias);
+	$alias = str_replace('\"', '"', $alias);
+	
+	setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+	setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+	
+	$id=sk_add_comment(sk_xmlentities($alias), $email, sk_xmlentities($text), $ip, $for);
 	
 	//Get the new data.
 	if(sk_cookie_id()==0) {
@@ -1902,7 +1906,7 @@ function sk_codeShoutbox($size=false) {
 	
 		if($current_user->ID==0) {
 			$form_table.="<tr>
-				<td>".__('Alias', 'sk').":</td>
+				<td>".__('Name', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' name='sk_alias$rand' value='$alias'/>
 				</td>
