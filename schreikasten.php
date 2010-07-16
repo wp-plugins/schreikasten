@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.93
+Version: 0.13.94
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -107,6 +107,7 @@ function sk_ajax() {
 	$rand  = $_POST['rand'];
 	$page  = $_POST['page'];
 	$size  = $_POST['size'];
+	if(!is_numeric($size) || $size<1) $size = 5;
 	
 	//Get the new data.
 	$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
@@ -129,6 +130,7 @@ function sk_ajax_add() {
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
+	if(!is_numeric($size) || $size<1) $size = 5;
 	
 	//Get environment data
 	if ($_SERVER['HTTP_X_FORWARD_FOR']) {
@@ -152,8 +154,7 @@ function sk_ajax_add() {
 		$results = "<p id='skwarning'>".__('We cannot accept messages<br>from this PC', 'sk').".</p>";
 	}
 	
-	$results.= sk_show_comments($size, 1,$id,$rand);
-	$results.= sk_page_selector($size, 1,$rand); 
+	$results.= sk_show_comments($size, 1,$id,$rand).sk_page_selector($size, 1,$rand); 
 
 	// Compose JavaScript for return
 	die( $results );
@@ -362,6 +363,8 @@ function sk_page_selector($size, $group=1,$rand=false) {
 	global $wpdb;
 	
 	if(!$rand) $rand = mt_rand(111111,999999);
+	
+	if(!is_numeric($size) || $size<1) $size = 5;
 	
 	$uri_sk=sk_plugin_url('/content.php?page');
 	$answer="";
@@ -1784,6 +1787,7 @@ function sk_codeShoutbox($size=false) {
 		$options = get_option('sk_options');
 		$size = $options['items'];
 	}
+	if(!is_numeric($size) || $size<1) $size = 5;
 	$sk_size = $size;
 	
 	//Our random number
@@ -1802,7 +1806,6 @@ function sk_codeShoutbox($size=false) {
 	if($sk_id) $sk_page=sk_page_by_id($sk_id);
 	$sk_for=$_GET['sk_for'];
 	if($sk_for) $sk_page=sk_page_by_id($sk_for);
-	
 	$first_comments = sk_show_comments($size, $sk_page, false, $rand );
 	$first_page_selector = sk_page_selector($size, $sk_page, $rand);
 	

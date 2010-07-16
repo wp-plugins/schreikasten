@@ -86,7 +86,7 @@
 			$count=count($comments);
 			if($count==0) { ?> 
 			<div class="clear"></div>
-			<p><?php _e('No comments found', 'sk') ?></p><?php 
+			<p><?php _e('No comments found', 'sk'); ?></p><?php 
 				} else { ?>
 				<div class="alignleft actions">
 				<select name="type" onchange="
