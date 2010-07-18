@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 10:25-0500\n"
-"PO-Revision-Date: 2010-07-16 10:25-0500\n"
+"POT-Creation-Date: 2010-07-17 09:47-0500\n"
+"PO-Revision-Date: 2010-07-17 09:47-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -584,112 +584,113 @@ msgid "Akismet API"
 msgstr ""
 
 #: templates/sk_config.php:16
+#: templates/sk_config.php:23
 #, php-format
 msgid "Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter."
 msgstr ""
 
-#: templates/sk_config.php:22
-msgid "API Key is valid"
+#: templates/sk_config.php:20
+msgid "API Key is valid."
 msgstr ""
 
-#: templates/sk_config.php:26
-msgid "API Key is not valid"
+#: templates/sk_config.php:23
+msgid "API Key is not valid."
 msgstr ""
 
-#: templates/sk_config.php:34
+#: templates/sk_config.php:29
 msgid "Show Avatar"
 msgstr ""
 
-#: templates/sk_config.php:45
+#: templates/sk_config.php:40
 msgid "Registered users only"
 msgstr ""
 
-#: templates/sk_config.php:48
-#: templates/sk_config.php:61
-#: templates/sk_config.php:74
-#: templates/sk_config.php:87
+#: templates/sk_config.php:43
+#: templates/sk_config.php:56
+#: templates/sk_config.php:69
+#: templates/sk_config.php:82
 msgid "Use general configuration"
 msgstr ""
 
-#: templates/sk_config.php:49
-#: templates/sk_config.php:62
-#: templates/sk_config.php:75
+#: templates/sk_config.php:44
+#: templates/sk_config.php:57
+#: templates/sk_config.php:70
 msgid "Yes"
 msgstr ""
 
-#: templates/sk_config.php:50
-#: templates/sk_config.php:63
-#: templates/sk_config.php:76
+#: templates/sk_config.php:45
+#: templates/sk_config.php:58
+#: templates/sk_config.php:71
 msgid "No"
 msgstr ""
 
-#: templates/sk_config.php:58
+#: templates/sk_config.php:53
 msgid "Comments must be moderated"
 msgstr ""
 
-#: templates/sk_config.php:71
+#: templates/sk_config.php:66
 msgid "Requiere e-mail"
 msgstr ""
 
-#: templates/sk_config.php:84
+#: templates/sk_config.php:79
 msgid "Announce comments (send e-mail)"
 msgstr ""
 
-#: templates/sk_config.php:88
+#: templates/sk_config.php:83
 msgid "Send e-mail"
 msgstr ""
 
-#: templates/sk_config.php:89
+#: templates/sk_config.php:84
 msgid "Don't send e-mail"
 msgstr ""
 
-#: templates/sk_config.php:96
+#: templates/sk_config.php:91
 msgid "Allow replies"
 msgstr ""
 
-#: templates/sk_config.php:106
+#: templates/sk_config.php:101
 msgid "Alert users about posting e-mails in their comments"
 msgstr ""
 
-#: templates/sk_config.php:116
+#: templates/sk_config.php:111
 msgid "Number of characters allowed per comment"
 msgstr ""
 
-#: templates/sk_config.php:125
+#: templates/sk_config.php:120
 msgid "Refresh rate"
 msgstr ""
 
-#: templates/sk_config.php:125
+#: templates/sk_config.php:120
 msgid "This option is in an early stage, take caution."
 msgstr ""
 
-#: templates/sk_config.php:128
+#: templates/sk_config.php:123
 msgid "Never"
 msgstr ""
 
-#: templates/sk_config.php:129
-#: templates/sk_config.php:130
-#: templates/sk_config.php:131
+#: templates/sk_config.php:124
+#: templates/sk_config.php:125
+#: templates/sk_config.php:126
 msgid "seconds"
 msgstr ""
 
-#: templates/sk_config.php:139
+#: templates/sk_config.php:134
 msgid "Max days to hold a PC blacklisted"
 msgstr ""
 
-#: templates/sk_config.php:147
+#: templates/sk_config.php:142
 msgid "Forever"
 msgstr ""
 
-#: templates/sk_config.php:155
+#: templates/sk_config.php:150
 msgid "Max pending messages from blacklisted PC"
 msgstr ""
 
-#: templates/sk_config.php:158
+#: templates/sk_config.php:153
 msgid "None"
 msgstr ""
 
-#: templates/sk_config.php:168
+#: templates/sk_config.php:163
 msgid "Save Changes"
 msgstr ""
 

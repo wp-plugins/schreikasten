@@ -3,7 +3,7 @@
 	<form name="form1" method="post" action="<?php echo remove_query_arg(array('mode', 'id')); ?>">
 		<table class="form-table" style="width: 500px;">
 			<?php if(strlen(get_option('sk_api_key'))==0 || !sk_verify_key()) {
-				echo "<tr><td colspan='2'><div class='updated'><p>".__("You need an Akismet <a href='http://wordpress.com/api-keys/' target='_BLANK'>API</a> to enable the antispam filter.", 'sk' )."</p></div></td></tr>"; 
+				echo "<tr><td colspan='2'><div class='updated'><p>".sprintf(__("You need an Akismet <a href='%s' target='_BLANK'>API</a> to enable the antispam filter.", 'sk' ), 'http://wordpress.com/api-keys/')."</p></div></td></tr>"; 
 			}?>
 			<tr>
 				<td style="width: 300px;"><?php _e("Akismet API", 'sk' ); ?>:</td>
@@ -13,14 +13,14 @@
 				<?php 
 				if(strlen(get_option('sk_api_key'))==0) {
 					update_option('sk_api_key_accepted',false);
-					echo "<td colspan='2' style='text-align: center; background: #FF0000;'><strong>".__("Set API Key", 'sk')."</strong></td>";
+					echo "<td colspan='2' style='text-align: center;'><strong>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
 				} else {
 					if(sk_verify_key()) {
 						update_option('sk_api_key_accepted',true);
-						echo "<td colspan='2' style='text-align: center; background: #00FF00'><strong>".__("API Key is valid", 'sk')."</strong></td>";
+						echo "<td colspan='2' style='text-align: center; background: #00FF00'><strong>".__("API Key is valid.", 'sk')."</strong></td>";
 					} else {
 						update_option('sk_api_key_accepted',false); 
-						echo "<td colspan='2' style='text-align: center; background: #FF0000'><strong>".__("API Key is not valid", 'sk')."</strong></td>";
+						echo "<td colspan='2' style='text-align: center; background: #FF0000'><strong>".__("API Key is not valid.", 'sk')."<br/>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
 					}
 				}?>
 			</tr>

@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.94
+Stable tag: 0.13.95
 
 A shoutbox using ajax and akismet.
 
@@ -111,11 +111,15 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 
 == Changelog ==
 
+= 0.13.95 =
+* Changed GUI to help users with API Key.
+* Added uninstall capabilities.
+
 = 0.13.94 =
 * Solved bug with default size.
 
 = 0.13.93 =
-* Función de almacenamiento de alias modificada para que no salgan caracteres extraños.
+* Modified add_comment function to solve strange characters in alias entry.
 
 = 0.13.92.1 =
 * Internal theme function bug.

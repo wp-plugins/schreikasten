@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 10:25-0500\n"
+"POT-Creation-Date: 2010-07-17 09:47-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Andreas Hübner <ahue87+translations@gmail.com>\n"
@@ -522,122 +522,123 @@ msgid "Schreikasten Settings"
 msgstr "Schreikasten Kommentare"
 
 #: templates/sk_config.php:6
-#, fuzzy, php-format
+#, php-format
 msgid "You need an Akismet <a href='%s' target='_BLANK'>API</a> to enable the antispam filter."
-msgstr "Du ben%ouml;tigst einen Akismet <a href='%' target='_BLANK'>API</a> Schlüssel um den Spamfilter zu aktivieren."
+msgstr "Du benötigst einen Akismet <a href='%s' target='_BLANK'>API</a> Schlüssel um den Spamfilter zu aktivieren."
 
 #: templates/sk_config.php:9
 msgid "Akismet API"
 msgstr "Akistmet API Schlüssel"
 
 #: templates/sk_config.php:16
-#, fuzzy, php-format
+#: templates/sk_config.php:23
+#, php-format
 msgid "Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter."
-msgstr "Du ben%ouml;tigst einen Akismet <a href='%' target='_BLANK'>API</a> Schlüssel um den Spamfilter zu aktivieren."
+msgstr "Du benötigst einen Akismet <a href='%s' target='_BLANK'>API</a> Schlüssel um den Spamfilter zu aktivieren."
 
-#: templates/sk_config.php:22
-msgid "API Key is valid"
-msgstr "API Schlüssel ist ok"
+#: templates/sk_config.php:20
+msgid "API Key is valid."
+msgstr "API Schlüssel ist ok."
 
-#: templates/sk_config.php:26
-msgid "API Key is not valid"
-msgstr "API Schlüssel ist nicht korrekt"
+#: templates/sk_config.php:23
+msgid "API Key is not valid."
+msgstr "API Schlüssel ist nicht korrekt."
 
-#: templates/sk_config.php:34
+#: templates/sk_config.php:29
 msgid "Show Avatar"
 msgstr "Zeige Avatar"
 
-#: templates/sk_config.php:45
+#: templates/sk_config.php:40
 msgid "Registered users only"
 msgstr "Nur registrierte Benutzer"
 
-#: templates/sk_config.php:48
-#: templates/sk_config.php:61
-#: templates/sk_config.php:74
-#: templates/sk_config.php:87
+#: templates/sk_config.php:43
+#: templates/sk_config.php:56
+#: templates/sk_config.php:69
+#: templates/sk_config.php:82
 msgid "Use general configuration"
 msgstr "Benutzer allgemeine Einstellungen"
 
-#: templates/sk_config.php:49
-#: templates/sk_config.php:62
-#: templates/sk_config.php:75
+#: templates/sk_config.php:44
+#: templates/sk_config.php:57
+#: templates/sk_config.php:70
 msgid "Yes"
 msgstr "Ja"
 
-#: templates/sk_config.php:50
-#: templates/sk_config.php:63
-#: templates/sk_config.php:76
+#: templates/sk_config.php:45
+#: templates/sk_config.php:58
+#: templates/sk_config.php:71
 msgid "No"
 msgstr "Nein"
 
-#: templates/sk_config.php:58
+#: templates/sk_config.php:53
 #, fuzzy
 msgid "Comments must be moderated"
 msgstr "Kommentar gelöscht"
 
-#: templates/sk_config.php:71
+#: templates/sk_config.php:66
 msgid "Requiere e-mail"
 msgstr "Emailadresse erforderlich"
 
-#: templates/sk_config.php:84
+#: templates/sk_config.php:79
 msgid "Announce comments (send e-mail)"
 msgstr "Melde Kommentare (sende Email)"
 
-#: templates/sk_config.php:88
+#: templates/sk_config.php:83
 msgid "Send e-mail"
 msgstr "Versende Email"
 
-#: templates/sk_config.php:89
+#: templates/sk_config.php:84
 msgid "Don't send e-mail"
 msgstr "Email nicht verschicken"
 
-#: templates/sk_config.php:96
+#: templates/sk_config.php:91
 msgid "Allow replies"
 msgstr "Erlaube Antworten"
 
-#: templates/sk_config.php:106
+#: templates/sk_config.php:101
 msgid "Alert users about posting e-mails in their comments"
 msgstr "Warne Benutzer davor Emailadressen in ihrem Kommentar zu posten"
 
-#: templates/sk_config.php:116
+#: templates/sk_config.php:111
 msgid "Number of characters allowed per comment"
 msgstr "Anzahl der Zeichen pro Kommentar"
 
-#: templates/sk_config.php:125
+#: templates/sk_config.php:120
 msgid "Refresh rate"
 msgstr "Aktualisierungsrate"
 
-#: templates/sk_config.php:125
+#: templates/sk_config.php:120
 msgid "This option is in an early stage, take caution."
 msgstr "Diese Einstellung ist neu und ggf. noch nicht zuverlässig. Also Vorsicht."
 
-#: templates/sk_config.php:128
+#: templates/sk_config.php:123
 msgid "Never"
 msgstr "Nie"
 
-#: templates/sk_config.php:129
-#: templates/sk_config.php:130
-#: templates/sk_config.php:131
+#: templates/sk_config.php:124
+#: templates/sk_config.php:125
+#: templates/sk_config.php:126
 msgid "seconds"
 msgstr "Sekunden"
 
-#: templates/sk_config.php:139
+#: templates/sk_config.php:134
 msgid "Max days to hold a PC blacklisted"
 msgstr "Anzahl der Tage die ein PC auf der Blacklist verbringen soll"
 
-#: templates/sk_config.php:147
+#: templates/sk_config.php:142
 msgid "Forever"
 msgstr "Für immer"
 
-#: templates/sk_config.php:155
+#: templates/sk_config.php:150
 msgid "Max pending messages from blacklisted PC"
 msgstr "Maximale Zahl der zu modierenden Kommentare von einem blockiertem PC"
 
-#: templates/sk_config.php:158
+#: templates/sk_config.php:153
 msgid "None"
 msgstr "Keine"
 
-#: templates/sk_config.php:168
+#: templates/sk_config.php:163
 #, fuzzy
 msgid "Save Changes"
 msgstr "Status geändert"

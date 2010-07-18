@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.94
+Version: 0.13.95
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -466,6 +466,7 @@ function sk_page_selector($size, $group=1,$rand=false) {
 	$answer = substr($answer,0,-8);
 	return "<br/><div id='throbber-page$rand' class='throbber-page-off'><small>$answer</small></div>";
 }
+
 
 /**
 * Function to create the database and to add options into WordPress.
