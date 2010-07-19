@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.96
+Version: 0.13.97
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -41,7 +41,7 @@ define ("SK_ANNOUNCE_YES", 2);
 define ("SK_ANNOUNCE_NO", 3);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.1);
+define ("SK_HEADER_V", 1.2);
 
 require_once("legacy.php");
 
@@ -58,6 +58,7 @@ add_action('wp_ajax_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
+add_action('wp_ajax_sk_ajax_action', 'sk_ajax_action');
 
 require_once('libs/SimpleRSSFeedCreator.php');
 
@@ -155,6 +156,50 @@ function sk_ajax_add() {
 	}
 	
 	$results.= sk_show_comments($size, 1,$id,$rand).sk_page_selector($size, 1,$rand); 
+
+	// Compose JavaScript for return
+	die( $results );
+}
+
+/**
+* Function to execute an ajax action. Only works with administrator rights.
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_ajax_action() {
+	//Get the data from the post call
+	$sk_action = $_POST['sk_action'];
+	$id   = $_POST['id'];
+	$rand = $_POST['rand'];
+	$page = $_POST['page'];
+	$size = $_POST['size'];
+	if(!is_numeric($size) || $size<1) $size = 5;
+	
+	global $current_user;
+	
+	get_currentuserinfo();
+	
+	//check if this user can perform an action
+	if($current_user) {
+		$capabilities=$current_user->wp_capabilities;
+		if($capabilities['administrator']) { //Yes, he is the man!
+			switch($sk_action) {
+				case 'set_black': //set as blacklisted
+					sk_mark_as_black($id);
+					break;
+				case 'set_spam': //set as spam
+					sk_mark_as_spam($id);
+					break;
+				case 'delete': //delete the comment
+					sk_delete_comment($id);
+					break;
+			}
+		}
+	}
+	
+	//Get the new data.
+	$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
 
 	// Compose JavaScript for return
 	die( $results );
@@ -1220,11 +1265,38 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$av_size=41;
 		$id=$comment->id;
 		$edit="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
-		$mannage.="<br/><a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=delete&id=$id"))."'>" . __('Delete' , 'sk') . "</a> | ";
+		$mannage.="<br/><a style='cursor: pointer;' onclick='
+		var aux =document.getElementById(\"sk-$rand-$id\");
+		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
+		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
+		if(confirm(\"".__('Are you sure you want to delete this comment?', 'sk')."\")) {
+			sk_action($id, \"delete\", $rand, sk_semaphore$rand);
+		} else {
+			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
+			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
+		}'>" . __('Delete' , 'sk') . "</a> | ";
 		if($comment->user_id!=0) {
-			$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_black&id=$id"))."'>". __('Reject', 'sk') . "</a> | ";
+			$mannage.="<a style='cursor: pointer;' onclick='
+		var aux =document.getElementById(\"sk-$rand-$id\");
+		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
+		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
+		if(confirm(\"".__('Are you sure you want to mark this comment as blacklisted?', 'sk')."\")) {
+			sk_action($id, \"set_black\", $rand, sk_semaphore$rand);
+		} else {
+			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
+			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
+		}''>". __('Reject', 'sk') . "</a> | ";
 		}
-		$mannage.="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_spam&id=$id"))."'>". __('Spam', 'sk') . "</a><br/>";
+		$mannage.="<a style='cursor: pointer;' onclick='
+		var aux =document.getElementById(\"sk-$rand-$id\");
+		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
+		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
+		if(confirm(\"".__('Are you sure you want to mark this comment as SPAM?', 'sk')."\")) {
+			sk_action($id, \"set_spam\", $rand, sk_semaphore$rand);
+		} else {
+			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
+			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
+		}'>". __('Spam', 'sk') . "</a><br/>";
 		if($sending) {
 			$mannage="<br/>";
 			$edit = "[ ".__('Sending', 'sk')." ]";
@@ -1276,11 +1348,11 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	}
 	
 	if($options['avatar']) {
-		$answer.="\n<div $class><a name='sk-comment-id$id'></a>
+		$answer.="\n<div $class id='sk-$rand-$id'><a name='sk-comment-id$id'></a>
 		$item
 		</div>";
 	} else { //else, it's a list item
-		$answer.="\n<li $class><a name='sk-comment-id$id'></a>
+		$answer.="\n<li $class id='sk-$rand-$id'><a name='sk-comment-id$id'></a>
 				$item
 				</li>";
 	}

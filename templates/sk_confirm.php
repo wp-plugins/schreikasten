@@ -28,7 +28,7 @@ if($mode=='set_spam') {
 	printf( __('<strong>Caution:</strong> You are about to %s the following comment:</p>', 'sk') , $act_message ); 
 }?>
 
-<p><?php _e('Are you sure you want to do that?'); ?></p>
+<p><?php _e('Are you sure you want to do that?', 'sk'); ?></p>
 
 		<form action='<?php echo "edit-comments.php?page=skmanage&mode_x=".$mode."_x&id=$id"; ?>' method='post'>
 

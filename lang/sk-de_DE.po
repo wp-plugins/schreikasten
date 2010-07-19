@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-17 09:47-0500\n"
+"POT-Creation-Date: 2010-07-19 17:00-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Andreas Hübner <ahue87+translations@gmail.com>\n"
@@ -18,118 +18,123 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: templates\n"
 
-#: schreikasten.php:92
+#: schreikasten.php:93
 msgid "Can\\'t read Schreikasten Feed"
 msgstr ""
 
-#: schreikasten.php:154
+#: schreikasten.php:155
 msgid "We cannot accept messages<br>from this PC"
 msgstr "Wir akzeptieren keine Nachrichten <br/> von diesem PC"
 
-#: schreikasten.php:553
-#: schreikasten.php:565
-#: schreikasten.php:1419
+#: schreikasten.php:599
+#: schreikasten.php:611
+#: schreikasten.php:1492
 msgid "Schreikasten"
 msgstr "Schreikasten"
 
-#: schreikasten.php:624
+#: schreikasten.php:670
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr "Auf einen Kommentar zu %s hat %s geantwortet"
 
-#: schreikasten.php:625
+#: schreikasten.php:671
 #, php-format
 msgid "Your comment : %s"
 msgstr "Dein Kommentar: %s"
 
-#: schreikasten.php:626
+#: schreikasten.php:672
 #, php-format
 msgid "Reply comment: %s"
 msgstr "Antwort: %s"
 
-#: schreikasten.php:630
+#: schreikasten.php:676
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr "Eine Antwort auf deinen Kommentar zu %s"
 
-#: schreikasten.php:666
+#: schreikasten.php:712
 msgid "There is a new comment on Schreikasten"
 msgstr "Es gibt einen neuen Kommentar im Schreikasten"
 
-#: schreikasten.php:668
-#: schreikasten.php:686
+#: schreikasten.php:714
+#: schreikasten.php:732
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr "Autor: %1$s (IP: %2$s)"
 
-#: schreikasten.php:669
-#: schreikasten.php:687
+#: schreikasten.php:715
+#: schreikasten.php:733
 #, php-format
 msgid "E-mail : %s"
 msgstr "E-mail: %s"
 
-#: schreikasten.php:670
-#: schreikasten.php:688
+#: schreikasten.php:716
+#: schreikasten.php:734
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 
-#: schreikasten.php:671
-#: schreikasten.php:689
+#: schreikasten.php:717
+#: schreikasten.php:735
 #, php-format
 msgid "Comment: %s"
 msgstr "Kommentar: %s"
 
-#: schreikasten.php:672
-#: schreikasten.php:691
+#: schreikasten.php:718
+#: schreikasten.php:737
 #, php-format
 msgid "Delete it: %s"
 msgstr "Löschen: %s"
 
-#: schreikasten.php:673
-#: schreikasten.php:692
+#: schreikasten.php:719
+#: schreikasten.php:738
 #, php-format
 msgid "Reject it: %s"
 msgstr "Ablehnen: %s"
 
-#: schreikasten.php:674
-#: schreikasten.php:693
+#: schreikasten.php:720
+#: schreikasten.php:739
 #, php-format
 msgid "Spam it: %s"
 msgstr "Als Spam markieren: %s"
 
-#: schreikasten.php:676
+#: schreikasten.php:722
 msgid "New comment on Schreikasten"
 msgstr "Neuer Kommentar im Schreikasten"
 
-#: schreikasten.php:684
+#: schreikasten.php:730
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr "Ein neuer Kommentar im Schreikastet wartet darauf moderiert zu werden"
 
-#: schreikasten.php:690
+#: schreikasten.php:736
 #, php-format
 msgid "Approve it: %s"
 msgstr "Genehmigen: %s"
 
-#: schreikasten.php:695
+#: schreikasten.php:741
 msgid "Schreikasten comment to moderate"
 msgstr "Schreikasten-Kommentar zum moderieren"
 
-#: schreikasten.php:1189
-#: schreikasten.php:2075
+#: schreikasten.php:1235
+#: schreikasten.php:2148
 msgid "[reply]"
 msgstr "[Antwort]"
 
-#: schreikasten.php:1191
-#: schreikasten.php:2077
+#: schreikasten.php:1237
+#: schreikasten.php:2150
 msgid "[no sender]"
 msgstr "[kein Absender]"
 
-#: schreikasten.php:1221
+#: schreikasten.php:1267
 msgid "[edit]"
 msgstr "[bearbeiten]"
 
-#: schreikasten.php:1222
+#: schreikasten.php:1272
+#, fuzzy
+msgid "Are you sure you want to delete this comment?"
+msgstr "Bist du sicher dass du diesen PC blockieren möchtest?"
+
+#: schreikasten.php:1277
 #: templates/sk_manage.php:90
 #: templates/sk_manage.php:163
 #: templates/sk_manage.php:194
@@ -138,7 +143,12 @@ msgstr "[bearbeiten]"
 msgid "Delete"
 msgstr "Löschen"
 
-#: schreikasten.php:1224
+#: schreikasten.php:1283
+#, fuzzy
+msgid "Are you sure you want to mark this comment as blacklisted?"
+msgstr "Bist du sicher dass du diesen PC blockieren möchtest?"
+
+#: schreikasten.php:1288
 #: templates/sk_manage.php:159
 #: templates/sk_confirm.php:17
 #: templates/sk_tracking.php:161
@@ -146,7 +156,12 @@ msgstr "Löschen"
 msgid "Reject"
 msgstr "Ablehnen"
 
-#: schreikasten.php:1226
+#: schreikasten.php:1294
+#, fuzzy
+msgid "Are you sure you want to mark this comment as SPAM?"
+msgstr "Bist du sicher dass du diesen PC blockieren möchtest?"
+
+#: schreikasten.php:1299
 #: templates/sk_manage.php:54
 #: templates/sk_manage.php:161
 #: templates/sk_manageblack.php:58
@@ -157,47 +172,47 @@ msgstr "Ablehnen"
 msgid "Spam"
 msgstr "Spam"
 
-#: schreikasten.php:1229
-#: schreikasten.php:1377
+#: schreikasten.php:1302
+#: schreikasten.php:1450
 msgid "Sending"
 msgstr "Senden"
 
-#: schreikasten.php:1488
+#: schreikasten.php:1561
 msgid "Options saved"
 msgstr ""
 
-#: schreikasten.php:1669
-#: schreikasten.php:1677
-#: schreikasten.php:1681
-#: schreikasten.php:1685
+#: schreikasten.php:1742
+#: schreikasten.php:1750
+#: schreikasten.php:1754
+#: schreikasten.php:1758
 msgid "Status changed"
 msgstr "Status geändert"
 
-#: schreikasten.php:1672
+#: schreikasten.php:1745
 msgid "Comment modified"
 msgstr "Kommentar bearbeitet"
 
-#: schreikasten.php:1689
+#: schreikasten.php:1762
 msgid "Comment deleted"
 msgstr "Kommentar gelöscht"
 
-#: schreikasten.php:1693
+#: schreikasten.php:1766
 msgid "PC locked forever"
 msgstr "PC für immer geblockt"
 
-#: schreikasten.php:1697
+#: schreikasten.php:1770
 msgid "PC unlocked"
 msgstr "PC Blockade aufgehoben"
 
-#: schreikasten.php:1702
+#: schreikasten.php:1775
 msgid "PC locked"
 msgstr "PC geblockt"
 
-#: schreikasten.php:1849
+#: schreikasten.php:1922
 msgid "E-mail is required"
 msgstr "Email ist erforderlich"
 
-#: schreikasten.php:1857
+#: schreikasten.php:1930
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
@@ -207,7 +222,7 @@ msgstr ""
 "empfehlen wir Emailadressen nicht einzubeziehen.\\n"
 "Möchtest du fortfahren?"
 
-#: schreikasten.php:1878
+#: schreikasten.php:1951
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -215,7 +230,7 @@ msgstr ""
 "Der Kommentar wurde gespeichert. Kommentare\\n"
 "müssen vor der Veröffentlichung moderiert werden."
 
-#: schreikasten.php:1881
+#: schreikasten.php:1954
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -223,79 +238,79 @@ msgstr ""
 "Dein Kommentar wurde gespeichert, dein PC wird jedoch blockiert.\\n"
 "Kommentare müssen vor der Veröffentlichung moderiert werden."
 
-#: schreikasten.php:1895
+#: schreikasten.php:1968
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Du musst <a href=\"%s\">angemeldet sein</a> um einen Kommentar schreiben zu können"
 
-#: schreikasten.php:1905
+#: schreikasten.php:1978
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Dein PC wird blockiert. Du kannst zur Zeit keine Kommentare schreiben."
 
-#: schreikasten.php:1912
+#: schreikasten.php:1985
 msgid "Name"
 msgstr ""
 
-#: schreikasten.php:1918
+#: schreikasten.php:1991
 msgid "Email"
 msgstr "Email"
 
-#: schreikasten.php:1926
-#: schreikasten.php:1942
+#: schreikasten.php:1999
+#: schreikasten.php:2015
 msgid "For"
 msgstr "Für"
 
-#: schreikasten.php:1941
+#: schreikasten.php:2014
 msgid "Submit"
 msgstr "Senden"
 
-#: schreikasten.php:1946
+#: schreikasten.php:2019
 msgid "Mail will not be published"
 msgstr "Die Emailadresse wird nicht veröffentlicht"
 
-#: schreikasten.php:1948
+#: schreikasten.php:2021
 msgid "(but it's required)"
 msgstr "(aber sie ist erforderlich)"
 
-#: schreikasten.php:1951
+#: schreikasten.php:2024
 msgid "(but it's used for avatar)"
 msgstr "(aber sie wird zur Erzeugung des Avaters benutzt)"
 
-#: schreikasten.php:1955
+#: schreikasten.php:2028
 #, php-format
 msgid "Loged in as %s"
 msgstr "Angemeldet als %s"
 
-#: schreikasten.php:1956
+#: schreikasten.php:2029
 msgid "Log out"
 msgstr "Abmelden"
 
-#: schreikasten.php:1980
+#: schreikasten.php:2053
 msgid "The lenght of the message is bigger than the allowed size."
 msgstr "Die Länge der Nachricht ist größer als die zulässige Länge."
 
-#: schreikasten.php:2088
+#: schreikasten.php:2161
 #, php-format
 msgid "Comment by %s"
 msgstr "Kommentar von %s"
 
-#: schreikasten.php:2096
+#: schreikasten.php:2169
 #, php-format
 msgid "Shouts in %s"
 msgstr "Nachrichten in %s"
 
-#: schreikasten.php:2097
+#: schreikasten.php:2170
 #, php-format
 msgid "List of messages in %s"
 msgstr "Liste der Nachrichten in %s"
 
-#: schreikasten.php:2136
-#: schreikasten.php:2198
+#: schreikasten.php:2209
+#: schreikasten.php:2271
 #: legacy.php:99
 msgid "Subscribe"
 msgstr "Abonnieren"
 
-#: schreikasten.php:2184
+#: schreikasten.php:2257
 msgid "Add a Schreikasten Shoutbox to the sidebar."
 msgstr ""
 

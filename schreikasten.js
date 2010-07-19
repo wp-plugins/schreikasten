@@ -22,7 +22,7 @@
 	var loading_sk_img = new Image(); 
 	loading_sk_img.src = sk_url+'/wp-content/plugins/schreikasten/img/loading.gif';
 	var sk_sack = new sack(sk_url+'/wp-admin/admin-ajax.php' );
-	var sk_sack_add = new sack(sk_url+'/wp-admin/admin-ajax.php' );
+	var sk_sack_action = new sack(sk_url+'/wp-admin/admin-ajax.php' );
 	
 	function sk_feed( page, rand, semaphore )
 	{
@@ -73,29 +73,63 @@
 		semaphore.setRed();
 		
 		//Our plugin sack configuration
-		sk_sack_add.execute = 0;
-		sk_sack_add.method = 'POST';
-		sk_sack_add.setVar( 'action', 'sk_ajax_add' );
-		sk_sack_add.element = 'sk_content'+rand;
+		sk_sack_action.execute = 0;
+		sk_sack_action.method = 'POST';
+		sk_sack_action.setVar( 'action', 'sk_ajax_add' );
+		sk_sack_action.element = 'sk_content'+rand;
 		
 		//The ajax call data
-		sk_sack_add.setVar( 'alias', alias );
-		sk_sack_add.setVar( 'email', email );
-		sk_sack_add.setVar( 'text', text );
-		sk_sack_add.setVar( 'skfor', skfor );
-		sk_sack_add.setVar( 'rand', rand );
-		sk_sack_add.setVar( 'size' , document.getElementById('sk_size'+rand).value );
+		sk_sack_action.setVar( 'alias', alias );
+		sk_sack_action.setVar( 'email', email );
+		sk_sack_action.setVar( 'text', text );
+		sk_sack_action.setVar( 'skfor', skfor );
+		sk_sack_action.setVar( 'rand', rand );
+		sk_sack_action.setVar( 'size' , document.getElementById('sk_size'+rand).value );
 		
-		sk_sack_add.onCompletion = function() {
-			var rand = sk_sack_add.vars['rand'][0];
+		sk_sack_action.onCompletion = function() {
+			var rand = sk_sack_action.vars['rand'][0];
 			var doc = document.getElementById('sk_content'+rand);
-			doc.innerHTML = sk_sack_add.response;
+			doc.innerHTML = sk_sack_action.response;
 			sk_sack.xmlhttp.abort();
 			sk_sack.reset();
 			semaphore.setGreen();
 		};
 		
-		sk_sack_add.runAJAX();
+		sk_sack_action.runAJAX();
+			
+		return true;
+		
+	}
+	
+	function sk_action( id, sk_action, rand, semaphore)
+	{
+		sk_sack.xmlhttp.abort();
+		sk_sack.reset();
+		semaphore.setRed();
+		
+		//Our plugin sack configuration
+		sk_sack_action.execute = 0;
+		sk_sack_action.method = 'POST';
+		sk_sack_action.setVar( 'action', 'sk_ajax_action' );
+		sk_sack_action.element = 'sk_content'+rand;
+		
+		//The ajax call data
+		sk_sack_action.setVar( 'id', id );
+		sk_sack_action.setVar( 'sk_action', sk_action );
+		sk_sack_action.setVar( 'rand', rand );
+		sk_sack_action.setVar( 'page', document.getElementById('sk_page'+rand).value );
+		sk_sack_action.setVar( 'size', document.getElementById('sk_size'+rand).value );
+		
+		sk_sack_action.onCompletion = function() {
+			var rand = sk_sack_action.vars['rand'][0];
+			var doc = document.getElementById('sk_content'+rand);
+			doc.innerHTML = sk_sack_action.response;
+			sk_sack.xmlhttp.abort();
+			sk_sack.reset();
+			semaphore.setGreen();
+		};
+		
+		sk_sack_action.runAJAX();
 			
 		return true;
 		
