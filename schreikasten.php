@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.95
+Version: 0.13.96
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -2132,7 +2132,7 @@ function sk_content($content) {
 				$replace=sk_codeShoutbox($items);
 				
 				$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
-				$feed_url = sk_plugin_url('/ajax/feed.php');
+				$feed_url = sk_plugin_url('/feed.php');
 				if(defined('SK_RSS')) $feed_url = SK_RSS;
 				if($rss_icon) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
 				
@@ -2194,7 +2194,7 @@ if((float)$wp_version >= 2.8) { //The new widget system
 			
 			$title = $instance['title'];
 			$img_url = get_bloginfo('wpurl')."/wp-includes/images/rss.png";
-			$feed_url = sk_plugin_url('/ajax/feed.php');
+			$feed_url = sk_plugin_url('/feed.php');
 			if(defined('SK_RSS')) $feed_url = SK_RSS;
 			if($instance['rss']) $title = "<a class='rsswidget' href='$feed_url' title='" . __('Subscribe' , 'sk')."'><img src='$img_url' alt='RSS' border='0' /></a> $title";
 			
