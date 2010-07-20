@@ -16,7 +16,7 @@
 			$page=1;
 	}
 	
-	$options = get_option('widget_sk');
+	$options = get_option('sk_options');
 	$days=0;
 	if(is_array($options)) {
 		$days=$options['bl_days'];

@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.97
+Version: 0.13.98
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -634,8 +634,8 @@ function sk_delete_comment($id) {
 	//Delete the comment
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query = "DELETE FROM " . $table_name ." WHERE id=" . $id;
-	$answer1=$wpdb->query( $query );
-	return $answer1;
+	$answer=$wpdb->query( $query );
+	return $answer;
 }
 
 /**
@@ -1342,17 +1342,19 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		if($capabilities['administrator']==1) $usertype = 'sk-user-admin';
 	}
 	
+	$sk_id = "id='sk-$rand-$id'";
 	$class = "class='$divClass $usertype'";
 	if($hide) {
-		$class = "id='throbber-img$rand' class='throbber-img-off' style='visibility: hidden;'";
+		$class = "class='throbber-img-off' style='visibility: hidden;'";
+		$sk_id = "id='throbber-img$rand'";
 	}
 	
 	if($options['avatar']) {
-		$answer.="\n<div $class id='sk-$rand-$id'><a name='sk-comment-id$id'></a>
+		$answer.="\n<div $class $sk_id><a name='sk-comment-id$id'></a>
 		$item
 		</div>";
 	} else { //else, it's a list item
-		$answer.="\n<li $class id='sk-$rand-$id'><a name='sk-comment-id$id'></a>
+		$answer.="\n<li $class $sk_id><a name='sk-comment-id$id'></a>
 				$item
 				</li>";
 	}
