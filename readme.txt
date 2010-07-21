@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.98
+Stable tag: 0.13.99
 
 A shoutbox using ajax and akismet.
 
@@ -39,7 +39,7 @@ define('SK_CHAT', 'http://url-to-your-chat-room');
 
 This plugin is near to a 1.0 release, any bug report would be appreciated.
 
-Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__ and azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__. Thanks for your time guys!
+Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__, azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__ and italian by  __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni, Giochi, Applicazioni, Hardware & Vita!")__. Thanks for your time guys!
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
@@ -110,6 +110,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.99 =
+* First release with italian translation. Thanks __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni, Giochi, Applicazioni, Hardware & Vita!")__.
 
 = 0.13.98 =
 * Bug with duplicated div id.
