@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.99
+Stable tag: 0.13.100
 
 A shoutbox using ajax and akismet.
 
@@ -110,6 +110,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 7. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.100 =
+* When using timer and there is a new message, the window would ring a sound and the window title would change if it doesn't have the focus.
 
 = 0.13.99 =
 * First release with italian translation. Thanks __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni, Giochi, Applicazioni, Hardware & Vita!")__.

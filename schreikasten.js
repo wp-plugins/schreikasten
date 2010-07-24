@@ -1,3 +1,30 @@
+//Play sound
+var Sound = new Object();
+Sound.play = function Sound_play(src) {
+	this.stop();
+	var elm;
+	if (typeof document.all != "undefined") {
+		elm = document.createElement("bgsound");
+		elm.src = src;
+	}
+	else {
+		elm = document.createElement("object");
+		elm.setAttribute("data",src);
+		elm.setAttribute("type","audio/x-wav");
+		elm.setAttribute("controller","true");
+	}
+	document.body.appendChild(elm);
+	this.elm = elm;
+	return true;
+};
+
+Sound.stop = function Sound_stop() {
+	if (this.elm) {
+		this.elm.parentNode.removeChild(this.elm);
+		this.elm = null;
+	}
+};
+
 //Semaphore class
 	function sk_Semaphore() {
 		var me = this; //Just to use me instead of this if a recursived function is used
@@ -24,7 +51,7 @@
 	var sk_sack = new sack(sk_url+'/wp-admin/admin-ajax.php' );
 	var sk_sack_action = new sack(sk_url+'/wp-admin/admin-ajax.php' );
 	
-	function sk_feed( page, rand, semaphore )
+	function sk_feed( page, rand, semaphore, timer )
 	{
 		if( semaphore.isGreen() ) {
 			
@@ -47,6 +74,16 @@
 				var doc = document.getElementById('sk_content'+rand);
 				doc.innerHTML = sk_sack.response;
 				semaphore.setGreen();
+				if(timer) {
+					var count = document.getElementById('sk_count'+rand).value;
+					var int_count = document.getElementById('sk_int_count'+rand).value;
+					var last = document.getElementById('sk_int_last'+rand).value;
+					if(count != int_count) {
+						document.getElementById('sk_count'+rand).value = int_count;
+						if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
+						Sound.play(sk_wav);
+					}
+				}
 				if(document.getElementById('sk_page'+rand).value!=page) {
 					var aux = document.getElementById('throbber-page'+rand);
 					aux.setAttribute('class', 'throbber-page-on');
@@ -60,7 +97,7 @@
 			sk_sack.runAJAX();
 			
 		} else {
-			setTimeout(function (){ sk_feed( page, rand, semaphore ); }, 300);
+			setTimeout(function (){ sk_feed( page, rand, semaphore, timer ); }, 300);
 		}
 		return true;
 	}
@@ -93,6 +130,8 @@
 			sk_sack.xmlhttp.abort();
 			sk_sack.reset();
 			semaphore.setGreen();
+			document.getElementById('sk_count'+rand).value = int_count = document.getElementById('sk_int_count'+rand).value;
+		
 		};
 		
 		sk_sack_action.runAJAX();

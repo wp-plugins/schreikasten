@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.99
+Version: 0.13.100
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1158,6 +1158,20 @@ function sk_count($status=false) {
 }
 
 /**
+* User who sended the last comment marked as SK_HAM.
+*
+* @return string
+* @access public
+*/
+function sk_last() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT alias FROM $table_name WHERE status = ".SK_HAM." ORDER BY date DESC LIMIT 1"; 
+	$alias = $wpdb->get_var($sql);
+	return $alias;
+}
+
+/**
 * Edit comment
 *
 * @param int id Comment's id
@@ -1478,7 +1492,10 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	if(!$options['avatar']) $answer.="</ul>";
 	$answer.="\n";
 	
-	return $answer;
+	$sk_count = sk_count(SK_HAM);
+	$sk_last = "";
+	if($sk_count>0) $sk_last = sk_last();
+	return "<input type='hidden' id='sk_int_count$rand' name='sk_int_count$rand' value='$sk_count' /><input type='hidden' id='sk_int_last$rand' name='sk_int_last$rand' value='$sk_last' />".$answer;
 }
 
 /**
@@ -2034,11 +2051,12 @@ function sk_codeShoutbox($size=false) {
 		}
 		$button.="</div>";
 		
+		$sk_count = sk_count(SK_HAM);
 		$form_button = "<table width='100%' class='sk-table'>		
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>
-						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_count$rand' name='sk_count$rand' value='$sk_count' /><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
 					</div>
 					$button
 				</td>
@@ -2068,6 +2086,8 @@ function sk_codeShoutbox($size=false) {
 	$answer = str_replace('%sk_id%', $sk_id, $answer);
 	$answer = str_replace('%sk_page%', $sk_page, $answer);
 	$answer = str_replace('%sk_for%', $sk_for, $answer);
+	$answer = str_replace('%title_message%', __('New message from', 'sk'), $answer);
+	$answer = str_replace('%clap_wav%', sk_plugin_url('img/clap.wav'), $answer);
 	$answer = str_replace('%first_comments%', $first_comments, $answer);
 	$answer = str_replace('%first_page_selector%', $first_page_selector, $answer);
 	$answer = str_replace('%maxchars%', $maxchars, $answer);
