@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-24 17:31-0500\n"
+"POT-Creation-Date: 2010-07-25 08:49-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Andreas Hübner <ahue87+translations@gmail.com>\n"
@@ -104,7 +104,7 @@ msgstr "Neuer Kommentar im Schreikasten"
 
 #: schreikasten.php:730
 msgid "A new comment on Schreikasten is waiting for your approval"
-msgstr "Ein neuer Kommentar im Schreikastet wartet darauf moderiert zu werden"
+msgstr "Ein neuer Kommentar im Schreikastet wartet auf Freischaltung"
 
 #: schreikasten.php:736
 #, php-format
@@ -113,7 +113,7 @@ msgstr "Genehmigen: %s"
 
 #: schreikasten.php:741
 msgid "Schreikasten comment to moderate"
-msgstr "Schreikasten-Kommentar zum moderieren"
+msgstr "Schreikasten-Kommentar zum freischalten"
 
 #: schreikasten.php:1249
 #: schreikasten.php:2170
@@ -131,7 +131,7 @@ msgstr "[bearbeiten]"
 
 #: schreikasten.php:1286
 msgid "Are you sure you want to delete this comment?"
-msgstr ""
+msgstr "Sind Sie sicher dass Sie den Kommentar löschen wollen?"
 
 #: schreikasten.php:1291
 #: templates/sk_manage.php:90
@@ -144,7 +144,7 @@ msgstr "Löschen"
 
 #: schreikasten.php:1297
 msgid "Are you sure you want to mark this comment as blacklisted?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie den Kommentar auf die Blacklist setzen wollen?"
 
 #: schreikasten.php:1302
 #: templates/sk_manage.php:159
@@ -156,7 +156,7 @@ msgstr "Ablehnen"
 
 #: schreikasten.php:1308
 msgid "Are you sure you want to mark this comment as SPAM?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie den Kommentar als SPAM klassifizieren wollen?"
 
 #: schreikasten.php:1313
 #: templates/sk_manage.php:54
@@ -534,7 +534,7 @@ msgstr "Bist du sich, dass du diesen PC für immer blockieren möchtest?"
 
 #: templates/sk_config.php:2
 msgid "Schreikasten Settings"
-msgstr ""
+msgstr "Schreikasten Einstellungen"
 
 #: templates/sk_config.php:6
 #, php-format
@@ -588,7 +588,7 @@ msgstr "Nein"
 
 #: templates/sk_config.php:53
 msgid "Comments must be moderated"
-msgstr ""
+msgstr "Kommentar wartet auf Freischaltung durch den Admin!"
 
 #: templates/sk_config.php:66
 msgid "Requiere e-mail"
@@ -654,7 +654,7 @@ msgstr "Keine"
 
 #: templates/sk_config.php:163
 msgid "Save Changes"
-msgstr ""
+msgstr "Änderungen speichern."
 
 #: templates/sk_widgetconfig.php:3
 msgid "Title:"
