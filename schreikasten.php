@@ -41,7 +41,7 @@ define ("SK_ANNOUNCE_YES", 2);
 define ("SK_ANNOUNCE_NO", 3);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.2);
+define ("SK_HEADER_V", 1.3);
 
 require_once("legacy.php");
 
@@ -1280,7 +1280,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$id=$comment->id;
 		$edit="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
 		$mannage.="<br/><a style='cursor: pointer;' onclick='
-		var aux =document.getElementById(\"sk-$rand-$id\");
+		var aux = document.getElementById(\"sk-$rand-$id\");
 		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
 		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
 		if(confirm(\"".__('Are you sure you want to delete this comment?', 'sk')."\")) {
@@ -1291,7 +1291,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		}'>" . __('Delete' , 'sk') . "</a> | ";
 		if($comment->user_id!=0) {
 			$mannage.="<a style='cursor: pointer;' onclick='
-		var aux =document.getElementById(\"sk-$rand-$id\");
+		var aux = document.getElementById(\"sk-$rand-$id\");
 		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
 		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
 		if(confirm(\"".__('Are you sure you want to mark this comment as blacklisted?', 'sk')."\")) {
@@ -1299,10 +1299,10 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		} else {
 			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
 			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
-		}''>". __('Reject', 'sk') . "</a> | ";
+		}'>". __('Reject', 'sk') . "</a> | ";
 		}
 		$mannage.="<a style='cursor: pointer;' onclick='
-		var aux =document.getElementById(\"sk-$rand-$id\");
+		var aux = document.getElementById(\"sk-$rand-$id\");
 		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
 		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
 		if(confirm(\"".__('Are you sure you want to mark this comment as SPAM?', 'sk')."\")) {
