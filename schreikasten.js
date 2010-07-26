@@ -1,3 +1,13 @@
+//Change title
+function sk_alternateTitle(title1, title2) {
+	if(!sk_hasFocus) {
+		document.title = title1;
+		setTimeout( 'sk_alternateTitle(\''+title2+'\', \''+title1+'\');' , 1500 );
+	} else {
+		document.title = sk_old_title;
+	}
+}
+
 //Play sound
 var Sound = new Object();
 Sound.play = function Sound_play(src) {
@@ -10,8 +20,8 @@ Sound.play = function Sound_play(src) {
 	else {
 		elm = document.createElement("object");
 		elm.setAttribute("data",src);
+		elm.setAttribute("style","display: block; visibility: hidden; width: 1px; height: 1px; margin: 0px; padding: 0px;");
 		elm.setAttribute("type","audio/x-wav");
-		elm.setAttribute("controller","true");
 	}
 	document.body.appendChild(elm);
 	this.elm = elm;

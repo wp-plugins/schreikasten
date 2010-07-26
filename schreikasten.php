@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.100
+Version: 0.13.101
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -90,12 +90,17 @@ function sk_header() {
 	// Define custom JavaScript function
 	echo "
 	<script type='text/javascript'>
+	/* <![CDATA[ */
 	sk_i18n_error = '".__("Can\'t read Schreikasten Feed", 'sk')."';
 	sk_url = '$url';
+	sk_hasFocus = false;
+	sk_wav = '".sk_plugin_url('img/clap.wav')."';
+	sk_old_title = document.title;
+	sk_title_message = '".__('New message from', 'sk')." ';
+	/* ]]> */
 	</script>
 	<script language='javascript' type='text/javascript' src='".$url."/wp-content/plugins/schreikasten/schreikasten.js?ver=".SK_HEADER_V."'></script>";
 }
-
 
 /**
 * Function to answer the ajax call.
@@ -2086,8 +2091,6 @@ function sk_codeShoutbox($size=false) {
 	$answer = str_replace('%sk_id%', $sk_id, $answer);
 	$answer = str_replace('%sk_page%', $sk_page, $answer);
 	$answer = str_replace('%sk_for%', $sk_for, $answer);
-	$answer = str_replace('%title_message%', __('New message from', 'sk'), $answer);
-	$answer = str_replace('%clap_wav%', sk_plugin_url('img/clap.wav'), $answer);
 	$answer = str_replace('%first_comments%', $first_comments, $answer);
 	$answer = str_replace('%first_page_selector%', $first_page_selector, $answer);
 	$answer = str_replace('%maxchars%', $maxchars, $answer);

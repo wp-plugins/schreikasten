@@ -1,15 +1,6 @@
 <script type='text/javascript'>
 	/* <![CDATA[ */
 	
-	function sk_alternateTitle(title1, title2) {
-		if(!sk_hasFocus) {
-			document.title = title1;
-			setTimeout( 'sk_alternateTitle(\''+title2+'\', \''+title1+'\');' , 1500 );
-		} else {
-			document.title = sk_old_title;
-		}
-	}
-	
 	function sk_timer%rand%() {
 		var sk_timer_div = document.getElementById('sk_timer%rand%');
 		if(sk_timer_div.value) clearTimeout(sk_timer_div.value);
@@ -60,13 +51,6 @@
 		document.getElementsByName('sk_text%rand%')[0].value='';
 		sk_add( alias, email, text, skfor, %rand%, sk_semaphore%rand% );%message%
 	}
-	
-	sk_hasFocus = false;
-	sk_wav = '%clap_wav%';
-	sk_old_title = document.title;
-	sk_title_message = '%title_message% ';
-	window.onblur = function () {sk_hasFocus = false;}
-	window.onfocus = function () {sk_hasFocus = true; document.title = sk_old_title;}
 /* ]]> */
 </script>
 <a name='sk_top'></a>%form_table%%form_button%
@@ -75,6 +59,8 @@
 	%first_page_selector%
 </div>
 <script type='text/javascript'>
+	window.onblur = function () {sk_hasFocus = false;}
+	window.onfocus = function () {sk_hasFocus = true; document.title = sk_old_title;}
 	var sk_semaphore%rand%=new sk_Semaphore();
 	sk_semaphore%rand%.setGreen();
 	%have_for%%show_timer%
