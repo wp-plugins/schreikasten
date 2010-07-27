@@ -140,7 +140,7 @@ Sound.stop = function Sound_stop() {
 			sk_sack.xmlhttp.abort();
 			sk_sack.reset();
 			semaphore.setGreen();
-			document.getElementById('sk_count'+rand).value = int_count = document.getElementById('sk_int_count'+rand).value;
+			document.getElementById('sk_count'+rand).value = document.getElementById('sk_int_count'+rand).value;
 		
 		};
 		
@@ -176,6 +176,7 @@ Sound.stop = function Sound_stop() {
 			sk_sack.xmlhttp.abort();
 			sk_sack.reset();
 			semaphore.setGreen();
+			document.getElementById('sk_count'+rand).value = document.getElementById('sk_int_count'+rand).value;
 		};
 		
 		sk_sack_action.runAJAX();
