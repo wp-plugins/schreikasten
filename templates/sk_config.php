@@ -88,12 +88,24 @@
 
 <tr>
 	<td>
-		<?php _e('Allow replies', 'sk'); ?>:
+		<?php _e('Layout', 'sk'); ?>:
 	</td>
 	<td>
-		<input type="checkbox" class="checkbox" id="sk_replies" name="sk_replies"<?php
-			if($replies) echo " checked"; ?> />
-		</td>
+		<select id="sk_layout" name="sk_layout">
+			<option<?php echo $layout1; ?> value='1'><?php _e('Guest Book', 'sk'); ?></option>
+			<option<?php echo $layout2; ?> value='2'><?php _e('Black Board', 'sk'); ?></option>
+			<option<?php echo $layout3; ?> value='3'><?php _e('Chat Box', 'sk'); ?></option>
+			<option<?php echo $layout4; ?> value='4'><?php _e('Questions and Answers', 'sk'); ?></option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td colspan=2 style='padding-left: 120px;'>
+		<strong><?php _e('Guest Book', 'sk'); ?></strong>: <?php _e('Just to leave messages. No replies.', 'sk'); ?>
+		<br/><strong><?php _e('Black Board', 'sk'); ?></strong>: <?php _e('Anyone can leave replies to any comment, but there wouldn\'t be threads. A reply is listed in the order they come like another comment.', 'sk'); ?>
+		<br/><strong><?php _e('Chat Box', 'sk'); ?></strong>: <?php _e('The space to write comments comes at the bottom, and the messages list goes like in a chat room. Anyone can leave replies to any comment, but there wouldn\'t be threads. A reply is listed in the order they come like another comment.', 'sk'); ?>
+		<br/><strong><?php _e('Questions and Answers', 'sk'); ?></strong>: <?php _e('Only the administrator can leave a reply, and it will be shown right after the parent message.', 'sk'); ?>
+	</td>
 </tr>
 
 <tr>

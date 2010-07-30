@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.102
+Stable tag: 0.13.103
 
 A shoutbox using ajax and akismet.
 
@@ -111,8 +111,11 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 
 == Changelog ==
 
+= 0.13.103 =
+* Added layout configuration. Guest Book, Black Board, Chat Room and Q&A.
+
 = 0.13.102 =
-* Update internatl count when a comment has been deleted.
+* Update internal count when a comment has been deleted.
 
 = 0.13.101 =
 * Solved bug with sound embeded object

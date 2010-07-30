@@ -23,10 +23,26 @@
 		document.getElementById("sk_for_id%rand%").value=id;
 		document.getElementById("sk_for_name%rand%").innerHTML=name;
 		var text=document.getElementsByName("sk_text%rand%")[0].value;
-		document.getElementsByName("sk_text%rand%")[0].value='%for% '+name+' - '+text;
+		if(%qa%) {
+			document.getElementsByName("sk_text%rand%")[0].value='%answer%: '+text;
+		} else {
+			document.getElementsByName("sk_text%rand%")[0].value='%for% '+name+' - '+text;
+		}
 		document.getElementById("sk_for_tr%rand%").className='sk-for-yep';
 	}
-		
+	
+	function sk_replyDelete%rand%(id, text) {
+		var aux = document.getElementById('sk-%rand%-'+id);
+		aux.setAttribute('class', 'sk-reply sk-reply-on');
+		aux.setAttribute('className', 'sk-reply sk-reply-on');
+		if(confirm(text)) {
+			sk_action(id, 'delete', %rand%, sk_semaphore%rand%);
+		} else {
+			aux.setAttribute('class', 'sk-reply');
+			aux.setAttribute('className', 'sk-reply'); //IE sucks
+		}
+	}
+	
 	function sk_pressButton%rand%() {
 		var alias=document.getElementsByName("sk_alias%rand%")[0].value;
 		var text=document.getElementsByName("sk_text%rand%")[0].value;
@@ -39,10 +55,14 @@
 		document.getElementById('th_sk_alias%rand%').innerHTML = alias.replace(/&/gi,"&amp;");
 		var aux_text=text.replace(/\n/g,"<br>"); 
 		document.getElementById('th_sk_text%rand%').innerHTML = aux_text.replace(/&/gi,"&amp;");
-		document.getElementById('throbber-img%rand%').setAttribute('class','throbber-img-on');
-		document.getElementById('throbber-img%rand%').setAttribute('className','throbber-img-on'); //IE sucks
-		document.getElementById('throbber-img%rand%').style.visibility='visible';
-		
+		if(%chat%){
+			document.getElementById('throbber-page%rand%').setAttribute('class','throbber-page-on');
+			document.getElementById('throbber-page%rand%').setAttribute('className','throbber-page-on'); //IE sucks
+		} else {
+			document.getElementById('throbber-img%rand%').setAttribute('class','throbber-img-on');
+			document.getElementById('throbber-img%rand%').setAttribute('className','throbber-img-on'); //IE sucks
+			document.getElementById('throbber-img%rand%').style.visibility='visible';
+		}
 		email=email.replace(/&amp;/gi,"y");
 		alias=alias.replace(/&/gi,"%26");
 		text=text.replace(/&/gi,"%26");
@@ -53,11 +73,7 @@
 	}
 /* ]]> */
 </script>
-<a name='sk_top'></a>%form_table%%form_button%
-<div id='sk_content%rand%'>
-	%first_comments%
-	%first_page_selector%
-</div>
+%sk_general%
 <script type='text/javascript'>
 	window.onblur = function () {sk_hasFocus = false;}
 	window.onfocus = function () {sk_hasFocus = true; document.title = sk_old_title;}

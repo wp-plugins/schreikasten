@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.102
+Version: 0.13.103
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -40,8 +40,15 @@ define ("SK_ANNOUNCE_CONFIG", 1);
 define ("SK_ANNOUNCE_YES", 2);
 define ("SK_ANNOUNCE_NO", 3);
 
+define ("SK_LAYOUT_SHOUTBOX", 1);
+define ("SK_LAYOUT_BOARD", 2);
+define ("SK_LAYOUT_CHAT", 3);
+define ("SK_LAYOUT_QA", 4);
+
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.4);
+define ("SK_HEADER_V", 1.5);
+
+
 
 require_once("legacy.php");
 
@@ -601,7 +608,7 @@ function sk_activate()
 		}
 		
 		//Widget options
-		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
+		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
 		add_option('sk_options', $options);
 		
 		add_option('sk_db_version', SK_DB_VERSION);
@@ -613,7 +620,7 @@ function sk_activate()
 	}
 	
 	//Widget options
-	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'replies'=>false, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
+	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
 	add_option('sk_options', $options);
 	
 	//Have we updated or no?
@@ -624,6 +631,14 @@ function sk_activate()
 		skLegacy_updateWidget();
 	}
 	
+	//Update layout configuration
+	$options = get_option('sk_options');
+	if(isset($options['replies'])) {
+		if($options['replies']) $options['layout'] = SK_LAYOUT_BOARD;
+		else $options['layout'] = SK_LAYOUT_SHOUTBOX;
+		unset($options['replies']);
+		update_option('sk_options', $options);
+	}
 }
 
 /**
@@ -663,7 +678,7 @@ function sk_reply($id) {
 	//If we have the 'from' data and it is a reply
 	if($from->reply!=0) {
 		//Get the 'for' data
-		$query="SELECT * FROM " . $table_name ." WHERE id=".$from->reply;
+		$query="SELECT * FROM " . $table_name ." WHERE id=".(-1*$from->reply);
 		$for = $wpdb->get_row($query);
 		
 		$website=get_option('blogname');
@@ -680,7 +695,7 @@ function sk_reply($id) {
 			
 			@wp_mail($email, sprintf(__('An answer to your comment on %s', 'sk'), $website), $notify_message);
 			//To not resend the reply, clear the reply column
-			$query="UPDATE $table_name SET reply=0 WHERE id=".$id;
+			$query="UPDATE $table_name SET reply=reply*-1 WHERE id=".$id;
 			$wpdb->query($query);
 			
 			$answer=true;
@@ -814,7 +829,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 						" (alias, text, date, ip, status, user_id, email, reply) " .
 						"VALUES ('%s', '%s', '%s', '%s', %d, %d, '%s', %d)";
 					//Add the comment, mark it to moderate
-					$insert = $wpdb->prepare( $insert, $alias, $text, $time, $ip, SK_MOOT, $user_id, $email, $for );
+					$insert = $wpdb->prepare( $insert, $alias, $text, $time, $ip, SK_MOOT, $user_id, $email, (-1*$for) );
 					if($answer = $wpdb->query( $insert ) ) { //If the comment was accepted
 						$id = $wpdb->get_var("select last_insert_id()");
 						$answer=$id;
@@ -1224,6 +1239,62 @@ function sk_unlock($id) {
 * @param objetc comment The comment
 * @param sending Is this the comment we are sending?
 */
+function sk_canReply() {
+	global $current_user;
+	
+	$answer = false;
+	$sk_canmannage=false;
+	
+	if($current_user) {
+		$capabilities=$current_user->wp_capabilities;
+		if($capabilities['administrator']) {
+			$sk_canmannage=true;
+		}
+	}
+	$options = get_option('sk_options');
+	
+	if($options['layout'] == SK_LAYOUT_BOARD || $options['layout'] == SK_LAYOUT_CHAT || ($options['layout'] == SK_LAYOUT_QA && $sk_canmannage)) $answer = true;
+	
+	return $answer;
+}
+
+/**
+* Format the replies to be displayed below a comment (Q&A)
+*
+* @access public
+* @param objetc comment The comment
+* @param sending Is this the comment we are sending?
+*/
+function sk_format_replies($id,$sk_canmannage=false,$rand=false) {
+	global $wpdb;
+	$answer = false;
+	$options = get_option('sk_options');
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT id, text FROM $table_name WHERE reply = $id AND status=".SK_HAM." ORDER BY date ASC";
+	$comments = $wpdb->get_results($sql);
+	
+	foreach($comments as $comment) {
+		$mannage = "";
+		//If the user can mannage, set the mannage system inside the comment
+		$edit = "";
+		if($sk_canmannage) {
+			$id = $comment->id;
+			$edit="<a href='javascript:sk_replyDelete$rand($id,\"".__('Are you sure you want to delete this comment?', 'sk')."\");'>" . __('[delete]' , 'sk') . "</a> | <a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
+			$edit = "<div align='right'>$edit</div>";
+		}
+		$answer.="<div class='sk-reply' id='sk-$rand-$id'>{$comment->text}$edit</div>";
+	}
+	
+	return $answer;
+}
+
+/**
+* Format a comment to be displayed in the shoutbox
+*
+* @access public
+* @param objetc comment The comment
+* @param sending Is this the comment we are sending?
+*/
 function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	global $current_user;
 	
@@ -1247,7 +1318,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	$options = get_option('sk_options');
 	
 	//If we can reply a message, create the reply system 
-	if($options['replies']) {
+	if(sk_canReply()) {
 		$for=" ";
 		if(!$sending) {
 			if($comment->email!="") {
@@ -1346,6 +1417,10 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 			<div class='skwidget-edit'>$for $edit</div>
 			<div style='clear: both;'></div>
 		</div>";
+		
+	if($options['layout']==SK_LAYOUT_QA) {
+		if($replies = sk_format_replies($comment->id,$sk_canmannage,$rand)) $item.=$replies;
+	}
 	
 	//if we show avatars, use the images
 	$id = $comment->id;
@@ -1452,8 +1527,16 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	$table_name = $wpdb->prefix . "schreikasten";
 	
 	//Get the comments to show
-	$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
+	if($options['layout']!=SK_LAYOUT_QA) {
+		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." ORDER BY id desc LIMIT $first, $size";
+	} else {
+		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." AND reply = 0 ORDER BY id desc LIMIT $first, $size";
+	}
 	$comments = $wpdb->get_results($sql);
+	
+	if($options['layout']==SK_LAYOUT_CHAT) {
+		$comments = array_reverse($comments);
+	}
 
 	//if we don't show avatars, then it's a list	
 	if(!$options['avatar']) {
@@ -1561,10 +1644,6 @@ function sk_config() {
 		if($_POST['sk_rss'])
 			$options['rss'] = true;
 		
-		$options['replies'] = false;
-		if($_POST['sk_replies'])
-			$options['replies'] = true;
-		
 		$options['alert_about_emails'] = false;
 		if($_POST['sk_alert_about_emails'])
 			$options['alert_about_emails'] = true;
@@ -1576,6 +1655,7 @@ function sk_config() {
 		$options['registered'] = $_POST['sk_registered'];
 		$options['announce'] = $_POST['sk_announce'];
 		$options['requiremail'] = $_POST['sk_requiremail'];
+		$options['layout'] = $_POST['sk_layout'];
 		
 		$options['moderation'] = $_POST['sk_moderation'];
 		
@@ -1593,7 +1673,7 @@ function sk_config() {
 
 	$status=$options['avatar'];
 	$registered=$options['registered'];
-	$replies=$options['replies'];
+	$layout=$options['layout'];
 	$alert_about_emails=$options['alert_about_emails'];
 	$rss=$options['rss'];
 	
@@ -1617,6 +1697,9 @@ function sk_config() {
 	
 	$announce="announce".$options['announce'];
 	$$announce=' selected="selected"';
+	
+	$layout="layout".$options['layout'];
+	$$layout=' selected="selected"';
 	
 	//Do we have messages to show?
 	if(count($messages)>0) {
@@ -1879,11 +1962,15 @@ function sk_manage() {
 function sk_codeShoutbox($size=false) {
 	global $wpdb, $current_user;
 	
+	$options = get_option('sk_options');
+	
 	//Size
 	if(!$size) {
-		$options = get_option('sk_options');
 		$size = $options['items'];
 	}
+	
+	if(isset($options['replies'])) sk_activate();
+	
 	if(!is_numeric($size) || $size<1) $size = 5;
 	$sk_size = $size;
 	
@@ -1983,7 +2070,7 @@ function sk_codeShoutbox($size=false) {
 	}
 	
 	$form_button="";
-	$form_table="<table width='100%' border='0' style='margin: 0px;' class='sk-table'>
+	$form_table="<a name='sk_top'></a><table width='100%' border='0' style='margin: 0px;' class='sk-table'>
 	<tr><td width='20'></td><td width='100%'></td></tr>";
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
@@ -2077,6 +2164,18 @@ function sk_codeShoutbox($size=false) {
 	
 	$lenght = __("The lenght of the message is bigger than the allowed size.", "sk");
 	
+	$chat = "false";
+	$qa = "false";
+	$sk_general = "%form_table%%form_button%<div id='sk_content%rand%'>%first_comments%	%first_page_selector%</div>";
+	switch($options['layout']) {
+		case SK_LAYOUT_CHAT:
+			$sk_general = "<div id='sk_content%rand%'>%first_comments%%first_page_selector%</div>%form_table%%form_button%";
+			$chat = "true";
+			break;
+		case SK_LAYOUT_QA:
+			$qa="true";
+			break;
+	}
 	/******************* End of the hughe part where we are debuging now *************/
 	
 	$file = ABSPATH."wp-content/plugins/schreikasten/templates/sk_widget.php";
@@ -2086,8 +2185,13 @@ function sk_codeShoutbox($size=false) {
 			$answer .= fread($fop, 1024);
 		fclose($fop);
 	}
+	
+	$answer = str_replace('%sk_general%', $sk_general, $answer);
 	$answer = str_replace('%rand%', $rand, $answer);
 	$answer = str_replace('%nonce%', $nonce, $answer);
+	$answer = str_replace('%chat%', $chat, $answer);
+	$answer = str_replace('%qa%', $qa, $answer);
+	$answer = str_replace('%answer%', __('Answer', 'sk'), $answer);
 	$answer = str_replace('%sk_id%', $sk_id, $answer);
 	$answer = str_replace('%sk_page%', $sk_page, $answer);
 	$answer = str_replace('%sk_for%', $sk_for, $answer);
@@ -2168,7 +2272,7 @@ function sk_feed($max=20) {
 	foreach($comments as $comment) {
 		$for="";
 		//If we can reply a message, create the reply system 
-		if($options['replies']) {
+		if(sk_canReply()) {
 			if($comment->email!="") {
 				$for.="<a style='text-decoration: none;' href='{$link}?sk_for={$comment->id}#sk_top' onclick='javascript:for_set(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
 			} else {
