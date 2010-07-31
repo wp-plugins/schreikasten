@@ -113,7 +113,7 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 == Screenshots ==
 
 1. Left: non logged user and guest book layout (without replies). Right: administrator (edit, delete, spam) and black board (with replies).
-1. Left: non logged user and questions and answers layout (only administrator can reply and any reply is shonw right after the question). Right: administrator (edit, delete, spam) and chat (with replies, text area at bottom and messages in chat order).
+1. Left: non logged user and questions and answers layout (only administrator can reply and any reply is shown right after the question). Right: administrator (edit, delete, spam) and chat layout (with replies, text area at bottom and messages in chat order).
 3. Widget Options.
 4. Page to set the API KEY to use Akismet.
 5. Page to mannage comments. See the __Schreikasten__ option in the Comments item at the left menu.
