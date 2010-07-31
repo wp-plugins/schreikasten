@@ -10,7 +10,18 @@ A shoutbox using ajax and akismet.
 == Description ==
 
 This plugin enables a shoutbox widget, integrated with Wordpress look n' feel,
-using ajax to add comments and filtering comments with Akismet as spam filter. 
+using ajax to add comments and filtering comments with Akismet as spam filter.
+
+There are 4 layouts to select from:
+
+* Guest Book: Just to leave messages. No replies.
+* Black Board: Anyone can leave replies to any comment, but there wouldn't be 
+threads. A reply is listed in the order they come like another comment.
+* Chat Box: The space to write comments comes at the bottom, and the messages 
+list goes like in a chat room. Anyone can leave replies to any comment, but there 
+wouldn't be threads. A reply is listed in the order they come like another comment.
+* Questions and Answers: Only the administrator can leave a reply, and it will be 
+shown right after the parent message.
 
 It also allows to define if the administrador has to approve every new comment.
 You can mark a PC to be blocked for furter comments until a date, or just to mark 
@@ -101,13 +112,14 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 
 == Screenshots ==
 
-1. The widget (left) for a non logged user (right) and the administrator.
-2. Widget Options.
-3. Page to set the API KEY to use Akismet.
-4. Page to mannage comments. See the __Schreikasten__ option in the Comments item at the left menu.
-5. Page to edit a comment.
-6. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the items to lock it forever or enable it now.
-7. Tracking system to read comments from one user.
+1. Left: non logged user and guest book layout (without replies). Right: administrator (edit, delete, spam) and black board (with replies).
+1. Left: non logged user and questions and answers layout (only administrator can reply and any reply is shonw right after the question). Right: administrator (edit, delete, spam) and chat (with replies, text area at bottom and messages in chat order).
+3. Widget Options.
+4. Page to set the API KEY to use Akismet.
+5. Page to mannage comments. See the __Schreikasten__ option in the Comments item at the left menu.
+6. Page to edit a comment.
+7. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the items to lock it forever or enable it now.
+8. Tracking system to read comments from one user.
 
 == Changelog ==
 
