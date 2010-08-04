@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.105
+Version: 0.13.106
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -2077,6 +2077,7 @@ function sk_codeShoutbox($size=false) {
 	$form_button="";
 	$form_table="<a name='sk_top'></a><table width='100%' border='0' style='margin: 0px;' class='sk-table'>
 	<tr><td width='20'></td><td width='100%'></td></tr>";
+	$sk_count = sk_count(SK_HAM);
 	
 	$hidden = "<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_count$rand' name='sk_count$rand' value='$sk_count' /><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' />";
 	
@@ -2150,7 +2151,6 @@ function sk_codeShoutbox($size=false) {
 		}
 		$button.="</div>";
 		
-		$sk_count = sk_count(SK_HAM);
 		$form_button = "<table width='100%' class='sk-table'>		
 			<tr>
 				<td colspan='2' class='sk-little'>
