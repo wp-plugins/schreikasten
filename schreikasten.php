@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.103
+Version: 0.13.104
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -2072,11 +2072,13 @@ function sk_codeShoutbox($size=false) {
 	$form_button="";
 	$form_table="<a name='sk_top'></a><table width='100%' border='0' style='margin: 0px;' class='sk-table'>
 	<tr><td width='20'></td><td width='100%'></td></tr>";
+	
+	$hidden = "<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_count$rand' name='sk_count$rand' value='$sk_count' /><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' />";
+	
 	if(sk_only_registered_users() && $current_user->ID==0) {
 		$form_table.= "<tr>
 			<td colspan='2' id='skwarning'>
-				<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_page$rand' value='$sk_page'/>
-				".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
+				$hidden".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
 			</td>
 		</tr>
 	</table>";
@@ -2148,7 +2150,7 @@ function sk_codeShoutbox($size=false) {
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>
-						<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_count$rand' name='sk_count$rand' value='$sk_count' /><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' /><input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+						$hidden<input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
 					</div>
 					$button
 				</td>
