@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.106
+Version: 0.13.107
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -936,30 +936,32 @@ function sk_can_not_accept_more_messages($pc=false) {
 	global $wpdb;
 	global $current_user;
 	$answer=false;
-	$options = get_option('sk_options');
-	
-	//max number of messages a blacklisted pc can send
-	$max=$options['bl_maxpending'];
-	
-	//use the current pc id (or user id) if the function didn't get the variable
-	if(!$pc) {
-	get_currentuserinfo();
-	$pc=0;
-	if($current_user->ID>0) {
+	if(sk_is_blacklisted($pc)) {
+		$options = get_option('sk_options');
+		
+		//max number of messages a blacklisted pc can send
+		$max=$options['bl_maxpending'];
+			
+		//use the current pc id (or user id) if the function didn't get the variable
+		if(!$pc) {
+			get_currentuserinfo();
+			$pc=0;
+			if($current_user->ID>0) {
 				$pc=$current_user->ID;
 			} else {
-			$pc=sk_cookie_id();
+				$pc=sk_cookie_id();
 			}
-	}
-	
-	//get the numbr of messages a pc (or user) have pending from moderation
-	$table_name = $wpdb->prefix . "schreikasten";
-	$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status = ".SK_MOOT." AND user_id = ".$pc;
-	$total=$wpdb->get_var( $query );
-	
-	//if it has more or equal, inform this user can't send more comments
-	if($total>=$max) {
-		$answer=true;
+		}
+		
+		//get the numbr of messages a pc (or user) have pending from moderation
+		$table_name = $wpdb->prefix . "schreikasten";
+		$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status = ".SK_MOOT." AND user_id = ".$pc;
+		$total=$wpdb->get_var( $query );
+		
+		//if it has more or equal, inform this user can't send more comments
+		if($total>=$max) {
+			$answer=true;
+		}
 	}
 	return $answer;
 }
