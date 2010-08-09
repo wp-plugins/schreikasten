@@ -61,8 +61,10 @@ Sound.stop = function Sound_stop() {
 	var sk_sack = new sack(sk_url+'/wp-admin/admin-ajax.php' );
 	var sk_sack_action = new sack(sk_url+'/wp-admin/admin-ajax.php' );
 	
-	function sk_feed( page, rand, semaphore, timer )
+	function sk_feed( page, rand, semaphore, force, timer )
 	{
+		var force = (force == null) ? false : force;
+		var timer = (timer == null) ? false : timer;
 		if( semaphore.isGreen() ) {
 			
 			semaphore.setRed();
@@ -76,38 +78,44 @@ Sound.stop = function Sound_stop() {
 			//The ajax call data
 			sk_sack.setVar( 'page', page );
 			sk_sack.setVar( 'rand', rand );
+			sk_sack.setVar( 'force', force );
 			sk_sack.setVar( 'size' , document.getElementById('sk_size'+rand).value );
+			sk_sack.setVar( 'count', document.getElementById('sk_count'+rand).value );
 			
 			sk_sack.onCompletion = function() {
-				var page = sk_sack.vars['page'][0];
-				var rand = sk_sack.vars['rand'][0];
-				var doc = document.getElementById('sk_content'+rand);
-				doc.innerHTML = sk_sack.response;
-				semaphore.setGreen();
-				if(timer) {
-					var count = document.getElementById('sk_count'+rand).value;
-					var int_count = document.getElementById('sk_int_count'+rand).value;
-					var last = document.getElementById('sk_int_last'+rand).value;
-					if(count != int_count) {
-						document.getElementById('sk_count'+rand).value = int_count;
-						if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
-						Sound.play(sk_wav);
-					}
-				}
-				if(document.getElementById('sk_page'+rand).value!=page) {
-					var aux = document.getElementById('throbber-page'+rand);
-					aux.setAttribute('class', 'throbber-page-on');
-					aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				if(sk_sack.response=='none') {
+					semaphore.setGreen();
 				} else {
-					sk_sack.xmlhttp.abort();
-					sk_sack.reset();
+					var page = sk_sack.vars['page'][0];
+					var rand = sk_sack.vars['rand'][0];
+					var doc = document.getElementById('sk_content'+rand);
+					doc.innerHTML = sk_sack.response;
+					semaphore.setGreen();
+					if(timer) {
+						var count = document.getElementById('sk_count'+rand).value;
+						var int_count = document.getElementById('sk_int_count'+rand).value;
+						var last = document.getElementById('sk_int_last'+rand).value;
+						if(count != int_count) {
+							document.getElementById('sk_count'+rand).value = int_count;
+							if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
+							Sound.play(sk_wav);
+						}
+					}
+					if(document.getElementById('sk_page'+rand).value!=page) {
+						var aux = document.getElementById('throbber-page'+rand);
+						aux.setAttribute('class', 'throbber-page-on');
+						aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+					} else {
+						sk_sack.xmlhttp.abort();
+						sk_sack.reset();
+					}
 				}
 			};
 			
 			sk_sack.runAJAX();
 			
 		} else {
-			setTimeout(function (){ sk_feed( page, rand, semaphore, timer ); }, 300);
+			setTimeout(function (){ sk_feed( page, rand, semaphore, force, timer ); }, 300);
 		}
 		return true;
 	}

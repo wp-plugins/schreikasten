@@ -10,7 +10,7 @@
 	
 	function sk_refresh%rand%(timer) {
 		var sk_timer_div = document.getElementById('sk_timer%rand%');%show_timer%
-		sk_feed( document.getElementById('sk_page%rand%').value, %rand%, sk_semaphore%rand%, timer);
+		sk_feed( document.getElementById('sk_page%rand%').value, %rand%, sk_semaphore%rand%, false, timer);
 	}
 	
 	function for_delete%rand%() {

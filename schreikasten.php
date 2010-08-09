@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.107
+Version: 0.13.108
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.5);
+define ("SK_HEADER_V", 1.6);
 
 
 
@@ -120,11 +120,16 @@ function sk_ajax() {
 	$rand  = $_POST['rand'];
 	$page  = $_POST['page'];
 	$size  = $_POST['size'];
+	$count = $_POST['count'];
+	$force = $_POST['force'];
 	if(!is_numeric($size) || $size<1) $size = 5;
 	
+	if($force=='true') $force = true; else $force = false;
+	
 	//Get the new data.
-	$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
-
+	$results = "none";
+	if($force || $count<sk_count(SK_HAM))
+		$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
 	// Compose JavaScript for return
 	die( $results );
 }
@@ -492,7 +497,7 @@ function sk_page_selector($size, $group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=1;
 				$timer
-				sk_feed( 1, $rand, sk_semaphore$rand );\">$first_item</a> &#183; ";
+				sk_feed( 1, $rand, sk_semaphore$rand, true );\">$first_item</a> &#183; ";
 	}
 	
 	//Create the page list and the links
@@ -507,7 +512,7 @@ function sk_page_selector($size, $group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=$group_id;
 				$timer
-				sk_feed( $group_id, $rand, sk_semaphore$rand );\">$group_id</a> &#183; ";
+				sk_feed( $group_id, $rand, sk_semaphore$rand, true );\">$group_id</a> &#183; ";
 		}
 	}
 
@@ -521,7 +526,7 @@ function sk_page_selector($size, $group=1,$rand=false) {
 				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
 				document.getElementById('sk_page$rand').value=$groups;
 				$timer
-				sk_feed( $groups, $rand, sk_semaphore$rand );\">$last_item</a> &#183; ";
+				sk_feed( $groups, $rand, sk_semaphore$rand, true );\">$last_item</a> &#183; ";
 	}
 
 	//As every link ends with a line, delete the last one as we don't need it

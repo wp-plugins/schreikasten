@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.107
+Stable tag: 0.13.108
 
 A shoutbox using ajax and akismet.
 
@@ -122,6 +122,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.108 =
+* First part to implement an heuristic into 'chat' behavior to decrease bandwidth usage.
 
 = 0.13.107 =
 * Solved bug with blacklist that blocks even non blacklisted PC's when number of allowed comments were set to 0 (None).
