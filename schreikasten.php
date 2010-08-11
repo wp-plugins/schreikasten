@@ -2108,13 +2108,13 @@ function sk_codeShoutbox($size=false) {
 	
 		if($current_user->ID==0) {
 			$form_table.="<tr>
-				<td>".__('Name', 'sk').":</td>
+				<td nowrap>".__('Name', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' name='sk_alias$rand' value='$alias'/>
 				</td>
 			</tr>
 			<tr>
-				<td>".__('Email', 'sk').":</td>
+				<td nowrap>".__('Email', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' name='sk_email$rand' value='$email'/>
 				</td>
