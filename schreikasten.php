@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.108
+Version: 0.13.109
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.6);
+define ("SK_HEADER_V", 1.7);
 
 
 
@@ -128,7 +128,7 @@ function sk_ajax() {
 	
 	//Get the new data.
 	$results = "none";
-	if($force || $count<sk_count(SK_HAM))
+	if($force || $count!=sk_count(SK_HAM))
 		$results = sk_show_comments($size, $page, false, $rand).sk_page_selector($size, $page,$rand); 
 	// Compose JavaScript for return
 	die( $results );

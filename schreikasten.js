@@ -96,9 +96,11 @@ Sound.stop = function Sound_stop() {
 						var int_count = document.getElementById('sk_int_count'+rand).value;
 						var last = document.getElementById('sk_int_last'+rand).value;
 						if(count != int_count) {
+							if(int_count > count) {
+								if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
+								Sound.play(sk_wav);
+							}
 							document.getElementById('sk_count'+rand).value = int_count;
-							if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
-							Sound.play(sk_wav);
 						}
 					}
 					if(document.getElementById('sk_page'+rand).value!=page) {
