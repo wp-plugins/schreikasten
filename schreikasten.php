@@ -1955,11 +1955,11 @@ function sk_manage() {
 				echo "</div>";
 			}
 			
-			if($select==SK_BLOCKED)
+			if($select==SK_BLOCKED) {
 				include('templates/sk_manageblack.php');
-			else
+			} else {
 				include('templates/sk_manage.php');
-			
+			}
 			break;
 	}
 	
@@ -2122,7 +2122,7 @@ function sk_codeShoutbox($size=false) {
 		}
 		
 		$form_table.="<tr class='sk-for-nai' id='sk_for_tr$rand'>
-			<td>".__('For', 'sk').":</td>
+			<td nowrap>".__('For', 'sk').":</td>
 			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
 		</tr>
 		<tr>
