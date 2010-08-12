@@ -94,6 +94,7 @@ img.avatar-41 {
   }
 	
 div.sk-widgettext {
+	clear: both;
 	overflow: hidden;
 	margin-top : 3px;
 }
