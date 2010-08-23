@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.110
+Version: 0.13.111
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.7);
+define ("SK_HEADER_V", 1.8);
 
 
 
@@ -58,6 +58,7 @@ $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 add_action('init', 'sk_text_domain');
 add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
+add_action('wp_footer', 'sk_footer');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_plugin', 'sk_activate');
 add_filter('the_content', 'sk_content');
@@ -77,7 +78,7 @@ require_once('libs/SimpleRSSFeedCreator.php');
 */
 function sk_header() {
 	echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
-	$css = get_theme_root()."/".get_template()."/schreikasten.css";
+	$css = get_theme_root()."/".get_template()."/schreikasten.css?ver=".SK_HEADER_V;
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css?ver=".SK_HEADER_V."' type='text/css' media='screen' />";
 	}
@@ -107,6 +108,16 @@ function sk_header() {
 	/* ]]> */
 	</script>
 	<script language='javascript' type='text/javascript' src='".$url."/wp-content/plugins/schreikasten/schreikasten.js?ver=".SK_HEADER_V."'></script>";
+}
+
+/**
+* Function to add the required data to the footer in the site.
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_footer() {
+	echo "<span id='sk_player' style='position: fixed; top: 10px; left: 10px;'></span>";
 }
 
 /**
@@ -2082,7 +2093,7 @@ function sk_codeShoutbox($size=false) {
 	}
 	
 	$form_button="";
-	$form_table="<a name='sk_top'></a><table width='100%' border='0' style='margin: 0px;' class='sk-table'>
+	$form_table="<a name='sk_top'></a><table border='0' class='sk-table'>
 	<tr><td width='20'></td><td width='100%'></td></tr>";
 	$sk_count = sk_count(SK_HAM);
 	
@@ -2108,13 +2119,13 @@ function sk_codeShoutbox($size=false) {
 	
 		if($current_user->ID==0) {
 			$form_table.="<tr>
-				<td nowrap>".__('Name', 'sk').":</td>
+				<td nowrap='nowrap'>".__('Name', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' name='sk_alias$rand' value='$alias'/>
 				</td>
 			</tr>
 			<tr>
-				<td nowrap>".__('Email', 'sk').":</td>
+				<td nowrap='nowrap'>".__('Email', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' name='sk_email$rand' value='$email'/>
 				</td>
@@ -2122,7 +2133,7 @@ function sk_codeShoutbox($size=false) {
 		}
 		
 		$form_table.="<tr class='sk-for-nai' id='sk_for_tr$rand'>
-			<td nowrap>".__('For', 'sk').":</td>
+			<td nowrap='nowrap'>".__('For', 'sk').":</td>
 			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
 		</tr>
 		<tr>
@@ -2158,7 +2169,7 @@ function sk_codeShoutbox($size=false) {
 		}
 		$button.="</div>";
 		
-		$form_button = "<table width='100%' class='sk-table'>		
+		$form_button = "<table class='sk-table'>		
 			<tr>
 				<td colspan='2' class='sk-little'>
 					<div class='sk-box-button'>

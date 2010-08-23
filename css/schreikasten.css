@@ -133,6 +133,7 @@ div.sk-widgettext {
  }
   
 .skwidget-edit {
+	margin-left: 10px;
 	white-space: nowrap;
 	float : right;
 }
@@ -221,6 +222,11 @@ tr.sk-for-yep {
 	font-size : 125%;
 }
 
+table.sk-table {
+	width: 100%;
+	margin: 0px;
+}
+
 table.sk-table tr td {
 	margin: 0px;
 	background-color: transparent;
@@ -239,6 +245,12 @@ div.sk-reply-on {
 
 /*.sk-user-admin {
 	background-color: #F1F1F1;
+}
+
+.sk-user-admin div img.avatar {
+	float: right;
+	margin-right: 0px;
+	margin-left: 5px;
 }
 
 .sk-user-editor {

@@ -8,8 +8,13 @@ function sk_alternateTitle(title1, title2) {
 	}
 }
 
+function sk_play(src) {
+  document.getElementById('sk_player').innerHTML=
+    '<embed src="'+src+'" hidden=true autostart=true loop=false>';
+}
+
 //Play sound
-var Sound = new Object();
+/*var Sound = new Object();
 Sound.play = function Sound_play(src) {
 	this.stop();
 	var elm;
@@ -33,7 +38,7 @@ Sound.stop = function Sound_stop() {
 		this.elm.parentNode.removeChild(this.elm);
 		this.elm = null;
 	}
-};
+};*/
 
 //Semaphore class
 	function sk_Semaphore() {
@@ -97,8 +102,10 @@ Sound.stop = function Sound_stop() {
 						var last = document.getElementById('sk_int_last'+rand).value;
 						if(count != int_count) {
 							if(int_count > count) {
+								var aux_focus = document.activeElement;
 								if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
-								Sound.play(sk_wav);
+								sk_play(sk_wav);
+								aux_focus.focus();
 							}
 							document.getElementById('sk_count'+rand).value = int_count;
 						}

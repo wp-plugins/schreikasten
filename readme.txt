@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.110
+Stable tag: 0.13.111
 
 A shoutbox using ajax and akismet.
 
@@ -37,10 +37,10 @@ The anti Spam filter requires an Akismet API KEY. If you have one enabled in you
 site you can use it in this plugin too. If you don't have an API KEY, create one
 in [this site](http://en.wordpress.com/api-keys/).
 
-To add a shoutbox into a page or post, use the tag __[schreikasten:title,items,rssicon]__, 
-where __title__ should be the text to display as header, __items__ is the number of
-items to show in every single page, and __rssicon__ (true or false) sets if you want to 
-display the rss icon.
+To add a shoutbox into a page or post, use the tags __[schreikasten:title,items,rssicon]__ 
+or __[schreikasten:items]__, where __title__ should be the text to display as header, 
+__items__ is the number of items to show in every single page, and __rssicon__ (true 
+or false) sets if you want to display the rss icon.
 
 If you want to enable the rss capability, your shoutbox is in a single page or 
 post and you don't use a Shoutbox widget that would be displayed everywhere in your 
@@ -122,6 +122,11 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.111 =
+* Solved bug with sk-table in CSS width.
+* New sound script.
+* HTML valiated (nowrap bug).
 
 = 0.13.110 =
 * First release with japanese translation. Thanks __[Chestnut](http://staff.blog.bng.net "Staff blog for Blog City of BNG NET")__.
