@@ -77,7 +77,7 @@ require_once('libs/SimpleRSSFeedCreator.php');
 * @access public
 */
 function sk_header() {
-	echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css")."' type='text/css' media='screen' />";
+	echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css?ver=".SK_HEADER_V)."' type='text/css' media='screen' />";
 	$css = get_theme_root()."/".get_template()."/schreikasten.css?ver=".SK_HEADER_V;
 	if(file_exists($css)) {
 		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css?ver=".SK_HEADER_V."' type='text/css' media='screen' />";
