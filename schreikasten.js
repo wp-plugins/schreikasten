@@ -8,37 +8,10 @@ function sk_alternateTitle(title1, title2) {
 	}
 }
 
-function sk_play(src) {
-  document.getElementById('sk_player').innerHTML=
-    '<embed src="'+src+'" hidden=true autostart=true loop=false>';
+skBeep = function() {
+	document.getElementById('sk-beep').play(8);
 }
 
-//Play sound
-/*var Sound = new Object();
-Sound.play = function Sound_play(src) {
-	this.stop();
-	var elm;
-	if (typeof document.all != "undefined") {
-		elm = document.createElement("bgsound");
-		elm.src = src;
-	}
-	else {
-		elm = document.createElement("object");
-		elm.setAttribute("data",src);
-		elm.setAttribute("style","display: block; visibility: hidden; width: 1px; height: 1px; margin: 0px; padding: 0px;");
-		elm.setAttribute("type","audio/x-wav");
-	}
-	document.body.appendChild(elm);
-	this.elm = elm;
-	return true;
-};
-
-Sound.stop = function Sound_stop() {
-	if (this.elm) {
-		this.elm.parentNode.removeChild(this.elm);
-		this.elm = null;
-	}
-};*/
 
 //Semaphore class
 	function sk_Semaphore() {
@@ -102,10 +75,8 @@ Sound.stop = function Sound_stop() {
 						var last = document.getElementById('sk_int_last'+rand).value;
 						if(count != int_count) {
 							if(int_count > count) {
-								var aux_focus = document.activeElement;
 								if(!sk_hasFocus) sk_alternateTitle(sk_title_message + last, document.title);
-								sk_play(sk_wav);
-								aux_focus.focus();
+								skBeep();
 							}
 							document.getElementById('sk_count'+rand).value = int_count;
 						}

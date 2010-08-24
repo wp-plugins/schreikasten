@@ -163,7 +163,8 @@
 							<span class='delete'> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'delete_x', 'id' => $comment->id) ); ?>" class="delete" onclick="javascript:check=confirm( '<?php _e("Delete this Comment?",'sk')?>');if(check==false) return false;"><?php _e('Delete', 'sk') ?></a></span>
 							<span class='tracking'> | <a href="<?php echo add_query_arg( array('text'=>$text, 'mode' => 'tracking', 'tid' => $comment->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
 							if($select==SK_BLACK) { ?>
-							<?php if($block_id=sk_is_blacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'unlock_x', 'id' => $block_id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php } else { ?>
+							<?php if($block_id=sk_is_blacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'unlock_x', 'id' => $block_id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php
+							 } else { ?>
 							<span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'lock_x', 'id' => $comment->id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to lock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Lock PC', 'sk') ?></a></span>
 							<?php } 
 							} ?>

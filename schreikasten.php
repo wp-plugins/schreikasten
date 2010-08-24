@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.111
+Version: 0.13.112
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -102,7 +102,6 @@ function sk_header() {
 	sk_i18n_error = '".__("Can\'t read Schreikasten Feed", 'sk')."';
 	sk_url = '$url';
 	sk_hasFocus = false;
-	sk_wav = '".sk_plugin_url('img/clap.wav')."';
 	sk_old_title = document.title;
 	sk_title_message = '".__('New message from', 'sk')." ';
 	/* ]]> */
@@ -117,7 +116,9 @@ function sk_header() {
 * @access public
 */
 function sk_footer() {
-	echo "<span id='sk_player' style='position: fixed; top: 10px; left: 10px;'></span>";
+	echo "<object id='sk-beep' style='visibility: hidden; position: fixed; top: 10px; left: 10px;' class='flash' type='application/x-shockwave-flash' data='".sk_plugin_url('libs/flashbeep_general.swf')."' width='1' height='1'>
+		<param name='movie' value='".sk_plugin_url('libs/flashbeep_general.swf')."' /> 
+	</object>";
 }
 
 /**
