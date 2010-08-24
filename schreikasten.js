@@ -9,7 +9,7 @@ function sk_alternateTitle(title1, title2) {
 }
 
 skBeep = function() {
-	document.getElementById('sk-beep').play(8);
+	document.getElementById('sk-beep').play(10);
 }
 
 
