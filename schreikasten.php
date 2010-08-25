@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.112
+Version: 0.13.113
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.9);
+define ("SK_HEADER_V", 1.10);
 
 
 
@@ -97,8 +97,22 @@ function sk_header() {
 
 	// Define custom JavaScript function
 	echo "
+	<script type='text/javascript' src='".sk_plugin_url("/libs/soundmanager2.js")."'></script>
 	<script type='text/javascript'>
 	/* <![CDATA[ */
+	soundManager.url = '".sk_plugin_url("/libs/")."';
+	soundManager.useFlashBlock = false;
+	soundManager.debugMode = false;
+	soundManager.onready(function() {
+		if (soundManager.supported()) {
+			skSound = soundManager.createSound({
+				id: 'aSound',
+				url: '".sk_plugin_url("/img/drop.mp3")."',
+				volume: 70
+			});
+		}
+	});
+	
 	sk_i18n_error = '".__("Can\'t read Schreikasten Feed", 'sk')."';
 	sk_url = '$url';
 	sk_hasFocus = false;
@@ -116,9 +130,9 @@ function sk_header() {
 * @access public
 */
 function sk_footer() {
-	echo "<object id='sk-beep' style='visibility: hidden; position: fixed; top: 10px; left: 10px;' class='flash' type='application/x-shockwave-flash' data='".sk_plugin_url('libs/flashbeep_general.swf')."' width='1' height='1'>
+	/*echo "<object id='sk-beep' style='visibility: hidden; position: fixed; top: 10px; left: 10px;' class='flash' type='application/x-shockwave-flash' data='".sk_plugin_url('libs/flashbeep_general.swf')."' width='1' height='1'>
 		<param name='movie' value='".sk_plugin_url('libs/flashbeep_general.swf')."' /> 
-	</object>";
+	</object>";*/
 }
 
 /**
