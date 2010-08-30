@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 0.13.113
+Stable tag: 0.13.114
 
 A shoutbox using ajax and akismet.
 
@@ -53,6 +53,8 @@ This plugin is near to a 1.0 release, any bug report would be appreciated.
 Schreikasten has been translated to german by __[Andreas](http://f.indetonation.de/ "Nordic Talking")__, azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__, italian by  __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni, Giochi, Applicazioni, Hardware & Vita!")__ and japanese by __[Chestnut](http://staff.blog.bng.net "Staff blog for Blog City of BNG NET")__. Thanks for your time guys!
 
 Schreikasten uses __[SoundManager](http://www.schillmania.com/projects/soundmanager2/ "A JavaScript Sound API supporting MP3, MPEG4 and HTML5 Audio.")__ to 'beep' when a new comment has come.
+
+Since versione 0.13.114 Schreikasten can add points into CubePoints.
 
 Screenshots are in spanish because it's my native language. As you should know yet 
 I __spe'k__ english, and the plugin use it by default.
@@ -124,6 +126,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.114 =
+* Integrated with CubePoints.
 
 = 0.13.113 =
 * New sound library using flash.

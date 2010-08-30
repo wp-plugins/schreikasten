@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.113
+Version: 0.13.114
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -58,7 +58,6 @@ $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 add_action('init', 'sk_text_domain');
 add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
-add_action('wp_footer', 'sk_footer');
 add_action('admin_menu', 'sk_menus');
 add_action('activate_plugin', 'sk_activate');
 add_filter('the_content', 'sk_content');
@@ -124,15 +123,64 @@ function sk_header() {
 }
 
 /**
-* Function to add the required data to the footer in the site.
-* This function should be called by an action.
+* Does this message exists? Or have been deleted?
 *
+* @param int id Comment id
 * @access public
 */
-function sk_footer() {
-	/*echo "<object id='sk-beep' style='visibility: hidden; position: fixed; top: 10px; left: 10px;' class='flash' type='application/x-shockwave-flash' data='".sk_plugin_url('libs/flashbeep_general.swf')."' width='1' height='1'>
-		<param name='movie' value='".sk_plugin_url('libs/flashbeep_general.swf')."' /> 
-	</object>";*/
+function sk_commentExists($id) {
+	global $wpdb;
+	$answer = false;
+	//Getcomment data
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT count(*) FROM $table_name WHERE id=$id";
+	$count = $wpdb->get_var($sql);
+	if($count>0) $answer = true;
+	return $answer;
+}
+
+/**
+* Function called when a comment has been accepted as HAM
+*
+* @param int id Comment id
+* @access public
+*/
+function sk_actionAdd($id) {
+	global $wpdb;
+	//Getcomment data
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT * FROM $table_name WHERE id=$id";
+	$comments = $wpdb->get_results($sql);
+	if(count($comments)>0) {
+		foreach($comments as $comment) {
+			if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
+				cp_alterPoints($comment->user_id, get_option('cp_comment_points'));
+				cp_log('schreikasten',$comment->user_id,get_option('cp_comment_points'),$comment->id);
+			}
+		}
+	}
+}
+
+/**
+* Function called when a comment has been deleted or marked as SPAM
+*
+* @param int id Comment id
+* @access public
+*/
+function sk_actionDelete($id) {
+	global $wpdb;
+	//Getcomment data
+	$table_name = $wpdb->prefix . "schreikasten";
+	$sql="SELECT * FROM $table_name WHERE id=$id";
+	$comments = $wpdb->get_results($sql);
+	if(count($comments)>0) {
+		foreach($comments as $comment) {
+			if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
+				cp_alterPoints($comment->user_id, -get_option('cp_del_comment_points'));
+				cp_log('schreikasten',$comment->user_id,-get_option('cp_del_comment_points'),$comment->id);
+			}
+		}
+	}
 }
 
 /**
@@ -690,6 +738,7 @@ function sk_delete_comment($id) {
 	//Delete the comment
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query = "DELETE FROM " . $table_name ." WHERE id=" . $id;
+	sk_actionDelete($id); //Call any action we have.
 	$answer=$wpdb->query( $query );
 	return $answer;
 }
@@ -887,6 +936,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 								$query="UPDATE " . $table_name ." SET status='".SK_HAM."' WHERE id=".$id;
 								$wpdb->query( $query );
 								sk_reply($id); //send the reply, if it has one
+								sk_actionAdd($id); //Call external functions.
 							}
 							sk_inform($id); //Inform the administrator
 						}
@@ -1009,6 +1059,7 @@ function sk_mark_as_spam($id) {
 	$table_name = $wpdb->prefix . "schreikasten";
 	$query="UPDATE " . $table_name ." SET status='".SK_SPAM."' WHERE id=".$id;
 	$answer1=$wpdb->query( $query );
+	sk_actionDelete($id); //Call any action we have.
 	
 	//if(sk_verify_key()) {
 	if(get_option('sk_api_key_accepted')) { //if we have an accepted key
@@ -1050,6 +1101,7 @@ function sk_mark_as_black($id) {
 	$blacklist_name = $wpdb->prefix . "schreikasten_blacklist";
 	$query="UPDATE " . $table_name ." SET status='".SK_BLACK."' WHERE id=".$id;
 	$answer1=$wpdb->query( $query );
+	sk_actionDelete($id); //Call any action we have.
 	
 	//Get PC
 	$query="SELECT user_id FROM " . $table_name ." WHERE id=".$id;
@@ -1093,6 +1145,7 @@ function sk_mark_as_ham($id) {
 	$answer1=$wpdb->query( $query );
 	//Send the reply
 	sk_reply($id);
+	sk_actionAdd($id); //Call any action we have.
 	
 	// Send HAM mark to Akismet if there is an API key and
 	// the comment was marked as SPAM
