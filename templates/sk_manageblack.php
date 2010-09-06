@@ -52,12 +52,12 @@
 	<h2><?php if($select==SK_SPAM) _e( 'Schreikasten Spam', 'sk' ); else _e( 'Schreikasten Comments', 'sk' );?></h2>
 	<form name="form1" method="post" action="<?php echo add_query_arg(array('mode'=>'', 'text'=>$text)); ?>">	
 		<ul class="subsubsub">
-			<li class='all'><a href='edit-comments.php?page=skmanage'<?php if($select==SK_NOT_FILTERED) echo " class=\"current\""; ?>><? _e('All', 'sk'); ?></a> |</li>
-			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'<?php if($select==SK_MOOT) echo " class=\"current\""; ?>><? echo __ngettext('Pending', 'Pending', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
-			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'<?php if($select==SK_HAM) echo " class=\"current\""; ?>><? echo __ngettext('Accepted', 'Accpeted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'<?php if($select==SK_SPAM) echo " class=\"current\""; ?>><? _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'<?php if($select==SK_BLACK) echo " class=\"current\""; ?>><? echo __ngettext('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'<?php if($select==SK_BLOCKED) echo " class=\"current\""; ?>><? echo __ngettext('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
+			<li class='all'><a href='edit-comments.php?page=skmanage'<?php if($select==SK_NOT_FILTERED) echo " class=\"current\""; ?>><?php _e('All', 'sk'); ?></a> |</li>
+			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'<?php if($select==SK_MOOT) echo " class=\"current\""; ?>><?php echo __ngettext('Pending', 'Pending', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
+			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'<?php if($select==SK_HAM) echo " class=\"current\""; ?>><?php echo __ngettext('Accepted', 'Accpeted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'<?php if($select==SK_SPAM) echo " class=\"current\""; ?>><?php _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'<?php if($select==SK_BLACK) echo " class=\"current\""; ?>><?php echo __ngettext('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'<?php if($select==SK_BLOCKED) echo " class=\"current\""; ?>><?php echo __ngettext('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
 		</ul>
 
 		<div class="tablenav"><?php 
@@ -106,7 +106,7 @@
 					<th scope="col" class="manage-column column-comment" style=""><?php _e( 'Comments' , 'sk'); ?></th>
 				</tr>
 			</tfoot>
-			<tbody id="the-comment-list" class="list:comment"><?
+			<tbody id="the-comment-list" class="list:comment"><?php
 				$first="";
 				foreach($comments as $comment) { ?>
 				<tr id='pc-<?php echo $comment->id; ?>'>
