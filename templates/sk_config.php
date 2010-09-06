@@ -162,7 +162,7 @@
 			_e('Max pending messages from blacklisted PC','sk'); ?>:
 		</td><td>
 		<select id="sk_bl_maxpending" name="sk_bl_maxpending">
-			<option<?php echo $selectedmaxpending0; ?> value="0"><?_e('None', 'sk');?></option>
+			<option<?php echo $selectedmaxpending0; ?> value="0"><?php _e('None', 'sk');?></option>
 			<option<?php echo $selectedmaxpending1; ?>>1</option>
 			<option<?php echo $selectedmaxpending2; ?>>2</option>
 			<option<?php echo $selectedmaxpending5; ?>>5</option>
