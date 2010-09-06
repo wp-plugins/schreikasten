@@ -121,7 +121,7 @@
 						</td><?php } else { ?>
 						<td colspan=2></td>
 						<?php } ?>
-						<td class="manage-column column-author"><?if($comment->id!=NULL) { ?><div id="submitted-on"><?php
+						<td class="manage-column column-author"><?php if($comment->id!=NULL) { ?><div id="submitted-on"><?php
 								echo sk_avatar($comment->id, 40);
 								echo $comment->alias." | ". sprintf("<a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip) . " <br> " . $comment->date . " <br> "; 
 								if($comment->email!="")

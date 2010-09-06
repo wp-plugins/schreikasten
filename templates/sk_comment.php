@@ -17,7 +17,7 @@
 											<label class="blacklisted"><input type="radio" <?php if ($status==SK_BLACK) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_BLACK; ?>" /><?php echo __ngettext('Unapproved', 'Unapproved', 1, 'sk');?></label>
 										</div>
 										<div class="misc-pub-section curtime misc-pub-section-last">
-											<span id="timestamp">Enviado el: <b><?echo $date; ?></b></span>
+											<span id="timestamp">Enviado el: <b><?php echo $date; ?></b></span>
 										</div>
 									</div>
 								</div>

@@ -60,12 +60,12 @@
 	<h2><?php _e( 'Tracking commment', 'sk' ); ?></h2>
 	<form name="form1" method="post" action="<?php echo add_query_arg(array('mode'=>'', 'text'=>$text)); ?>">	
 		<ul class="subsubsub">
-			<li class='all'><a href='edit-comments.php?page=skmanage'><? _e('All', 'sk'); ?></a> |</li>
-			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'><? echo __ngettext('Pending', 'Pending', 2,'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
-			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'><? echo __ngettext('Accepted', 'Accepted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'><? _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'><? echo __ngettext('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'><? echo __ngettext('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
+			<li class='all'><a href='edit-comments.php?page=skmanage'><?php _e('All', 'sk'); ?></a> |</li>
+			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'><?php echo __ngettext('Pending', 'Pending', 2,'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
+			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'><?php echo __ngettext('Accepted', 'Accepted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'><?php _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'><?php echo __ngettext('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'><?php echo __ngettext('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
 		</ul>
 
 		<div class="tablenav"><?php 
