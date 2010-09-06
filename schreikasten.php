@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.115
+Version: 0.13.116
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.10);
+define ("SK_HEADER_V", 1.11);
 
 
 
@@ -76,42 +76,17 @@ require_once('libs/SimpleRSSFeedCreator.php');
 * @access public
 */
 function sk_header() {
-	echo "<link rel='stylesheet' href='".sk_plugin_url("/css/schreikasten.css?ver=".SK_HEADER_V)."' type='text/css' media='screen' />";
-	$css = get_theme_root()."/".get_template()."/schreikasten.css?ver=".SK_HEADER_V;
-	if(file_exists($css)) {
-		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/schreikasten.css?ver=".SK_HEADER_V."' type='text/css' media='screen' />";
-	}
-	
-	$script_universal= sk_plugin_url("/libs/universal.js?ver=".SK_HEADER_V);
-	echo "\n<script type='text/javascript' src='$script_universal'></script>";
-	
-	// Declare we use JavaScript SACK library for Ajax
-	wp_print_scripts( array( 'sack' ));
-	
+
 	//Local URL
 	$url = get_bloginfo( 'wpurl' );
 	$local_url = parse_url( $url );
 	$aux_url   = parse_url(wp_guess_url());
 	$url = str_replace($local_url['host'], $aux_url['host'], $url);
-
+	
 	// Define custom JavaScript function
 	echo "
-	<script type='text/javascript' src='".sk_plugin_url("/libs/soundmanager2.js")."'></script>
 	<script type='text/javascript'>
 	/* <![CDATA[ */
-	soundManager.url = '".sk_plugin_url("/libs/")."';
-	soundManager.useFlashBlock = false;
-	soundManager.debugMode = false;
-	soundManager.onready(function() {
-		if (soundManager.supported()) {
-			skSound = soundManager.createSound({
-				id: 'aSound',
-				url: '".sk_plugin_url("/img/drop.mp3")."',
-				volume: 70
-			});
-		}
-	});
-	
 	sk_i18n_error = '".__("Can\'t read Schreikasten Feed", 'sk')."';
 	sk_url = '$url';
 	sk_hasFocus = false;
@@ -119,7 +94,31 @@ function sk_header() {
 	sk_title_message = '".__('New message from', 'sk')." ';
 	/* ]]> */
 	</script>
-	<script language='javascript' type='text/javascript' src='".$url."/wp-content/plugins/schreikasten/schreikasten.js?ver=".SK_HEADER_V."'></script>";
+	";
+	
+	//Declare javascript
+	wp_register_script('soundmanager2', $url.'/wp-content/plugins/schreikasten/libs/soundmanager2.js', false, SK_HEADER_V);
+	wp_enqueue_script('soundmanager2');
+	wp_register_script('bax-universal', $url.'/wp-content/plugins/schreikasten/libs/universal.js', false, SK_HEADER_V);
+	wp_enqueue_script('bax-universal');
+	wp_register_script('schreikasten', $url.'/wp-content/plugins/schreikasten/schreikasten.js', array('soundmanager2', 'bax-universal', 'sack'), SK_HEADER_V);
+	wp_enqueue_script('schreikasten');
+	
+	
+	//Define custom CSS URI
+	$css = get_theme_root()."/".get_template()."/schreikasten.css";
+	if(file_exists($css)) {
+		$css_register = get_bloginfo('template_directory')."/schreikasten.css";
+	} else {
+		$css_register = sk_plugin_url("/css/schreikasten.css");
+	}
+	//Declare style
+	wp_register_style('schreikasten', $css_register, false, SK_HEADER_V);
+	wp_enqueue_style('schreikasten');
+	
+	// Declare we use JavaScript SACK library for Ajax
+	wp_print_scripts( array( 'schreikasten' ));
+	wp_print_styles( array( 'schreikasten' ));
 }
 
 /**

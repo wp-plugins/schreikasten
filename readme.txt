@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 3.0
-Stable tag: 0.13.115
+Tested up to: 3.0.1
+Stable tag: 0.13.116
 
 A shoutbox using ajax and akismet.
 
@@ -126,6 +126,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.13.116 =
+* Using WP functions to add safely scripts and css.
 
 = 0.13.115 =
 * Solved a bug with PHP tag.

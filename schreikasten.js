@@ -1,3 +1,18 @@
+//Soundmanager
+soundManager.url = sk_url+'/wp-content/plugins/schreikasten/libs/';
+	soundManager.useFlashBlock = false;
+	soundManager.debugMode = false;
+	soundManager.onready(function() {
+		if (soundManager.supported()) {
+			skSound = soundManager.createSound({
+				id: 'aSound',
+				url: sk_url+'/wp-content/plugins/schreikasten/img/drop.mp3',
+				volume: 70
+			});
+		}
+	});
+
+
 //Change title
 function sk_alternateTitle(title1, title2) {
 	if(!sk_hasFocus) {
