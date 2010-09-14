@@ -187,3 +187,20 @@ skBeep = function() {
 		return true;
 		
 	}
+	
+	function sk_confirm_action(action, rand, id, semaphore) {
+		var aux = document.getElementById('sk-'+rand+'-'+id);
+		aux.setAttribute('class', 'sk-comment-spam sk-user-admin');
+		aux.setAttribute('className', 'sk-comment-spam sk-user-admin');
+		text = false;
+		if(action == 'delete') text = sk_text_del;
+		if(action == 'set_black') text = sk_text_blk;
+		if(action == 'set_spam') text = sk_text_spm;
+		if(text && confirm(text)) {
+			sk_action(id, action, rand, semaphore);
+		} else {
+			aux.setAttribute('class', 'sk-comment sk-user-admin');
+			aux.setAttribute('className', 'sk-comment sk-user-admin'); //IE sucks
+		}
+	}
+	

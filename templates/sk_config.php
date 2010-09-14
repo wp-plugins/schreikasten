@@ -26,6 +26,11 @@
 			</tr>
 
 <tr>
+	<td><?php _e("Date format", 'sk' ); ?>: </td>
+	<td><input type='text' name='date_format' value='<?php echo $options['date_format']; ?>'> <a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'><?php _e('Doumentation about date format.', 'sk'); ?></a></td>
+</tr>
+
+<tr>
 	<td><?php _e('Show Avatar', 'sk'); ?>:
 </td>
 	<td>

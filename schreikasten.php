@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.13.116
+Version: 0.14
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -59,13 +59,13 @@ add_action('init', 'sk_text_domain');
 add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
 add_action('admin_menu', 'sk_menus');
-add_action('activate_plugin', 'sk_activate');
 add_filter('the_content', 'sk_content');
 add_action('wp_ajax_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_sk_ajax_action', 'sk_ajax_action');
+register_activation_hook(__FILE__, 'sk_activate');
 
 require_once('libs/SimpleRSSFeedCreator.php');
 
@@ -92,6 +92,9 @@ function sk_header() {
 	sk_hasFocus = false;
 	sk_old_title = document.title;
 	sk_title_message = '".__('New message from', 'sk')." ';
+	sk_text_del = '".__('Are you sure you want to delete this comment?', 'sk')."';
+	sk_text_blk = '".__('Are you sure you want to mark this comment as blacklisted?', 'sk')."';
+	sk_text_spm = '".__('Are you sure you want to mark this comment as SPAM?', 'sk')."';
 	/* ]]> */
 	</script>
 	";
@@ -222,23 +225,19 @@ function sk_ajax_add() {
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
 	if(!is_numeric($size) || $size<1) $size = 5;
+	$results = false;
 	
 	//Get environment data
-	if ($_SERVER['HTTP_X_FORWARD_FOR']) {
+	if (isset($_SERVER['HTTP_X_FORWARD_FOR']) && $_SERVER['HTTP_X_FORWARD_FOR']) {
 		$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
 	} else {
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
-
-	$text = str_replace("\'", "'", $text);
-	$text = str_replace('\"', '"', $text);
-	$alias = str_replace("\'", "'", $alias);
-	$alias = str_replace('\"', '"', $alias);
 	
 	setcookie('comment_author_' . COOKIEHASH, $alias, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 	setcookie('comment_author_email_' . COOKIEHASH, $email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
 	
-	$id=sk_add_comment(sk_xmlentities($alias), $email, sk_xmlentities($text), $ip, $for);
+	$id=sk_add_comment($alias, $email, $text, $ip, $for);
 	
 	//Get the new data.
 	if(sk_cookie_id()==0) {
@@ -375,7 +374,7 @@ function sk_verify_key( ) {
 * @access public
 */
 function sk_text_domain() {
-	load_plugin_textdomain('sk', 'wp-content/plugins/schreikasten/lang');
+	load_plugin_textdomain('sk', false, 'schreikasten/lang');
 }
 
 /**
@@ -464,7 +463,7 @@ function sk_avatar($id, $size) {
 	global $wpdb;
 	$answer="";
 	
-	if(strlen($id)>0) {
+	if(strlen($id)>0 && $id!=0 ) {
 		//Get the email, user id and alias for the comment
 		$table_name = $wpdb->prefix . "schreikasten";
 		$data = $wpdb->get_row("select user_id, alias, email from $table_name where id=$id");
@@ -691,7 +690,7 @@ function sk_activate()
 		}
 		
 		//Widget options
-		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
+		$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG, 'date_format'=>'l, M j. Y h:i A');
 		add_option('sk_options', $options);
 		
 		add_option('sk_db_version', SK_DB_VERSION);
@@ -721,6 +720,10 @@ function sk_activate()
 		else $options['layout'] = SK_LAYOUT_SHOUTBOX;
 		unset($options['replies']);
 		update_option('sk_options', $options);
+	}
+	if(!isset($options['date_format'])) {
+		 $options['date_format'] = 'l, M j. Y g:i A';
+		 update_option('sk_options', $options);
 	}
 }
 
@@ -1422,12 +1425,12 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	//The classes for coloring the comments (used only if we are sending this comment)
 	$class="sk-userdata-user";
 	$divClass='sk-comment';
-	if($comment->status==SK_SPAM) {
+	if($comment && $comment->status==SK_SPAM) {
 		$divClass.='-spam';
 		$class.="-spam";
 	}
 	
-	if($comment->status==SK_MOOT) {
+	if($comment && $comment->status==SK_MOOT) {
 		$divClass.='-moot';
 		$class.="-moot";
 	}
@@ -1445,38 +1448,11 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$av_size=41;
 		$id=$comment->id;
 		$edit="<a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
-		$mannage.="<br/><a style='cursor: pointer;' onclick='
-		var aux = document.getElementById(\"sk-$rand-$id\");
-		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
-		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
-		if(confirm(\"".__('Are you sure you want to delete this comment?', 'sk')."\")) {
-			sk_action($id, \"delete\", $rand, sk_semaphore$rand);
-		} else {
-			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
-			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
-		}'>" . __('Delete' , 'sk') . "</a> | ";
+		$mannage.="<br/><a style='cursor: pointer;' onclick='sk_confirm_action(\"delete\", $rand, $id, sk_semaphore$rand);'>" . __('Delete' , 'sk') . "</a> | ";
 		if($comment->user_id!=0) {
-			$mannage.="<a style='cursor: pointer;' onclick='
-		var aux = document.getElementById(\"sk-$rand-$id\");
-		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
-		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
-		if(confirm(\"".__('Are you sure you want to mark this comment as blacklisted?', 'sk')."\")) {
-			sk_action($id, \"set_black\", $rand, sk_semaphore$rand);
-		} else {
-			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
-			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
-		}'>". __('Reject', 'sk') . "</a> | ";
+			$mannage.="<a style='cursor: pointer;' onclick='sk_confirm_action(\"set_black\", $rand, $id, sk_semaphore$rand);'>". __('Reject', 'sk') . "</a> | ";
 		}
-		$mannage.="<a style='cursor: pointer;' onclick='
-		var aux = document.getElementById(\"sk-$rand-$id\");
-		aux.setAttribute(\"class\", \"sk-comment-spam sk-user-admin\");
-		aux.setAttribute(\"className\", \"sk-comment-spam sk-user-admin\");
-		if(confirm(\"".__('Are you sure you want to mark this comment as SPAM?', 'sk')."\")) {
-			sk_action($id, \"set_spam\", $rand, sk_semaphore$rand);
-		} else {
-			aux.setAttribute(\"class\", \"sk-comment sk-user-admin\");
-			aux.setAttribute(\"className\", \"sk-comment sk-user-admin\"); //IE sucks
-		}'>". __('Spam', 'sk') . "</a><br/>";
+		$mannage.="<a style='cursor: pointer;' onclick='sk_confirm_action(\"set_spam\", $rand, $id, sk_semaphore$rand);'>". __('Spam', 'sk') . "</a><br/>";
 		if($sending) {
 			$mannage="<br/>";
 			$edit = "[ ".__('Sending', 'sk')." ]";
@@ -1491,8 +1467,8 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
 	
-	$comment_text=nl2br($comment_text);
 	$comment_text=apply_filters('comment_text', $comment->text);
+	//$comment_text=nl2br($comment_text);
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
 	
@@ -1521,9 +1497,9 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	if($user_id>0) {
 		$comment_user = get_userdata($user_id);
 		$capabilities = $comment_user->wp_capabilities; //->administrator;
-		if($capabilities['author']==1) $usertype = 'sk-user-author';
-		if($capabilities['editor']==1) $usertype = 'sk-user-editor';
-		if($capabilities['administrator']==1) $usertype = 'sk-user-admin';
+		if(isset($capabilities['author']) && $capabilities['author']==1) $usertype = 'sk-user-author';
+		if(isset($capabilities['editor']) && $capabilities['editor']==1) $usertype = 'sk-user-editor';
+		if(isset($capabilities['administrator']) && $capabilities['administrator']==1) $usertype = 'sk-user-admin';
 	}
 	
 	$sk_id = "id='sk-$rand-$id'";
@@ -1642,8 +1618,11 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	$aux->alias = "<span id='th_sk_alias$rand'></span>";
 	$aux->text = "<span id='th_sk_text$rand'></span>";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
+	$aux->status = SK_HAM;
+	$aux->id = 0;
+	$aux->user_id = 0;
 	
-	$answer.= sk_format_comment($aux,true,$rand,true);
+	$answer = sk_format_comment($aux,true,$rand,true);
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
@@ -1651,7 +1630,7 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 		$idComments = $wpdb->get_results($sql);
 		foreach($idComments as $idComment) {
 			//Set the data the page format
-			$idComment->date = mysql2date(get_option('date_format'), $idComment->date)." ".mysql2date(get_option('date_time'), $idComment->date);
+			$idComment->date = mysql2date($options['date_format'], $idComment->date);
 			//If it's spam add it at the begginning.
 			if($idComment->status==SK_SPAM || $idComment->status==SK_MOOT) {
 				array_unshift($comments, $idComment);
@@ -1662,7 +1641,7 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	//The comments list
 	foreach($comments as $comment) {
 		//Set the data the page format
-		$comment->date = mysql2date(get_option('date_format'), $comment->date)." ".mysql2date(get_option('time_format'), $comment->date);
+		$comment->date = mysql2date($options['date_format'], $comment->date);
 		$answer.=sk_format_comment($comment,false,$rand);
 	}
 	
@@ -1685,8 +1664,8 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 function sk_menus()
 {
 	global $submenu;
-	add_submenu_page('edit-comments.php', 'Schreikasten', 'Schreikasten', 10, 'skmanage', 'sk_manage' );
-	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 10, 'skconfig', 'sk_config');
+	add_submenu_page('edit-comments.php', 'Schreikasten', 'Schreikasten', 'moderate_comments', 'skmanage', 'sk_manage' );
+	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'moderate_comments', 'skconfig', 'sk_config');
 }
 
 /**
@@ -1697,7 +1676,7 @@ function sk_menus()
 */
 function sk_config() {
 	$messages=array();
-	if($_POST['sk-submit']) {
+	if(isset($_POST['sk-submit']) && $_POST['sk-submit']) {
 		$api_key=$_POST["sk_api_key"];
 		update_option('sk_api_key', $api_key);
 		$mode='done';
@@ -1716,7 +1695,7 @@ function sk_config() {
 	//Max characters
 	if(!isset($options['maxchars'])) $options['maxchars']=255;
 
-	if ( $_POST['sk-submit'] ) {
+	if (isset($_POST['sk-submit']) && $_POST['sk-submit'] ) {
 		// Remember to sanitize and format use input appropriately.
 		$options['title'] = strip_tags(stripslashes($_POST['sk_title']));
 		
@@ -1733,6 +1712,10 @@ function sk_config() {
 		$options['rss'] = false;
 		if($_POST['sk_rss'])
 			$options['rss'] = true;
+			
+		$options['date_format'] = 'l, M j. Y g:i A';
+		if($_POST['date_format'])
+			$options['date_format'] = $_POST['date_format'];
 		
 		$options['alert_about_emails'] = false;
 		if($_POST['sk_alert_about_emails'])
@@ -1811,29 +1794,33 @@ function sk_config() {
 function sk_manage() {
 	global $wpdb;
 	$select=SK_NOT_FILTERED;
-	if($_GET['filter']=='spam') $select=SK_SPAM;
-	if($_GET['filter']=='ham') $select=SK_HAM;
-	if($_GET['filter']=='moot') $select=SK_MOOT;
-	if($_GET['filter']=='black') $select=SK_BLACK;
-	if($_GET['filter']=='blocked') $select=SK_BLOCKED;
+	if(isset($_GET['filter'])) {
+		if($_GET['filter']=='spam') $select=SK_SPAM;
+		if($_GET['filter']=='ham') $select=SK_HAM;
+		if($_GET['filter']=='moot') $select=SK_MOOT;
+		if($_GET['filter']=='black') $select=SK_BLACK;
+		if($_GET['filter']=='blocked') $select=SK_BLOCKED;
+	}
 	$table_name = $wpdb->prefix . "schreikasten";
 	$table_list = $wpdb->prefix . "schreikasten_blacklist";
 	$messages=array();
+	
+	$mode = $mode_x = false;
 
-	$mode_x=$_POST['mode_x'];
+	if(isset($_POST['mode_x'])) $mode_x=$_POST['mode_x'];
 	if(!$mode_x)
-		$mode_x=$_GET['mode_x'];
-	$mode=$_GET['mode'];
+		if(isset($_GET['mode_x'])) $mode_x=$_GET['mode_x'];
+	if(isset($_GET['mode'])) $mode=$_GET['mode'];
 	
 	//if pressed deletespam, delete all spam
-	if($_POST['deletespam']) {
+	if(isset($_POST['deletespam']) && $_POST['deletespam']) {
 		$mode_x='deletespam';
 	}
 	
 	// Assume we don't have to do any action, but ask if we have
 	$doaction=false;
-	if($_POST['doaction']!="") $doaction=$_POST['action'];
-	if($_POST['doaction2']!="") $doaction=$_POST['action2'];
+	if(isset($_POST['doaction']) && $_POST['doaction']!="") $doaction=$_POST['action'];
+	if(isset($_POST['doaction2']) && $_POST['doaction2']!="") $doaction=$_POST['action2'];
 	
 	//In case we have to do something previous
 	if($doaction)
@@ -1909,7 +1896,7 @@ function sk_manage() {
 			if($mode_x=='tedit_x') {
 					$mode="tracking";
 			}
-			if($_POST['submit']) {
+			if(isset($_POST['submit']) && $_POST['submit']) {
 				//get the data from the form
 				$id=$_POST['sk_id'];
 				$alias=$_POST['sk_alias'];
@@ -2076,9 +2063,10 @@ function sk_codeShoutbox($size=false) {
 	/************** This is huge *******************/
 	$sk_page=1;
 	$sk_for = false;
-	$sk_id=$_GET['sk_id'];
+	$sk_id = $sk_for = false;
+	if(isset($_GET['sk_id'])) $sk_id = $_GET['sk_id'];
 	if($sk_id) $sk_page=sk_page_by_id($sk_id);
-	$sk_for=$_GET['sk_for'];
+	if(isset($_GET['sk_for'])) $sk_for = $_GET['sk_for'];
 	if($sk_for) $sk_page=sk_page_by_id($sk_for);
 	$first_comments = sk_show_comments($size, $sk_page, false, $rand );
 	$first_page_selector = sk_page_selector($size, $sk_page, $rand);
@@ -2135,7 +2123,7 @@ function sk_codeShoutbox($size=false) {
 		}";
 	}
 	
-	$message = false;
+	$message = $disabled = false;
 	
 	//Do we need moderation?
 	$require_moderation = true;
@@ -2218,7 +2206,7 @@ function sk_codeShoutbox($size=false) {
 		$submit = __('Submit', 'sk');
 		$for = __('For', 'sk');
 		
-		$button.="<div class='sk-box-text'>";
+		$button = "<div class='sk-box-text'>";
 		if($current_user->ID==0) {
 			$button.=__('Mail will not be published', 'sk')."<br/>";
 			if ($req) {
@@ -2453,8 +2441,10 @@ function sk_content($content) {
 	$search = "/(?:<p>)*\s*\[schreikasten\]\s*(?:<\/p>)*/i";
 	$options = get_option('sk_options');
 	$items = $options['items'];
-	$replace=sk_codeShoutbox($items);
-	$content = preg_replace($search, $replace, $content);
+	if(strpos($content, '[schreikasten]')!==false) {
+		$replace=sk_codeShoutbox($items);
+		$content = preg_replace($search, $replace, $content);
+	}
 	
 	return $content;
 }
@@ -2522,7 +2512,7 @@ if((float)$wp_version >= 2.8) { //The new widget system
 	}
 
 	/* register widget when loading the WP core */
-	add_action('widgets_init', sk_register_widgets);
+	add_action('widgets_init', 'sk_register_widgets');
 
 	function sk_register_widgets() {
 		register_widget('SkWidget');
@@ -2539,7 +2529,8 @@ if((float)$wp_version >= 2.8) { //The new widget system
 */
 function sk_xmlentities($string) { 
 	$string = (string) $string;
-   return str_replace ( array ( '&', '"', "'", '<', '>' ), array ( '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
+	$string = rawurldecode($string);
+   return str_replace ( array ( '%', '&', '"', "'", '<', '>' ), array ( '%25', '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
 }
 
 

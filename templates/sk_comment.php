@@ -12,9 +12,9 @@
 								<div id="misc-publishing-actions">
 									<div class="misc-pub-section curtime misc-pub-section-last">
 										<div class="misc-pub-section" id="comment-status-radio">
-											<label class="approved"><input type="radio" <?php if ($status==SK_HAM) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_HAM; ?>" /><?php echo __ngettext('Accepted', 'Accepted', 1, 'sk');?></label><br />
+											<label class="approved"><input type="radio" <?php if ($status==SK_HAM) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_HAM; ?>" /><?php echo _n('Accepted', 'Accepted', 1, 'sk');?></label><br />
 											<label class="spam"><input type="radio" <?php if ($status==SK_SPAM) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_SPAM; ?>" /><?php _e('Spam', 'sk');?></label><br />
-											<label class="blacklisted"><input type="radio" <?php if ($status==SK_BLACK) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_BLACK; ?>" /><?php echo __ngettext('Unapproved', 'Unapproved', 1, 'sk');?></label>
+											<label class="blacklisted"><input type="radio" <?php if ($status==SK_BLACK) echo "checked=\"checked\"";?> name="comment_status" value="<?php echo SK_BLACK; ?>" /><?php echo _n('Unapproved', 'Unapproved', 1, 'sk');?></label>
 										</div>
 										<div class="misc-pub-section curtime misc-pub-section-last">
 											<span id="timestamp">Enviado el: <b><?php echo $date; ?></b></span>

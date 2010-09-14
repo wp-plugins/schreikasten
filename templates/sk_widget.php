@@ -52,9 +52,8 @@
 			alert('%lenght%');
 			return false;
 		}%ask_email%%email_in_text%
-		document.getElementById('th_sk_alias%rand%').innerHTML = alias.replace(/&/gi,"&amp;");
-		var aux_text=text.replace(/\n/g,"<br>"); 
-		document.getElementById('th_sk_text%rand%').innerHTML = aux_text.replace(/&/gi,"&amp;");
+		document.getElementById('th_sk_alias%rand%').innerHTML = alias;
+		document.getElementById('th_sk_text%rand%').innerHTML = text.replace(/\n/g,"<br>");;
 		if(%chat%){
 			document.getElementById('throbber-page%rand%').setAttribute('class','throbber-page-on');
 			document.getElementById('throbber-page%rand%').setAttribute('className','throbber-page-on'); //IE sucks
@@ -63,9 +62,6 @@
 			document.getElementById('throbber-img%rand%').setAttribute('className','throbber-img-on'); //IE sucks
 			document.getElementById('throbber-img%rand%').style.visibility='visible';
 		}
-		email=email.replace(/&amp;/gi,"y");
-		alias=alias.replace(/&/gi,"%26");
-		text=text.replace(/&/gi,"%26");
 		for_delete%rand%();
 		document.getElementById('sk_page%rand%').value=1;
 		document.getElementsByName('sk_text%rand%')[0].value='';
