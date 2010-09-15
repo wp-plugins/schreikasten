@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14
+Version: 0.14.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -66,8 +66,39 @@ add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_sk_ajax_action', 'sk_ajax_action');
 register_activation_hook(__FILE__, 'sk_activate');
+register_deactivation_hook(__FILE__, 'sk_deactivate');
+add_action('sk_cron', 'sk_delete_old_comments');
 
 require_once('libs/SimpleRSSFeedCreator.php');
+
+/**
+* Function to delete odl comments.
+* This function should be called by the cron action.
+*
+* @access public
+*/
+function sk_delete_old_comments() {
+	global $wpdb;
+	$options = get_option('sk_options');
+	if(is_numeric($options['delete_num']) && $options['delete_num']>0) {
+		$type = 'DAY';
+		switch($options['delete_type']) {
+			case 2:
+				$type = 'WEEK';
+				break;
+			case 3:
+				$type = 'MONTH';
+				break;
+			default:
+				$type = 'DAY';
+				break;
+		}
+		$num = $options['delete_num'];
+		$table_name = $wpdb->prefix . "schreikasten";
+		$sql="DELETE FROM $table_name WHERE date < DATE_SUB(NOW(), INTERVAL $num $type);";
+		$wpdb->query($sql);
+	}
+}
 
 /**
 * Function to add the required data to the header in the site.
@@ -613,8 +644,7 @@ function sk_page_selector($size, $group=1,$rand=false) {
 *
 * @access public
 */
-function sk_activate()
-{
+function sk_activate() {
 	global $wpdb;
 	global $db_version;
 	$table_name = $wpdb->prefix . "schreikasten";
@@ -702,7 +732,7 @@ function sk_activate()
 	}
 	
 	//Widget options
-	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG);
+	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG, 'delete_type'=>1, 'delete_num'=>0);
 	add_option('sk_options', $options);
 	
 	//Have we updated or no?
@@ -725,6 +755,20 @@ function sk_activate()
 		 $options['date_format'] = 'l, M j. Y g:i A';
 		 update_option('sk_options', $options);
 	}
+	if(!isset($options['delete_type'])) {
+		 $options['delete_type'] = 1;
+		 $options['delete_num'] = 0;
+		 update_option('sk_options', $options);
+	}
+	
+	//The cron function
+	wp_clear_scheduled_hook('sk_cron');
+	wp_schedule_event(time(), 'hourly', 'sk_cron');
+	
+}
+
+function sk_deactivate() {
+	wp_clear_scheduled_hook('sk_cron');
 }
 
 /**
@@ -773,20 +817,22 @@ function sk_reply($id) {
 		
 		//Create the mail and send it
 		if($for->email!="" && $from->status!=SK_SPAM) {
-			$email=$for->email;
-			$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
-			$notify_message .= sprintf(__('Your comment : %s', 'sk'), $for->text ) . "\r\n\r\n";
-			$notify_message .= sprintf(__('Reply comment: %s', 'sk'), $from->text ). "\r\n\r\n";
+			if($for->email!=get_option('admin_email')) {
 			
-			$notify_message .= $url;
-			
-			@wp_mail($email, sprintf(__('An answer to your comment on %s', 'sk'), $website), $notify_message);
+				$email=$for->email;
+				$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
+				$notify_message .= sprintf(__('Your comment : %s', 'sk'), $for->text ) . "\r\n\r\n";
+				$notify_message .= sprintf(__('Reply comment: %s', 'sk'), $from->text ). "\r\n\r\n";
+				
+				$notify_message .= $url;
+				
+				@wp_mail($email, sprintf(__('An answer to your comment on %s', 'sk'), $website), $notify_message);
+			} 
 			//To not resend the reply, clear the reply column
 			$query="UPDATE $table_name SET reply=reply*-1 WHERE id=".$id;
 			$wpdb->query($query);
 			
 			$answer=true;
-			
 		}
 	}
 	return $answer;
@@ -1730,6 +1776,9 @@ function sk_config() {
 		$options['requiremail'] = $_POST['sk_requiremail'];
 		$options['layout'] = $_POST['sk_layout'];
 		
+		$options['delete_type'] = $_POST['sk_delete_type'];
+		$options['delete_num'] = abs($_POST['sk_delete_num']);
+		
 		$options['moderation'] = $_POST['sk_moderation'];
 		
 		update_option('sk_options', $options);
@@ -1773,6 +1822,9 @@ function sk_config() {
 	
 	$layout="layout".$options['layout'];
 	$$layout=' selected="selected"';
+	
+	$deletetype="deletetype".$options['delete_type'];
+	$$deletetype=' selected="selected"';
 	
 	//Do we have messages to show?
 	if(count($messages)>0) {

@@ -32,7 +32,7 @@
 
 <tr>
 	<td></td>
-	<td><a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'><?php _e('Doumentation about date format.', 'sk'); ?></a></td>
+	<td><?php _e("<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>.", 'sk'); ?></td>
 </tr>
 
 <tr>
@@ -148,6 +148,22 @@
 		<option<?php echo $selectedrefresh60; ?> value="60">60 <?php _e('seconds','sk'); ?></option>
 	</select>
 </td>
+</tr>
+
+<tr>
+	<td><?php
+		_e('Delete any comment older than','sk'); ?>:</td><td style='vertical-align: top;'><input type="text" name="sk_delete_num" style="width: 50px;" value="<?php echo $options['delete_num']; ?>"> <select id="sk_delete_type" name="sk_delete_type">
+		<option<?php echo $deletetype1; ?> value="1"><?php _e('days','sk'); ?></option>
+		<option<?php echo $deletetype2; ?> value="2"><?php _e('weeks','sk'); ?></option>
+		<option<?php echo $deletetype3; ?> value="3"><?php _e('months','sk'); ?></option>
+	</select>
+	<br><?php _e('Void or 0 to not delete.', 'sk'); ?>
+</td>
+</tr>
+
+<tr>
+	<td></td>
+	<td></td>
 </tr>
 
 <tr>
