@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-15 18:34-0500\n"
-"PO-Revision-Date: 2010-09-15 18:34-0500\n"
+"POT-Creation-Date: 2010-09-16 07:40-0500\n"
+"PO-Revision-Date: 2010-09-16 07:42-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: BNG NET <webmaster@bng.net>\n"
 "MIME-Version: 1.0\n"
@@ -696,25 +696,24 @@ msgid "seconds"
 msgstr "秒"
 
 #: templates/sk_config.php:155
-#, fuzzy
 msgid "Delete any comment older than"
-msgstr "コメントを消去"
+msgstr "次の指定より古いコメントを削除する"
 
 #: templates/sk_config.php:156
 msgid "days"
-msgstr ""
+msgstr "日"
 
 #: templates/sk_config.php:157
 msgid "weeks"
-msgstr ""
+msgstr "週間"
 
 #: templates/sk_config.php:158
 msgid "months"
-msgstr ""
+msgstr "ヶ月"
 
 #: templates/sk_config.php:160
 msgid "Void or 0 to not delete."
-msgstr ""
+msgstr "空欄または 0 にすると削除しません。"
 
 #: templates/sk_config.php:172
 msgid "Max days to hold a PC blacklisted"
@@ -821,26 +820,4 @@ msgstr "メールアドレス別"
 #: templates/sk_tracking.php:254
 msgid "By PC"
 msgstr "ＰＣ別"
-
-#~ msgid "Pending"
-#~ msgid_plural "Pending"
-#~ msgstr[0] "保留"
-#~ msgid "Accepted"
-#~ msgid_plural "Accepted"
-#~ msgstr[0] "承認"
-#~ msgid "Unapproved"
-#~ msgid_plural "Unapproved"
-#~ msgstr[0] "非承認"
-#~ msgid "Blocked PC"
-#~ msgid_plural "Blocked PC"
-#~ msgstr[0] "ブロックＰＣ"
-#~ msgid "accepted"
-#~ msgid_plural "accepted"
-#~ msgstr[0] "承認"
-#~ msgid "unapproved"
-#~ msgid_plural "unapproved"
-#~ msgstr[0] "非承認"
-#~ msgid "unresolved"
-#~ msgid_plural "unresolved"
-#~ msgstr[0] "未解決"
 
