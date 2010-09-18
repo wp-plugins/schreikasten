@@ -1,26 +1,26 @@
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"><br /></div> <h2><?php _e('Schreikasten Settings', 'sk') ?></h2>
 	<form name="form1" method="post" action="<?php echo remove_query_arg(array('mode', 'id')); ?>">
-		<table class="form-table" style="width: 500px;">
+		<table class="form-table">
 			<?php if(strlen(get_option('sk_api_key'))==0 || !sk_verify_key()) {
 				echo "<tr><td colspan='2'><div class='updated'><p>".sprintf(__("You need an Akismet <a href='%s' target='_BLANK'>API</a> to enable the antispam filter.", 'sk' ), 'http://wordpress.com/api-keys/')."</p></div></td></tr>"; 
 			}?>
 			<tr>
 				<td style="width: 300px;"><?php _e("Akismet API", 'sk' ); ?>:</td>
-				<td style="width: 200px;"><input type="text" name="sk_api_key" size="30" value="<?php echo $sk_api_key; ?>" /></td>
+				<td><input type="text" name="sk_api_key" size="30" value="<?php echo $sk_api_key; ?>" /></td>
 			</tr>
 			<tr>
 				<?php 
 				if(strlen(get_option('sk_api_key'))==0) {
 					update_option('sk_api_key_accepted',false);
-					echo "<td colspan='2' style='text-align: center;'><strong>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
+					echo "<td colspan='2' style='padding-left: 190px;'><strong>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
 				} else {
 					if(sk_verify_key()) {
 						update_option('sk_api_key_accepted',true);
-						echo "<td colspan='2' style='text-align: center; background: #00FF00'><strong>".__("API Key is valid.", 'sk')."</strong></td>";
+						echo "<td colspan='2' style='background: #00FF00; padding-left: 190px;'><strong>".__("API Key is valid.", 'sk')."</strong></td>";
 					} else {
 						update_option('sk_api_key_accepted',false); 
-						echo "<td colspan='2' style='text-align: center; background: #FF0000'><strong>".__("API Key is not valid.", 'sk')."<br/>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
+						echo "<td colspan='2' style='background: #FF0000; padding-left: 190px;'><strong>".__("API Key is not valid.", 'sk')."<br/>".sprintf(__("Set the <a href='%s' target='_BLANK'>API Key</a> if you require the antispam filter.", 'sk'), 'http://wordpress.com/api-keys/')."</strong></td>";
 					}
 				}?>
 			</tr>
@@ -31,8 +31,7 @@
 </tr>
 
 <tr>
-	<td></td>
-	<td><?php _e("<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>.", 'sk'); ?></td>
+	<td colspan=2 style='padding-left: 190px;'><?php _e("<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>.", 'sk'); ?></td>
 </tr>
 
 <tr>
@@ -110,7 +109,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan=2 style='padding-left: 120px;'>
+	<td colspan=2 style='padding-left: 190px;'>
 		<strong><?php _e('Guest Book', 'sk'); ?></strong>: <?php _e('Just to leave messages. No replies.', 'sk'); ?>
 		<br/><strong><?php _e('Black Board', 'sk'); ?></strong>: <?php _e('Anyone can leave replies to any comment, but there wouldn\'t be threads. A reply is listed in the order they come like another comment.', 'sk'); ?>
 		<br/><strong><?php _e('Chat Box', 'sk'); ?></strong>: <?php _e('The space to write comments comes at the bottom, and the messages list goes like in a chat room. Anyone can leave replies to any comment, but there wouldn\'t be threads. A reply is listed in the order they come like another comment.', 'sk'); ?>
