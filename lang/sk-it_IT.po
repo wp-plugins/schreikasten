@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 14:38-0500\n"
-"PO-Revision-Date: 2010-09-22 14:39-0500\n"
+"POT-Creation-Date: 2010-09-22 16:50-0500\n"
+"PO-Revision-Date: 2010-09-22 16:50-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: DiGiTaL AnGeL.iT <angel@digitalangel.it>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/schreikasten\n"
 "X-Poedit-Language: Italiano\n"
 "X-Poedit-Country: ITALIA\n"
@@ -346,6 +346,40 @@ msgstr "Commenti Schreikasten"
 msgid "All"
 msgstr "Tutti"
 
+#: templates/sk_manage.php:53
+#: templates/sk_manageblack.php:57
+#: templates/sk_tracking.php:66
+msgid "Pending"
+msgid_plural "Pending"
+msgstr[0] "In attesa"
+msgstr[1] "In attesa"
+
+#: templates/sk_manage.php:54
+#: templates/sk_manageblack.php:58
+#: templates/sk_comment.php:15
+#: templates/sk_tracking.php:67
+msgid "Accepted"
+msgid_plural "Accepted"
+msgstr[0] "Accettato"
+msgstr[1] "Accettati"
+
+#: templates/sk_manage.php:56
+#: templates/sk_manageblack.php:60
+#: templates/sk_comment.php:17
+#: templates/sk_tracking.php:69
+msgid "Unapproved"
+msgid_plural "Unapproved"
+msgstr[0] "Non approvato"
+msgstr[1] "Non approvati"
+
+#: templates/sk_manage.php:57
+#: templates/sk_manageblack.php:61
+#: templates/sk_tracking.php:70
+msgid "Blocked PC"
+msgid_plural "Blocked PC"
+msgstr[0] "PC Bloccato"
+msgstr[1] "PC Bloccati"
+
 #: templates/sk_manage.php:60
 #: templates/sk_manage.php:62
 msgid "Search Comments"
@@ -443,6 +477,32 @@ msgstr "utente registrato"
 #: templates/sk_tracking.php:194
 msgid "spam"
 msgstr "spam"
+
+#: templates/sk_manage.php:137
+#: templates/sk_manageblack.php:133
+#: templates/sk_tracking.php:139
+#: templates/sk_tracking.php:195
+msgid "accepted"
+msgid_plural "accepted"
+msgstr[0] "accettato"
+msgstr[1] "accettati"
+
+#: templates/sk_manage.php:138
+#: templates/sk_manageblack.php:134
+#: templates/sk_tracking.php:140
+#: templates/sk_tracking.php:196
+msgid "unapproved"
+msgid_plural "unapproved"
+msgstr[0] "non approvato"
+msgstr[1] "non approvati"
+
+#: templates/sk_manage.php:139
+#: templates/sk_tracking.php:141
+#: templates/sk_tracking.php:197
+msgid "unresolved"
+msgid_plural "unresolved"
+msgstr[0] "non risolto"
+msgstr[1] "non risolti"
 
 #: templates/sk_manage.php:154
 #: templates/sk_manageblack.php:136

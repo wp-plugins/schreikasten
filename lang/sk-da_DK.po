@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 14:37-0500\n"
-"PO-Revision-Date: 2010-09-22 14:37-0500\n"
+"POT-Creation-Date: 2010-09-22 16:25-0500\n"
+"PO-Revision-Date: 2010-09-22 16:26-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -343,7 +343,6 @@ msgstr "Alle"
 #: templates/sk_manage.php:53
 #: templates/sk_manageblack.php:57
 #: templates/sk_tracking.php:66
-#, fuzzy
 msgid "Pending"
 msgid_plural "Pending"
 msgstr[0] "Sender"
@@ -353,7 +352,6 @@ msgstr[1] "Sender"
 #: templates/sk_manageblack.php:58
 #: templates/sk_comment.php:15
 #: templates/sk_tracking.php:67
-#, fuzzy
 msgid "Accepted"
 msgid_plural "Accepted"
 msgstr[0] "Accepter"
@@ -363,7 +361,6 @@ msgstr[1] "Accepter"
 #: templates/sk_manageblack.php:60
 #: templates/sk_comment.php:17
 #: templates/sk_tracking.php:69
-#, fuzzy
 msgid "Unapproved"
 msgid_plural "Unapproved"
 msgstr[0] "godkend"
@@ -372,7 +369,6 @@ msgstr[1] "godkend"
 #: templates/sk_manage.php:57
 #: templates/sk_manageblack.php:61
 #: templates/sk_tracking.php:70
-#, fuzzy
 msgid "Blocked PC"
 msgid_plural "Blocked PC"
 msgstr[0] "Lås PC op"
@@ -482,7 +478,6 @@ msgstr "spam"
 #: templates/sk_manageblack.php:133
 #: templates/sk_tracking.php:139
 #: templates/sk_tracking.php:195
-#, fuzzy
 msgid "accepted"
 msgid_plural "accepted"
 msgstr[0] "Accepter"
@@ -492,7 +487,6 @@ msgstr[1] "Accepter"
 #: templates/sk_manageblack.php:134
 #: templates/sk_tracking.php:140
 #: templates/sk_tracking.php:196
-#, fuzzy
 msgid "unapproved"
 msgid_plural "unapproved"
 msgstr[0] "godkend"

@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.1
-Stable tag: 0.14.3
+Stable tag: 0.14.4
 
 A shoutbox using ajax and akismet.
 
@@ -131,6 +131,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.14.4 =
+* Updating i18n.
 
 = 0.14.3 =
 * Solved bug with the 'Comment Image' plugin.
