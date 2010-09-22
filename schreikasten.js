@@ -128,8 +128,9 @@ skBeep = function() {
 		sk_sack_action.setVar( 'action', 'sk_ajax_add' );
 		sk_sack_action.element = 'sk_content'+rand;
 		
-		text = text.replace("\"", "&quot;");
-		text = text.replace("\'", "&#39;");
+		//Encode text
+		//Encoder.EncodeType = "numeric";
+		text = Encoder.htmlEncode(text);
 		
 		//The ajax call data
 		sk_sack_action.setVar( 'alias', alias );

@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.2
+Version: 0.14.3
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.12);
+define ("SK_HEADER_V", 1.13);
 
 
 
@@ -131,11 +131,13 @@ function sk_header() {
 	";
 	
 	//Declare javascript
+		wp_register_script('htmlEncoder', $url.'/wp-content/plugins/schreikasten/libs/htmlEncoder.js', false, SK_HEADER_V);
+	wp_enqueue_script('htmlEncoder');
 	wp_register_script('soundmanager2', $url.'/wp-content/plugins/schreikasten/libs/soundmanager2.js', false, SK_HEADER_V);
 	wp_enqueue_script('soundmanager2');
 	wp_register_script('bax-universal', $url.'/wp-content/plugins/schreikasten/libs/universal.js', false, SK_HEADER_V);
 	wp_enqueue_script('bax-universal');
-	wp_register_script('schreikasten', $url.'/wp-content/plugins/schreikasten/schreikasten.js', array('soundmanager2', 'bax-universal', 'sack'), SK_HEADER_V);
+	wp_register_script('schreikasten', $url.'/wp-content/plugins/schreikasten/schreikasten.js', array('soundmanager2', 'bax-universal', 'sack', 'htmlEncoder'), SK_HEADER_V);
 	wp_enqueue_script('schreikasten');
 	
 	
@@ -1513,8 +1515,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
 	
-	$comment_text=apply_filters('comment_text', $comment->text);
-	//$comment_text=nl2br($comment_text);
+	$comment_text=sk_format_text($comment->text);
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
 	
@@ -2368,6 +2369,18 @@ function sk_shoutbox($size = false) {
 	echo sk_codeShoutbox($size);
 }
 
+/**
+* Function to show the shoutbox. Can be used in the template files.
+*
+* @access private
+*/
+function sk_format_text($comment_text) {
+	remove_filter('comment_text', 'commentimage_comment_text');
+	$comment_text=apply_filters('comment_text', $comment_text);
+	if(function_exists('commentimage_comment_text')) add_filter('comment_text', 'commentimage_comment_text');
+	return $comment_text;
+}
+
 
 /**
 * Function to get an RSS feed.
@@ -2415,10 +2428,8 @@ function sk_feed($max=20) {
 			$for = "<br/>$for";
 		}
 		
-		$comment_text = "{$comment->text}$for";
-				
-		$comment_text=apply_filters('comment_text', $comment_text);
-	
+		$comment_text = sk_format_text("{$comment->text}$for");
+		
 		$item = array(
 				"link" => "{$link}?sk_id={$comment->id}#sk-comment-id{$comment->id}",
 	     		"title" => sprintf(__("Comment by %s", 'sk'), $comment->alias ) ,
@@ -2581,11 +2592,11 @@ if((float)$wp_version >= 2.8) { //The new widget system
 * @param string string The string to change
 * @return string The chabged string
 */
-function sk_xmlentities($string) { 
+/*function sk_xmlentities($string) { 
 	$string = (string) $string;
 	$string = rawurldecode($string);
    return str_replace ( array ( '%', '&', '"', "'", '<', '>' ), array ( '%25', '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
-}
+}*/
 
 
 ?>

@@ -131,7 +131,7 @@
 									echo "<br/><br/>";
 									printf(" (".__('registered user', 'sk').")");
 								} ?></td>
-							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $comment->text; ?></p><?php
+							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
 							$act_message="";
 							$spam_message=__('spam', 'sk');
 							$ham_message=_n('accepted', 'accepted', 1, 'sk');

@@ -128,7 +128,7 @@
 								if($comment->email!="")
 									echo $comment->email;
 								else
-									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $comment->text; ?></p><?php
+									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
 							$act_message="";
 							$ham_message=_n('accepted', 'accepted', 1, 'sk');
 							$black_message=_n('unapproved','unapproved',1, 'sk');
