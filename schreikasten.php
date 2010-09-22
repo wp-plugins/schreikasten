@@ -2272,7 +2272,7 @@ function sk_codeShoutbox($size=false) {
 				}
 			} 
 		} else {
-			$button.=sprintf(__('Loged in as %s', 'sk'), $current_user->display_name);
+			$button.=sprintf(__('Logged in as %s', 'sk'), $current_user->display_name);
 			$button.="<br/><a href='$uri_out' title='".__('Log out', 'sk')."'>".__('Log out', 'sk')."</a>
 				<input name='sk_alias$rand' type='hidden' value='{$current_user->display_name}' />
 				<input name='sk_email$rand' type='hidden' value='{$current_user->user_email}' />";
