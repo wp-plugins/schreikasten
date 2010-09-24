@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.4
+Version: 0.14.5
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -304,8 +304,7 @@ function sk_ajax_action() {
 	
 	//check if this user can perform an action
 	if($current_user) {
-		$capabilities=$current_user->wp_capabilities;
-		if($capabilities['administrator']) { //Yes, he is the man!
+		if(current_user_can( 'moderate_comments' )) { //Yes, he is the man!
 			switch($sk_action) {
 				case 'set_black': //set as blacklisted
 					sk_mark_as_black($id);
@@ -1449,11 +1448,8 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	
 	//check if this user can administrate
 	$sk_canmannage=false;
-	if($current_user) {
-		$capabilities=$current_user->wp_capabilities;
-		if($capabilities['administrator']) {
-			$sk_canmannage=true;
-		}
+	if(current_user_can( 'moderate_comments' )) {
+		$sk_canmannage=true;
 	}
 	
 	$options = get_option('sk_options');
@@ -1712,7 +1708,7 @@ function sk_menus()
 {
 	global $submenu;
 	add_submenu_page('edit-comments.php', 'Schreikasten', 'Schreikasten', 'moderate_comments', 'skmanage', 'sk_manage' );
-	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'moderate_comments', 'skconfig', 'sk_config');
+	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'manage_options', 'skconfig', 'sk_config');
 }
 
 /**
