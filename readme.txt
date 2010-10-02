@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.1
-Stable tag: 0.14.5
+Stable tag: 0.14.6
 
 A shoutbox using ajax and akismet.
 
@@ -131,6 +131,11 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.14.6 =
+* Solved bug with CSS (button size)
+* Solved bug with mail codification.
+* Added html_decodification by default.
 
 = 0.14.5 =
 * Solved capabilities bug.

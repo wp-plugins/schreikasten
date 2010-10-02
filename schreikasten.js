@@ -130,6 +130,8 @@ skBeep = function() {
 		
 		//Encode text
 		//Encoder.EncodeType = "numeric";
+		alias = Encoder.htmlEncode(alias);
+		email = Encoder.htmlEncode(email);
 		text = Encoder.htmlEncode(text);
 		
 		//The ajax call data

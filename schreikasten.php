@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.5
+Version: 0.14.6
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.14);
+define ("SK_HEADER_V", 1.15);
 
 
 
@@ -251,14 +251,18 @@ function sk_ajax() {
 */
 function sk_ajax_add() {
 	//Get the data from the post call
-	$alias= $_POST['alias'];
-	$email= $_POST['email'];
-	$text = $_POST['text'];
+	$alias= html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8');
+	$email= html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8');
+	$text = html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8');
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
 	if(!is_numeric($size) || $size<1) $size = 5;
 	$results = false;
+	
+	$alias = wptexturize($alias);
+	$email = wptexturize($email);
+	$text = wptexturize($text);
 	
 	//Get environment data
 	if (isset($_SERVER['HTTP_X_FORWARD_FOR']) && $_SERVER['HTTP_X_FORWARD_FOR']) {
@@ -822,8 +826,8 @@ function sk_reply($id) {
 			
 				$email=$for->email;
 				$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
-				$notify_message .= sprintf(__('Your comment : %s', 'sk'), $for->text ) . "\r\n\r\n";
-				$notify_message .= sprintf(__('Reply comment: %s', 'sk'), $from->text ). "\r\n\r\n";
+				$notify_message .= sprintf(__('Your comment : %s', 'sk'), html_entity_decode($for->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";
+				$notify_message .= sprintf(__('Reply comment: %s', 'sk'), html_entity_decode($from->text, ENT_QUOTES, 'UTF-8') ). "\r\n\r\n";
 				
 				$notify_message .= $url;
 				
@@ -865,10 +869,10 @@ function sk_inform($id) {
 			$admin_email = get_option('admin_email');
 			$notify_message=__('There is a new comment on Schreikasten', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
-			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), $comment->alias, $comment->ip ) . "\r\n";
+			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), html_entity_decode($comment->alias, ENT_QUOTES, 'UTF-8'), $comment->ip ) . "\r\n";
 			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), $comment->email ) . "\r\n";
 			$notify_message .= sprintf( __('Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s'), $comment->ip ) . "\r\n";
-			$notify_message .= sprintf( __('Comment: %s', 'sk'), $comment->text ) . "\r\n\r\n";							
+			$notify_message .= sprintf( __('Comment: %s', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";							
 			$notify_message .= sprintf( __('Delete it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=delete&id=$id") ) . "\r\n";
 			$notify_message .= sprintf( __('Reject it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_black&id=$id") ) . "\r\n";
 			$notify_message .= sprintf( __('Spam it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_spam&id=$id") );
@@ -883,10 +887,10 @@ function sk_inform($id) {
 			$admin_email = get_option('admin_email');
 			$notify_message=__('A new comment on Schreikasten is waiting for your approval', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
-			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), $comment->alias, $comment->ip ) . "\r\n";
+			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8'), $comment->ip ) . "\r\n";
 			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), $comment->email ) . "\r\n";
 			$notify_message .= sprintf( __('Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s'), $comment->ip ) . "\r\n";
-			$notify_message .= sprintf( __('Comment: %s', 'sk'), $comment->text ) . "\r\n\r\n";
+			$notify_message .= sprintf( __('Comment: %s', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";
 			$notify_message .= sprintf( __('Approve it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_ham&id=$id") ) . "\r\n";
 			$notify_message .= sprintf( __('Delete it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=delete&id=$id") ) . "\r\n";
 			$notify_message .= sprintf( __('Reject it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_black&id=$id") ) . "\r\n";

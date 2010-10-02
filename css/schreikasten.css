@@ -7,7 +7,6 @@ textarea.sk-area {
   }
 
 input.sk-button {
-    width:50px;
     background:#4879aa;
     color:#fff;
     font-size:13px;
@@ -43,11 +42,9 @@ div.sk-box-text {
 
 div.sk-box-button {
 		float: right;
-		width: 50px;
 	}
 
 input.sk-button-size {
-    width:50px;
   }
   
 /* End of css for button at the right side of the text */
