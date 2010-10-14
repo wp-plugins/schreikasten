@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.6
+Version: 0.14.6.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -2162,6 +2162,7 @@ function sk_codeShoutbox($size=false) {
 	
 	$ask_email = "";
 	if ($req) { 
+		/*desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe. */
 		$ask_email = "if(!check_email(email)) {
 			alert('". __("E-mail is required", "sk") . "');
 			return false;
@@ -2169,7 +2170,8 @@ function sk_codeShoutbox($size=false) {
 	}
 	
 	$email_in_text = "";
-	if($options['alert_about_emails']) { 
+	if($options['alert_about_emails']) {
+		/*desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe. */
 		$email_in_text = "if(email_intext ( text ) ) {
 			check=confirm('". __("To prevent identification theft, we recomend\\nthat you do not include e-mail adresses.\\nDo you want to continue?", "sk") ."');
 			if(!check) {
@@ -2192,9 +2194,11 @@ function sk_codeShoutbox($size=false) {
 	}
 	
 	if(1 == $require_moderation && !current_user_can('install_plugins')) {
+		/*desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe. */
 		$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
 	}
 	if(sk_is_blacklisted()) {
+		/*desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe. */
 		$message=__('Your message has been sent but this PC was blacklisted.\nComments have to be approved before posted.', 'sk');
 	}
 	if($message) {
