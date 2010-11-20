@@ -97,7 +97,7 @@ define('SK_RSS', 'http://new-feed-url');
 
 = Can I put a shoutbox inside a theme? =
 
-Yes, use the function __sk\_shoutbox(size)__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox(size)__. The argukment size would be a number and sets the number of items to show per page, or false to use the default number (5).
+Yes, use the function __sk\_shoutbox(size)__ to write the html code wherever you need, or get the code with __sk\_codeShoutbox(size)__. The argument __size__ would be a number and sets the number of items to show per page, or set it false to use the default number (5).
 
 = Can I set my own CSS? =
 
