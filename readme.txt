@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.1
-Stable tag: 0.14.6.1
+Stable tag: 0.14.6.2
 
 A shoutbox using ajax and akismet.
 
@@ -132,6 +132,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.14.6.2 =
+* Added qTranslate quicktag capabilities.
 
 = 0.14.6.1 =
 * First release with french translation. Thanks  __[Pierre](http://www.stock-graphique.new.fr "Free stock of graphic resources for personal or commercial use: vector, psd, Indesign templates…")__.
