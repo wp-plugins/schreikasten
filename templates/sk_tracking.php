@@ -59,7 +59,7 @@
 ?>
 <div class="wrap">
 	<div id="icon-edit-comments" class="icon32"><br /></div>
-	<h2><?php _e( 'Tracking commment', 'sk' ); ?></h2>
+	<h2><?php _e( 'Tracking comment', 'sk' ); ?></h2>
 	<form name="form1" method="post" action="<?php echo add_query_arg(array('mode'=>'', 'text'=>$text)); ?>">	
 		<ul class="subsubsub">
 			<li class='all'><a href='edit-comments.php?page=skmanage'><?php _e('All', 'sk'); ?></a> |</li>

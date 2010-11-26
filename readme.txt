@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.1
-Stable tag: 0.14.6.2
+Stable tag: 0.14.6.3
 
 A shoutbox using ajax and akismet.
 
@@ -54,8 +54,9 @@ Schreikasten has been translated to german by __[Andreas](http://f.indetonation.
 azerbaijani by __[Turkel](http://vsayt.com/ "Pulsuz sayt")__, 
 italian by  __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni, Giochi, Applicazioni, Hardware & Vita!")__,
 japanese by __[Chestnut](http://staff.blog.bng.net "Staff blog for Blog City of BNG NET")__,
-danish by __[Per Bovbjerg](http://http://www.spiritueltforum.net/ "Netværket for alle spirituelt interesserede")__
-and french by __[Pierre](http://www.stock-graphique.new.fr "Free stock of graphic resources for personal or commercial use: vector, psd, Indesign templates…")__.
+danish by __[Per Bovbjerg](http://http://www.spiritueltforum.net/ "Netværket for alle spirituelt interesserede")__,
+french by __[Pierre](http://www.stock-graphique.new.fr "Free stock of graphic resources for personal or commercial use: vector, psd, Indesign templates…")__
+and russian by  __[trippin' the rift](http://trippintherift.com/)__ team.
 Thanks for your time guys!
 
 Schreikasten uses __[SoundManager](http://www.schillmania.com/projects/soundmanager2/ "A JavaScript Sound API supporting MP3, MPEG4 and HTML5 Audio.")__ to 'beep' when a new comment has come.
@@ -132,6 +133,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 8. Tracking system to read comments from one user.
 
 == Changelog ==
+
+= 0.14.6.3 =
+* First release with russian translation. Thanks  __[trippin' the rift](http://trippintherift.com/)__ team.
 
 = 0.14.6.2 =
 * Added qTranslate quicktag capabilities.
