@@ -131,6 +131,7 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 6. Page to edit a comment.
 7. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the items to lock it forever or enable it now.
 8. Tracking system to read comments from one user.
+9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
 
