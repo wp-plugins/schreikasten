@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.6.3
+Version: 0.14.7
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.15);
+define ("SK_HEADER_V", 1.16);
 
 
 
@@ -58,6 +58,7 @@ $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
 add_action('init', 'sk_text_domain');
 add_action('init', 'sk_cookie_id');
 add_action('wp_head', 'sk_header');
+add_action('admin_head', 'sk_adminHeader');
 add_action('admin_menu', 'sk_menus');
 add_filter('the_content', 'sk_content');
 add_action('wp_ajax_sk_ajax', 'sk_ajax');
@@ -65,6 +66,8 @@ add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_sk_ajax_action', 'sk_ajax_action');
+//add_action('activity_box_end', 'sk_dashboard');
+add_action('right_now_discussion_table_end', 'sk_dashboard');
 register_activation_hook(__FILE__, 'sk_activate');
 register_deactivation_hook(__FILE__, 'sk_deactivate');
 add_action('sk_cron', 'sk_delete_old_comments');
@@ -100,6 +103,21 @@ function sk_delete_old_comments() {
 	}
 }
 
+
+/**
+* Function to add the required data to the header in the site.
+* This function should be called by an action.
+*
+* @access public
+*/
+function sk_adminHeader() {
+	$css_register = sk_plugin_url("/css/admin.css");
+	//Declare style
+	wp_register_style('schreikasten_admin', $css_register, false, SK_HEADER_V);
+	wp_enqueue_style('schreikasten_admin');
+	wp_print_styles( array( 'schreikasten_admin' ));
+}
+
 /**
 * Function to add the required data to the header in the site.
 * This function should be called by an action.
@@ -131,7 +149,7 @@ function sk_header() {
 	";
 	
 	//Declare javascript
-		wp_register_script('htmlEncoder', $url.'/wp-content/plugins/schreikasten/libs/htmlEncoder.js', false, SK_HEADER_V);
+	wp_register_script('htmlEncoder', $url.'/wp-content/plugins/schreikasten/libs/htmlEncoder.js', false, SK_HEADER_V);
 	wp_enqueue_script('htmlEncoder');
 	wp_register_script('soundmanager2', $url.'/wp-content/plugins/schreikasten/libs/soundmanager2.js', false, SK_HEADER_V);
 	wp_enqueue_script('soundmanager2');
@@ -155,6 +173,42 @@ function sk_header() {
 	// Declare we use JavaScript SACK library for Ajax
 	wp_print_scripts( array( 'schreikasten' ));
 	wp_print_styles( array( 'schreikasten' ));
+}
+/**
+* Information to be displayed in the widget right-now 
+*
+* @access public
+*/
+function sk_dashboard() {
+	global $wpdb;
+	global $current_user;
+	get_currentuserinfo();
+	if(current_user_can('manage_options')) {
+		//Comments and spam number
+		$total = sk_count();
+		$approved = sk_count(SK_HAM);
+		$pending = sk_count(SK_MOOT);
+		$spam = sk_count(SK_SPAM);
+		$blacklisted = sk_count(SK_BLACK) + sk_count(SK_BLOCKED);
+		echo "\n\t</table>\n\t</div>";
+		echo '<div class="table table_schreikasten" align="center">
+	<p class="sub">'.__('Schreikasten', 'sk').'</p>
+	<table>
+	<tbody>
+		<tr class="first">
+			<td class="b b-comments"><a href="edit-comments.php?page=skmanage"><span class="total-count">'.$total.'</span></a></td><td class="last t comments"><a href="edit-comments.php?page=skmanage">'._n("Comment", "Comments", 2).'</a></td>
+			<td class="b b_approved"><a href="edit-comments.php?page=skmanage&filter=ham"><span class="approved-count">'.$approved.'</span></a></td><td class="last t"><a class="approved" href="edit-comments.php?page=skmanage&filter=ham">'._n("Approved", "Approved", 2).'</a></td>
+		</tr>
+		<tr>
+			<td class="b b-waiting"><a href="edit-comments.php?page=skmanage&filter=moot"><span class="pending-count">'.$pending.'</span></a></td><td class="last t"><a class="waiting" href="edit-comments.php?page=skmanage&filter=moot">'._n("Pending", "Pending", 2).'</a></a></td>
+			<td class="b b-spam"><a href="edit-comments.php?page=skmanage&filter=spam"><span class="spam-count">'.$spam.'</span></a></td><td class="last t"><a class="spam" href="edit-comments.php?page=skmanage&filter=spam">'._n("Spam", "Spam", 2).'</a></td>
+		</tr>';
+		if($blacklisted>0) echo '<tr>
+			<td colspan="2"></td>
+			<td class="b b_blacklisted"><a href="edit-comments.php?page=skmanage&filter=black"><span class="approved-count">'.$blacklisted.'</span></a></td><td class="last t"><a class="blacklisted" href="edit-comments.php?page=skmanage&filter=black">'.__("Blacklisted", 'sk').'</a></td>
+		</tr>';
+	echo '</tbody>';
+	}
 }
 
 /**
@@ -2087,6 +2141,34 @@ function sk_manage() {
 
 
 /**
+* Return the list of messages the logged user has created 
+*
+* @access public
+* @param string content The content to change.
+* @return string The content with the changes the plugin have to do.
+*/
+function sk_userMessages() {
+	global $wpdb;
+	global $current_user;
+	get_currentuserinfo();
+	if($current_user->ID>0) {
+		$table_name = $wpdb->prefix . "schreikasten";
+		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." AND user_id = {$current_user->ID} ORDER BY id desc";
+		$comments = $wpdb->get_results($sql);
+		$comments = array_reverse($comments);
+		$answer = "<ul class='sku-list'>";
+		foreach($comments as $comment) {
+			$answer.= "<li><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>{$comment->text}</span></li>";
+		}
+		$answer.= '</ul>';
+	} else {
+		$answer = sprintf( __('To show your messages list you have to <a href="%s">log in</a>.', 'sk'), wp_login_url(get_permalink()) );
+	}	
+	return $answer;
+}
+
+
+/**
 * Function to show the shoutbox. Can be used in the template files.
 *
 * @access private
@@ -2516,8 +2598,18 @@ function sk_content($content) {
 		$content = preg_replace($search, $replace, $content);
 	}
 	
+	//User messages
+	$search = "/(?:<p>)*\s*\[schreikasten-user\]\s*(?:<\/p>)*/i";
+	$options = get_option('sk_options');
+	$items = $options['items'];
+	if(strpos($content, '[schreikasten-user]')!==false) {
+		$replace=sk_userMessages();
+		$content = preg_replace($search, $replace, $content);
+	}
+	
 	return $content;
 }
+
 
 /**
 * Schreikasten widget stuff (New MultiWidget )
