@@ -133,10 +133,10 @@
 								} ?></td>
 							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
 							$act_message="";
-							$spam_message=strtolower(_n('Spam', 'Spam',1 'sk'));
-							$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
-							$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
-							$moot_message=strtolower_n('Pending','Pending',1, 'sk'));
+							$spam_message=strtolower( _n('Spam', 'Spam', 1, 'sk') );
+							$ham_message=strtolower( _n('Approved', 'Approved', 1, 'sk') );
+							$black_message=strtolower( _n('Rejected','Rejected',1, 'sk') );
+							$moot_message=strtolower( _n('Pending','Pending',1, 'sk') );
 							switch($comment->status) {
 									case SK_SPAM:
 										$act_message=$spam_message;
