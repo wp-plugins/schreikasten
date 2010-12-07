@@ -62,12 +62,12 @@
 	<h2><?php _e( 'Tracking comment', 'sk' ); ?></h2>
 	<form name="form1" method="post" action="<?php echo add_query_arg(array('mode'=>'', 'text'=>$text)); ?>">	
 		<ul class="subsubsub">
-			<li class='all'><a href='edit-comments.php?page=skmanage'><?php _e('All', 'sk'); ?></a> |</li>
-			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'><?php echo _n('Pending', 'Pending', 2,'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
-			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'><?php echo _n('Accepted', 'Accepted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'><?php _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'><?php echo _n('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'><?php echo _n('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
+			<li class='all'><a href='edit-comments.php?page=skmanage'<?php if($select==SK_NOT_FILTERED) echo " class=\"current\""; ?>><?php $count = sk_count(); echo _n("Comment", "Comments", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> |</li>
+			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'<?php if($select==SK_MOOT) echo " class=\"current\""; ?>><?php $count = sk_count(SK_MOOT); echo _n("Pending", "Pending", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
+			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'<?php if($select==SK_HAM) echo " class=\"current\""; ?>><?php $count = sk_count(SK_HAM); echo _n("Approved", "Approved", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'<?php if($select==SK_SPAM) echo " class=\"current\""; ?>><?php $count = sk_count(SK_SPAM); echo _n("Spam", "Spam", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'<?php if($select==SK_BLACK) echo " class=\"current\""; ?>><?php $count = sk_count(SK_BLACK); echo _n("Rejected", "Rejected", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'<?php if($select==SK_BLOCKED) echo " class=\"current\""; ?>><?php echo _n('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
 		</ul>
 
 		<div class="tablenav"><?php 
@@ -135,10 +135,10 @@
 									} ?></td>
 											<td class="comment column-comment"><div id="submitted-on"><?php echo $data->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($data->status==SK_SPAM) $img='spam.png'; if($data->status==SK_BLACK) $img='black.png'; if($data->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $data->text; ?></p><?php
 						$act_message="";
-						$spam_message=__('spam', 'sk');
-						$ham_message=_n('accepted', 'accepted', 1, 'sk');
-						$black_message=_n('unapproved','unapproved',1, 'sk');
-						$moot_message=_n('unresolved','unresolved',1, 'sk');
+						$spam_message=strtolower(_n('Spam', 'Spam',1 'sk'));
+						$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
+						$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
+						$moot_message=strtolower_n('Pending','Pending',1, 'sk'));
 						
 						switch($data->status) {
 							case SK_SPAM:
@@ -191,10 +191,10 @@
 								} ?></td>
 							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $comment->text; ?></p><?php
 							$act_message="";
-							$spam_message=__('spam', 'sk');
-							$ham_message=_n('accepted', 'accepted', 1, 'sk');
-							$black_message=_n('unapproved','unapproved',1, 'sk');
-							$moot_message=_n('unresolved','unresolved',1, 'sk');
+							$spam_message=strtolower(_n('Spam', 'Spam',1 'sk'));
+							$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
+							$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
+							$moot_message=strtolower_n('Pending','Pending',1, 'sk'));
 							switch($comment->status) {
 									case SK_SPAM:
 										$act_message=$spam_message;

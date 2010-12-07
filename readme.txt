@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 3.0.1
-Stable tag: 0.14.7
+Tested up to: 3.0.2
+Stable tag: 0.14.7.1
 
 A shoutbox using ajax and akismet.
 
@@ -134,6 +134,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.7.1 =
+* Changed some 'words' to use WP's style. 
 
 = 0.14.7 =
 * Added information in 'right now' widget (dashboard).

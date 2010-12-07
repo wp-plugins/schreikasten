@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.7
+Version: 0.14.7.1
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.16);
+define ("SK_HEADER_V", 1.17);
 
 
 
@@ -196,16 +196,16 @@ function sk_dashboard() {
 	<table>
 	<tbody>
 		<tr class="first">
-			<td class="b b-comments"><a href="edit-comments.php?page=skmanage"><span class="total-count">'.$total.'</span></a></td><td class="last t comments"><a href="edit-comments.php?page=skmanage">'._n("Comment", "Comments", 2).'</a></td>
-			<td class="b b_approved"><a href="edit-comments.php?page=skmanage&filter=ham"><span class="approved-count">'.$approved.'</span></a></td><td class="last t"><a class="approved" href="edit-comments.php?page=skmanage&filter=ham">'._n("Approved", "Approved", 2).'</a></td>
+			<td class="b b-comments"><a href="edit-comments.php?page=skmanage"><span class="total-count">'.$total.'</span></a></td><td class="last t comments"><a href="edit-comments.php?page=skmanage">'._n("Comment", "Comments", $total, 'sk').'</a></td>
+			<td class="b b_approved"><a href="edit-comments.php?page=skmanage&filter=ham"><span class="approved-count">'.$approved.'</span></a></td><td class="last t"><a class="approved" href="edit-comments.php?page=skmanage&filter=ham">'._n("Approved", "Approved", $approved, 'sk').'</a></td>
 		</tr>
 		<tr>
-			<td class="b b-waiting"><a href="edit-comments.php?page=skmanage&filter=moot"><span class="pending-count">'.$pending.'</span></a></td><td class="last t"><a class="waiting" href="edit-comments.php?page=skmanage&filter=moot">'._n("Pending", "Pending", 2).'</a></a></td>
-			<td class="b b-spam"><a href="edit-comments.php?page=skmanage&filter=spam"><span class="spam-count">'.$spam.'</span></a></td><td class="last t"><a class="spam" href="edit-comments.php?page=skmanage&filter=spam">'._n("Spam", "Spam", 2).'</a></td>
+			<td class="b b-waiting"><a href="edit-comments.php?page=skmanage&filter=moot"><span class="pending-count">'.$pending.'</span></a></td><td class="last t"><a class="waiting" href="edit-comments.php?page=skmanage&filter=moot">'._n("Pending", "Pending", $pending, 'sk').'</a></a></td>
+			<td class="b b-spam"><a href="edit-comments.php?page=skmanage&filter=spam"><span class="spam-count">'.$spam.'</span></a></td><td class="last t"><a class="spam" href="edit-comments.php?page=skmanage&filter=spam">'._n("Spam", "Spam", $spam, 'sk').'</a></td>
 		</tr>';
 		if($blacklisted>0) echo '<tr>
 			<td colspan="2"></td>
-			<td class="b b_blacklisted"><a href="edit-comments.php?page=skmanage&filter=black"><span class="approved-count">'.$blacklisted.'</span></a></td><td class="last t"><a class="blacklisted" href="edit-comments.php?page=skmanage&filter=black">'.__("Blacklisted", 'sk').'</a></td>
+			<td class="b b_blacklisted"><a href="edit-comments.php?page=skmanage&filter=black"><span class="approved-count">'.$blacklisted.'</span></a></td><td class="last t"><a class="blacklisted" href="edit-comments.php?page=skmanage&filter=black">'._n("Rejected", "Rejected", $blacklisted, 'sk').'</a></td>
 		</tr>';
 	echo '</tbody>';
 	}
@@ -1765,7 +1765,7 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 function sk_menus()
 {
 	global $submenu;
-	add_submenu_page('edit-comments.php', 'Schreikasten', 'Schreikasten', 'moderate_comments', 'skmanage', 'sk_manage' );
+	add_submenu_page('edit-comments.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'moderate_comments', 'skmanage', 'sk_manage' );
 	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'manage_options', 'skconfig', 'sk_config');
 }
 

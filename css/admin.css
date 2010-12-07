@@ -1,9 +1,8 @@
 #dashboard_right_now .table_schreikasten {
 	top: 40px;
 	clear: both;
-	margin: 30px auto 60px;
+	margin: 30px -9px 60px;
 	border-top: 1px solid #ECECEC;
-	width: 100%;
 	
 }
 

@@ -53,11 +53,11 @@
 	<h2><?php if($select==SK_SPAM) _e( 'Schreikasten Spam', 'sk' ); else _e( 'Schreikasten Comments', 'sk' );?></h2>
 	<form name="form1" method="post" action="<?php echo add_query_arg(array('mode'=>'', 'text'=>$text)); ?>">	
 		<ul class="subsubsub">
-			<li class='all'><a href='edit-comments.php?page=skmanage'<?php if($select==SK_NOT_FILTERED) echo " class=\"current\""; ?>><?php _e('All', 'sk'); ?></a> |</li>
-			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'<?php if($select==SK_MOOT) echo " class=\"current\""; ?>><?php echo _n('Pending', 'Pending', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_MOOT); ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
-			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'<?php if($select==SK_HAM) echo " class=\"current\""; ?>><?php echo _n('Accepted', 'Accpeted', 2, 'sk'); ?></a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'<?php if($select==SK_SPAM) echo " class=\"current\""; ?>><?php _e('Spam', 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_SPAM); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
-			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'<?php if($select==SK_BLACK) echo " class=\"current\""; ?>><?php echo _n('Unapproved', 'Unapproved', 2, 'sk'); ?> (<span class="spam-count"><?php echo sk_count(SK_BLACK); ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
+			<li class='all'><a href='edit-comments.php?page=skmanage'<?php if($select==SK_NOT_FILTERED) echo " class=\"current\""; ?>><?php $count = sk_count(); echo _n("Comment", "Comments", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> |</li>
+			<li class='pending'><a href='edit-comments.php?page=skmanage&filter=moot'<?php if($select==SK_MOOT) echo " class=\"current\""; ?>><?php $count = sk_count(SK_MOOT); echo _n("Pending", "Pending", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/moot.png'> |</li>
+			<li class='approved'><a href='edit-comments.php?page=skmanage&filter=ham'<?php if($select==SK_HAM) echo " class=\"current\""; ?>><?php $count = sk_count(SK_HAM); echo _n("Approved", "Approved", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a><img src='../wp-content/plugins/schreikasten/img/ham.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=spam'<?php if($select==SK_SPAM) echo " class=\"current\""; ?>><?php $count = sk_count(SK_SPAM); echo _n("Spam", "Spam", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/spam.png'> |</li>
+			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=black'<?php if($select==SK_BLACK) echo " class=\"current\""; ?>><?php $count = sk_count(SK_BLACK); echo _n("Rejected", "Rejected", $count, 'sk'); ?> (<span class="spam-count"><?php echo $count; ?></span>)</a> <img src='../wp-content/plugins/schreikasten/img/black.png'> | </li>
 			<li class='spam'><a href='edit-comments.php?page=skmanage&filter=blocked'<?php if($select==SK_BLOCKED) echo " class=\"current\""; ?>><?php echo _n('Blocked PC', 'Blocked PC', 2, 'sk'); ?></a> <img src='../wp-content/plugins/schreikasten/img/blocked.png'></li>
 		</ul>
 
@@ -130,8 +130,8 @@
 								else
 									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
 							$act_message="";
-							$ham_message=_n('accepted', 'accepted', 1, 'sk');
-							$black_message=_n('unapproved','unapproved',1, 'sk');
+							$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
+							$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
 							$act_message=$black_message;
 							$status_message=__('This comment is marked as %s.\nAre you sure you want to mark it as %s?', 'sk');
 						?>

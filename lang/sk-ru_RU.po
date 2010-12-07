@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-26 07:55-0500\n"
-"PO-Revision-Date: 2010-11-26 08:11-0500\n"
+"POT-Creation-Date: 2010-12-07 07:12-0500\n"
+"PO-Revision-Date: 2010-12-07 07:13-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: trippintherift.com <mail@trippintherift.com>\n"
 "Language: \n"
@@ -24,140 +24,217 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: templates\n"
 
-#: schreikasten.php:121
+#: schreikasten.php:139
 msgid "Can\\'t read Schreikasten Feed"
 msgstr "Невозможно прочесть ленту Schreikasten"
 
-#: schreikasten.php:125
+#: schreikasten.php:143
 msgid "New message from"
 msgstr "Новое сообщение от"
 
-#: schreikasten.php:126
-#: schreikasten.php:1426
+#: schreikasten.php:144
+#: schreikasten.php:1480
 msgid "Are you sure you want to delete this comment?"
 msgstr "Вы уверены, что хотите удалить этот комментарий?"
 
-#: schreikasten.php:127
+#: schreikasten.php:145
 msgid "Are you sure you want to mark this comment as blacklisted?"
 msgstr "Вы уверены, что хотите добавить этот комментарий в черный лист?"
 
-#: schreikasten.php:128
+#: schreikasten.php:146
 msgid "Are you sure you want to mark this comment as SPAM?"
 msgstr "Вы уверены, что хотите пометить этот комментарий как СПАМ?"
 
-#: schreikasten.php:281
-msgid "We cannot accept messages<br>from this PC"
-msgstr "Мы не можем принимать сообщения<br>от этого компьютера"
-
-#: schreikasten.php:728
-#: schreikasten.php:740
-#: schreikasten.php:1715
+#: schreikasten.php:195
+#: schreikasten.php:782
+#: schreikasten.php:794
+#: schreikasten.php:1768
+#: schreikasten.php:1769
 msgid "Schreikasten"
 msgstr "Schreikasten"
 
-#: schreikasten.php:828
+#: schreikasten.php:199
+#: templates/sk_manageblack.php:56
+#: templates/sk_confirm.php:38
+#: templates/sk_confirm.php:54
+#: templates/sk_comment.php:41
+#: templates/sk_comment.php:54
+#: templates/sk_manage.php:52
+#: templates/sk_manage.php:106
+#: templates/sk_manage.php:113
+#: templates/sk_tracking.php:65
+#: templates/sk_tracking.php:111
+#: templates/sk_tracking.php:117
+#, fuzzy
+msgid "Comment"
+msgid_plural "Comments"
+msgstr[0] "Комментарий"
+msgstr[1] "Комментарий"
+
+#: schreikasten.php:200
+#: templates/sk_manageblack.php:58
+#: templates/sk_manageblack.php:133
+#: templates/sk_comment.php:15
+#: templates/sk_manage.php:54
+#: templates/sk_manage.php:137
+#: templates/sk_tracking.php:67
+#: templates/sk_tracking.php:139
+#: templates/sk_tracking.php:195
+#, fuzzy
+msgid "Approved"
+msgid_plural "Approved"
+msgstr[0] "Одобрить"
+msgstr[1] "Одобрить"
+
+#: schreikasten.php:203
+#: templates/sk_manageblack.php:57
+#: templates/sk_manage.php:53
+#: templates/sk_tracking.php:66
+msgid "Pending"
+msgid_plural "Pending"
+msgstr[0] "Pending"
+msgstr[1] "Pending"
+
+#: schreikasten.php:204
+#: schreikasten.php:1557
+#: templates/sk_manageblack.php:59
+#: templates/sk_comment.php:16
+#: templates/sk_manage.php:55
+#: templates/sk_manage.php:136
+#: templates/sk_manage.php:162
+#: templates/sk_tracking.php:68
+#: templates/sk_tracking.php:138
+#: templates/sk_tracking.php:165
+#: templates/sk_tracking.php:194
+#: templates/sk_tracking.php:220
+#, fuzzy
+msgid "Spam"
+msgid_plural "Spam"
+msgstr[0] "Спам"
+msgstr[1] "Спам"
+
+#: schreikasten.php:208
+#: templates/sk_manageblack.php:60
+#: templates/sk_manageblack.php:134
+#: templates/sk_comment.php:17
+#: templates/sk_manage.php:56
+#: templates/sk_manage.php:138
+#: templates/sk_tracking.php:69
+#: templates/sk_tracking.php:140
+#: templates/sk_tracking.php:196
+#, fuzzy
+msgid "Rejected"
+msgid_plural "Rejected"
+msgstr[0] "Отклонить"
+msgstr[1] "Отклонить"
+
+#: schreikasten.php:335
+msgid "We cannot accept messages<br>from this PC"
+msgstr "Мы не можем принимать сообщения<br>от этого компьютера"
+
+#: schreikasten.php:882
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr "Помещен ответ на Ваше сообщение на %s от %s"
 
-#: schreikasten.php:829
+#: schreikasten.php:883
 #, php-format
 msgid "Your comment : %s"
 msgstr "Ваш комментарий: %s"
 
-#: schreikasten.php:830
+#: schreikasten.php:884
 #, php-format
 msgid "Reply comment: %s"
 msgstr "Ответный комментарий: %s"
 
-#: schreikasten.php:834
+#: schreikasten.php:888
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr "Ответ на Ваш комментарий от %s"
 
-#: schreikasten.php:870
+#: schreikasten.php:924
 msgid "There is a new comment on Schreikasten"
 msgstr "Новый комментарий помещен на Schreikasten"
 
-#: schreikasten.php:872
-#: schreikasten.php:890
+#: schreikasten.php:926
+#: schreikasten.php:944
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr "Автор : %1$s (IP: %2$s)"
 
-#: schreikasten.php:873
-#: schreikasten.php:891
+#: schreikasten.php:927
+#: schreikasten.php:945
 #, php-format
 msgid "E-mail : %s"
 msgstr "E-mail : %s"
 
-#: schreikasten.php:874
-#: schreikasten.php:892
+#: schreikasten.php:928
+#: schreikasten.php:946
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 
-#: schreikasten.php:875
-#: schreikasten.php:893
+#: schreikasten.php:929
+#: schreikasten.php:947
 #, php-format
 msgid "Comment: %s"
 msgstr "Комментарий: %s"
 
-#: schreikasten.php:876
-#: schreikasten.php:895
+#: schreikasten.php:930
+#: schreikasten.php:949
 #, php-format
 msgid "Delete it: %s"
 msgstr "Удалить: %s"
 
-#: schreikasten.php:877
-#: schreikasten.php:896
+#: schreikasten.php:931
+#: schreikasten.php:950
 #, php-format
 msgid "Reject it: %s"
 msgstr "Отклонить: %s"
 
-#: schreikasten.php:878
-#: schreikasten.php:897
+#: schreikasten.php:932
+#: schreikasten.php:951
 #, php-format
 msgid "Spam it: %s"
 msgstr "Спам: %s"
 
-#: schreikasten.php:880
+#: schreikasten.php:934
 msgid "New comment on Schreikasten"
 msgstr "Новый комментарий на Schreikasten"
 
-#: schreikasten.php:888
+#: schreikasten.php:942
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr "Новый комментарий на Schreikasten ожидает Вашего одобрения"
 
-#: schreikasten.php:894
+#: schreikasten.php:948
 #, php-format
 msgid "Approve it: %s"
 msgstr "Одобрить: %s"
 
-#: schreikasten.php:899
+#: schreikasten.php:953
 msgid "Schreikasten comment to moderate"
 msgstr "Комментарий Schreikasten для модерации"
 
-#: schreikasten.php:1426
+#: schreikasten.php:1480
 msgid "[delete]"
 msgstr "[удалить]"
 
-#: schreikasten.php:1426
-#: schreikasten.php:1498
+#: schreikasten.php:1480
+#: schreikasten.php:1552
 msgid "[edit]"
 msgstr "[редактировать]"
 
-#: schreikasten.php:1466
-#: schreikasten.php:2429
+#: schreikasten.php:1520
+#: schreikasten.php:2511
 msgid "[reply]"
 msgstr "[ответить]"
 
-#: schreikasten.php:1468
-#: schreikasten.php:2431
+#: schreikasten.php:1522
+#: schreikasten.php:2513
 msgid "[no sender]"
 msgstr "[без отправителя]"
 
-#: schreikasten.php:1499
+#: schreikasten.php:1553
 #: templates/sk_confirm.php:21
 #: templates/sk_manage.php:91
 #: templates/sk_manage.php:164
@@ -166,7 +243,7 @@ msgstr "[без отправителя]"
 msgid "Delete"
 msgstr "Удалить "
 
-#: schreikasten.php:1501
+#: schreikasten.php:1555
 #: templates/sk_confirm.php:17
 #: templates/sk_manage.php:160
 #: templates/sk_tracking.php:163
@@ -174,60 +251,54 @@ msgstr "Удалить "
 msgid "Reject"
 msgstr "Отклонить"
 
-#: schreikasten.php:1503
-#: templates/sk_manageblack.php:59
-#: templates/sk_comment.php:16
-#: templates/sk_manage.php:55
-#: templates/sk_manage.php:162
-#: templates/sk_tracking.php:68
-#: templates/sk_tracking.php:165
-#: templates/sk_tracking.php:220
-msgid "Spam"
-msgstr "Спам"
-
-#: schreikasten.php:1506
-#: schreikasten.php:1667
+#: schreikasten.php:1560
+#: schreikasten.php:1721
 msgid "Sending"
 msgstr "Отправляется"
 
-#: schreikasten.php:1788
+#: schreikasten.php:1842
 msgid "Options saved"
 msgstr "Настройки сохранены"
 
-#: schreikasten.php:1981
-#: schreikasten.php:1989
-#: schreikasten.php:1993
-#: schreikasten.php:1997
+#: schreikasten.php:2035
+#: schreikasten.php:2043
+#: schreikasten.php:2047
+#: schreikasten.php:2051
 msgid "Status changed"
 msgstr "Статус изменен"
 
-#: schreikasten.php:1984
+#: schreikasten.php:2038
 msgid "Comment modified"
 msgstr "Комментарий изменен"
 
-#: schreikasten.php:2001
+#: schreikasten.php:2055
 msgid "Comment deleted"
 msgstr "Комментарий удален"
 
-#: schreikasten.php:2005
+#: schreikasten.php:2059
 msgid "PC locked forever"
 msgstr "Компьютер заблокирован навсегда"
 
-#: schreikasten.php:2009
+#: schreikasten.php:2063
 msgid "PC unlocked"
 msgstr "Компьютер разблокирован"
 
-#: schreikasten.php:2014
+#: schreikasten.php:2068
 msgid "PC locked"
 msgstr "Компьютер заблокирован"
 
+#: schreikasten.php:2165
+#, php-format
+msgid "To show your messages list you have to <a href=\"%s\">log in</a>."
+msgstr ""
+
 #. desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe.
-#: schreikasten.php:2167
+#: schreikasten.php:2249
 msgid "E-mail is required"
 msgstr "Необходим e-mail"
 
 #. desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe.
-#: schreikasten.php:2176
+#: schreikasten.php:2258
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
@@ -238,7 +309,7 @@ msgstr ""
 "Хотите продолжить?"
 
 #. desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe.
-#: schreikasten.php:2198
+#: schreikasten.php:2280
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -247,7 +318,7 @@ msgstr ""
 "должны быть одобрены перед размещением."
 
 #. desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe.
-#: schreikasten.php:2202
+#: schreikasten.php:2284
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -255,83 +326,83 @@ msgstr ""
 "Ваше сообщение отправлено, но этот компьютер был занесен в черный \\n"
 " список. Комментарии должны быть одобрены перед размещением."
 
-#: schreikasten.php:2219
+#: schreikasten.php:2301
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Необходимо <a href=\"%s\">залогиниться</a>, чтобы оставить комментарий"
 
-#: schreikasten.php:2229
+#: schreikasten.php:2311
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Этот компьютер занесен в черный список. На данный момент комментарии не могут быть оставлены."
 
-#: schreikasten.php:2236
+#: schreikasten.php:2318
 msgid "Name"
 msgstr "Имя"
 
-#: schreikasten.php:2242
+#: schreikasten.php:2324
 msgid "Email"
 msgstr "Email"
 
-#: schreikasten.php:2250
-#: schreikasten.php:2266
+#: schreikasten.php:2332
+#: schreikasten.php:2348
 msgid "For"
 msgstr "Кому"
 
-#: schreikasten.php:2265
+#: schreikasten.php:2347
 msgid "Submit"
 msgstr "Отправить"
 
-#: schreikasten.php:2270
+#: schreikasten.php:2352
 msgid "Mail will not be published"
 msgstr "E-mail не будет опубликован"
 
-#: schreikasten.php:2272
+#: schreikasten.php:2354
 msgid "(but it's required)"
 msgstr "(но необходим)"
 
-#: schreikasten.php:2275
+#: schreikasten.php:2357
 msgid "(but it's used for avatar)"
 msgstr "(но будет использован для аватара)"
 
-#: schreikasten.php:2279
+#: schreikasten.php:2361
 #, php-format
 msgid "Logged in as %s"
 msgstr "Вы вошли как %s"
 
-#: schreikasten.php:2280
+#: schreikasten.php:2362
 msgid "Log out"
 msgstr "Выйти"
 
-#: schreikasten.php:2304
+#: schreikasten.php:2386
 msgid "The lenght of the message is bigger than the allowed size."
 msgstr "Размер сообщения превышает допустимый лимит."
 
-#: schreikasten.php:2333
+#: schreikasten.php:2415
 msgid "Answer"
 msgstr "Ответ"
 
-#: schreikasten.php:2440
+#: schreikasten.php:2522
 #, php-format
 msgid "Comment by %s"
 msgstr "Комментарий от %s"
 
-#: schreikasten.php:2448
+#: schreikasten.php:2530
 #, php-format
 msgid "Shouts in %s"
 msgstr "Сообщения в %s"
 
-#: schreikasten.php:2449
+#: schreikasten.php:2531
 #, php-format
 msgid "List of messages in %s"
 msgstr "Список сообщений в %s"
 
-#: schreikasten.php:2488
-#: schreikasten.php:2552
+#: schreikasten.php:2570
+#: schreikasten.php:2644
 #: legacy.php:99
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: schreikasten.php:2538
+#: schreikasten.php:2630
 msgid "Add a Schreikasten Shoutbox to the sidebar."
 msgstr "Добавить мини чат Schreikasten в боковую панель."
 
@@ -533,38 +604,6 @@ msgstr "Schreikasten Спам"
 msgid "Schreikasten Comments"
 msgstr "Schreikasten Комментарии"
 
-#: templates/sk_manageblack.php:56
-#: templates/sk_manage.php:52
-#: templates/sk_tracking.php:65
-msgid "All"
-msgstr "Все"
-
-#: templates/sk_manageblack.php:57
-#: templates/sk_manage.php:53
-#: templates/sk_tracking.php:66
-msgid "Pending"
-msgid_plural "Pending"
-msgstr[0] "Pending"
-msgstr[1] "Pending"
-
-#: templates/sk_manageblack.php:58
-#: templates/sk_comment.php:15
-#: templates/sk_manage.php:54
-#: templates/sk_tracking.php:67
-msgid "Accepted"
-msgid_plural "Accpeted"
-msgstr[0] "Одобренные"
-msgstr[1] ""
-
-#: templates/sk_manageblack.php:60
-#: templates/sk_comment.php:17
-#: templates/sk_manage.php:56
-#: templates/sk_tracking.php:69
-msgid "Unapproved"
-msgid_plural "Unapproved"
-msgstr[0] "Отклоненные"
-msgstr[1] ""
-
 #: templates/sk_manageblack.php:61
 #: templates/sk_manage.php:57
 #: templates/sk_tracking.php:70
@@ -649,24 +688,6 @@ msgstr "зарегистрированный пользователь"
 msgid "No e-mail registry"
 msgstr "Нет e-mail регистрации"
 
-#: templates/sk_manageblack.php:133
-#: templates/sk_manage.php:137
-#: templates/sk_tracking.php:139
-#: templates/sk_tracking.php:195
-msgid "accepted"
-msgid_plural "accepted"
-msgstr[0] "одобренные"
-msgstr[1] ""
-
-#: templates/sk_manageblack.php:134
-#: templates/sk_manage.php:138
-#: templates/sk_tracking.php:140
-#: templates/sk_tracking.php:196
-msgid "unapproved"
-msgid_plural "unapproved"
-msgstr[0] "отклоненные"
-msgstr[1] ""
-
 #: templates/sk_manageblack.php:136
 #: templates/sk_manage.php:154
 #: templates/sk_tracking.php:157
@@ -736,6 +757,7 @@ msgid "approve"
 msgstr "одобрить"
 
 #: templates/sk_confirm.php:13
+#: templates/sk_manage.php:158
 msgid "Approve"
 msgstr "Одобрить"
 
@@ -759,17 +781,6 @@ msgstr "<strong>Внимание:</strong> Вы хотите %s следующи
 #: templates/sk_confirm.php:31
 msgid "Are you sure you want to do that?"
 msgstr "Вы уверены, что хотите это сделать?"
-
-#: templates/sk_confirm.php:38
-#: templates/sk_confirm.php:54
-#: templates/sk_comment.php:41
-#: templates/sk_comment.php:54
-#: templates/sk_manage.php:106
-#: templates/sk_manage.php:113
-#: templates/sk_tracking.php:111
-#: templates/sk_tracking.php:117
-msgid "Comment"
-msgstr "Комментарий"
 
 #: templates/sk_confirm.php:46
 #: templates/sk_comment.php:46
@@ -812,7 +823,6 @@ msgid "No comments found"
 msgstr "Комментарии не найдены"
 
 #: templates/sk_manage.php:88
-#: templates/sk_manage.php:158
 #: templates/sk_manage.php:193
 #: templates/sk_tracking.php:161
 #: templates/sk_tracking.php:216
@@ -828,20 +838,6 @@ msgstr "Обозначить как Спам"
 #: templates/sk_manage.php:195
 msgid "Mark as Unapproved"
 msgstr "Обознасить как Отклоненный"
-
-#: templates/sk_manage.php:136
-#: templates/sk_tracking.php:138
-#: templates/sk_tracking.php:194
-msgid "spam"
-msgstr "спам"
-
-#: templates/sk_manage.php:139
-#: templates/sk_tracking.php:141
-#: templates/sk_tracking.php:197
-msgid "unresolved"
-msgid_plural "unresolved"
-msgstr[0] "неопределенные"
-msgstr[1] ""
 
 #: templates/sk_manage.php:157
 #: templates/sk_tracking.php:160
@@ -885,4 +881,29 @@ msgstr "По e-mail"
 #: templates/sk_tracking.php:254
 msgid "By PC"
 msgstr "По компьютеру"
+
+#~ msgid "All"
+#~ msgstr "Все"
+#~ msgid "Accepted"
+#~ msgid_plural "Accpeted"
+#~ msgstr[0] "Одобренные"
+#~ msgstr[1] ""
+#~ msgid "Unapproved"
+#~ msgid_plural "Unapproved"
+#~ msgstr[0] "Отклоненные"
+#~ msgstr[1] ""
+#~ msgid "accepted"
+#~ msgid_plural "accepted"
+#~ msgstr[0] "одобренные"
+#~ msgstr[1] ""
+#~ msgid "unapproved"
+#~ msgid_plural "unapproved"
+#~ msgstr[0] "отклоненные"
+#~ msgstr[1] ""
+#~ msgid "spam"
+#~ msgstr "спам"
+#~ msgid "unresolved"
+#~ msgid_plural "unresolved"
+#~ msgstr[0] "неопределенные"
+#~ msgstr[1] ""
 
