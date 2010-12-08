@@ -117,21 +117,21 @@
 				foreach($comments as $comment) { ?>
 				<tr id='comment-<?php echo $comment->id; ?>'>
 					<th scope="row" class="check-column"><input type='checkbox' name='checked_comments[]' value='<?php echo $comment->id; ?>' /></th>
-					<td class="author column-author"><strong> <?php 
-						echo sk_avatar($comment->id, 40);
-						echo $comment->alias; ?>
-								</strong><?php 
-									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip); ?>
-									<br /><?php 
+					<td class="author column-author"> <?php 
+						echo sk_avatar($comment->id, 32);
+						echo "<strong>{$comment->alias}</strong>"; ?>
+								<br /><?php 
 									if($comment->email!="")
 										echo $comment->email;
 									else
 										_e('No e-mail registry', 'sk');
-								if($comment->user_id>0) { 
-									echo "<br/><br/>";
-									printf(" (".__('registered user', 'sk').")");
-								} ?></td>
-							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
+									if($comment->user_id>0) { 
+										echo "<br/>";
+										printf(" (".__('registered user', 'sk').")");
+									}
+									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip); ?>
+								</td>
+							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $comment->text; ?></p><?php
 							$act_message="";
 							$spam_message=strtolower( _n('Spam', 'Spam', 1, 'sk') );
 							$ham_message=strtolower( _n('Approved', 'Approved', 1, 'sk') );
