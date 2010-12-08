@@ -119,20 +119,20 @@
 			</tfoot>
 			<tbody id="the-comment-list" class="list:comment">
 					<tr id='comment-<?php echo $data->id; ?>' style="background-color: #f9f1a4;">
-						<td class="author column-author"><strong> <?php 
-								echo sk_avatar($data->id, 40);
-						echo $data->alias; ?>
-								</strong><?php 
-								printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $data->ip, $data->ip); ?>
+						<td class="column-author"> <?php 
+						echo sk_avatar($data->id, 32);
+						echo "<strong>{$data->alias}</strong>"; ?>
 								<br /><?php 
-										if($data->email!="")
+									if($data->email!="")
 										echo $data->email;
 									else
 										_e('No e-mail registry', 'sk');
 									if($data->user_id>0) { 
-										echo "<br/><br/>";
+										echo "<br/>";
 										printf(" (".__('registered user', 'sk').")");
-									} ?></td>
+									}
+									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $data->ip, $data->ip); ?>
+								</td>
 											<td class="comment column-comment"><div id="submitted-on"><?php echo $data->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($data->status==SK_SPAM) $img='spam.png'; if($data->status==SK_BLACK) $img='black.png'; if($data->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $data->text; ?></p><?php
 						$act_message="";
 						$spam_message=strtolower( _n('Spam', 'Spam', 1, 'sk') );
@@ -175,20 +175,20 @@
 				</tr><?
 				foreach($comments as $comment) { ?>
 				<tr id='comment-<?php echo $comment->id; ?>'>
-					<td class="author column-author"><strong> <?php 
-						echo sk_avatar($comment->id, 40);
-						echo $comment->alias; ?>
-								</strong><?php 
-									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip); ?>
-									<br /><?php 
+					<td class="column-author"> <?php 
+						echo sk_avatar($comment->id, 32);
+						echo "<strong>{$comment->alias}</strong>"; ?>
+								<br /><?php 
 									if($comment->email!="")
 										echo $comment->email;
 									else
 										_e('No e-mail registry', 'sk');
-								if($comment->user_id>0) { 
-									echo "<br/><br/>";
-									printf(" (".__('registered user', 'sk').")");
-								} ?></td>
+									if($comment->user_id>0) { 
+										echo "<br/>";
+										printf(" (".__('registered user', 'sk').")");
+									}
+									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip); ?>
+								</td>
 							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo $comment->text; ?></p><?php
 							$act_message="";
 							$spam_message=strtolower( _n('Spam', 'Spam', 1, 'sk') );

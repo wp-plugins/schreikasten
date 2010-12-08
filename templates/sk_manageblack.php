@@ -112,7 +112,7 @@
 				foreach($comments as $comment) { ?>
 				<tr id='pc-<?php echo $comment->id; ?>'>
 					<?php if($comment->pc!=$first) { $first=$comment->pc; ?><th scope="row" class="check-column"><input type='checkbox' name='checked_pcs[]' value='<?php echo $comment->block_id; ?>' /></th>
-						<td class="author column-author"><strong> <?php 
+						<td class="column-author"><strong> <?php 
 						if(!$comment->forever)
 							printf( __("To be unlocked<br>%s", 'sk'), $comment->date_end);
 						else

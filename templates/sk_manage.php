@@ -117,7 +117,7 @@
 				foreach($comments as $comment) { ?>
 				<tr id='comment-<?php echo $comment->id; ?>'>
 					<th scope="row" class="check-column"><input type='checkbox' name='checked_comments[]' value='<?php echo $comment->id; ?>' /></th>
-					<td class="author column-author"> <?php 
+					<td class="column-author"> <?php 
 						echo sk_avatar($comment->id, 32);
 						echo "<strong>{$comment->alias}</strong>"; ?>
 								<br /><?php 
