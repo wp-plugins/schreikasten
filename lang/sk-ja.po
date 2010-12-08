@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-07 07:12-0500\n"
-"PO-Revision-Date: 2010-12-07 07:12-0500\n"
+"POT-Creation-Date: 2010-12-08 09:39-0500\n"
+"PO-Revision-Date: 2010-12-08 09:39-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: BNG NET <webmaster@bng.net>\n"
 "Language: \n"
@@ -65,7 +65,6 @@ msgstr "シャウトボックス"
 #: templates/sk_tracking.php:65
 #: templates/sk_tracking.php:111
 #: templates/sk_tracking.php:117
-#, fuzzy
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] "コメント"
@@ -79,7 +78,6 @@ msgstr[0] "コメント"
 #: templates/sk_tracking.php:67
 #: templates/sk_tracking.php:139
 #: templates/sk_tracking.php:195
-#, fuzzy
 msgid "Approved"
 msgid_plural "Approved"
 msgstr[0] "承認"
@@ -87,7 +85,10 @@ msgstr[0] "承認"
 #: schreikasten.php:203
 #: templates/sk_manageblack.php:57
 #: templates/sk_manage.php:53
+#: templates/sk_manage.php:139
 #: templates/sk_tracking.php:66
+#: templates/sk_tracking.php:141
+#: templates/sk_tracking.php:197
 msgid "Pending"
 msgid_plural "Pending"
 msgstr[0] "保留"
@@ -104,7 +105,6 @@ msgstr[0] "保留"
 #: templates/sk_tracking.php:165
 #: templates/sk_tracking.php:194
 #: templates/sk_tracking.php:220
-#, fuzzy
 msgid "Spam"
 msgid_plural "Spam"
 msgstr[0] "スパム"
@@ -118,7 +118,6 @@ msgstr[0] "スパム"
 #: templates/sk_tracking.php:69
 #: templates/sk_tracking.php:140
 #: templates/sk_tracking.php:196
-#, fuzzy
 msgid "Rejected"
 msgid_plural "Rejected"
 msgstr[0] "拒否"
@@ -285,7 +284,7 @@ msgstr "ＰＣをロック"
 #: schreikasten.php:2165
 #, php-format
 msgid "To show your messages list you have to <a href=\"%s\">log in</a>."
-msgstr ""
+msgstr "メッセージリストの閲覧には<a href=\"%s\">ログイン</a>が必要です。"
 
 #. desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe.
 #: schreikasten.php:2249
@@ -324,7 +323,7 @@ msgstr ""
 #: schreikasten.php:2301
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
-msgstr "<a href=\"%s\">ログイン</a>してからコメントを投稿してください"
+msgstr "<a href=\"%s\">ログイン</a>しないとメッセージの投稿はできません"
 
 #: schreikasten.php:2311
 msgid "This PC was blacklisted. At this time comments cannot be posted."
@@ -669,16 +668,16 @@ msgid "To be never unlock"
 msgstr "永久ロック対象"
 
 #: templates/sk_manageblack.php:120
-#: templates/sk_manage.php:132
-#: templates/sk_tracking.php:134
-#: templates/sk_tracking.php:190
+#: templates/sk_manage.php:130
+#: templates/sk_tracking.php:132
+#: templates/sk_tracking.php:188
 msgid "registered user"
 msgstr "登録ユーザ"
 
 #: templates/sk_manageblack.php:131
-#: templates/sk_manage.php:129
-#: templates/sk_tracking.php:131
-#: templates/sk_tracking.php:187
+#: templates/sk_manage.php:127
+#: templates/sk_tracking.php:129
+#: templates/sk_tracking.php:185
 msgid "No e-mail registry"
 msgstr "メールアドレスの登録がありません"
 

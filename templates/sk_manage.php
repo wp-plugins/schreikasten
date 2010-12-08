@@ -162,7 +162,7 @@
 							<?php if($comment->status==SK_MOOT || $comment->status==SK_HAM) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'set_spam_x', 'id' => $comment->id) );?>" class="edit" onclick="javascript:check=confirm( '<?php printf($status_message, $act_message, $spam_message); ?>');if(check==false) return false;"><?php _e('Spam', 'sk'); ?></a>
 							</span><?php } ?>
 							<span class='delete'> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'delete_x', 'id' => $comment->id) ); ?>" class="delete" onclick="javascript:check=confirm( '<?php _e("Delete this Comment?",'sk')?>');if(check==false) return false;"><?php _e('Delete', 'sk') ?></a></span>
-							<span class='tracking'> | <a href="<?php echo add_query_arg( array('text'=>$text, 'mode' => 'tracking', 'tid' => $comment->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
+							<span class='tracking'> | <a href="<?php echo add_query_arg( array('text'=>$text, 'mode' => 'tracking', 'paged' => 1, 'tid' => $comment->id) ); ?>" class="tracking"><?php _e('Tracking', 'sk') ?></a></span><?php
 							if($select==SK_BLACK) { ?>
 							<?php if($block_id=sk_is_blacklisted($comment->user_id)) { ?><span> | <a href="<?php echo add_query_arg( array('paged'=>$page,'text'=>$text, 'mode_x' => 'unlock_x', 'id' => $block_id) ); ?>" class="edit" onclick="javascript:check=confirm( '<?php _e("Are you sure you want to unlock this PC?",'sk')?>');if(check==false) return false;"><?php _e('Unlock PC', 'sk') ?></a></span><?php
 							 } else { ?>

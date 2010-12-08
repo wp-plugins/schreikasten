@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.2
-Stable tag: 0.14.7.4
+Stable tag: 0.14.7.5
 
 A shoutbox using ajax and akismet.
 
@@ -134,6 +134,10 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.7.5 =
+* Solved bug with tracking system.
+* Updated Japanese translation.
 
 = 0.14.7.4 =
 * Solved CSS bug with comments list.
