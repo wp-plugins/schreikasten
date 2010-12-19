@@ -138,7 +138,7 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 == Changelog ==
 
 = 0.14.7.7 =
-* Added special cappabilitie (moderate_schreikasten) to author, editor and administrator.
+* Added special capabilitie (moderate_schreikasten) to author, editor and administrator.
 
 = 0.14.7.6 =
 * Added some design to comments list.

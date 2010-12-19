@@ -707,12 +707,12 @@ function sk_activate() {
 	global $wpdb;
 	global $db_version;
 	
-	//Create new cappabilitie
+	//Create new capabilitie
 	$role1 = get_role( 'administrator' );
 	$role2 = get_role( 'editor' );
 	$role3 = get_role( 'author' );
-	// add SK_CAP to the roles if none has the cappabilitie.
-	if(!$role1->has_cap( SK_CAP ) && !$role2->has_cap( SK_CAP ) && !$role3->has_cap( SK_CAP )) {
+	// add SK_CAP to the roles if the administrator doesn't have the capabilitie.
+	if(!$role1->has_cap( SK_CAP )) {
 		$role1->add_cap( SK_CAP );
 		$role2->add_cap( SK_CAP );
 		$role3->add_cap( SK_CAP );
