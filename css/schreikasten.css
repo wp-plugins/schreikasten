@@ -261,3 +261,29 @@ div.sk-reply-on {
 .sk-user-user {
 	background-color: #F1F1F1;
 }*/
+
+.sku-count {
+	float: left;
+	width: 20px;
+	text-align: center;
+	margin-right: 4px;
+	background: #AABCC0;
+	color: white;
+}
+
+.sku-content {
+	padding: 3px 25px 3px;
+}
+
+ul.sku-list {
+	list-style-type: none;
+	padding: 0px;
+}
+
+li.sku-back {
+	background: #EAF2F4;
+}
+
+.sku-list li {
+	border-top: 1px solid black;
+}
