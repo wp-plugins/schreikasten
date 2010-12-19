@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.7.6
+Version: 0.14.7.7
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -48,6 +48,7 @@ define ("SK_LAYOUT_QA", 4);
 define ("SK_DB_VERSION", 4);
 define ("SK_HEADER_V", 1.18);
 
+define ("SK_CAP", 'moderate_schreikasten');
 
 
 require_once("legacy.php");
@@ -66,7 +67,6 @@ add_action('wp_ajax_nopriv_sk_ajax', 'sk_ajax');
 add_action('wp_ajax_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_nopriv_sk_ajax_add', 'sk_ajax_add');
 add_action('wp_ajax_sk_ajax_action', 'sk_ajax_action');
-//add_action('activity_box_end', 'sk_dashboard');
 add_action('right_now_discussion_table_end', 'sk_dashboard');
 register_activation_hook(__FILE__, 'sk_activate');
 register_deactivation_hook(__FILE__, 'sk_deactivate');
@@ -183,7 +183,7 @@ function sk_dashboard() {
 	global $wpdb;
 	global $current_user;
 	get_currentuserinfo();
-	if(current_user_can('manage_options')) {
+	if(current_user_can(SK_CAP)) {
 		//Comments and spam number
 		$total = sk_count();
 		$approved = sk_count(SK_HAM);
@@ -362,7 +362,7 @@ function sk_ajax_action() {
 	
 	//check if this user can perform an action
 	if($current_user) {
-		if(current_user_can( 'moderate_comments' )) { //Yes, he is the man!
+		if(current_user_can( SK_CAP )) { //Yes, he is the man!
 			switch($sk_action) {
 				case 'set_black': //set as blacklisted
 					sk_mark_as_black($id);
@@ -706,6 +706,18 @@ function sk_page_selector($size, $group=1,$rand=false) {
 function sk_activate() {
 	global $wpdb;
 	global $db_version;
+	
+	//Create new cappabilitie
+	$role1 = get_role( 'administrator' );
+	$role2 = get_role( 'editor' );
+	$role3 = get_role( 'author' );
+	// add SK_CAP to the roles if none has the cappabilitie.
+	if(!$role1->has_cap( SK_CAP ) && !$role2->has_cap( SK_CAP ) && !$role3->has_cap( SK_CAP )) {
+		$role1->add_cap( SK_CAP );
+		$role2->add_cap( SK_CAP );
+		$role3->add_cap( SK_CAP );
+	}
+	
 	$table_name = $wpdb->prefix . "schreikasten";
 	$blacklist_name = $wpdb->prefix . "schreikasten_blacklist";
 	$db_version=get_option('sk_db_version');
@@ -1506,7 +1518,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	
 	//check if this user can administrate
 	$sk_canmannage=false;
-	if(current_user_can( 'moderate_comments' )) {
+	if(current_user_can( SK_CAP )) {
 		$sk_canmannage=true;
 	}
 	
@@ -1765,7 +1777,7 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 function sk_menus()
 {
 	global $submenu;
-	add_submenu_page('edit-comments.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'moderate_comments', 'skmanage', 'sk_manage' );
+	add_submenu_page('edit-comments.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), SK_CAP, 'skmanage', 'sk_manage' );
 	add_submenu_page('options-general.php', __('Schreikasten', 'sk'), __('Schreikasten', 'sk'), 'manage_options', 'skconfig', 'sk_config');
 }
 

@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.0.3
-Stable tag: 0.14.7.6
+Stable tag: 0.14.7.7
 
 A shoutbox using ajax and akismet.
 
@@ -136,6 +136,9 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.7.7 =
+* Added special cappabilitie (moderate_schreikasten) to author, editor and administrator.
 
 = 0.14.7.6 =
 * Added some design to comments list.
