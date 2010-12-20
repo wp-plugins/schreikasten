@@ -37,6 +37,10 @@ The anti Spam filter requires an Akismet API KEY. If you have one enabled in you
 site you can use it in this plugin too. If you don't have an API KEY, create one
 in [this site](http://en.wordpress.com/api-keys/).
 
+To edit the comments any user has to have the 'moderate-schreikasten' capability. Schreikasten 
+creates this capability and asigns it to the author, editor and administrator roles. Use a 3rd
+party plugin (like the 'User Role Editor') to enable/disable it on each role. 
+
 To add a shoutbox into a page or post, use the tags __[schreikasten:title,items,rssicon]__ 
 or __[schreikasten:items]__, where __title__ should be the text to display as header, 
 __items__ is the number of items to show in every single page, and __rssicon__ (true 
@@ -122,6 +126,12 @@ __sk-little__ and change the font size.
 Yes. Copy the file schreikasten.css to your theme folder, search for the classes 
 sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them as you want.
 
+= How can I allow/disallow the capability to edit the comments on each role? =
+
+Schreikasten creates the 'moderate-shcreikasten' capability and assigns it to the 
+author, editor and administrator roles. Use a 3rd party plugin (like the 'User Role Editor')
+to enable/disable it on each role. 
+
 
 == Screenshots ==
 
@@ -138,7 +148,7 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 == Changelog ==
 
 = 0.14.7.7 =
-* Added special capabilitie (moderate_schreikasten) to author, editor and administrator.
+* Added special capability (moderate_schreikasten) to author, editor and administrator.
 
 = 0.14.7.6 =
 * Added some design to comments list.
@@ -267,7 +277,7 @@ sk-user-admin, sk-user-editor, sk-user-author and sk-user-user, and change them 
 * Admin widget now with AJAX capabilities to delete, mark as spam or reject a comment.
 
 = 0.13.96 =
-* Solved bug with rss feed capabilitie.
+* Solved bug with rss feed capability.
 
 = 0.13.95 =
 * Changed GUI to help users with API Key.
