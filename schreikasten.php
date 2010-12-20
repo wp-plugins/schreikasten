@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.7.7
+Version: 0.14.7.8
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1015,7 +1015,12 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 	
 	//Is this form sending to much data?
 	$maxcharok = false;
-	if(strlen($text)<=$options['maxchars']) $maxcharok = true;
+	$aux_size = strlen($text);
+	if ( function_exists( 'mb_strlen' ) ) {
+		$aux_size = mb_strlen($text);
+	}
+   
+	if($aux_size<=$options['maxchars']) $maxcharok = true;
 	
 	//Is the data well formed? Maybe a spammer is sending data through an external form.
 	if($maxcharok && $mailok) {
@@ -2163,19 +2168,29 @@ function sk_userMessages() {
 	global $wpdb;
 	global $current_user;
 	get_currentuserinfo();
+	$options = get_option('sk_options');
 	if($current_user->ID>0) {
 		$table_name = $wpdb->prefix . "schreikasten";
-		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." AND user_id = {$current_user->ID} ORDER BY id desc";
+		$sql="SELECT id, alias, text, date, user_id, email, status FROM $table_name WHERE status=".SK_HAM." AND user_id = {$current_user->ID} ORDER BY id ";
+		if($options['layout'] == SK_LAYOUT_CHAT) {
+			$sql.= "DESC";
+			$count = 1;
+			$sum = 1;
+		} else {
+			$sql.= "ASC";
+			$sum = -1;
+		}
 		$comments = $wpdb->get_results($sql);
 		$comments = array_reverse($comments);
+		if($sum == -1) $count = count($comments);
 		$answer = "<ul class='sku-list'>";
-		$count = count($comments);
+		
 		$back = true;
 		foreach($comments as $comment) {
 			$class = "sku-item";
 			if($back) $class.=" sku-back";
 			$answer.= "<li class='$class'><div class='sku-count'>$count</div><div class='sku-content'><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>{$comment->text}</span></div></li>";
-			$count--;
+			$count = $count+$sum;
 			$back = !$back;
 		}
 		$answer.= '</ul>';

@@ -48,7 +48,7 @@
 		var text=document.getElementsByName("sk_text%rand%")[0].value;
 		var email=document.getElementsByName("sk_email%rand%")[0].value;
 		var skfor=document.getElementsByName("sk_for_id%rand%")[0].value;
-		if(text.length>%maxchars%-1) {
+		if(text.length>%maxchars%) {
 			alert('%lenght%');
 			return false;
 		}%ask_email%%email_in_text%
