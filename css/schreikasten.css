@@ -34,6 +34,12 @@ input.sk-button-size {
 /* End of css for button over the text */
 
 /****** Button at the right side of the text */
+div.sk-box-message {
+		margin-right: 5px;
+		clear: both;
+		text-align: center;
+	}
+
 div.sk-box-text {
 		margin-right: 5px;
 		float: right;

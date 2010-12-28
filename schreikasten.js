@@ -104,6 +104,9 @@ skBeep = function() {
 						sk_sack.xmlhttp.abort();
 						sk_sack.reset();
 					}
+					var sk_submit=document.getElementById('sk_submit_text'+rand);
+					var sk_button=document.getElementById('sk_button'+rand);
+					sk_button.value = sk_submit.value; 
 				}
 			};
 			
@@ -150,6 +153,11 @@ skBeep = function() {
 			sk_sack.reset();
 			semaphore.setGreen();
 			document.getElementById('sk_count'+rand).value = document.getElementById('sk_int_count'+rand).value;
+			
+			var sk_submit=document.getElementById('sk_submit_text'+rand);
+			var sk_button=document.getElementById('sk_button'+rand);
+			sk_button.disabled = false;
+			sk_button.value = sk_submit.value; 
 		
 		};
 		
@@ -186,6 +194,10 @@ skBeep = function() {
 			sk_sack.reset();
 			semaphore.setGreen();
 			document.getElementById('sk_count'+rand).value = document.getElementById('sk_int_count'+rand).value;
+			
+			var sk_submit=document.getElementById('sk_submit_text'+rand);
+			var sk_button=document.getElementById('sk_button'+rand);
+			sk_button.value = sk_submit.value; 
 		};
 		
 		sk_sack_action.runAJAX();

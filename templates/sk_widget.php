@@ -14,21 +14,21 @@
 	}
 	
 	function for_delete%rand%() {
-		document.getElementById("sk_for_id%rand%").value='0';
-		document.getElementById("sk_for_name%rand%").innerHTML='';
-		document.getElementById("sk_for_tr%rand%").className='sk-for-nai';
+		document.getElementById('sk_for_id%rand%').value='0';
+		document.getElementById('sk_for_name%rand%').innerHTML='';
+		document.getElementById('sk_for_tr%rand%').className='sk-for-nai';
 	}
 	
 	function for_set%rand%(id, name) {
-		document.getElementById("sk_for_id%rand%").value=id;
-		document.getElementById("sk_for_name%rand%").innerHTML=name;
-		var text=document.getElementsByName("sk_text%rand%")[0].value;
+		document.getElementById('sk_for_id%rand%').value=id;
+		document.getElementById('sk_for_name%rand%').innerHTML=name;
+		var text=document.getElementById('sk_text%rand%').value;
 		if(%qa%) {
-			document.getElementsByName("sk_text%rand%")[0].value='%answer%: '+text;
+			document.getElementById('sk_text%rand%').value='%answer%: '+text;
 		} else {
-			document.getElementsByName("sk_text%rand%")[0].value='%for% '+name+' - '+text;
+			document.getElementById('sk_text%rand%').value='%for% '+name+' - '+text;
 		}
-		document.getElementById("sk_for_tr%rand%").className='sk-for-yep';
+		document.getElementById('sk_for_tr%rand%').className='sk-for-yep';
 	}
 	
 	function sk_replyDelete%rand%(id, text) {
@@ -44,10 +44,10 @@
 	}
 	
 	function sk_pressButton%rand%() {
-		var alias=document.getElementsByName("sk_alias%rand%")[0].value;
-		var text=document.getElementsByName("sk_text%rand%")[0].value;
-		var email=document.getElementsByName("sk_email%rand%")[0].value;
-		var skfor=document.getElementsByName("sk_for_id%rand%")[0].value;
+		var alias=document.getElementById('sk_alias%rand%').value;
+		var text=document.getElementById('sk_text%rand%').value;
+		var email=document.getElementById('sk_email%rand%').value;
+		var skfor=document.getElementById('sk_for_id%rand%').value;
 		if(text.length>%maxchars%) {
 			alert('%lenght%');
 			return false;
@@ -64,8 +64,13 @@
 		}
 		for_delete%rand%();
 		document.getElementById('sk_page%rand%').value=1;
-		document.getElementsByName('sk_text%rand%')[0].value='';
-		sk_add( alias, email, text, skfor, %rand%, sk_semaphore%rand% );%message%
+		document.getElementById('sk_text%rand%').value='';
+		div_sk_allowed = document.getElementById('sk_allowed%rand%');
+		if(div_sk_allowed.value > 0) {
+			div_sk_allowed.value = div_sk_allowed.value - 1;
+		}
+		
+		sk_add( alias, email, text, skfor, %rand%, sk_semaphore%rand% );
 	}
 /* ]]> */
 </script>
@@ -75,5 +80,6 @@
 	window.onfocus = function () {sk_hasFocus = true; document.title = sk_old_title;}
 	var sk_semaphore%rand%=new sk_Semaphore();
 	sk_semaphore%rand%.setGreen();
-	%have_for%%show_timer%
+	%have_for%%show_timer% 
+	
 </script>

@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.7.9
+Version: 0.14.8
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -46,7 +46,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.18);
+define ("SK_HEADER_V", 1.19);
 
 define ("SK_CAP", 'moderate_schreikasten');
 
@@ -807,7 +807,7 @@ function sk_activate() {
 	}
 	
 	//Widget options
-	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG, 'delete_type'=>1, 'delete_num'=>0);
+	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG, 'delete_type'=>1, 'delete_num'=>0, 'maxperday'=>0);
 	add_option('sk_options', $options);
 	
 	//Have we updated or no?
@@ -833,6 +833,10 @@ function sk_activate() {
 	if(!isset($options['delete_type'])) {
 		 $options['delete_type'] = 1;
 		 $options['delete_num'] = 0;
+		 update_option('sk_options', $options);
+	}
+	if(!isset($options['maxperday'])) {
+		 $options['maxperday'] = 0;
 		 update_option('sk_options', $options);
 	}
 	
@@ -1136,25 +1140,24 @@ function sk_is_blacklisted($pc=false) {
 }
 
 /**
-* Return true if this PC can't send more comments to be accepted
+* Return the number of allowed messages a PC can send. -1 if is unlimited.
 *
 * @param int pc PC to check. Withoput parameter use cookie
-* @return bool
+* @return int 
 * @access public
 */
-function sk_can_not_accept_more_messages($pc=false) {
+function sk_allowed_messages($pc=false) {
 	global $wpdb;
 	global $current_user;
-	$answer=false;
-	if(sk_is_blacklisted($pc)) {
-		$options = get_option('sk_options');
-		
-		//max number of messages a blacklisted pc can send
-		$max=$options['bl_maxpending'];
-			
+	get_currentuserinfo();
+	$answer=-1;
+	$options = get_option('sk_options');
+	
+	//If current user can administrate comments, it has unlimited messages allowed
+	//else, check the limit
+	if(!current_user_can( SK_CAP )) {
 		//use the current pc id (or user id) if the function didn't get the variable
 		if(!$pc) {
-			get_currentuserinfo();
 			$pc=0;
 			if($current_user->ID>0) {
 				$pc=$current_user->ID;
@@ -1163,16 +1166,61 @@ function sk_can_not_accept_more_messages($pc=false) {
 			}
 		}
 		
-		//get the numbr of messages a pc (or user) have pending from moderation
-		$table_name = $wpdb->prefix . "schreikasten";
-		$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status = ".SK_MOOT." AND user_id = ".$pc;
-		$total=$wpdb->get_var( $query );
+		$allowed_blocked = -1;
+		$allowed_perday = -1;
 		
-		//if it has more or equal, inform this user can't send more comments
-		if($total>=$max) {
-			$answer=true;
+		//Is it blacklisted?
+		if(sk_is_blacklisted($pc)) {
+			
+			//max number of messages a blacklisted pc can send
+			$max=$options['bl_maxpending'];
+			//get the numbr of messages a pc (or user) have pending from moderation
+			$table_name = $wpdb->prefix . "schreikasten";
+			$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status = ".SK_MOOT." AND user_id = ".$pc;
+			$total=$wpdb->get_var( $query );
+			
+			$allowed_blocked=$max-$total;
+		}
+		
+		//max number of messages a blacklisted pc can send
+		$max=$options['maxperday'];
+		//Messages per day
+		if($max>0) {
+			
+			//get the numbr of messages a pc (or user) have pending from moderation
+			$table_name = $wpdb->prefix . "schreikasten";
+			$query="SELECT COUNT(*) FROM " . $table_name ." WHERE status != ".SK_BLACK." AND DATE(date) = DATE(NOW()) AND user_id = ".$pc;
+			$total=$wpdb->get_var( $query );
+			
+			//if it has more or equal, inform this user can't send more comments
+			$allowed_perday=$max-$total;
+		}
+		
+		//Do we have a limmit?
+		if($allowed_perday != -1 || $allowed_blocked != -1) {
+			if($allowed_perday == -1) $answer = $allowed_blocked;
+			if($allowed_blocked == -1) $answer = $allowed_perday;
+			
+		}
+		if($allowed_perday != -1 && $allowed_blocked != -1) {
+			if($allowed_perday > $allowed_blocked) $answer = $allowed_blocked;
+			else $answer = $allowed_perday;
 		}
 	}
+	
+	return $answer;
+}
+
+/**
+* Return true if this PC can't send more comments to be accepted
+*
+* @param int pc PC to check. Withoput parameter use cookie
+* @return bool
+* @access public
+*/
+function sk_can_not_accept_more_messages($pc=false) {
+	$answer = false;
+	if(sk_allowed_messages($pc)==0) $answer = true;
 	return $answer;
 }
 
@@ -1775,7 +1823,28 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	$sk_count = sk_count(SK_HAM);
 	$sk_last = "";
 	if($sk_count>0) $sk_last = sk_last();
-	return "<input type='hidden' id='sk_int_count$rand' name='sk_int_count$rand' value='$sk_count' /><input type='hidden' id='sk_int_last$rand' name='sk_int_last$rand' value='$sk_last' />".$answer;
+	$sk_blocked = 0;
+	if(sk_is_blacklisted()) $sk_blocked = 1;
+	
+	//Message to display
+	$message = 'none';
+	$sk_allowed = sk_allowed_messages();
+	if($sk_allowed != 0)
+		$sk_enabled = 1;
+	else
+		$sk_enabled = 0;
+	
+	if($sk_allowed == 0) {
+		if($sk_blocked == 1) {
+			$message = __('This PC was blacklisted, and you have reached your comments quota limit.', 'sk');
+		} else {
+			$message = __('You have reached your daily comments quota limit.', 'sk');
+		}
+	}
+	
+	$submit = __('Submit', 'sk');
+	
+	return "<input type='hidden' id='sk_allowed$rand' name='sk_allowed$rand' value='$sk_allowed' /><input type='hidden' id='sk_enabled$rand' name='sk_enabled$rand' value='".$sk_enabled."' /><input type='hidden' id='sk_submit_text$rand' name='sk_submit_text$rand' value='".$submit."' /><input type='hidden' id='sk_message$rand' name='sk_message$rand' value='".$message."' /><input type='hidden' id='sk_blocked$rand' name='sk_blocked$rand' value='".$sk_blocked."' /><input type='hidden' id='sk_int_count$rand' name='sk_int_count$rand' value='$sk_count' /><input type='hidden' id='sk_int_last$rand' name='sk_int_last$rand' value='$sk_last' />".$answer;
 }
 
 /**
@@ -1848,6 +1917,8 @@ function sk_config() {
 		$options['bl_days'] = $_POST['sk_bl_days'];
 		$options['bl_maxpending'] = $_POST['sk_bl_maxpending'];
 		
+		$options['maxperday'] = $_POST['sk_maxperday'];
+		
 		$options['registered'] = $_POST['sk_registered'];
 		$options['announce'] = $_POST['sk_announce'];
 		$options['requiremail'] = $_POST['sk_requiremail'];
@@ -1884,6 +1955,9 @@ function sk_config() {
 	
 	$maxpending="selectedmaxpending".$options['bl_maxpending'];
 	$$maxpending=' selected="selected"';
+	
+	$maxperday="selectedmaxperday".$options['maxperday'];
+	$$maxperday=' selected="selected"';
 	
 	$registered="registered".$options['registered'];
 	$$registered=' selected="selected"';
@@ -2300,7 +2374,7 @@ function sk_codeShoutbox($size=false) {
 		}";
 	}
 	
-	$message = $disabled = false;
+	$message = false;
 	
 	//Do we need moderation?
 	$require_moderation = true;
@@ -2313,7 +2387,7 @@ function sk_codeShoutbox($size=false) {
 		$require_moderation = false;
 	}
 	
-	if(1 == $require_moderation && !current_user_can('install_plugins')) {
+	if(1 == $require_moderation && !current_user_can( SK_CAP )) {
 		/*desc: This is a javascript alert message, use \\n for new line and \\' for apostrophe. */
 		$message=__('Your message has been sent. Comments have\nto be approved before posted.', 'sk');
 	}
@@ -2322,7 +2396,7 @@ function sk_codeShoutbox($size=false) {
 		$message=__('Your message has been sent but this PC was blacklisted.\nComments have to be approved before posted.', 'sk');
 	}
 	if($message) {
-		$message = "alert('$message');
+		$message = "alert(\"$message\");
 		this.disabled=true;";
 	}
 	
@@ -2344,7 +2418,6 @@ function sk_codeShoutbox($size=false) {
 	
 		if(sk_is_blacklisted()) {
 			if(sk_can_not_accept_more_messages()) {
-				$disabled=" disabled";
 				$form_table.= "<tr>
 					<td colspan='2'>". __("This PC was blacklisted. At this time comments cannot be posted.", "sk")."</td>
 				<tr>";
@@ -2355,13 +2428,13 @@ function sk_codeShoutbox($size=false) {
 			$form_table.="<tr>
 				<td nowrap='nowrap'>".__('Name', 'sk').":</td>
 				<td>
-					<input class='sk-text' type='text' name='sk_alias$rand' value='$alias'/>
+					<input class='sk-text' type='text' id='sk_alias$rand' name='sk_alias$rand' value='$alias'/>
 				</td>
 			</tr>
 			<tr>
 				<td nowrap='nowrap'>".__('Email', 'sk').":</td>
 				<td>
-					<input class='sk-text' type='text' name='sk_email$rand' value='$email'/>
+					<input class='sk-text' type='text' id='sk_email$rand' name='sk_email$rand' value='$email'/>
 				</td>
 			</tr>";
 		}
@@ -2371,7 +2444,7 @@ function sk_codeShoutbox($size=false) {
 			<td><span id='sk_for_name$rand'></span>&nbsp;<img src='".sk_plugin_url('/img/clear.png')."' align='top' border='0' alt='' onclick='for_delete$rand();' /><input id='sk_for_id$rand' name='sk_for_id$rand' type='hidden' size='5' value='0'/></td>
 		</tr>
 		<tr>
-			<td colspan='2' align='right'><textarea rows='0' cols='0' class='sk-area' name='sk_text$rand' onkeypress='
+			<td colspan='2' align='right'><textarea rows='0' cols='0' class='sk-area' name='sk_text$rand' id='sk_text$rand' onkeypress='
 				var key;
 				if(window.event)
 					key = window.event.keyCode; //IE
@@ -2381,6 +2454,8 @@ function sk_codeShoutbox($size=false) {
 				return false;'></textarea></td>
 		</tr>
 		</table>";
+		
+		$sk_allowed = sk_allowed_messages();
 	
 		$submit = __('Submit', 'sk');
 		$for = __('For', 'sk');
@@ -2398,16 +2473,26 @@ function sk_codeShoutbox($size=false) {
 		} else {
 			$button.=sprintf(__('Logged in as %s', 'sk'), $current_user->display_name);
 			$button.="<br/><a href='$uri_out' title='".__('Log out', 'sk')."'>".__('Log out', 'sk')."</a>
-				<input name='sk_alias$rand' type='hidden' value='{$current_user->display_name}' />
-				<input name='sk_email$rand' type='hidden' value='{$current_user->user_email}' />";
+				<input id='sk_alias$rand' name='sk_alias$rand' type='hidden' value='{$current_user->display_name}' />
+				<input id='sk_email$rand' name='sk_email$rand' type='hidden' value='{$current_user->user_email}' />";
 		}
 		$button.="</div>";
 		
 		$form_button = "<table class='sk-table'>		
 			<tr>
 				<td colspan='2' class='sk-little'>
+					<div class='sk-box-message' name='sk-box-message%rand%'></div>
 					<div class='sk-box-button'>
-						$hidden<input $disabled type='button' class='sk-button sk-button-size' value='$submit' onclick='sk_pressButton$rand();'/>
+						$hidden<input type='button' class='sk-button sk-button-size' value='$submit' id='sk_button$rand' onclick='
+						sk_enabled = document.getElementById(\"sk_enabled%rand%\").value;
+						sk_allowed = document.getElementById(\"sk_allowed%rand%\").value;
+						if(sk_enabled == 1 ) {
+							this.disabled = true;
+							sk_pressButton$rand();%message%
+						} else {
+							alert(document.getElementById(\"sk_message%rand%\").value);
+						}
+						'/>
 					</div>
 					$button
 				</td>
@@ -2445,8 +2530,12 @@ function sk_codeShoutbox($size=false) {
 		fclose($fop);
 	}
 	
+	$blacklisted_pc = 'false';
+	if(sk_is_blacklisted()) $blacklisted_pc = 'true';
+	
+	$answer = str_replace('%allowed%', sk_allowed_messages(), $answer);
+	$answer = str_replace('%blocked_pc%', $blacklisted_pc, $answer);
 	$answer = str_replace('%sk_general%', $sk_general, $answer);
-	$answer = str_replace('%rand%', $rand, $answer);
 	$answer = str_replace('%nonce%', $nonce, $answer);
 	$answer = str_replace('%chat%', $chat, $answer);
 	$answer = str_replace('%qa%', $qa, $answer);
@@ -2466,15 +2555,17 @@ function sk_codeShoutbox($size=false) {
 	$answer = str_replace('%show_timer%', $show_timer, $answer);
 	$answer = str_replace('%ask_email%', $ask_email, $answer);
 	$answer = str_replace('%email_in_text%', $email_in_text, $answer);
-	$answer = str_replace('%message%', $message, $answer);
 	$answer = str_replace('%lenght%', $lenght, $answer);
 
 	$answer = str_replace('%form_table%', $form_table, $answer);
 	$answer = str_replace('%form_button%', $form_button, $answer);
+	$answer = str_replace('%message%', $message, $answer);
 	$answer = str_replace('%submit%', $submit, $answer);
 	$answer = str_replace('%button%', $button, $answer);
 	$answer = str_replace('%have_for%', $have_for, $answer);
 	$answer = str_replace('%for%', $for, $answer);
+	
+	$answer = str_replace('%rand%', $rand, $answer);
 	
 	return $answer;
 	

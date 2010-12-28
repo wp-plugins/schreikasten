@@ -195,6 +195,22 @@
 		</select>
 </td>
 </tr>
+
+<tr>
+	<td>
+	<?php
+			_e('Max number of messages a user can send each day','sk'); ?>:
+		</td><td>
+		<select id="sk_maxperday" name="sk_maxperday">
+			<option<?php echo $selectedmaxperday0; ?> value="0"><?php _e('Unlimited', 'sk');?></option>
+			<option<?php echo $selectedmaxperday1; ?>>1</option>
+			<option<?php echo $selectedmaxperday2; ?>>2</option>
+			<option<?php echo $selectedmaxperday5; ?>>5</option>
+			<option<?php echo $selectedmaxperday10; ?>>10</option>
+		</select>
+</td>
+</tr>
+
 <tr>
 	<td colspan='2'><input type="hidden" class="checkbox" id="sk_rss" name="sk_rss" value="<?php
 			echo $rss; ?>" /><input id="sk_title" name="sk_title" type="hidden" size="30" value="<?php echo $title; ?>" /><input type="hidden" name="sk_items" style="width: 30px;" value="<?php echo $items; ?>"><input type="hidden" name="sk-submit" value="true"><input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></td>

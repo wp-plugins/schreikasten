@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-18 19:59-0500\n"
-"PO-Revision-Date: 2010-12-18 19:59-0500\n"
+"POT-Creation-Date: 2010-12-28 16:18-0500\n"
+"PO-Revision-Date: 2010-12-28 16:18-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: Dražen Klisurić <cile.sb@gmail.com>\n"
 "Language: \n"
@@ -25,8 +25,8 @@ msgstr ""
 "X-Poedit-SearchPath-1: templates\n"
 
 #: legacy.php:99
-#: schreikasten.php:2570
-#: schreikasten.php:2644
+#: schreikasten.php:2699
+#: schreikasten.php:2773
 msgid "Subscribe"
 msgstr "Pretplati se"
 
@@ -39,7 +39,7 @@ msgid "New message from"
 msgstr "Nova poruka od"
 
 #: schreikasten.php:144
-#: schreikasten.php:1480
+#: schreikasten.php:1550
 msgid "Are you sure you want to delete this comment?"
 msgstr "Jeste li sigurni da želite obrisati ovu poruku?"
 
@@ -52,10 +52,10 @@ msgid "Are you sure you want to mark this comment as SPAM?"
 msgstr "Jeste li sigurni da želite označiti poruku kao spam?"
 
 #: schreikasten.php:195
-#: schreikasten.php:782
-#: schreikasten.php:794
-#: schreikasten.php:1768
-#: schreikasten.php:1769
+#: schreikasten.php:798
+#: schreikasten.php:810
+#: schreikasten.php:1859
+#: schreikasten.php:1860
 msgid "Schreikasten"
 msgstr "KUD Zrinski Chat"
 
@@ -63,109 +63,109 @@ msgstr "KUD Zrinski Chat"
 msgid "We cannot accept messages<br>from this PC"
 msgstr "Ne možemo prihvatiti poruke<br>s vašeg računala"
 
-#: schreikasten.php:882
+#: schreikasten.php:902
 #, php-format
 msgid "There is a reply to your comment on %s from %s"
 msgstr "Dobili ste odgovor na vaš komentar na %s od %s"
 
-#: schreikasten.php:883
+#: schreikasten.php:903
 #, php-format
 msgid "Your comment : %s"
 msgstr "Vaša poruka : %s"
 
-#: schreikasten.php:884
+#: schreikasten.php:904
 #, php-format
 msgid "Reply comment: %s"
 msgstr "Odogovor: %s"
 
-#: schreikasten.php:888
+#: schreikasten.php:908
 #, php-format
 msgid "An answer to your comment on %s"
 msgstr "Odgovor na vašu poruku na %s"
 
-#: schreikasten.php:924
+#: schreikasten.php:944
 msgid "There is a new comment on Schreikasten"
 msgstr "Nova poruka na KUD Zrinski Chat"
 
-#: schreikasten.php:926
-#: schreikasten.php:944
+#: schreikasten.php:946
+#: schreikasten.php:964
 #, php-format
 msgid "Author : %1$s (IP: %2$s)"
 msgstr "Autor : %1$s (IP: %2$s)"
 
-#: schreikasten.php:927
-#: schreikasten.php:945
+#: schreikasten.php:947
+#: schreikasten.php:965
 #, php-format
 msgid "E-mail : %s"
 msgstr "E-mail : %s"
 
-#: schreikasten.php:928
-#: schreikasten.php:946
+#: schreikasten.php:948
+#: schreikasten.php:966
 #, php-format
 msgid "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 msgstr "Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s"
 
-#: schreikasten.php:929
-#: schreikasten.php:947
+#: schreikasten.php:949
+#: schreikasten.php:967
 #, php-format
 msgid "Comment: %s"
 msgstr "Komentar: %s"
 
-#: schreikasten.php:930
-#: schreikasten.php:949
+#: schreikasten.php:950
+#: schreikasten.php:969
 #, php-format
 msgid "Delete it: %s"
 msgstr "Obrišite poruku: %s"
 
-#: schreikasten.php:931
-#: schreikasten.php:950
+#: schreikasten.php:951
+#: schreikasten.php:970
 #, php-format
 msgid "Reject it: %s"
 msgstr "Odbacite poruku: %s"
 
-#: schreikasten.php:932
-#: schreikasten.php:951
+#: schreikasten.php:952
+#: schreikasten.php:971
 #, php-format
 msgid "Spam it: %s"
 msgstr "Označite poruku kao spam: %s"
 
-#: schreikasten.php:934
+#: schreikasten.php:954
 msgid "New comment on Schreikasten"
 msgstr "Nova poruka na KUD Zrinski Chat"
 
-#: schreikasten.php:942
+#: schreikasten.php:962
 msgid "A new comment on Schreikasten is waiting for your approval"
 msgstr "Nova poruka na KUD Zrinski Chat čeka vaše odobrenje"
 
-#: schreikasten.php:948
+#: schreikasten.php:968
 #, php-format
 msgid "Approve it: %s"
 msgstr "Odobrite poruku: %s"
 
-#: schreikasten.php:953
+#: schreikasten.php:973
 msgid "Schreikasten comment to moderate"
 msgstr "Poruka na KUD Zrinski Chat za moderiranje"
 
-#: schreikasten.php:1480
+#: schreikasten.php:1550
 msgid "[delete]"
 msgstr "[obriši]"
 
-#: schreikasten.php:1480
-#: schreikasten.php:1552
+#: schreikasten.php:1550
+#: schreikasten.php:1622
 msgid "[edit]"
 msgstr "[uredi]"
 
-#: schreikasten.php:1520
-#: schreikasten.php:2511
+#: schreikasten.php:1590
+#: schreikasten.php:2640
 msgid "[reply]"
 msgstr "[odgovori]"
 
-#: schreikasten.php:1522
-#: schreikasten.php:2513
+#: schreikasten.php:1592
+#: schreikasten.php:2642
 msgid "[no sender]"
 msgstr "[nema pošiljatelja]"
 
-#: schreikasten.php:1553
+#: schreikasten.php:1623
 #: templates/sk_tracking.php:222
 #: templates/sk_manage.php:91
 #: templates/sk_manage.php:164
@@ -174,7 +174,7 @@ msgstr "[nema pošiljatelja]"
 msgid "Delete"
 msgstr "Obriši"
 
-#: schreikasten.php:1555
+#: schreikasten.php:1625
 #: templates/sk_tracking.php:163
 #: templates/sk_tracking.php:218
 #: templates/sk_manage.php:160
@@ -182,7 +182,7 @@ msgstr "Obriši"
 msgid "Reject"
 msgstr "Odbaci"
 
-#: schreikasten.php:1557
+#: schreikasten.php:1627
 #: templates/sk_comment.php:16
 #: templates/sk_tracking.php:165
 #: templates/sk_tracking.php:220
@@ -190,52 +190,66 @@ msgstr "Odbaci"
 msgid "Spam"
 msgstr "Spam"
 
-#: schreikasten.php:1560
-#: schreikasten.php:1721
+#: schreikasten.php:1630
+#: schreikasten.php:1791
 msgid "Sending"
 msgstr "Šaljem"
 
-#: schreikasten.php:1842
+#: schreikasten.php:1839
+#, fuzzy
+msgid "This PC was blacklisted, and you have reached your comments quota limit."
+msgstr "Vaše računalo je na crnoj listi. Poruka ne može biti objavljena."
+
+#: schreikasten.php:1841
+msgid "You have reached your daily comments quota limit."
+msgstr ""
+
+#: schreikasten.php:1845
+#: schreikasten.php:2460
+msgid "Submit"
+msgstr "Objavi"
+
+#: schreikasten.php:1935
 msgid "Options saved"
 msgstr "Opcije spremljene"
 
-#: schreikasten.php:2035
-#: schreikasten.php:2043
-#: schreikasten.php:2047
-#: schreikasten.php:2051
+#: schreikasten.php:2131
+#: schreikasten.php:2139
+#: schreikasten.php:2143
+#: schreikasten.php:2147
 msgid "Status changed"
 msgstr "Status promijenjen"
 
-#: schreikasten.php:2038
+#: schreikasten.php:2134
 msgid "Comment modified"
 msgstr "Poruka promijenjena"
 
-#: schreikasten.php:2055
+#: schreikasten.php:2151
 msgid "Comment deleted"
 msgstr "Poruka obrisana"
 
-#: schreikasten.php:2059
+#: schreikasten.php:2155
 msgid "PC locked forever"
 msgstr "Računalo zauvije odbačeno"
 
-#: schreikasten.php:2063
+#: schreikasten.php:2159
 msgid "PC unlocked"
 msgstr "Računalo prihvaćeno"
 
-#: schreikasten.php:2068
+#: schreikasten.php:2164
 msgid "PC locked"
 msgstr "Računalo odbačeno"
 
-#: schreikasten.php:2165
+#: schreikasten.php:2277
 #, php-format
 msgid "To show your messages list you have to <a href=\"%s\">log in</a>."
 msgstr ""
 
-#: schreikasten.php:2249
+#: schreikasten.php:2361
 msgid "E-mail is required"
 msgstr "E-mail je obvezan"
 
-#: schreikasten.php:2258
+#: schreikasten.php:2370
 msgid ""
 "To prevent identification theft, we recomend\\n"
 "that you do not include e-mail adresses.\\n"
@@ -245,7 +259,7 @@ msgstr ""
 "da u sadržaj poruke ne stavljate e-mail adrese.\\n"
 "Želite li nastaviti?"
 
-#: schreikasten.php:2280
+#: schreikasten.php:2392
 msgid ""
 "Your message has been sent. Comments have\\n"
 "to be approved before posted."
@@ -253,7 +267,7 @@ msgstr ""
 "Vaša poruka je poslana. Poruke\\n"
 "trebaju biti odobrene prije objavljivanja."
 
-#: schreikasten.php:2284
+#: schreikasten.php:2396
 msgid ""
 "Your message has been sent but this PC was blacklisted.\\n"
 "Comments have to be approved before posted."
@@ -261,77 +275,73 @@ msgstr ""
 "Vaša poruka je poslana, ali je vaše računalo na crnoj listi.\\n"
 "Poruka čeka na odobrenje."
 
-#: schreikasten.php:2301
+#: schreikasten.php:2413
 #, php-format
 msgid "You must be <a href=\"%s\">signed in</a> to post a comment"
 msgstr "Morate biti <a href=\"%s\">prijavljeni</a> kako bi mogli slati poruke"
 
-#: schreikasten.php:2311
+#: schreikasten.php:2422
 msgid "This PC was blacklisted. At this time comments cannot be posted."
 msgstr "Vaše računalo je na crnoj listi. Poruka ne može biti objavljena."
 
-#: schreikasten.php:2318
+#: schreikasten.php:2429
 msgid "Name"
 msgstr "Ime"
 
-#: schreikasten.php:2324
+#: schreikasten.php:2435
 msgid "Email"
 msgstr "E-mail"
 
-#: schreikasten.php:2332
-#: schreikasten.php:2348
+#: schreikasten.php:2443
+#: schreikasten.php:2461
 msgid "For"
 msgstr "Za"
 
-#: schreikasten.php:2347
-msgid "Submit"
-msgstr "Objavi"
-
-#: schreikasten.php:2352
+#: schreikasten.php:2465
 msgid "Mail will not be published"
 msgstr "Mail adresa neće biti objavljena"
 
-#: schreikasten.php:2354
+#: schreikasten.php:2467
 msgid "(but it's required)"
 msgstr "(ali je obvezna)"
 
-#: schreikasten.php:2357
+#: schreikasten.php:2470
 msgid "(but it's used for avatar)"
 msgstr "(koristi se za avatar - Gravatar)"
 
-#: schreikasten.php:2361
+#: schreikasten.php:2474
 #, php-format
 msgid "Logged in as %s"
 msgstr "Prijavljeni ste kao %s"
 
-#: schreikasten.php:2362
+#: schreikasten.php:2475
 msgid "Log out"
 msgstr "Odjavite se"
 
-#: schreikasten.php:2386
+#: schreikasten.php:2509
 msgid "The lenght of the message is bigger than the allowed size."
 msgstr "Duljina poruke je veća od dozvoljene."
 
-#: schreikasten.php:2415
+#: schreikasten.php:2542
 msgid "Answer"
 msgstr "Odgovor"
 
-#: schreikasten.php:2522
+#: schreikasten.php:2651
 #, php-format
 msgid "Comment by %s"
 msgstr "Kometirao/la %s"
 
-#: schreikasten.php:2530
+#: schreikasten.php:2659
 #, php-format
 msgid "Shouts in %s"
 msgstr "Poruke na %s"
 
-#: schreikasten.php:2531
+#: schreikasten.php:2660
 #, php-format
 msgid "List of messages in %s"
 msgstr "Popis poruka na %s"
 
-#: schreikasten.php:2630
+#: schreikasten.php:2759
 msgid "Add a Schreikasten Shoutbox to the sidebar."
 msgstr "Dodaj Schreikasten Shoutbox u sidebar."
 
@@ -765,7 +775,15 @@ msgstr "Maksimalan broj poruka na čekanju od računala na crnoj listi"
 msgid "None"
 msgstr "Nijedan"
 
-#: templates/sk_config.php:200
+#: templates/sk_config.php:202
+msgid "Max number of messages a user can send each day"
+msgstr ""
+
+#: templates/sk_config.php:205
+msgid "Unlimited"
+msgstr ""
+
+#: templates/sk_config.php:216
 msgid "Save Changes"
 msgstr "Sačuvaj promjene"
 
