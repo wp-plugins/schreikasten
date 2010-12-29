@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Schreikasten\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-28 16:19-0500\n"
-"PO-Revision-Date: 2010-12-28 16:19-0500\n"
+"POT-Creation-Date: 2010-12-29 12:11-0500\n"
+"PO-Revision-Date: 2010-12-29 12:11-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: BNG NET <webmaster@bng.net>\n"
 "Language: \n"
@@ -257,13 +257,12 @@ msgid "Sending"
 msgstr "送信中"
 
 #: schreikasten.php:1839
-#, fuzzy
 msgid "This PC was blacklisted, and you have reached your comments quota limit."
 msgstr "ＰＣがブラックリスト化されています。現時点ではコメントは掲載できません。"
 
 #: schreikasten.php:1841
 msgid "You have reached your daily comments quota limit."
-msgstr ""
+msgstr "１日に書き込めるコメント数の上限に達しました。"
 
 #: schreikasten.php:1845
 #: schreikasten.php:2460
@@ -834,11 +833,11 @@ msgstr "なし"
 
 #: templates/sk_config.php:202
 msgid "Max number of messages a user can send each day"
-msgstr ""
+msgstr "ユーザが１日に送れるメッセージ数の上限"
 
 #: templates/sk_config.php:205
 msgid "Unlimited"
-msgstr ""
+msgstr "無制限"
 
 #: templates/sk_config.php:216
 msgid "Save Changes"
