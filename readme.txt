@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 3.0.3
-Stable tag: 0.14.8
+Tested up to: 3.0.5
+Stable tag: 0.14.9
 
 A shoutbox using ajax and akismet.
 
@@ -146,6 +146,10 @@ to enable/disable it on each role.
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.9 =
+* Solved bug with WP 3.0.5.
+* Solved bug with 'Delete All Spam' button.
 
 = 0.14.8 =
 * New feature: max number of comments a user can senad each day.

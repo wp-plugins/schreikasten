@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.8
+Version: 0.14.9
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1643,14 +1643,24 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
 	
+	//If we have to hide this comment it's because this is the
+	//section that would display the message while we ask if it's spam.
+	//Then we have to set the comment part as the section that would have
+	//the message and the alias.
+	$th_alias_id = $th_text_id = "";
+	if($hide) {
+		$th_alias_id  = " id='th_sk_alias$rand'";
+		$th_text_id  = " id='th_sk_text$rand'"; 
+	}
+	
 	//Create the comment text
 	$item.="<div style='min-height: ".$av_size."px;' class='$class'>".
 			$avatar.
-			"<strong>".$comment->alias."</strong>
+			"<strong$th_alias_id>".$comment->alias."</strong>
 			<br/><div class='sk-little'>(".$comment->date.")$mannage</div>
 		</div>
 		<div class='sk-widgettext'>
-			<div class='skwidget-comment'>".$comment_text."</div>
+			<div class='skwidget-comment'$th_text_id>".$comment_text."</div>
 			<div class='skwidget-edit'>$for $edit</div>
 			<div style='clear: both;'></div>
 		</div>";
@@ -1786,8 +1796,8 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	
 	//Create the throbber div
 	$aux = "";
-	$aux->alias = "<span id='th_sk_alias$rand'></span>";
-	$aux->text = "<span id='th_sk_text$rand'></span>";
+	$aux->alias = "";
+	$aux->text = "";
 	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
 	$aux->status = SK_HAM;
 	$aux->id = 0;
@@ -2017,7 +2027,7 @@ function sk_manage() {
 	
 	//if pressed deletespam, delete all spam
 	if(isset($_POST['deletespam']) && $_POST['deletespam']) {
-		$mode_x='deletespam';
+		$mode_x='deletespam_x';
 	}
 	
 	// Assume we don't have to do any action, but ask if we have
