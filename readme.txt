@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
-Tested up to: 3.0.5
-Stable tag: 0.14.9.1
+Tested up to: 3.1
+Stable tag: 0.14.10
 
 A shoutbox using ajax and akismet.
 
@@ -141,11 +141,17 @@ to enable/disable it on each role.
 4. Page to set the API KEY to use Akismet.
 5. Page to mannage comments. See the __Schreikasten__ option in the Comments item at the left menu.
 6. Page to edit a comment.
-7. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the items to lock it forever or enable it now.
+7. Page to mannage blocked PCs. Read the messages sended from a specific PC even if they are from different users. Look the date at the right wich indicates when the user PC would be unlock, and the i= 0.14.10 =
+* Solved problem with the excerpt.
+* Checked for WP 3.1tems to lock it forever or enable it now.
 8. Tracking system to read comments from one user.
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.10 =
+* Solved problem with the excerpt.
+* Checked for WP 3.1
 
 = 0.14.9.1 =
 * Solved a problem with a not valid attribute in HTLM.
