@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.1
-Stable tag: 0.14.10
+Stable tag: 0.14.11
 
 A shoutbox using ajax and akismet.
 
@@ -148,6 +148,10 @@ to enable/disable it on each role.
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.11 =
+* Solved bug with 'no-avatars' list. (Ul tag missed).
+* Solved bug withj 'require mail' configuration during sending message.
 
 = 0.14.10 =
 * Solved problem with the excerpt.

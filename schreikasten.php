@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.10
+Version: 0.14.11
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -35,6 +35,10 @@ define ("SK_BLOCKED", -1);
 define ("SK_MODERATION_CONFIG", 0);
 define ("SK_MODERATION_YES", 1);
 define ("SK_MODERATION_NO", 2);
+
+define ("SK_REQUIREMAIL_CONFIG", 0);
+define ("SK_REQUIREMAIL_YES", 1);
+define ("SK_REQUIREMAIL_NO", 2);
 
 define ("SK_ANNOUNCE_CONFIG", 1);
 define ("SK_ANNOUNCE_YES", 2);
@@ -1000,6 +1004,9 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 		$user_id=sk_cookie_id();
 	}
 	
+	$user_can_send = true;
+	if(sk_only_registered_users() && $user_id<=0) $user_can_send = false;
+	
 	//Do we need moderation?
 	$require_moderation = true;
 	if($options['moderation'] == SK_MODERATION_CONFIG) {
@@ -1015,7 +1022,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 	
 	//Mail is ok and do we require it?
 	$mailok = false;
-	if(($options['requiremail'])) {
+	if( $options['requiremail'] == SK_REQUIREMAIL_YES || ($options['requiremail'] == SK_REQUIREMAIL_CONFIG && get_option('require_name_email')) ) {
 		$search = "/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i";
 		if(preg_match ( $search , $email)) $mailok = true;
 	} else {
@@ -1033,7 +1040,7 @@ function sk_add_comment($alias, $email, $text, $ip, $for) {
 	if($aux_size<=$options['maxchars']) $maxcharok = true;
 	
 	//Is the data well formed? Maybe a spammer is sending data through an external form.
-	if($maxcharok && $mailok) {
+	if($maxcharok && $mailok && $user_can_send) {
 		//If we can only accept messages for registered user and this is a registered user
 		//or we can accept for not registered users
 		//and in general this user can send more messages, accept the comment
@@ -1804,7 +1811,7 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	$aux->id = 0;
 	$aux->user_id = 0;
 	
-	$answer = sk_format_comment($aux,true,$rand,true);
+	$answer.= sk_format_comment($aux,true,$rand,true);
 
 	//If there is and id, it means we have to show it, so, get the comment
 	if($id) {
