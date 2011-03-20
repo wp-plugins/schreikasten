@@ -141,24 +141,24 @@ div.sk-widgettext {
 	float : right;
 }
 
-div.sk-comment {
+.sk-comment {
 	margin: 6px 2px 1px 0px;
 	padding: 4px;
 	border: solid 1px #e1e1e1;
 }
 
-div.sk-comment-spam {
+.sk-comment-spam {
 	margin: 6px 2px 1px 0px;
 	padding: 4px;
-	border: solid 1px #e1e1e1;
-	background-color: #e17a7a;
+	border: solid 1px #e1e1e1 !important;
+	background-color: #e17a7a !important;
 }
 
-div.sk-comment-moot {
+.sk-comment-moot {
 	margin: 6px 2px 1px 0px;
 	padding: 4px;
-	border: solid 1px #e1e1e1;
-	background-color: #edde88;
+	border: solid 1px #e1e1e1 !important;
+	background-color: #edde88 !important;
 }
 
 div.throbber-page-on {		

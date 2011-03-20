@@ -50,7 +50,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.19);
+define ("SK_HEADER_V", 1.20);
 
 define ("SK_CAP", 'moderate_schreikasten');
 
