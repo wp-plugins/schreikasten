@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.1
-Stable tag: 0.14.11
+Stable tag: 0.14.12
 
 A shoutbox using ajax and akismet.
 
@@ -149,9 +149,14 @@ to enable/disable it on each role.
 
 == Changelog ==
 
+= 0.14.12 =
+* Solved bug with 'Oslash' encoding.
+* Solved bug with redirection when using SK to log-in.
+* First release translated to pt_BR.
+
 = 0.14.11 =
 * Solved bug with 'no-avatars' list. (Ul tag missed).
-* Solved bug withj 'require mail' configuration during sending message.
+* Solved bug with 'require mail' configuration during sending message.
 
 = 0.14.10 =
 * Solved problem with the excerpt.

@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.11
+Version: 0.14.12
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -50,7 +50,7 @@ define ("SK_LAYOUT_CHAT", 3);
 define ("SK_LAYOUT_QA", 4);
 
 define ("SK_DB_VERSION", 4);
-define ("SK_HEADER_V", 1.20);
+define ("SK_HEADER_V", 1.21);
 
 define ("SK_CAP", 'moderate_schreikasten');
 
@@ -2426,9 +2426,10 @@ function sk_codeShoutbox($size=false) {
 	$hidden = "<input type='hidden' id='sk_timer$rand' value=''/><input type='hidden' id='sk_count$rand' name='sk_count$rand' value='$sk_count' /><input type='hidden' id='sk_page$rand' name='sk_page$rand' value='$sk_page' /><input type='hidden' id='sk_size$rand' name='sk_size$rand' value='$sk_size' />";
 	
 	if(sk_only_registered_users() && $current_user->ID==0) {
+		$url = (!empty($_SERVER['HTTPS'])) ? "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] : "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 		$form_table.= "<tr>
 			<td colspan='2' id='skwarning'>
-				$hidden".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url(get_permalink() ) )."
+				$hidden".sprintf( __('You must be <a href="%s">signed in</a> to post a comment', 'sk'), wp_login_url( $url ) )."
 			</td>
 		</tr>
 	</table>";
