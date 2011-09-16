@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.12
+Version: 0.14.13
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1520,13 +1520,10 @@ function sk_canReply() {
 	
 	$answer = false;
 	$sk_canmannage=false;
-	
-	if($current_user) {
-		$capabilities=$current_user->wp_capabilities;
-		if($capabilities['administrator']) {
-			$sk_canmannage=true;
-		}
+	if(current_user_can( SK_CAP )) {
+		$sk_canmannage=true;
 	}
+	
 	$options = get_option('sk_options');
 	
 	if($options['layout'] == SK_LAYOUT_BOARD || $options['layout'] == SK_LAYOUT_CHAT || ($options['layout'] == SK_LAYOUT_QA && $sk_canmannage)) $answer = true;
@@ -2444,13 +2441,13 @@ function sk_codeShoutbox($size=false) {
 		}
 	
 		if($current_user->ID==0) {
-			$form_table.="<tr>
+			$form_table.="<tr class='sk-rowname'>
 				<td nowrap='nowrap'>".__('Name', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' id='sk_alias$rand' name='sk_alias$rand' value='$alias'/>
 				</td>
 			</tr>
-			<tr>
+			<tr class='sk-rowemail'>
 				<td nowrap='nowrap'>".__('Email', 'sk').":</td>
 				<td>
 					<input class='sk-text' type='text' id='sk_email$rand' name='sk_email$rand' value='$email'/>
