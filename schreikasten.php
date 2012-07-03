@@ -3,12 +3,12 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.13
+Version: 0.14.14
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
 
-/* Copyright 2008-2010 Sebaxtian (email : sebaxtian@gawab.com)
+/* Copyright 2008-2012 Sebaxtian (email : baxtian.echeverry@gmail.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -310,9 +310,9 @@ function sk_ajax() {
 */
 function sk_ajax_add() {
 	//Get the data from the post call
-	$alias= html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8');
-	$email= html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8');
-	$text = html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8');
+	$alias= sk_formatHackingText(html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8'));
+	$email= sk_formatHackingText(html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8'));
+	$text = sk_formatHackingText(html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8'));
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
@@ -809,6 +809,13 @@ function sk_activate() {
 		sk_verify_key( ); //if we have an old sk_api_key, verify it;
 		
 		break;
+	}
+
+	foreach(array('text', 'alias', 'email') as $item) {
+		$sql="update $table_name set $item = replace($item, '<!-- Hacking? -->', '')";
+		$wpdb->query($sql);
+		$sql="update $table_name set $item = replace($item, '<', '<<!-- Hacking? -->')";
+		$wpdb->query($sql);
 	}
 	
 	//Widget options
@@ -2840,5 +2847,15 @@ if((float)$wp_version >= 2.8) { //The new widget system
    return str_replace ( array ( '%', '&', '"', "'", '<', '>' ), array ( '%25', '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
 }*/
 
+/**
+* Filter to cut hacking.
+*
+* @access public
+* @param string text The text to change.
+* @return string The text filtered.
+*/
+function sk_formatHackingText($text) {
+	return str_replace('<', '<<!-- Hacking? -->', $text);
+}
 
 ?>
