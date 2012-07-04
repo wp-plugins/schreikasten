@@ -44,15 +44,15 @@ if($mode=='set_spam') {
 <table class="form-table" cellpadding="5">
 <tr class="alt">
 <th scope="row"><?php _e('Author');?></th>
-<td><?php echo $alias; ?></td>
+<td><?php echo sanitize_text_field($alias); ?></td>
 </tr>
 <tr>
 <th scope="row"><?php _e('E-mail'); ?></th>
-<td><?php echo $email; ?></td>
+<td><?php echo sanitize_email($email); ?></td>
 </tr>
 <tr>
 		<th scope="row" valign="top"><?php _e('Comment', 'sk'); ?></th>
-<td><?php echo $comment; ?></td>
+<td><?php echo wp_kses((string)$comment); ?></td>
 </tr>
 </table>
 

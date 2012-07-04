@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.14
+Version: 0.14.15
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -310,9 +310,9 @@ function sk_ajax() {
 */
 function sk_ajax_add() {
 	//Get the data from the post call
-	$alias= sk_formatHackingText(html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8'));
-	$email= sk_formatHackingText(html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8'));
-	$text = sk_formatHackingText(html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8'));
+	$alias= sanitize_text_field(html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8'));
+	$email= sanitize_email(html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8'));
+	$text = wp_kses((string)html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8'));
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
@@ -810,13 +810,6 @@ function sk_activate() {
 		
 		break;
 	}
-
-	foreach(array('text', 'alias', 'email') as $item) {
-		$sql="update $table_name set $item = replace($item, '<!-- Hacking? -->', '')";
-		$wpdb->query($sql);
-		$sql="update $table_name set $item = replace($item, '<', '<<!-- Hacking? -->')";
-		$wpdb->query($sql);
-	}
 	
 	//Widget options
 	$options = array('title'=>__('Schreikasten', 'sk'), 'registered'=>false, 'avatar'=>true, 'layout'=>SK_LAYOUT_SHOUTBOX, 'alert_about_emails'=>true, 'items'=>'5', 'refresh'=>0, 'bl_days'=>'7', 'bl_maxpending'=>'2', 'announce'=>'1', 'requiremail'=>'1', 'maxchars'=>'225', 'rss'=>false, 'moderation'=>SK_MODERATION_CONFIG, 'delete_type'=>1, 'delete_num'=>0, 'maxperday'=>0);
@@ -911,7 +904,7 @@ function sk_reply($id) {
 			if($for->email!=get_option('admin_email')) {
 			
 				$email=$for->email;
-				$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, $from->alias) . "\r\n\r\n";
+				$notify_message = sprintf(__('There is a reply to your comment on %s from %s', 'sk'), $website, sanitize_text_field($from->alias)) . "\r\n\r\n";
 				$notify_message .= sprintf(__('Your comment : %s', 'sk'), html_entity_decode($for->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";
 				$notify_message .= sprintf(__('Reply comment: %s', 'sk'), html_entity_decode($from->text, ENT_QUOTES, 'UTF-8') ). "\r\n\r\n";
 				
@@ -955,8 +948,8 @@ function sk_inform($id) {
 			$admin_email = get_option('admin_email');
 			$notify_message=__('There is a new comment on Schreikasten', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
-			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), html_entity_decode($comment->alias, ENT_QUOTES, 'UTF-8'), $comment->ip ) . "\r\n";
-			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), $comment->email ) . "\r\n";
+			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), html_entity_decode(sanitize_text_field($comment->alias), ENT_QUOTES, 'UTF-8'), $comment->ip ) . "\r\n";
+			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), sanitize_email($comment->email) ) . "\r\n";
 			$notify_message .= sprintf( __('Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s'), $comment->ip ) . "\r\n";
 			$notify_message .= sprintf( __('Comment: %s', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";							
 			$notify_message .= sprintf( __('Delete it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=delete&id=$id") ) . "\r\n";
@@ -974,7 +967,7 @@ function sk_inform($id) {
 			$notify_message=__('A new comment on Schreikasten is waiting for your approval', 'sk') . "\r\n";
 			$notify_message.= sprintf( '%s', admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id") ) . "\r\n\r\n";
 			$notify_message .= sprintf( __('Author : %1$s (IP: %2$s)', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8'), $comment->ip ) . "\r\n";
-			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), $comment->email ) . "\r\n";
+			if($comment->email!="") $notify_message .= sprintf( __('E-mail : %s', 'sk'), sanitize_email($comment->email) ) . "\r\n";
 			$notify_message .= sprintf( __('Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s'), $comment->ip ) . "\r\n";
 			$notify_message .= sprintf( __('Comment: %s', 'sk'), html_entity_decode($comment->text, ENT_QUOTES, 'UTF-8') ) . "\r\n\r\n";
 			$notify_message .= sprintf( __('Approve it: %s', 'sk'), admin_url("edit-comments.php?page=skmanage&paged=1&mode=set_ham&id=$id") ) . "\r\n";
@@ -1562,7 +1555,7 @@ function sk_format_replies($id,$sk_canmannage=false,$rand=false) {
 			$edit="<a href='javascript:sk_replyDelete$rand($id,\"".__('Are you sure you want to delete this comment?', 'sk')."\");'>" . __('[delete]' , 'sk') . "</a> | <a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
 			$edit = "<div align='right'>$edit</div>";
 		}
-		$answer.="<div class='sk-reply' id='sk-$rand-$id'>{$comment->text}$edit</div>";
+		$answer.="<div class='sk-reply' id='sk-$rand-$id'>".wp_kses($comment->text)."$edit</div>";
 	}
 	
 	return $answer;
@@ -1599,7 +1592,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$for=" ";
 		if(!$sending) {
 			if($comment->email!="") {
-				$for.="<a href='#sk_top' onclick='javascript:for_set$rand(".$comment->id.", \"".$comment->alias."\");'> ".__("[reply]","sk")."</a>";
+				$for.="<a href='#sk_top' onclick='javascript:for_set$rand(".$comment->id.", \"".sanitize_text_field($comment->alias)."\");'> ".__("[reply]","sk")."</a>";
 			} else {
 				$for.="<span class='sk-for'>".__("[no sender]", "sk")."</span>";
 			}
@@ -1651,7 +1644,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
 	
-	$comment_text=sk_format_text($comment->text);
+	$comment_text=sk_format_text(wp_kses((string)$comment->text));
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
 	
@@ -1668,7 +1661,7 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	//Create the comment text
 	$item.="<div style='min-height: ".$av_size."px;' class='$class'>".
 			$avatar.
-			"<strong$th_alias_id>".$comment->alias."</strong>
+			"<strong$th_alias_id>".sanitize_text_field($comment->alias)."</strong>
 			<br/><div class='sk-little'>(".$comment->date.")$mannage</div>
 		</div>
 		<div class='sk-widgettext'>
@@ -2290,7 +2283,7 @@ function sk_userMessages() {
 		foreach($comments as $comment) {
 			$class = "sku-item";
 			if($back) $class.=" sku-back";
-			$answer.= "<li class='$class'><div class='sku-count'>$count</div><div class='sku-content'><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>{$comment->text}</span></div></li>";
+			$answer.= "<li class='$class'><div class='sku-count'>$count</div><div class='sku-content'><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>".wp_kses($comment->text)."</span></div></li>";
 			$count = $count+$sum;
 			$back = !$back;
 		}
@@ -2667,11 +2660,11 @@ function sk_feed($max=20) {
 			$for = "<br/>$for";
 		}
 		
-		$comment_text = sk_format_text("{$comment->text}$for");
+		$comment_text = sk_format_text(wp_kses($comment->text).$for);
 		
 		$item = array(
 				"link" => "{$link}?sk_id={$comment->id}#sk-comment-id{$comment->id}",
-	     		"title" => sprintf(__("Comment by %s", 'sk'), $comment->alias ) ,
+	     		"title" => sprintf(__("Comment by %s", 'sk'), sanitize_text_field($comment->alias) ) ,
 	     		"description" => $comment_text,
 	     		"pubDate" => $comment->date_rss
 	     	);
@@ -2846,16 +2839,5 @@ if((float)$wp_version >= 2.8) { //The new widget system
 	$string = rawurldecode($string);
    return str_replace ( array ( '%', '&', '"', "'", '<', '>' ), array ( '%25', '&amp;' , '&quot;', '&#39;' , '&lt;' , '&gt;' ), $string ); 
 }*/
-
-/**
-* Filter to cut hacking.
-*
-* @access public
-* @param string text The text to change.
-* @return string The text filtered.
-*/
-function sk_formatHackingText($text) {
-	return str_replace('<', '<<!-- Hacking? -->', $text);
-}
 
 ?>

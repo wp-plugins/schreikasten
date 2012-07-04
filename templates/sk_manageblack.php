@@ -124,11 +124,11 @@
 						<?php } ?>
 						<td class="manage-column column-author"><?php if($comment->id!=NULL) { ?><div id="submitted-on"><?php
 								echo sk_avatar($comment->id, 40);
-								echo $comment->alias." | ". sprintf("<a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip) . " <br> " . $comment->date . " <br> "; 
-								if($comment->email!="")
-									echo $comment->email;
+								echo sanitize_text_field($comment->alias)." | ". sprintf("<a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip) . " <br> " . $comment->date . " <br> "; 
+								if(is_email($comment->email))
+									echo sanitize_email($comment->email);
 								else
-									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text($comment->text); ?></p><?php
+									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text(wp_kses((string)$comment->text)); ?></p><?php
 							$act_message="";
 							$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
 							$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
