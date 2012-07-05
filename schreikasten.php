@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.15
+Version: 0.14.16
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -312,7 +312,8 @@ function sk_ajax_add() {
 	//Get the data from the post call
 	$alias= sanitize_text_field(html_entity_decode($_POST['alias'], ENT_QUOTES, 'UTF-8'));
 	$email= sanitize_email(html_entity_decode($_POST['email'], ENT_QUOTES, 'UTF-8'));
-	$text = wp_kses((string)html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8'));
+	$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
+	$text = wp_kses((string)html_entity_decode($_POST['text'], ENT_QUOTES, 'UTF-8'), $allowed);
 	$for  = $_POST['skfor'];
 	$rand = $_POST['rand'];
 	$size = $_POST['size'];
@@ -1555,7 +1556,8 @@ function sk_format_replies($id,$sk_canmannage=false,$rand=false) {
 			$edit="<a href='javascript:sk_replyDelete$rand($id,\"".__('Are you sure you want to delete this comment?', 'sk')."\");'>" . __('[delete]' , 'sk') . "</a> | <a href='".htmlspecialchars(admin_url("edit-comments.php?page=skmanage&paged=1&mode=edit&id=$id"))."'>" . __('[edit]' , 'sk') . "</a>";
 			$edit = "<div align='right'>$edit</div>";
 		}
-		$answer.="<div class='sk-reply' id='sk-$rand-$id'>".wp_kses($comment->text)."$edit</div>";
+		$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
+		$answer.="<div class='sk-reply' id='sk-$rand-$id'>".wp_kses((array)$comment->text, $allowed)."$edit</div>";
 	}
 	
 	return $answer;
@@ -1643,8 +1645,9 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 	if($options['avatar']) {
 		$avatar=sk_avatar($comment->id,$av_size);
 	}
-	
-	$comment_text=sk_format_text(wp_kses((string)$comment->text));
+
+	$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
+	$comment_text=sk_format_text( wp_kses( (string)$comment->text, $allowed) );
 	$comment_text=str_replace("<p>", "", $comment_text);
 	$comment_text=str_replace("</p>", "", $comment_text);
 	
@@ -2280,10 +2283,11 @@ function sk_userMessages() {
 		$answer = "<ul class='sku-list'>";
 		
 		$back = true;
+		$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
 		foreach($comments as $comment) {
 			$class = "sku-item";
 			if($back) $class.=" sku-back";
-			$answer.= "<li class='$class'><div class='sku-count'>$count</div><div class='sku-content'><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>".wp_kses($comment->text)."</span></div></li>";
+			$answer.= "<li class='$class'><div class='sku-count'>$count</div><div class='sku-content'><span class='sku-date'>({$comment->date})</span> <span class='sku-text'>".wp_kses((string)$comment->text, $allowed)."</span></div></li>";
 			$count = $count+$sum;
 			$back = !$back;
 		}
@@ -2659,8 +2663,9 @@ function sk_feed($max=20) {
 			}
 			$for = "<br/>$for";
 		}
-		
-		$comment_text = sk_format_text(wp_kses($comment->text).$for);
+
+		$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
+		$comment_text = sk_format_text(wp_kses((array)$comment->text, $allowed).$for);
 		
 		$item = array(
 				"link" => "{$link}?sk_id={$comment->id}#sk-comment-id{$comment->id}",

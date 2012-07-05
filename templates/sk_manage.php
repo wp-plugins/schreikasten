@@ -2,6 +2,9 @@
 	//Get query text
 	$text="";
 	if(isset($_GET['text'])) $text=$_GET['text'];
+
+	//Allowed tags
+	$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
 	
 	//Asume page number
 	$page=$paged=1;
@@ -131,7 +134,7 @@
 									}
 									printf("<br><a href='http://ws.arin.net/cgi-bin/whois.pl?queryinput=%s' target='_BLANK'>%s</a>", $comment->ip, $comment->ip); ?>
 								</td>
-							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo wp_kses((string)$comment->text); ?></p><?php
+							<td class="comment column-comment"><div id="submitted-on"><?php echo $comment->date; ?></div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo wp_kses((string)$comment->text, $allowed); ?></p><?php
 							$act_message="";
 							$spam_message=strtolower( _n('Spam', 'Spam', 1, 'sk') );
 							$ham_message=strtolower( _n('Approved', 'Approved', 1, 'sk') );

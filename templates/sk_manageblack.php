@@ -2,6 +2,9 @@
 	//Get query text
 	$text="";
 	if(isset($_GET['text'])) $text=$_GET['text'];
+
+	//Allowed tags
+	$allowed = array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
 	
 	//Asume page number
 	$page=$paged=1;
@@ -128,7 +131,7 @@
 								if(is_email($comment->email))
 									echo sanitize_email($comment->email);
 								else
-									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text(wp_kses((string)$comment->text)); ?></p><?php
+									_e('No e-mail registry', 'sk'); ?></div><div><p><img src='../wp-content/plugins/schreikasten/img/<?php $img='ham.png'; if($comment->status==SK_SPAM) $img='spam.png'; if($comment->status==SK_BLACK) $img='black.png'; if($comment->status==SK_MOOT) $img='moot.png'; echo $img; ?>'> <?php echo sk_format_text(wp_kses((string)$comment->text, $allowed)); ?></p><?php
 							$act_message="";
 							$ham_message=strtolower(_n('Approved', 'Approved', 1, 'sk'));
 							$black_message=strtolower(_n('Rejected','Rejected',1, 'sk'));
