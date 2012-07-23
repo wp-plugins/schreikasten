@@ -1,5 +1,6 @@
 <div class="narrow">
 <p><?php 
+global $sk_allowed;
 
 $act_message="";
 $button_message="";
@@ -52,7 +53,7 @@ if($mode=='set_spam') {
 </tr>
 <tr>
 		<th scope="row" valign="top"><?php _e('Comment', 'sk'); ?></th>
-<td><?php echo wp_kses((string)$comment); ?></td>
+<td><?php echo wp_kses((string)$comment, $sk_allowed); ?></td>
 </tr>
 </table>
 
