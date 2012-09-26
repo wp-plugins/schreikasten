@@ -3,7 +3,7 @@
 Plugin Name: Schreikasten
 Plugin URI: http://www.sebaxtian.com/acerca-de/schreikasten
 Description: A shoutbox using ajax and akismet.
-Version: 0.14.17
+Version: 0.14.18
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com
 */
@@ -1662,11 +1662,16 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$th_alias_id  = " id='th_sk_alias$rand'";
 		$th_text_id  = " id='th_sk_text$rand'"; 
 	}
+
+	$cp_points = "";
+	if(function_exists('cp_displayPoints') && $comment->user_id>=0) {
+		$cp_points = sprintf(" (%s)",cp_displayPoints($comment->user_id, true, true));
+	}
 	
 	//Create the comment text
 	$item.="<div style='min-height: ".$av_size."px;' class='$class'>".
 			$avatar.
-			"<strong$th_alias_id>".sanitize_text_field($comment->alias)."</strong>
+			"<strong$th_alias_id>".sanitize_text_field($comment->alias).$cp_points."</strong>
 			<br/><div class='sk-little'>(".$comment->date.")$mannage</div>
 		</div>
 		<div class='sk-widgettext'>

@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: shoutbox, ajax
 Requires at least: 2.7
 Tested up to: 3.2.1
-Stable tag: 0.14.17
+Stable tag: 0.14.18
 
 A shoutbox using ajax and akismet.
 
@@ -148,6 +148,9 @@ to enable/disable it on each role.
 9. 'Right now' widget in dashboard with Schreikasten's data.
 
 == Changelog ==
+
+= 0.14.18 =
+* Adding cubepoints rank near users.
 
 = 0.14.17 =
 * Solving a bug with the reply system.
