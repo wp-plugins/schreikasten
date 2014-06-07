@@ -60,8 +60,9 @@ italian by  __[Marco Gargani](http://www.digitalangel.it/ "Tecnologie, Passioni,
 japanese by __[Chestnut](http://staff.blog.bng.net "Staff blog for Blog City of BNG NET")__,
 danish by __[Per Bovbjerg](http://http://www.spiritueltforum.net/ "Netværket for alle spirituelt interesserede")__,
 french by __[Pierre](http://www.stock-graphique.new.fr "Free stock of graphic resources for personal or commercial use: vector, psd, Indesign templates…")__,
-russian by  __[trippin' the rift](http://trippintherift.com/)__ team
-and croatian by Dražen Klisurić.
+russian by  __[trippin' the rift](http://trippintherift.com/)__ team,
+croatian by Dražen Klisurić
+and hungarian by  __[Gidano](http://gidano.hu/)__
 
 Thanks for your time guys!
 

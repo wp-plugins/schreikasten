@@ -1810,13 +1810,15 @@ function sk_show_comments($size, $page=1,$id=false,$rand=false)
 	//The throbber div
 	
 	//Create the throbber div
-	$aux = "";
-	$aux->alias = "";
-	$aux->text = "";
-	$aux->date = "&nbsp;".__('Sending', 'sk')."...&nbsp;";
-	$aux->status = SK_HAM;
-	$aux->id = 0;
-	$aux->user_id = 0;
+	$aux_ar = array(
+		'alias'		=> '',
+		'text'		=> '',
+		'date'		=> "&nbsp;".__('Sending', 'sk')."...&nbsp;",
+		'status'	=> SK_HAM,
+		'id'		=> 0,
+		'user_id'	=> 0
+	);
+	$aux = (object) $aux_ar;
 	
 	$answer.= sk_format_comment($aux,true,$rand,true);
 
