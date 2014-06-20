@@ -61,8 +61,9 @@ japanese by __[Chestnut](http://staff.blog.bng.net "Staff blog for Blog City of 
 danish by __[Per Bovbjerg](http://http://www.spiritueltforum.net/ "Netværket for alle spirituelt interesserede")__,
 french by __[Pierre](http://www.stock-graphique.new.fr "Free stock of graphic resources for personal or commercial use: vector, psd, Indesign templates…")__,
 russian by  __[trippin' the rift](http://trippintherift.com/)__ team,
-croatian by Dražen Klisurić
-and hungarian by  __[Gidano](http://gidano.hu/)__
+croatian by Dražen Klisurić,
+hungarian by  __[Gidano](http://gidano.hu/)__
+and turkish by __[Güngör Budak](http://www.gungorbudak.com/)__ 
 
 Thanks for your time guys!
 
