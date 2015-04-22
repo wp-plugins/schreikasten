@@ -59,6 +59,7 @@ global $sk_allowed;
 $sk_allowed = array('img' => array('src' => array()), 'a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array());
 
 require_once("legacy.php");
+require_once("cubepoints.php");
 
 $db_version=get_option('sk_db_version');
 $sk_user_agent = "WordPress/$wp_version | Schreikasten/0.1";
@@ -250,10 +251,11 @@ function sk_actionAdd($id) {
 	$comments = $wpdb->get_results($sql);
 	if(count($comments)>0) {
 		foreach($comments as $comment) {
-			if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
+			/*if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
 				cp_alterPoints($comment->user_id, get_option('cp_comment_points'));
 				cp_log('schreikasten',$comment->user_id,get_option('cp_comment_points'),$comment->id);
-			}
+			}*/
+			do_action( 'sk_add', $comment );
 		}
 	}
 }
@@ -272,10 +274,11 @@ function sk_actionDelete($id) {
 	$comments = $wpdb->get_results($sql);
 	if(count($comments)>0) {
 		foreach($comments as $comment) {
-			if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
+			/*if(function_exists('cp_alterPoints') && $comment->user_id>=0) {
 				cp_alterPoints($comment->user_id, -get_option('cp_del_comment_points'));
 				cp_log('schreikasten',$comment->user_id,-get_option('cp_del_comment_points'),$comment->id);
-			}
+			}*/
+			do_action( 'sk_delete', $comment );
 		}
 	}
 }
@@ -1663,15 +1666,16 @@ function sk_format_comment($comment,$sending=false,$rand=false,$hide=false) {
 		$th_text_id  = " id='th_sk_text$rand'"; 
 	}
 
-	$cp_points = "";
+	/*$cp_points = "";
 	if(function_exists('cp_displayPoints') && $comment->user_id>=0) {
 		$cp_points = sprintf(" (%s)",cp_displayPoints($comment->user_id, true, true));
-	}
+	}*/
+	$points = apply_filters('sk_points', "", $comment);
 	
 	//Create the comment text
 	$item.="<div style='min-height: ".$av_size."px;' class='$class'>".
 			$avatar.
-			"<strong$th_alias_id>".sanitize_text_field($comment->alias).$cp_points."</strong>
+			"<strong$th_alias_id>".sanitize_text_field($comment->alias).$points."</strong>
 			<br/><div class='sk-little'>(".$comment->date.")$mannage</div>
 		</div>
 		<div class='sk-widgettext'>
